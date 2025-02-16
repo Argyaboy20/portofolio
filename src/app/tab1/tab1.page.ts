@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tab1',
@@ -6,8 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss'],
   standalone: false,
 })
-export class Tab1Page {
-
+export class Tab1Page implements OnInit {
+  
   constructor() {}
-
+  
+  ngOnInit() {
+  }
+  
+  // Metode untuk membuka link sosial media
+  openLink(url: string) {
+    window.open(url, '_blank');
+  }
 }

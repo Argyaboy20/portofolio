@@ -1,0 +1,344 @@
+// Variabel warna
+$primary-color: #4a90e2;
+$secondary-color: #50e3c2;
+$bg-color-dark: #2c3e50;
+$bg-color-light: #f5f7fa;
+$text-color-dark: #333;
+$text-color-light: #fff;
+
+/* Gaya umum */
+.blog-title {
+    text-decoration: none;
+    display: inline-block;
+
+    &:hover {
+
+        .primary-text,
+        .secondary-text {
+            opacity: 0.8;
+        }
+    }
+}
+
+ion-content {
+    --background: #f5f7fa;
+    font-family: 'Roboto', sans-serif;
+}
+
+.primary-text {
+    color: $primary-color;
+    font-weight: 700;
+}
+
+.secondary-text {
+    color: $secondary-color;
+    font-weight: 700;
+}
+
+/* Split screen layout */
+.split-screen {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Panel kiri - konten tetap */
+.left-panel {
+    width: 35%;
+    height: 100%;
+    background-color: $bg-color-dark;
+    color: $text-color-light;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    overflow-y: auto;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: 3px solid $secondary-color;
+
+    ion-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 70%;
+    }
+}
+
+.name {
+    margin-top: -10px;
+    font-size: 1.8rem;
+    margin-bottom: 0.1rem;
+    font-weight: 700;
+}
+
+.title {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.title1 {
+    margin-top: -15px;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.contact-info {
+    width: 100%;
+    margin-top: 2rem;
+
+    h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: $secondary-color;
+    }
+
+    .email {
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin: 0 0.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: $primary-color;
+            transform: translateY(-3px);
+        }
+
+        ion-icon {
+            font-size: 1.2rem;
+            color: $text-color-light;
+        }
+    }
+}
+
+/* Panel kanan - konten yang bisa di-scroll */
+.right-panel {
+    margin-left: 35%;
+    width: 65%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 2rem 3rem;
+}
+
+/* Styling untuk section */
+.section {
+    margin-bottom: 4rem;
+}
+
+.demo-link {
+    position: relative;
+    overflow: hidden;
+    
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(to right, $primary-color, $secondary-color);
+      transition: width 0.3s ease;
+    }
+    
+    &:hover:before {
+      width: 100%;
+    }
+  }
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: $bg-color-dark;
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 50px;
+        height: 4px;
+        background: $primary-color;
+    }
+}
+
+.section-content {
+    color: $text-color-dark;
+    line-height: 1.6;
+}
+
+/* Styling untuk skills */
+.skill-bar {
+    margin-bottom: 1.5rem;
+}
+
+.skill-name {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.skill-progress {
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, $primary-color, $secondary-color);
+    border-radius: 5px;
+    position: relative;
+
+    span {
+        position: absolute;
+        right: 5px;
+        top: -20px;
+        font-size: 0.8rem;
+        color: $bg-color-dark;
+    }
+}
+
+/* Styling untuk projects */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+.project-image {
+    height: 180px;
+    overflow: hidden;
+
+    ion-img,
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        background-color: #f8f8f8;
+    }
+}
+
+.project-info {
+    padding: 1.5rem;
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: $bg-color-dark;
+    }
+
+    p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        color: #666;
+    }
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+
+    a {
+        text-decoration: none;
+        color: $primary-color;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+    color: #777;
+    font-size: 0.9rem;
+
+    ion-icon {
+        color: #e74c3c;
+        vertical-align: middle;
+    }
+}
+
+/* Responsif untuk tablet dan mobile */
+@media (max-width: 768px) {
+    .split-screen {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        width: 100%;
+        height: auto;
+        position: static;
+        padding: 2rem 1.5rem;
+    }
+
+    .right-panel {
+        margin-left: 0;
+        width: 100%;
+        padding: 2rem 1.5rem;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+}
