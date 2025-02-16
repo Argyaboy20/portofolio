@@ -43,7 +43,7 @@ export class Tab1Page implements OnInit {
       duration: 'April - Mei 2024',
       description: 'Deskripsi singkat proyek dan teknologi yang digunakan.',
       image: 'assets/project-3.jpg',
-      demoLink: '/tabs/tab1',
+      demoLink: '/tabs/tab4',
       sourceLink: 'https://github.com/hshinosa/ApliKasir-UI.git',
       startDate: new Date(2024, 3, 1)  // April 1, 2024
     }
