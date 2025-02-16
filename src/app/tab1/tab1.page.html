@@ -5,6 +5,9 @@
         <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
       </a>
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/biodata">Biodata</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -16,25 +19,26 @@
         <ion-img src="/assets/foto.JPG" alt="Foto Profil"></ion-img>
       </div>
       <h1 class="name">Maulana Farras</h1>
-      <p class="title">Web Developer | Fullstack Developer</p>
-      <p class="title1">| Ionic Developer</p>
+      <p class="title">Web Developer | Fullstack Developer |</p>
+      <p class="title1">Ionic Developer </p>
 
       <div class="contact-info">
-        <h3>Hubungi Saya Melalui</h3>
-        <p class="email">maulanafarras030520&#64;gmail.com</p>
-
+        <h3>Contact Person</h3>
         <div class="social-links">
-          <a href="mailto:maulanafarras030520@gmail.com" target="_blank">
+          <a href="mailto:maulanafarras030520@gmail.com" target="_email">
             <ion-icon name="mail-outline"></ion-icon>
           </a>
-          <a href="https://instagram.com/holla.arrr" target="_blank">
+          <a href="https://instagram.com/holla.arrr" target="_instagram">
             <ion-icon name="logo-instagram"></ion-icon>
           </a>
-          <a href="https://linkedin.com/in/maulanafarras" target="_blank">
+          <a href="https://linkedin.com/in/maulanafarras" target="_linkedin">
             <ion-icon name="logo-linkedin"></ion-icon>
           </a>
-          <a href="https://github.com/Argyaboy20" target="_blank">
+          <a href="https://github.com/Argyaboy20" target="_github">
             <ion-icon name="logo-github"></ion-icon>
+          </a>
+          <a href="https://discord.gg/argyaboy" target="_discord">
+            <ion-icon name="logo-discord"></ion-icon>
           </a>
         </div>
       </div>
@@ -45,17 +49,18 @@
   <div class="right-panel">
     <!-- About Section -->
     <section id="about" class="section">
-      <h2 class="section-title">Tentang Saya</h2>
+      <h2 class="section-title">Profil Singkat</h2>
       <div class="section-content">
         <p>
-          Saya adalah Maulana Farras, seorang Software Engineer yang fokus di pengembangan aplikasi mobile hybrid. Saya
-          memiliki keahlian utama dalam Ionic Framework yang saya kombinasikan dengan JavaScript dan HTML untuk membuat
+          Seorang Software Engineer yang fokus di pengembangan aplikasi mobile hybrid. Saya memiliki keahlian utama
+          dalam Ionic Framework yang saya kombinasikan dengan JavaScript dan HTML untuk membuat
           aplikasi-aplikasi mobile yang bisa digunakan di berbagai platform.
         </p>
         <p>
           Di dunia perkuliahan, saya berhasil mencapai IPK 3.73 yang menunjukkan dedikasi saya dalam bidang akademik.
           Saya memiliki passion yang besar dalam teknologi dan selalu antusias untuk mempelajari hal-hal baru di dunia
-          IT. Sebagai developer, saya senang mengeksplorasi teknologi-teknologi terbaru dan menerapkannya dalam pengembangan
+          IT. Sebagai developer, saya senang mengeksplorasi teknologi-teknologi terbaru dan menerapkannya dalam
+          pengembangan
           aplikasi. Keahlian saya dalam Ionic Framework memungkinkan saya untuk membuat aplikasi mobile hybrid yang
           efisien dan berkualitas tinggi.
         </p>
@@ -115,50 +120,37 @@
 
     <!-- Projects Section -->
     <section id="projects" class="section">
-      <h2 class="section-title">Proyek Terbaru</h2>
+      <div class="section-header">
+        <h2 class="section-title">Project Terbaru</h2>
+        <div class="sort-buttons">
+          <ion-button size="small" fill="clear" (click)="sortProjects('newest')">
+            <ion-icon name="arrow-down-outline" slot="start"></ion-icon>
+            Terbaru
+          </ion-button>
+          <ion-button size="small" fill="clear" (click)="sortProjects('oldest')">
+            <ion-icon name="arrow-up-outline" slot="start"></ion-icon>
+            Terlama
+          </ion-button>
+        </div>
+      </div>
       <div class="section-content">
         <div class="project-grid">
-          <div class="project-card">
+
+          <div class="project-card" *ngFor="let project of projects">
             <div class="project-image">
-              <ion-img src="/assets/permo_logo.jpg" alt="Project1"></ion-img>
+              <ion-img [src]="project.image" [alt]="project.title"></ion-img>
             </div>
             <div class="project-info">
-              <h3>Pertanian Mobile App</h3>
-              <p>Deskripsi singkat proyek dan teknologi yang digunakan.</p>
+              <h3>{{project.title}}</h3>
+              <span class="project-duration">{{project.duration}}</span>
+              <p>{{project.description}}</p>
               <div class="project-links">
-                <a routerLink="/tabs/tab2" class="demo-link">Lihat Demo</a>
-                <a href="https://github.com/Argyaboy20/Permo.git" target="_blank">Source Code</a>
+                <a (click)="navigateWithAnimation(project.demoLink)" class="demo-link">Lihat Demo</a>
+                <a [href]="project.sourceLink" target="_github">Source Code</a>
               </div>
             </div>
           </div>
 
-          <div class="project-card">
-            <div class="project-image">
-              <ion-img src="/assets/portofolio.png" alt="Project2"></ion-img>
-            </div>
-            <div class="project-info">
-              <h3>Web Portofolio</h3>
-              <p>Deskripsi singkat proyek dan teknologi yang digunakan.</p>
-              <div class="project-links">
-                <a routerLink="/tabs/tab3" class="demo-link">Lihat Demo</a>
-                <a href="https://github.com/Argyaboy20/portofolio.git" target="_blank">Source Code</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="project-card">
-            <div class="project-image">
-              <img src="assets/project-3.jpg" alt="Project 3">
-            </div>
-            <div class="project-info">
-              <h3>ApliKasir</h3>
-              <p>Deskripsi singkat proyek dan teknologi yang digunakan.</p>
-              <div class="project-links">
-                <a routerLink="#" class="demo-link">Lihat Demo</a>
-                <a href="https://github.com/hshinosa/ApliKasir-UI.git" target="_blank">Source Code</a>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

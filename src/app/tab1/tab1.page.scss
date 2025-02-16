@@ -20,6 +20,21 @@ $text-color-light: #fff;
     }
 }
 
+ion-toolbar {
+    ion-buttons {
+        margin-right: 3rem;
+
+        ion-button {
+            --color: #{$primary-color};
+            font-weight: 500;
+
+            &:hover {
+                --color: #{$secondary-color};
+            }
+        }
+    }
+}
+
 ion-content {
     --background: #f5f7fa;
     font-family: 'Roboto', sans-serif;
@@ -28,11 +43,13 @@ ion-content {
 .primary-text {
     color: $primary-color;
     font-weight: 700;
+    margin-left: 6rem;
 }
 
 .secondary-text {
     color: $secondary-color;
     font-weight: 700;
+    text-align: center;
 }
 
 /* Split screen layout */
@@ -66,11 +83,12 @@ ion-content {
 }
 
 .profile-image {
-    width: 150px;
-    height: 150px;
+    width: 195px;
+    height: 195px;
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 1.5rem;
+    margin-top: -20px;
     border: 3px solid $secondary-color;
 
     ion-img {
@@ -103,7 +121,7 @@ ion-content {
 
 .contact-info {
     width: 100%;
-    margin-top: 2rem;
+    margin-top: 4rem;
 
     h3 {
         font-size: 1.2rem;
@@ -162,22 +180,30 @@ ion-content {
 .demo-link {
     position: relative;
     overflow: hidden;
-    
+    cursor: pointer;
+
     &:before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(to right, $primary-color, $secondary-color);
-      transition: width 0.3s ease;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(to right, $primary-color, $secondary-color);
+        transition: width 0.3s ease;
     }
-    
+
     &:hover:before {
-      width: 100%;
+        width: 100%;
     }
-  }
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
 
 .section-title {
     font-size: 2rem;
@@ -196,9 +222,28 @@ ion-content {
     }
 }
 
+.sort-buttons {
+    display: flex;
+    gap: 0.5rem;
+
+    ion-button {
+        --color: #{$primary-color};
+        font-size: 0.8rem;
+
+        &:hover {
+            --color: #{$secondary-color};
+        }
+
+        ion-icon {
+            margin-right: 4px;
+        }
+    }
+}
+
 .section-content {
     color: $text-color-dark;
     line-height: 1.6;
+    text-align: justify;
 }
 
 /* Styling untuk skills */
@@ -251,6 +296,14 @@ ion-content {
     &:hover {
         transform: translateY(-5px);
     }
+}
+
+.project-duration {
+    display: block;
+    font-size: 0.85rem;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+    font-style: italic;
 }
 
 .project-image {

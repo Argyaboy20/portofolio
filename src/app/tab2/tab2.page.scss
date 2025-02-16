@@ -1,0 +1,53 @@
+// Variabel warna
+$primary-color: #4a90e2;
+$secondary-color: #50e3c2;
+$bg-color-dark: #2c3e50;
+$bg-color-light: #f5f7fa;
+$text-color-dark: #333;
+$text-color-light: #fff;
+
+/* Gaya umum */
+.blog-title {
+    text-decoration: none;
+    display: inline-block;
+
+    &:hover {
+
+        .primary-text,
+        .secondary-text {
+            opacity: 0.8;
+        }
+    }
+}
+
+ion-toolbar {
+    ion-buttons {
+        margin-right: 3rem;
+
+        ion-button {
+            --color: #{$primary-color};
+            font-weight: 500;
+
+            &:hover {
+                --color: #{$secondary-color};
+            }
+        }
+    }
+}
+
+ion-content {
+    --background: #f5f7fa;
+    font-family: 'Roboto', sans-serif;
+}
+
+.primary-text {
+    color: $primary-color;
+    font-weight: 700;
+    margin-left: 6rem;
+}
+
+.secondary-text {
+    color: $secondary-color;
+    font-weight: 700;
+    text-align: center;
+}
