@@ -10,3 +10,48 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="showcase-container">
+    <!-- Gallery Section -->
+    <div class="gallery-section">
+      <h2 class="section-title">Pertanian Mobile App</h2>
+      <div class="image-gallery">
+        <div class="gallery-scroll">
+          <div class="gallery-item" *ngFor="let image of projectImages">
+            <img [src]="image.url" [alt]="image.caption" (click)="openImageModal(image)">
+            <div class="image-caption">{{image.caption}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <div class="cta-content">
+        <h3>Ready to Experience It?</h3>
+        <p>Try out this awesome project for yourself!</p>
+        <ion-button expand="block" [href]="projectUrl" target="_blank" class="try-btn">
+          Launch Project
+          <ion-icon name="rocket-outline" slot="end"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- Image Modal -->
+<ion-modal 
+    [isOpen]="isImageModalOpen" 
+    (didDismiss)="closeImageModal()" 
+    class="image-preview-modal"
+    [backdropDismiss]="true">
+    <ng-template>
+        <ion-content class="modal-content" (click)="closeImageModal()">
+            <div class="modal-image-container">
+                <img [src]="selectedImage?.url" [alt]="selectedImage?.caption" class="full-size-image">
+                <div class="image-caption" *ngIf="selectedImage?.caption">{{selectedImage?.caption}}</div>
+            </div>
+        </ion-content>
+    </ng-template>
+</ion-modal>
