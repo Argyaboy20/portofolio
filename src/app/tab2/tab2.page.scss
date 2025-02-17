@@ -22,8 +22,6 @@ $text-color-light: #fff;
 
 ion-toolbar {
     ion-buttons {
-        margin-right: 15rem;
-
         ion-button {
             --color: #{$primary-color};
             font-weight: 500;
@@ -31,6 +29,16 @@ ion-toolbar {
             &:hover {
                 --color: #{$secondary-color};
             }
+        }
+
+        &.language-button {
+            margin-right: 0;
+            position: absolute;
+            right: 1.5rem;
+        }
+
+        &.biodata-button {
+            margin-right: 4.5rem;
         }
     }
 }
@@ -43,7 +51,7 @@ ion-content {
 .primary-text {
     color: $primary-color;
     font-weight: 700;
-    margin-left: 20rem;
+    margin-left: 10.3rem;
 }
 
 .secondary-text {
