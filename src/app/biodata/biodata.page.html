@@ -5,6 +5,11 @@
         <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
       </a>
     </ion-title>
+    <ion-buttons slot="end" class="language-button">
+      <ion-button (click)="toggleLanguage()">
+        {{ currentLanguage === 'id' ? 'EN' : 'ID' }}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -15,96 +20,102 @@
       <div class="animated-circle circle-1"></div>
       <div class="animated-circle circle-2"></div>
       <div class="animated-circle circle-3"></div>
-      <h1 class="hero-title">Hello, I'm <span class="gradient-text">Maulana Farras</span></h1>
-      <p class="hero-subtitle">Passion-driven Developer & Tech Enthusiast</p>
+      <h1 class="hero-title">{{ getText('heroTitle') }} <span class="gradient-text">Maulana Farras</span></h1>
+      <p class="hero-subtitle">{{ getText('heroSubtitle') }}</p>
     </div>
   </div>
 
   <!-- Timeline Section -->
   <section class="timeline-section">
-    <h2 class="section-title">Perjalananku</h2>
+    <h2 class="section-title">{{ getText('journey') }}</h2>
     <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>2025 - Sekarang</h3>
-          <h4>Mobile App Developer</h4>
-          <p>Mengembangkan aplikasi hybrid dengan Ionic Framework, membangun UI/UX yang menarik dan responsif untuk berbagai klien. Mengoptimalkan performa aplikasi dan implementasi fitur-fitur inovatif.</p>
-        </div>
+     <!-- Update each timeline item with translations -->
+     <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>2025 - {{ currentLanguage === 'id' ? 'Sekarang' : 'Present' }}</h3>
+        <h4>{{ getText('currentRole') }}</h4>
+        <p>{{ getText('currentDesc') }}</p>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>2024 - Sekarang</h3>
-          <h4>Web Developer</h4>
-          <p>Memulai karir sebagai front-end developer dengan fokus pada framework Angular. Bekerja dalam tim untuk membangun aplikasi web yang interaktif dan modern.</p>
-        </div>
+    </div>
+    <!-- Update each timeline item with translations -->
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>2024 - {{ currentLanguage === 'id' ? 'Sekarang' : 'Present' }}</h3>
+        <h4>{{ getText('currentRole') }}</h4>
+        <p>{{ getText('currentDesc') }}</p>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-content">
-          <h3>2022 - Sekarang</h3>
-          <h4>Institut Teknologi dan Bisnis Indonesia</h4>
-          <p>Menempuh pendidikan S1 dengan IPK 3.73. Aktif mencoba semua lomba dan hal hal baru. Mengembangkan project-project inovatif selama masa kuliah.</p>
-        </div>
+    </div>
+    <!-- Update each timeline item with translations -->
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>2022 - {{ currentLanguage === 'id' ? 'Sekarang' : 'Present' }}</h3>
+        <h4>{{ getText('currentRole') }}</h4>
+        <p>{{ getText('currentDesc') }}</p>
       </div>
+    </div>
     </div>
   </section>
 
   <!-- Hobies & Interest Section -->
   <section class="hobbies-section">
-    <h2 class="section-title">Hobby dan Ketertarikan</h2>
+    <h2 class="section-title">{{ getText('hobbiesTitle') }}</h2>
     <div class="hobbies-grid">
       <div class="hobby-card">
         <div class="hobby-icon">
           <ion-icon name="code-slash-outline"></ion-icon>
         </div>
         <h3>Coding</h3>
-        <p>Menghabiskan waktu luang untuk eksplorasi teknologi baru dan mengerjakan side projects.</p>
+        <p>{{ getText('codingDesc') }}</p>
       </div>
+      
       <div class="hobby-card">
         <div class="hobby-icon">
           <ion-icon name="game-controller-outline"></ion-icon>
         </div>
         <h3>Gaming</h3>
-        <p>Menikmati game sepakbola untuk relaksasi dan mengasah kemampuan problem-solving.</p>
+        <p>{{ getText('codingDesc') }}</p>
       </div>
+
       <div class="hobby-card">
         <div class="hobby-icon">
           <ion-icon name="headset-outline"></ion-icon>
         </div>
         <h3>Music</h3>
-        <p>Mendengarkan musik pop dan country sambil coding atau traveling.</p>
+        <p>{{ getText('codingDesc') }}</p>
       </div>
+
       <div class="hobby-card">
         <div class="hobby-icon">
           <ion-icon name="barbell-outline"></ion-icon>
         </div>
         <h3>Exercise</h3>
-        <p>Berolahraga dengan mandiri untuk menjaga kebugaran jasmani di saat weekend.</p>
+        <p>{{ getText('codingDesc') }}</p>
       </div>
     </div>
   </section>
 
   <!-- Quick Facts Section -->
   <section class="facts-section">
-    <h2 class="section-title">Quick Facts</h2>
+    <h2 class="section-title">{{ getText('quickFacts') }}</h2>
     <div class="facts-container">
       <div class="fact-item">
         <div class="fact-number">3+</div>
-        <div class="fact-label">Projects Completed</div>
+        <div class="fact-label">{{ getText('projectsCompleted') }}</div>
       </div>
       <div class="fact-item">
         <div class="fact-number">1+</div>
-        <div class="fact-label">Years Coding</div>
+        <div class="fact-label">{{ getText('yearsCoding') }}</div>
       </div>
       <div class="fact-item">
         <div class="fact-number">1+</div>
-        <div class="fact-label">Tech Stacks</div>
+        <div class="fact-label">{{ getText('techStacks') }}</div>
       </div>
       <div class="fact-item">
         <div class="fact-number">∞</div>
-        <div class="fact-label">Cups of Coffee</div>
+        <div class="fact-label">{{ getText('coffeeCups') }}</div>
       </div>
     </div>
   </section>
@@ -122,7 +133,7 @@
 
   <!-- Gallery Section - A few personal photos -->
   <section class="gallery-section">
-    <h2 class="section-title">Life Snapshots</h2>
+    <h2 class="section-title">{{ getText('snapshots') }}</h2>
     <div class="gallery-grid">
       <div class="gallery-item" (click)="openGalleryModal('/assets/coding.png')">
         <img src="/assets/coding.png" alt="Working on project">
@@ -153,28 +164,31 @@
 
   <!-- Contact Form Section -->
   <section class="contact-section">
-    <h2 class="section-title">Let's Connect</h2>
+    <h2 class="section-title">{{ getText('connect') }}</h2>
     <div class="contact-container">
       <form class="contact-form" (ngSubmit)="submitForm()">
         <ion-item>
-          <ion-label position="floating">Your Name</ion-label>
+          <ion-label position="floating">{{ getText('nameLabel') }}</ion-label>
           <ion-input type="text" [(ngModel)]="formData.nama" name="nama" required></ion-input>
         </ion-item>
+        
         <ion-item>
           <ion-label position="floating">Email</ion-label>
           <ion-input type="email" [(ngModel)]="formData.email" name="email" required></ion-input>
         </ion-item>
+        
         <ion-item>
-          <ion-label position="floating">Your Message</ion-label>
+          <ion-label position="floating">{{ getText('messageLabel') }}</ion-label>
           <ion-textarea rows="4" [(ngModel)]="formData.pesan" name="pesan" required></ion-textarea>
         </ion-item>
+
         <ion-button expand="block" class="send-button" type="submit">
-          Send Message
+          {{ getText('sendButton') }}
           <ion-icon name="paper-plane-outline" slot="end"></ion-icon>
         </ion-button>
       </form>
       <div class="contact-info">
-        <h3>Other Ways to Reach Me</h3>
+        <h3>{{ getText('otherWays') }}</h3>
         <div class="contact-item">
           <ion-icon name="call-outline"></ion-icon>
           <span>+62 857 6178 7971</span>

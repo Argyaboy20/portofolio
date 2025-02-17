@@ -2,6 +2,42 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { PostProvider } from '../../provider/post-providers';
 
+// Define types for our translations
+type Language = 'id' | 'en';
+
+interface TranslationKeys {
+  heroTitle: string;
+  heroSubtitle: string;
+  journey: string;
+  currentRole: string;
+  currentDesc: string;
+  webRole: string;
+  webDesc: string;
+  education: string;
+  eduDesc: string;
+  hobbiesTitle: string;
+  codingDesc: string;
+  gamingDesc: string;
+  musicDesc: string;
+  exerciseDesc: string;
+  quickFacts: string;
+  projectsCompleted: string;
+  yearsCoding: string;
+  techStacks: string;
+  coffeeCups: string;
+  snapshots: string;
+  connect: string;
+  nameLabel: string;
+  messageLabel: string;
+  sendButton: string;
+  otherWays: string;
+}
+
+interface Translations {
+  id: TranslationKeys;
+  en: TranslationKeys;
+}
+
 @Component({
   selector: 'app-biodata',
   templateUrl: './biodata.page.html',
@@ -11,10 +47,69 @@ import { PostProvider } from '../../provider/post-providers';
 export class BiodataPage implements OnInit {
   isGalleryModalOpen = false;
   currentGalleryImage = '';
+  currentLanguage: Language = 'id'; // Default language is Indonesian
   formData = {
     nama: '',
     email: '',
     pesan: ''
+  };
+
+  // Translation objects
+  translations: Translations = {
+    id: {
+      heroTitle: "Halo, Saya",
+      heroSubtitle: "Pengembang yang Berdedikasi & Penggemar Teknologi",
+      journey: "Perjalananku",
+      currentRole: "Mobile App Developer",
+      currentDesc: "Mengembangkan aplikasi hybrid dengan Ionic Framework, membangun UI/UX yang menarik dan responsif untuk berbagai klien. Mengoptimalkan performa aplikasi dan implementasi fitur-fitur inovatif.",
+      webRole: "Web Developer",
+      webDesc: "Memulai karir sebagai front-end developer dengan fokus pada framework Angular. Bekerja dalam tim untuk membangun aplikasi web yang interaktif dan modern.",
+      education: "Institut Teknologi dan Bisnis Indonesia",
+      eduDesc: "Menempuh pendidikan S1 dengan IPK 3.73. Aktif mencoba semua lomba dan hal hal baru. Mengembangkan project-project inovatif selama masa kuliah.",
+      hobbiesTitle: "Hobby dan Ketertarikan",
+      codingDesc: "Menghabiskan waktu luang untuk eksplorasi teknologi baru dan mengerjakan side projects.",
+      gamingDesc: "Menikmati game sepakbola untuk relaksasi dan mengasah kemampuan problem-solving.",
+      musicDesc: "Mendengarkan musik pop dan country sambil coding atau traveling.",
+      exerciseDesc: "Berolahraga dengan mandiri untuk menjaga kebugaran jasmani di saat weekend.",
+      quickFacts: "Fakta Singkat",
+      projectsCompleted: "Proyek Selesai",
+      yearsCoding: "Tahun Coding",
+      techStacks: "Tech Stack",
+      coffeeCups: "Cangkir Kopi",
+      snapshots: "Potret Kehidupan",
+      connect: "Mari Terhubung",
+      nameLabel: "Nama Anda",
+      messageLabel: "Pesan Anda",
+      sendButton: "Kirim Pesan",
+      otherWays: "Cara Lain Menghubungi Saya"
+    },
+    en: {
+      heroTitle: "Hello, I'm",
+      heroSubtitle: "Passion-driven Developer & Tech Enthusiast",
+      journey: "My Journey",
+      currentRole: "Mobile App Developer",
+      currentDesc: "Developing hybrid applications with Ionic Framework, building attractive and responsive UI/UX for various clients. Optimizing application performance and implementing innovative features.",
+      webRole: "Web Developer",
+      webDesc: "Started career as a front-end developer focusing on Angular framework. Working in teams to build interactive and modern web applications.",
+      education: "Indonesia Institute of Technology and Business",
+      eduDesc: "Pursuing Bachelor's degree with 3.73 GPA. Actively participating in competitions and exploring new opportunities. Developing innovative projects during college years.",
+      hobbiesTitle: "Hobbies & Interests",
+      codingDesc: "Spending free time exploring new technologies and working on side projects.",
+      gamingDesc: "Enjoying football games for relaxation and improving problem-solving skills.",
+      musicDesc: "Listening to pop and country music while coding or traveling.",
+      exerciseDesc: "Exercising independently to maintain physical fitness on weekends.",
+      quickFacts: "Quick Facts",
+      projectsCompleted: "Projects Completed",
+      yearsCoding: "Years Coding",
+      techStacks: "Tech Stacks",
+      coffeeCups: "Coffee Cups",
+      snapshots: "Life Snapshots",
+      connect: "Let's Connect",
+      nameLabel: "Your Name",
+      messageLabel: "Your Message",
+      sendButton: "Send Message",
+      otherWays: "Other Ways to Reach Me"
+    }
   };
 
   constructor(
@@ -23,6 +118,14 @@ export class BiodataPage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  toggleLanguage() {
+    this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
+  }
+
+  getText(key: keyof TranslationKeys): string {
+    return this.translations[this.currentLanguage][key];
   }
 
   openGalleryModal(imageSrc: string) {

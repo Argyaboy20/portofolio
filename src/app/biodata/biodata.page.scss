@@ -6,6 +6,7 @@ $bg-color-dark: #2c3e50;
 $bg-color-light: #f5f7fa;
 $text-color-dark: #333;
 $text-color-light: #fff;
+@use "sass:color";
 
 /* Gaya umum */
 .blog-title {
@@ -23,8 +24,6 @@ $text-color-light: #fff;
 
 ion-toolbar {
     ion-buttons {
-        margin-right: 3rem;
-
         ion-button {
             --color: #{$primary-color};
             font-weight: 500;
@@ -32,6 +31,16 @@ ion-toolbar {
             &:hover {
                 --color: #{$secondary-color};
             }
+        }
+
+        &.language-button {
+            margin-right: 0;
+            position: absolute;
+            right: 1.5rem;
+        }
+
+        &.biodata-button {
+            margin-right: 4.5rem;
         }
     }
 }
@@ -502,7 +511,7 @@ cite {
     flex: 1;
     min-width: 300px;
     background: #fff;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 
@@ -523,7 +532,7 @@ cite {
 .send-button {
     margin-top: 1.5rem;
     --background: linear-gradient(to right, #{$primary-color}, #{$secondary-color});
-    --background-hover: linear-gradient(to right, #{darken($primary-color, 10%)}, #{darken($secondary-color, 10%)});
+    --background-hover: linear-gradient(to right, #{color.adjust($primary-color, $lightness: -10%)}, #{color.adjust($secondary-color, $lightness: -10%)});
     --border-radius: 50px;
     --box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
     height: 50px;
