@@ -5,7 +5,12 @@
         <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
       </a>
     </ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" class="language-button">
+      <ion-button (click)="toggleLanguage()">
+        {{ currentLanguage === 'id' ? 'EN' : 'ID' }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" class="biodata-button">
       <ion-button routerLink="/biodata">Biodata</ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -15,7 +20,7 @@
   <!-- Left Panel - Fixed Content -->
   <div class="left-panel">
     <div class="profile-container">
-      <div class="profile-image">
+      <div class="profile-image" (click)="openProfileImageModal()">
         <ion-img src="/assets/foto.JPG" alt="Foto Profil"></ion-img>
       </div>
       <h1 class="name">Maulana Farras</h1>
@@ -23,7 +28,7 @@
       <p class="title1">Ionic Developer </p>
 
       <div class="contact-info">
-        <h3>Contact Person</h3>
+        <h3>Kontak Pribadi</h3>
         <div class="social-links">
           <a href="mailto:maulanafarras030520@gmail.com" target="_email">
             <ion-icon name="mail-outline"></ion-icon>
@@ -157,7 +162,22 @@
 
     <!-- Footer -->
     <footer>
-      <p>© 2025 - All Rights Reserved</p>
+      <p>© 2025 - Hak cipta dilindungi undang-undang, Maulana Farras</p>
     </footer>
   </div>
 </ion-content>
+
+<!-- Profile Image Modal -->
+<ion-modal 
+    [isOpen]="isProfileImageModalOpen" 
+    (didDismiss)="closeProfileImageModal()" 
+    class="profile-image-modal"
+    [backdropDismiss]="true">
+    <ng-template>
+        <ion-content class="modal-content" (click)="closeProfileImageModal()">
+            <div class="modal-image-container">
+                <img src="/assets/foto.JPG" alt="Foto Profil" class="full-size-image">
+            </div>
+        </ion-content>
+    </ng-template>
+</ion-modal>

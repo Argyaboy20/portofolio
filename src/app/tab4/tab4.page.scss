@@ -22,7 +22,7 @@ $text-color-light: #fff;
 
 ion-toolbar {
     ion-buttons {
-        margin-right: 3rem;
+        margin-right: 15rem;
 
         ion-button {
             --color: #{$primary-color};
@@ -43,7 +43,7 @@ ion-content {
 .primary-text {
     color: $primary-color;
     font-weight: 700;
-    margin-left: 8.2rem;
+    margin-left: 20rem;
 }
 
 .secondary-text {
