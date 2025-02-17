@@ -13,38 +13,33 @@ export class PostProvider {
 
   postData(body: any, file: string): Observable<any> {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     });
 
     const options = {
       headers: headers
     };
 
-    return this.http.post(this.server + file, JSON.stringify(body), options)
+    return this.http.post(this.server + file, body, options)
       .pipe(
-        map((response: any) => {
-          if (typeof response === 'string') {
-            try {
-              return JSON.parse(response);
-            } catch (e) {
-              throw new Error('Invalid JSON response from server');
-            }
-          }
-          return response;
-        }),
         catchError(this.handleError)
       );
   }
 
   private handleError(error: HttpErrorResponse) {
+    console.error('An error occurred:', error);
     let errorMessage = 'Terjadi kesalahan pada server';
     
     if (error.error instanceof ErrorEvent) {
       // Client-side error
       errorMessage = error.error.message;
+    } else if (error.status === 200 && error.statusText === 'OK') {
+      // This is the case where we get a 200 response but parsing failed
+      errorMessage = 'Format response tidak sesuai';
     } else {
       // Server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `Terjadi kesalahan: ${error.message}`;
     }
     
     return throwError(() => new Error(errorMessage));
