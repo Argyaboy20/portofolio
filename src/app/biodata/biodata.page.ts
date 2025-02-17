@@ -7,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class BiodataPage implements OnInit {
+  // Gallery modal properties
+  isGalleryModalOpen = false;
+  currentGalleryImage = '';
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  // Method to open the gallery modal
+  openGalleryModal(imageSrc: string) {
+    this.currentGalleryImage = imageSrc;
+    this.isGalleryModalOpen = true;
+  }
+
+  // Method to close the gallery modal
+  closeGalleryModal() {
+    this.isGalleryModalOpen = false;
+  }
 }
