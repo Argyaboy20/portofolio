@@ -1,18 +1,20 @@
-// Variabel warna
+// Variables
 $primary-color: #4a90e2;
 $secondary-color: #50e3c2;
-$bg-color-dark: #2c3e50;
-$bg-color-light: #f5f7fa;
-$text-color-dark: #333;
-$text-color-light: #fff;
+$bg-color-dark: #1a1a1a;
+$bg-color-darker: #121212;
+$section-bg: #242424;
+$text-color-light: #ffffff;
+$text-color-muted: #b3b3b3;
+$gradient-start: #4a90e2;
+$gradient-end: #50e3c2;
 
-/* Gaya umum */
+/* General Styles */
 .blog-title {
     text-decoration: none;
     display: inline-block;
 
     &:hover {
-
         .primary-text,
         .secondary-text {
             opacity: 0.8;
@@ -20,7 +22,22 @@ $text-color-light: #fff;
     }
 }
 
+.primary-text {
+    color: $primary-color;
+    font-weight: 700;
+    margin-left: 10.3rem;
+}
+
+.secondary-text {
+    color: $secondary-color;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Toolbar Styles */
 ion-toolbar {
+    --background: #{$bg-color-darker};
+    
     ion-buttons {
         ion-button {
             --color: #{$primary-color};
@@ -43,20 +60,135 @@ ion-toolbar {
     }
 }
 
-
+/* Content Styles */
 ion-content {
-    --background: #f5f7fa;
-    font-family: 'Roboto', sans-serif;
+    --background: #{$bg-color-dark};
 }
 
-.primary-text {
-    color: $primary-color;
-    font-weight: 700;
-    margin-left: 10.3rem;
+/* Portfolio Container */
+.portfolio-container {
+    padding: 20px;
+    background: $bg-color-dark;
+    color: $text-color-light;
 }
 
-.secondary-text {
-    color: $secondary-color;
-    font-weight: 700;
+/* Section Title Styles */
+.section-title {
+    background: $section-bg;
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: $text-color-light;
+    margin: 40px 0 20px;
+    font-size: 1.8rem;
+    border-left: 5px solid $primary-color;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Hero Section */
+.hero-section {
     text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, rgba($gradient-start, 0.1), rgba($gradient-end, 0.1));
+    border-radius: 20px;
+    color: $text-color-light;
+    margin-bottom: 40px;
+    border: 1px solid rgba($primary-color, 0.2);
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        background: linear-gradient(135deg, $gradient-start, $gradient-end);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: $text-color-muted;
+    }
+}
+
+/* Skills Section */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.skill-card {
+    background: $section-bg;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border: 1px solid rgba($primary-color, 0.1);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: rgba($primary-color, 0.3);
+    }
+
+    ion-icon {
+        font-size: 2.5rem;
+        color: $primary-color;
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        margin-bottom: 15px;
+        color: $text-color-light;
+    }
+
+    .skill-level {
+        height: 8px;
+        background: rgba($bg-color-darker, 0.5);
+        border-radius: 4px;
+        overflow: hidden;
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, $gradient-start, $gradient-end);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+    }
+}
+
+/* Contact Section */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.contact-card {
+    background: $section-bg;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    text-decoration: none;
+    color: $text-color-light;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    border: 1px solid rgba($primary-color, 0.1);
+
+    &:hover {
+        transform: translateY(-5px);
+        border-color: rgba($primary-color, 0.3);
+    }
+
+    ion-icon {
+        font-size: 2.5rem;
+        color: $primary-color;
+        margin-bottom: 10px;
+    }
+
+    span {
+        color: $text-color-muted;
+    }
 }

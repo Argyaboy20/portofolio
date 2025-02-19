@@ -5,8 +5,48 @@
         <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
       </a>
     </ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" class="language-button">
+      <ion-button (click)="toggleLanguage()">
+        {{ currentLanguage === 'id' ? 'EN' : 'ID' }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" class="biodata-button">
       <ion-button routerLink="/biodata">Biodata</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="portfolio-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1>{{ translations[currentLanguage].heroTitle }}</h1>
+      <p>{{ translations[currentLanguage].heroSubtitle }}</p>
+    </section>
+
+    <!-- Skills Section -->
+    <h2 class="section-title">{{ translations[currentLanguage].skillsTitle }}</h2>
+    <section class="skills-section">
+      <div class="skills-grid">
+        <div class="skill-card" *ngFor="let skill of skills">
+          <ion-icon [name]="skill.icon"></ion-icon>
+          <h3>{{skill.name}}</h3>
+          <div class="skill-level">
+            <div class="progress-bar" [style.width.%]="skill.level"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <h2 class="section-title">{{ translations[currentLanguage].contactTitle }}</h2>
+    <section class="contact-section">
+      <div class="contact-grid">
+        <a *ngFor="let contact of contacts" [href]="contact.link" target="_blank" class="contact-card">
+          <ion-icon [name]="contact.icon"></ion-icon>
+          <span>{{contact.label}}</span>
+        </a>
+      </div>
+    </section>
+  </div>
+</ion-content>

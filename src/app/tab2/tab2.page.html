@@ -5,7 +5,12 @@
         <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
       </a>
     </ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" class="language-button">
+      <ion-button (click)="toggleLanguage()">
+        {{ currentLanguage === 'id' ? 'EN' : 'ID' }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" class="biodata-button">
       <ion-button routerLink="/biodata">Biodata</ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -13,9 +18,8 @@
 
 <ion-content [fullscreen]="true">
   <div class="showcase-container">
-    <!-- Gallery Section -->
     <div class="gallery-section">
-      <h2 class="section-title">Pertanian Mobile App</h2>
+      <h2 class="section-title">{{ translations[currentLanguage].title }}</h2>
       <div class="image-gallery">
         <div class="gallery-scroll">
           <div class="gallery-item" *ngFor="let image of projectImages">
@@ -29,10 +33,10 @@
     <!-- CTA Section -->
     <div class="cta-section">
       <div class="cta-content">
-        <h3>Ready to Experience It?</h3>
-        <p>Try out this awesome project for yourself!</p>
+        <h3>{{ translations[currentLanguage].readyToExperience }}</h3>
+        <p>{{ translations[currentLanguage].tryOutMessage }}</p>
         <ion-button expand="block" [href]="projectUrl" target="_blank" class="try-btn">
-          Launch Project
+          {{ translations[currentLanguage].launchProject }}
           <ion-icon name="rocket-outline" slot="end"></ion-icon>
         </ion-button>
       </div>

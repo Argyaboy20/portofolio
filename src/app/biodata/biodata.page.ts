@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { PostProvider } from '../../provider/post-providers';
 
@@ -31,6 +31,9 @@ interface TranslationKeys {
   messageLabel: string;
   sendButton: string;
   otherWays: string;
+  stackOverflowProfile: string;
+  quoraProfile: string;
+  awardsTitle: string;
 }
 
 interface Translations {
@@ -44,7 +47,35 @@ interface Translations {
   styleUrls: ['./biodata.page.scss'],
   standalone: false,
 })
-export class BiodataPage implements OnInit {
+export class BiodataPage implements OnInit, AfterViewInit {
+  isAwardsModalOpen = false;
+  awards = [
+    {
+      image: '/assets/bestPerfomance.jpg',
+      title: 'Best Perfomance Intern of The Month (October)',
+      description: 'Fully contributes to the team at work.'
+    },
+    {
+      image: '/assets/batch4.jpg',
+      title: 'PMM Batch 4 2024',
+      description: 'Conducted an independent student exchange to Telkom University.'
+    },
+  ];
+
+  // Tambahkan getter untuk menghitung jumlah awards
+  get awardsCount(): string {
+    return `+${this.awards.length}`;
+  }
+
+  // Add these methods
+  openAwardsModal() {
+    this.isAwardsModalOpen = true;
+  }
+
+  closeAwardsModal() {
+    this.isAwardsModalOpen = false;
+  }
+
   isGalleryModalOpen = false;
   currentGalleryImage = '';
   currentLanguage: Language = 'id'; // Default language is Indonesian
@@ -53,6 +84,34 @@ export class BiodataPage implements OnInit {
     email: '',
     pesan: ''
   };
+
+  ngAfterViewInit() {
+    this.initSectionAnimations();
+  }
+
+  private initSectionAnimations() {
+    const sections = document.querySelectorAll('.animate-on-scroll');
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.2
+    };
+
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+          // Optional: Unobserve after animation
+          // observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(section => {
+      sectionObserver.observe(section);
+    });
+  }
 
   // Translation objects
   translations: Translations = {
@@ -81,7 +140,10 @@ export class BiodataPage implements OnInit {
       nameLabel: "Nama Anda",
       messageLabel: "Pesan Anda",
       sendButton: "Kirim Pesan",
-      otherWays: "Cara Lain Menghubungi Saya"
+      otherWays: "Platform Diskusi Saya",
+      stackOverflowProfile: "Profil Stack Overflow",
+      quoraProfile: "Profil Quora",
+      awardsTitle: "Penghargaan",
     },
     en: {
       heroTitle: "Hello, I'm",
@@ -108,7 +170,10 @@ export class BiodataPage implements OnInit {
       nameLabel: "Your Name",
       messageLabel: "Your Message",
       sendButton: "Send Message",
-      otherWays: "Other Ways to Reach Me"
+      otherWays: "My Discussion Platforms",
+      stackOverflowProfile: "Stack Overflow Profile",
+      quoraProfile: "Quora Profile",
+      awardsTitle: "Awards & Achievements",
     }
   };
 

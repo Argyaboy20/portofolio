@@ -25,6 +25,10 @@ interface Translations {
   viewDemo: string;
   sourceCode: string;
   copyright: string;
+  pendidikan: string;
+  sarjanaTI: string;
+  semester: string;
+  achievements: string;
 }
 
 interface TranslationDict {
@@ -52,7 +56,11 @@ export class Tab1Page implements OnInit {
       contactPerson: 'Kontak Pribadi',
       viewDemo: 'Lihat Demo',
       sourceCode: 'Source Code',
-      copyright: '© 2025 - Hak cipta dilindungi undang-undang, Maulana Farras'
+      copyright: '© 2025 - Hak cipta dilindungi undang-undang, Maulana Farras',
+      pendidikan: 'Pendidikan',
+      sarjanaTI: 'Rekayasa Perangkat Lunak',
+      semester: 'Semester',
+      achievements: 'Prestasi'
     },
     en: {
       profilSingkat: 'Brief Profile',
@@ -65,7 +73,11 @@ export class Tab1Page implements OnInit {
       contactPerson: 'Contact Person',
       viewDemo: 'View Demo',
       sourceCode: 'Source Code',
-      copyright: '© 2025 - All Rights Reserved, Maulana Farras'
+      copyright: '© 2025 - All Rights Reserved, Maulana Farras',
+      pendidikan: 'Education',
+      sarjanaTI: 'Bachelor of Software Engineering',
+      semester: 'Semester',
+      achievements: 'Achievements'
     }
   };
 
@@ -107,7 +119,7 @@ export class Tab1Page implements OnInit {
 
   updateContent() {
     const t = this.translations[this.currentLanguage];
-  
+
     // Update all text content
     document.querySelector('#about .section-title')!.textContent = t.profilSingkat;
     document.querySelectorAll('#about .section-content p')[0].textContent = t.aboutContent;
@@ -115,12 +127,21 @@ export class Tab1Page implements OnInit {
     document.querySelector('#skills .section-title')!.textContent = t.keahlian;
     document.querySelector('#projects .section-title')!.textContent = t.projectTerbaru;
     document.querySelector('.contact-info h3')!.textContent = t.contactPerson;
-  
+
+    // Update education section
+    document.querySelector('#education .section-title')!.textContent =
+      this.translations[this.currentLanguage].pendidikan;
+
+    const degree = document.querySelector('.degree');
+    if (degree) {
+      degree.textContent = this.translations[this.currentLanguage].sarjanaTI;
+    }
+
     // Update buttons text
     const sortButtons = document.querySelectorAll('.sort-buttons ion-button');
     sortButtons[0].textContent = t.terbaru;
     sortButtons[1].textContent = t.terlama;
-  
+
     // Update project cards
     this.projects.forEach((project, index) => {
       const projectCards = document.querySelectorAll('.project-card');
@@ -136,34 +157,34 @@ export class Tab1Page implements OnInit {
         }
       }
     });
-  
+
     // Update footer
     const footer = document.querySelector('footer p');
     if (footer) {
-      footer.textContent = this.currentLanguage === 'id' 
+      footer.textContent = this.currentLanguage === 'id'
         ? '© 2025 - Hak cipta dilindungi undang-undang, Maulana Farras'
         : '© 2025 - All Rights Reserved, Maulana Farras';
     }
-  
+
     // Update project descriptions based on language
     if (this.currentLanguage === 'en') {
       // Translate project descriptions to English
       this.projects[0].description = 'This project aims to create a personal website as my portfolio in Software Engineering, developed with Ionic Framework and MySQL backend';
       this.projects[0].duration = 'February 2025 - present';
-      
+
       this.projects[1].description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend';
       this.projects[1].duration = 'November 2024 - February 2025';
-      
+
       this.projects[2].description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
       this.projects[2].duration = 'April - May 2024';
     } else {
       // Reset to original Indonesian descriptions
       this.projects[0].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework dan backend berupa MySql';
       this.projects[0].duration = 'Februari 2025 - sekarang';
-      
+
       this.projects[1].description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql';
       this.projects[1].duration = 'November 2024 - Februari 2025';
-      
+
       this.projects[2].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
       this.projects[2].duration = 'April - Mei 2024';
     }

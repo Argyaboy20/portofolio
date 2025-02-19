@@ -16,7 +16,6 @@ $gradient-end: #50e3c2;
     display: inline-block;
 
     &:hover {
-
         .primary-text,
         .secondary-text {
             opacity: 0.8;
@@ -45,11 +44,6 @@ ion-toolbar {
             margin-right: 4.5rem;
         }
     }
-}
-
-ion-content {
-    --background: #f5f7fa;
-    font-family: 'Roboto', sans-serif;
 }
 
 .primary-text {
