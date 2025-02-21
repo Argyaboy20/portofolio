@@ -2,11 +2,82 @@
   <ion-toolbar>
     <ion-title class="ion-text-center">
       <a routerLink="/tabs/tab1" class="blog-title">
-        <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
+        <div class="title-container">
+          <span class="primary-text">Maulana Farras</span>
+          <span class="secondary-text">Blog's</span>
+          <div class="floating-cube"></div>
+        </div>
       </a>
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/biodata">Biodata</ion-button>
+    <ion-buttons slot="end" class="nav-buttons">
+      <ion-button routerLink="/biodata" class="bio-btn">
+        <div class="btn-content">
+          <span class="btn-text">Biodata</span>
+          <div class="btn-backdrop"></div>
+        </div>
+      </ion-button>
+      <ion-button (click)="toggleLanguage()" class="lang-btn">
+        <div class="btn-content">
+          <span class="btn-text">{{ currentLanguage === 'id' ? 'EN' : 'ID' }}</span>
+          <div class="btn-backdrop"></div>
+        </div>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+<ion-content>
+  <div class="welcome-text">
+    <h1>ApliKasir</h1>
+    <h2>{{ translations[currentLanguage].subtitle }}</h2>
+  </div>
+
+  <div class="project-showcase">
+    <!-- Project -->
+    <div class="project-grid">
+      <div class="project-card" *ngFor="let project of projectImages" (click)="openProjectModal(project)">
+        <div class="card-content">
+          <img [src]="project.url" [alt]="project.caption">
+          <div class="card-overlay">
+            <h3>{{ project.caption }}</h3>
+            <button class="view-btn">
+              {{ translations[currentLanguage].viewProject }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Modal -->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="project-modal">
+    <ng-template>
+      <div class="modal-content" *ngIf="selectedProject">
+        <div class="modal-header">
+          <h2>{{ selectedProject.caption }}</h2>
+          <ion-button fill="clear" (click)="closeModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </div>
+
+        <div class="modal-body">
+          <div class="project-image">
+            <img [src]="selectedProject.url" [alt]="selectedProject.caption">
+          </div>
+
+          <div class="project-info">
+            <h3>{{ translations[currentLanguage].details }}</h3>
+            <p>{{ selectedProject.details }}</p>
+
+            <h3>{{ translations[currentLanguage].techStack }}</h3>
+            <div class="tech-stack">
+              <span class="tech-tag" *ngFor="let tech of selectedProject.techStack">
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
+</ion-content>

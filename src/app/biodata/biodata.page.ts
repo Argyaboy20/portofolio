@@ -94,20 +94,41 @@ export class BiodataPage implements OnInit, AfterViewInit {
     
     const observerOptions = {
       root: null,
-      rootMargin: '0px',
-      threshold: 0.2
+      rootMargin: '-50px 0px', // Memberikan margin untuk trigger yang lebih tepat
+      threshold: [0, 0.2] // Menambahkan multiple thresholds
     };
-
+  
     const sectionObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
+        // Mendapatkan arah scroll
+        const boundingRect = entry.boundingClientRect;
+        const scrollingDown = boundingRect.top < 0;
+  
         if (entry.isIntersecting) {
+          // Element masuk viewport
           entry.target.classList.add('animate');
-          // Optional: Unobserve after animation
-          // observer.unobserve(entry.target);
+          entry.target.classList.remove('animate-out');
+        } else {
+          // Element keluar viewport
+          if (scrollingDown) {
+            // Scroll ke bawah, tidak perlu animasi fade out
+            entry.target.classList.remove('animate');
+          } else {
+            // Scroll ke atas, tambahkan animasi fade out
+            entry.target.classList.add('animate-out');
+            entry.target.classList.remove('animate');
+            
+            // Hapus class animate-out setelah animasi selesai
+            entry.target.addEventListener('animationend', () => {
+              if (!entry.isIntersecting) {
+                entry.target.classList.remove('animate-out');
+              }
+            }, { once: true });
+          }
         }
       });
     }, observerOptions);
-
+  
     sections.forEach(section => {
       sectionObserver.observe(section);
     });

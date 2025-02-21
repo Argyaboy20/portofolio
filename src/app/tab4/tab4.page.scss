@@ -1,62 +1,378 @@
-// Variabel warna
-$primary-color: #4a90e2;
-$secondary-color: #50e3c2;
-$bg-color-dark: #2c3e50;
-$bg-color-light: #f5f7fa;
-$text-color-dark: #333;
-$text-color-light: #fff;
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
 
-/* Gaya umum */
-.blog-title {
-    text-decoration: none;
-    display: inline-block;
+// Modern color palette
+$neon-blue: #00fff5;
+$neon-purple: #b537f2;
+$deep-space: #0a0a2a;
+$cosmic-grey: #1a1a3a;
+$star-white: #ffffff;
 
-    &:hover {
-
-        .primary-text,
-        .secondary-text {
-            opacity: 0.8;
-        }
-    }
+// Global styles
+ion-content {
+    --background: #{$deep-space};
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 ion-toolbar {
-    ion-buttons {
-        ion-button {
-            --color: #{$primary-color};
-            font-weight: 500;
+    --background: transparent;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        z-index: -1;
+    }
+}
+
+// Title styles
+.title-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.blog-title {
+    margin-left: 11.3rem;
+}
+
+.primary-text {
+    color: $star-white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-shadow: 0 0 10px rgba($neon-blue, 0.5);
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.secondary-text {
+    color: $neon-blue;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-shadow: 0 0 10px rgba($neon-purple, 0.5);
+}
+
+// 3D Floating cube animation
+.floating-cube {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(45deg, $neon-blue, $neon-purple);
+    transform-style: preserve-3d;
+    animation: floatCube 3s ease-in-out infinite;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        transform-origin: center;
+    }
+
+    &::before {
+        transform: rotateY(90deg) translateZ(10px);
+    }
+
+    &::after {
+        transform: rotateX(90deg) translateZ(10px);
+    }
+}
+
+// Button styles
+.nav-buttons {
+
+    .lang-btn,
+    .bio-btn {
+        margin: 0 5px;
+        --background: transparent;
+        height: 40px;
+        position: relative;
+        overflow: hidden;
+
+        .btn-content {
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba($cosmic-grey, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
 
             &:hover {
-                --color: #{$secondary-color};
+                transform: translateY(-2px);
+                background: rgba($neon-blue, 0.2);
+
+                .btn-backdrop {
+                    transform: scale(1.5);
+                    opacity: 1;
+                }
             }
         }
 
-        &.language-button {
-            margin-right: 0;
-            position: absolute;
-            right: 1.5rem;
+        .btn-text {
+            position: relative;
+            z-index: 2;
+            color: $star-white;
+            font-weight: 500;
+            letter-spacing: 1px;
         }
 
-        &.biodata-button {
-            margin-right: 4.5rem;
+        .btn-backdrop {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, $neon-blue, transparent);
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1;
         }
     }
 }
 
-
-ion-content {
-    --background: #f5f7fa;
-    font-family: 'Roboto', sans-serif;
-}
-
-.primary-text {
-    color: $primary-color;
-    font-weight: 700;
-    margin-left: 10.3rem;
-}
-
-.secondary-text {
-    color: $secondary-color;
-    font-weight: 700;
+// Welcome text animation
+.welcome-text {
+    padding: 2rem;
     text-align: center;
+    color: $star-white;
+    margin-bottom: -1rem; 
+
+    h1 {
+        font-size: 3rem;
+        margin: 0;
+        background: linear-gradient(45deg, $neon-blue, $neon-purple);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: textGlow 2s ease-in-out infinite;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin: 10px 0;
+        opacity: 0.8;
+    }
+}
+
+// Animations
+@keyframes floatCube {
+
+    0%,
+    100% {
+        transform: translateY(-50%) rotateX(45deg) rotateY(45deg);
+    }
+
+    50% {
+        transform: translateY(-70%) rotateX(60deg) rotateY(60deg);
+    }
+}
+
+@keyframes textGlow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 20px rgba($neon-blue, 0.5);
+    }
+
+    50% {
+        text-shadow: 0 0 40px rgba($neon-purple, 0.8);
+    }
+}
+
+.project-showcase {
+    padding: 1.5rem;
+    margin-top: 0; 
+  }
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    perspective: 1000px;
+}
+
+.project-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-10px) rotateX(5deg);
+
+        .card-overlay {
+            opacity: 1;
+        }
+
+        img {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.card-content {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba($deep-space, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 1rem;
+
+    h3 {
+        color: $star-white;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+}
+
+.view-btn {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(45deg, $neon-blue, $neon-purple);
+    border: none;
+    border-radius: 25px;
+    color: $star-white;
+    font-weight: 600;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(15px) scale(1.05);
+        box-shadow: 0 0 20px rgba($neon-blue, 0.5);
+    }
+}
+
+// Modal Styles
+.project-modal {
+    --width: 90%;
+    --height: 90%;
+    --border-radius: 20px;
+
+    &::part(content) {
+        background: rgba($deep-space, 0.95);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.modal-content {
+    padding: 2rem;
+    color: $star-white;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    h2 {
+        font-size: 2rem;
+        background: linear-gradient(45deg, $neon-blue, $neon-purple);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-image {
+    img {
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba($neon-blue, 0.2);
+    }
+}
+
+.project-info {
+    h3 {
+        color: $neon-blue;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        color: rgba($star-white, 0.8);
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.tech-tag {
+    padding: 0.5rem 1rem;
+    background: rgba($neon-purple, 0.2);
+    border: 1px solid $neon-purple;
+    border-radius: 20px;
+    color: $star-white;
+    font-size: 0.9rem;
+
+    &:hover {
+        background: rgba($neon-purple, 0.4);
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+    }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .welcome-text {
+    padding: 1rem;
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
 }

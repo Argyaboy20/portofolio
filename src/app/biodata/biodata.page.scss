@@ -27,9 +27,33 @@ ion-toolbar {
         ion-button {
             --color: #{$primary-color};
             font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: buttonSlideIn 0.5s ease forwards;
+
+            // Add pseudo-element for hover effect
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(to right, $primary-color, $secondary-color);
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform 0.3s ease;
+            }
 
             &:hover {
                 --color: #{$secondary-color};
+                animation: buttonHover 0.6s ease;
+
+                &::before {
+                    transform: scaleX(1);
+                    transform-origin: left;
+                }
             }
         }
 
@@ -37,11 +61,46 @@ ion-toolbar {
             margin-right: 0;
             position: absolute;
             right: 1.5rem;
+
+            ion-button {
+                animation-delay: 0.2s;
+            }
         }
 
         &.biodata-button {
             margin-right: 4.5rem;
+
+            ion-button {
+                animation-delay: 0.1s;
+            }
         }
+    }
+}
+
+// Keyframes for button hover effect
+@keyframes buttonSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes buttonHover {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+    100% {
+        transform: translateY(0);
     }
 }
 
@@ -689,11 +748,16 @@ cite {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s ease-out;
+    will-change: opacity, transform;
 }
 
 .animate-on-scroll.animate {
     opacity: 1;
     transform: translateY(0);
+}
+
+.animate-on-scroll.animate-out {
+    animation: fadeOut 0.8s ease-out forwards;
 }
 
 /* Different animation variations */
@@ -1045,6 +1109,103 @@ cite {
         transform: scale(1);
     }
 }
+
+
+/* Keyframe untuk animasi fade out */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}
+
+/* Update variasi animasi yang ada */
+.fade-in-right.animate-out {
+    animation: fadeOutRight 0.8s ease-out forwards;
+}
+
+.fade-in-left.animate-out {
+    animation: fadeOutLeft 0.8s ease-out forwards;
+}
+
+.fade-in-up.animate-out {
+    animation: fadeOutUp 0.8s ease-out forwards;
+}
+
+.fade-in-down.animate-out {
+    animation: fadeOutDown 0.8s ease-out forwards;
+}
+
+.zoom-in.animate-out {
+    animation: zoomOut 0.8s ease-out forwards;
+}
+
+/* Tambahkan keyframes untuk variasi fade out */
+@keyframes fadeOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+}
+
+@keyframes fadeOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+}
+
+@keyframes fadeOutUp {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+@keyframes fadeOutDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+}
+
+@keyframes zoomOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
 
 .modal-image-container img {
     animation: zoomIn 0.4s ease-out;
