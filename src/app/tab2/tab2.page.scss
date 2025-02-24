@@ -230,23 +230,43 @@ ion-toolbar {
     }
 }
 
-.try-btn {
-    --background: linear-gradient(135deg, #{$gradient-start}, #{$gradient-end});
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.website-btn,
+.android-btn {
     --border-radius: 25px;
-    --box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
     font-size: 1.1rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin: 0 auto;
-    max-width: 300px;
+    width: 100%;
 
     ion-icon {
         margin-left: 8px;
     }
+}
+
+.website-btn {
+    --background: linear-gradient(135deg, #{$gradient-start}, #{$gradient-end});
+    --box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
 
     &:hover {
         --background: linear-gradient(135deg, #{darken($gradient-start, 5%)}, #{darken($gradient-end, 5%)});
+    }
+}
+
+.android-btn {
+    --background: linear-gradient(135deg, #4CAF50, #8BC34A);
+    --box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+
+    &:hover {
+        --background: linear-gradient(135deg, #{darken(#4CAF50, 5%)}, #{darken(#8BC34A, 5%)});
     }
 }
 

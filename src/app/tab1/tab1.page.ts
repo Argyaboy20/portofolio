@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { createAnimation, Animation } from '@ionic/angular';
 
@@ -17,6 +17,7 @@ interface Translations {
   profilSingkat: string;
   aboutContent: string;
   aboutContent2: string;
+  aboutContent3: string;
   keahlian: string;
   projectTerbaru: string;
   terbaru: string;
@@ -42,13 +43,17 @@ interface TranslationDict {
   styleUrls: ['tab1.page.scss'],
   standalone: false,
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
+  isFlipCardVisible = false;
+  isCardFlipped = false;
+
   currentLanguage: 'id' | 'en' = 'id'; // default to Indonesian
   translations: TranslationDict = {
     id: {
       profilSingkat: 'Profil Singkat',
-      aboutContent: 'Seorang Software Engineer yang fokus di pengembangan aplikasi mobile hybrid. Saya memiliki keahlian utama dalam Ionic Framework yang saya kombinasikan dengan JavaScript dan HTML untuk membuat aplikasi-aplikasi mobile yang bisa digunakan di berbagai platform.',
-      aboutContent2: 'Di dunia perkuliahan, saya berhasil mencapai IPK 3.73 yang menunjukkan dedikasi saya dalam bidang akademik. Saya memiliki passion yang besar dalam teknologi dan selalu antusias untuk mempelajari hal-hal baru di dunia IT. Sebagai developer, saya senang mengeksplorasi teknologi-teknologi terbaru dan menerapkannya dalam pengembangan aplikasi. Keahlian saya dalam Ionic Framework memungkinkan saya untuk membuat aplikasi mobile hybrid yang efisien dan berkualitas tinggi.',
+      aboutContent: 'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan Ionic Framework yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.73 yang saya raih selama masa perkuliahan di Institut Teknologi dan Bisnis Indonesia, saya membuktikan komitmen dan dedikasi yang kuat dalam bidang akademik.',
+      aboutContent2: 'Pengalaman saya mencakup berbagai proyek pengembangan aplikasi, termasuk pembuatan Todolist APK menggunakan JavaScript dan ApliKasir dengan C#. Dalam proyek-proyek tersebut, saya berkontribusi sebagai backend developer dan berhasil mengimplementasikan fitur-fitur seperti TaskController dan UIEdit. Pengetahuan teknis saya diperkuat melalui program student exchange di Telkom University, di mana saya memperdalam pemahaman tentang pengembangan perangkat lunak, keamanan sistem, dan manajemen database. Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional.',
+      aboutContent3: 'Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak',
       keahlian: 'Keahlian',
       projectTerbaru: 'Project Terbaru',
       terbaru: 'Terbaru',
@@ -64,8 +69,9 @@ export class Tab1Page implements OnInit {
     },
     en: {
       profilSingkat: 'Brief Profile',
-      aboutContent: 'A Software Engineer focusing on hybrid mobile application development. I have expertise in Ionic Framework which I combine with JavaScript and HTML to create cross-platform mobile applications.',
-      aboutContent2: 'In my academic journey, I achieved a GPA of 3.73 which demonstrates my dedication to academics. I have a great passion for technology and am always enthusiastic about learning new things in the IT world. As a developer, I enjoy exploring the latest technologies and applying them in application development. My expertise in Ionic Framework enables me to create efficient and high-quality hybrid mobile applications.',
+      aboutContent: 'A Software Engineer with a focus on hybrid mobile application development who is passionate about creating innovative solutions. My main expertise lies in using Ionic Framework combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.73 achieved during my studies at the Indonesian Institute of Technology and Business, I proved my strong commitment and dedication in academics.',
+      aboutContent2: 'My experience spans various app development projects, including the creation of Todolist APK using JavaScript and ApliKasir with C#. In these projects, I contributed as a backend developer and successfully implemented features such as TaskController and UIEdit. My technical knowledge was strengthened through a student exchange program at Telkom University, where I deepened my understanding of software development, system security, and database management. My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams.',
+      aboutContent3: 'I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. Contact me if you are interested in further collaboration on software development.',
       keahlian: 'Skills',
       projectTerbaru: 'Latest Projects',
       terbaru: 'Newest',
@@ -115,6 +121,11 @@ export class Tab1Page implements OnInit {
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
     this.updateContent();
+
+    // Add this to ensure responsive layout remains intact after language switch
+    setTimeout(() => {
+      this.handleResponsiveLayout();
+    }, 0);
   }
 
   updateContent() {
@@ -122,19 +133,23 @@ export class Tab1Page implements OnInit {
 
     // Update all text content
     document.querySelector('#about .section-title')!.textContent = t.profilSingkat;
-    document.querySelectorAll('#about .section-content p')[0].textContent = t.aboutContent;
-    document.querySelectorAll('#about .section-content p')[1].textContent = t.aboutContent2;
+
+    // Update all three paragraphs in the about section
+    const aboutParagraphs = document.querySelectorAll('#about .section-content p');
+    aboutParagraphs[0].textContent = t.aboutContent;
+    aboutParagraphs[1].textContent = t.aboutContent2;
+    aboutParagraphs[2].textContent = t.aboutContent3;
+
     document.querySelector('#skills .section-title')!.textContent = t.keahlian;
     document.querySelector('#projects .section-title')!.textContent = t.projectTerbaru;
     document.querySelector('.contact-info h3')!.textContent = t.contactPerson;
 
     // Update education section
-    document.querySelector('#education .section-title')!.textContent =
-      this.translations[this.currentLanguage].pendidikan;
+    document.querySelector('#education .section-title')!.textContent = t.pendidikan;
 
     const degree = document.querySelector('.degree');
     if (degree) {
-      degree.textContent = this.translations[this.currentLanguage].sarjanaTI;
+      degree.textContent = t.sarjanaTI;
     }
 
     // Update buttons text
@@ -149,11 +164,11 @@ export class Tab1Page implements OnInit {
         const card = projectCards[index];
         const demoLink = card.querySelector('.demo-link');
         if (demoLink) {
-          demoLink.textContent = this.currentLanguage === 'id' ? 'Lihat Demo' : 'View Demo';
+          demoLink.textContent = t.viewDemo;
         }
         const sourceLink = card.querySelector('a[target="_github"]');
         if (sourceLink) {
-          sourceLink.textContent = this.currentLanguage === 'id' ? 'Source Code' : 'Source Code';
+          sourceLink.textContent = t.sourceCode;
         }
       }
     });
@@ -161,9 +176,7 @@ export class Tab1Page implements OnInit {
     // Update footer
     const footer = document.querySelector('footer p');
     if (footer) {
-      footer.textContent = this.currentLanguage === 'id'
-        ? '© 2025 - Hak cipta dilindungi undang-undang, Maulana Farras'
-        : '© 2025 - All Rights Reserved, Maulana Farras';
+      footer.textContent = t.copyright;
     }
 
     // Update project descriptions based on language
@@ -193,12 +206,81 @@ export class Tab1Page implements OnInit {
   // Profile image modal state
   isProfileImageModalOpen = false;
 
+  // Add new properties for responsive layout
+  @ViewChild('leftPanel', { static: true }) leftPanel!: ElementRef;
+  @ViewChild('rightPanel', { static: true }) rightPanel!: ElementRef;
+
+  private scrollHandler: (() => void) | null = null;
+
   constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
     // Sort projects by newest first by default
     this.sortProjects('newest');
   }
+
+  ngAfterViewInit() {
+    // Initialize responsive layout handlers
+    this.initializeResponsiveLayout();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      this.handleResponsiveLayout();
+    });
+  }
+
+  private initializeResponsiveLayout() {
+    this.handleResponsiveLayout();
+
+    // Define scroll handler
+    this.scrollHandler = () => {
+      if (window.innerWidth <= 768) {
+        const scrollPosition = window.scrollY;
+        const leftPanelHeight = this.leftPanel.nativeElement.offsetHeight;
+
+        if (scrollPosition > leftPanelHeight / 2) {
+          this.leftPanel.nativeElement.classList.add('sticky');
+          this.rightPanel.nativeElement.classList.add('panel-with-sticky');
+        } else {
+          this.leftPanel.nativeElement.classList.remove('sticky');
+          this.rightPanel.nativeElement.classList.remove('panel-with-sticky');
+        }
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', this.scrollHandler);
+  }
+
+  private handleResponsiveLayout() {
+    if (window.innerWidth <= 768) {
+      // Mobile layout
+      if (!this.scrollHandler) {
+        this.initializeResponsiveLayout(); // Re-initialize if needed
+      }
+    } else {
+      // Desktop layout
+      this.removeResponsiveHandlers();
+    }
+  }
+
+  private removeResponsiveHandlers() {
+    if (this.scrollHandler) {
+      window.removeEventListener('scroll', this.scrollHandler);
+      this.leftPanel.nativeElement.classList.remove('sticky');
+      this.rightPanel.nativeElement.classList.remove('panel-with-sticky');
+      this.scrollHandler = null;
+    }
+  }
+
+  ngOnDestroy() {
+    // Clean up event listeners
+    this.removeResponsiveHandlers();
+    window.removeEventListener('resize', () => {
+      this.handleResponsiveLayout();
+    });
+  }
+
 
   // Method to sort projects
   sortProjects(order: 'newest' | 'oldest') {
@@ -238,6 +320,49 @@ export class Tab1Page implements OnInit {
       animated: true,
       animation
     });
+  }
+
+  navigateToBiodata() {
+    this.isFlipCardVisible = true;
+
+    // Start the flip animation after a short delay
+    setTimeout(() => {
+      this.isCardFlipped = true;
+
+      // Wait for the flip animation to complete before navigating
+      setTimeout(() => {
+        // Create the navigation animation
+        const animation = (baseEl: HTMLElement, opts?: any): Animation => {
+          const enteringAnimation = createAnimation()
+            .addElement(opts.enteringEl)
+            .duration(300)
+            .fromTo('transform', 'translateX(100%)', 'translateX(0)')
+            .fromTo('opacity', '0.2', '1');
+
+          const leavingAnimation = createAnimation()
+            .addElement(opts.leavingEl)
+            .duration(300)
+            .fromTo('transform', 'translateX(0)', 'translateX(-100%)')
+            .fromTo('opacity', '1', '0.2');
+
+          return createAnimation()
+            .addAnimation(enteringAnimation)
+            .addAnimation(leavingAnimation);
+        };
+
+        // Navigate to biodata page
+        this.navCtrl.navigateForward('/biodata', {
+          animated: true,
+          animation
+        }).then(() => {
+          // Reset the flip card state after navigation
+          setTimeout(() => {
+            this.isFlipCardVisible = false;
+            this.isCardFlipped = false;
+          }, 300);
+        });
+      }, 900); // Match this with the flip animation duration
+    }, 100);
   }
 
   // Open profile image modal

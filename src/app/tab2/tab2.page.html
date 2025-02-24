@@ -35,10 +35,14 @@
       <div class="cta-content">
         <h3>{{ translations[currentLanguage].readyToExperience }}</h3>
         <p>{{ translations[currentLanguage].tryOutMessage }}</p>
-        <ion-button expand="block" [href]="projectUrl" target="_blank" class="try-btn">
-          {{ translations[currentLanguage].launchProject }}
-          <ion-icon name="rocket-outline" slot="end"></ion-icon>
-        </ion-button>
+        <div class="button-container">
+          <ion-button expand="block" [href]="projectUrl" target="_blank" class="website-btn">
+            {{ translations[currentLanguage].launchWebsite }}
+          </ion-button>
+          <ion-button expand="block" [href]="androidUrl" target="_blank" class="android-btn">
+            {{ translations[currentLanguage].launchAndroid }}
+          </ion-button>
+        </div>
       </div>
     </div>
   </div>

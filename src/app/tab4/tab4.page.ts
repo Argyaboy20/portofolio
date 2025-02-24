@@ -44,7 +44,7 @@ export class Tab4Page {
       originalCaption: 'Tampilan Menu Edit',
       caption: 'Edit Menu View',
       details: 'Form untuk melakukan edit data transaksi atau hutang',
-      techStack: ['Angular Forms', 'Firebase Auth']
+      techStack: ['General Libraries', 'Firebase Auth']
     },
     // Add other project images similarly
   ];

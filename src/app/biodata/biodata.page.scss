@@ -67,7 +67,7 @@ ion-toolbar {
             }
         }
 
-        &.biodata-button {
+        &.gallery-button {
             margin-right: 4.5rem;
 
             ion-button {
@@ -112,11 +112,13 @@ ion-content {
 .primary-text {
     color: $primary-color;
     font-weight: 700;
+    margin-left: 14.7rem;
 }
 
 .secondary-text {
     color: $secondary-color;
     font-weight: 700;
+    text-align: center;
 }
 
 .biodata-content {

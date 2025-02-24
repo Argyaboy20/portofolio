@@ -1,0 +1,68 @@
+<ion-header class="modern-header" [translucent]="true">
+  <ion-toolbar>
+    <div class="header-content">
+      <div class="logo-container">
+        <ion-icon name="camera" class="header-icon"></ion-icon>
+      </div>
+      <h1 class="main-title">Gallery Life</h1>
+      <p class="subtitle">Capture My Moments</p>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Category Selector -->
+  <ion-segment [(ngModel)]="selectedCategory" color="secondary" class="category-selector">
+    <ion-segment-button value="cerita-hidup">
+      <ion-label>Cerita Hidup</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="pmm-life">
+      <ion-label>Kisah PMM</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Photo Grid -->
+  <div class="photo-grid">
+    <div *ngFor="let photo of getFilteredPhotos()" 
+         class="photo-card"
+         (click)="selectPhoto(photo)">
+      <div class="photo-inner">
+        <div class="photo-front">
+          <img [src]="photo.imageUrl" [alt]="photo.title">
+          <h3>{{ photo.title }}</h3>
+        </div>
+        <div class="photo-back">
+          <p class="date">{{ photo.date }}</p>
+          <p class="description">{{ photo.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Detail Modal -->
+  <ion-modal [isOpen]="!!selectedPhoto" (didDismiss)="selectedPhoto = null">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ selectedPhoto?.title }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="selectedPhoto = null">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        <div class="modal-content">
+          <img [src]="selectedPhoto?.imageUrl" [alt]="selectedPhoto?.title">
+          <div class="detail-content">
+            <span class="date">{{ selectedPhoto?.date }}</span>
+            <h2>{{ selectedPhoto?.title }}</h2>
+            <p>{{ selectedPhoto?.description }}</p>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

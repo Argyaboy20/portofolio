@@ -10,6 +10,9 @@
         {{ currentLanguage === 'id' ? 'EN' : 'ID' }}
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="end" class="gallery-button">
+      <ion-button routerLink="/galeri-kehidupan">Galeri Kehidupan</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -111,7 +114,7 @@
         <div class="fact-label">{{ getText('yearsCoding') }}</div>
       </div>
       <div class="fact-item animate-on-scroll" data-delay="3">
-        <div class="fact-number">1+</div>
+        <div class="fact-number">2+</div>
         <div class="fact-label">{{ getText('techStacks') }}</div>
       </div>
       <div class="fact-item animate-on-scroll" data-delay="4">
@@ -133,63 +136,48 @@
   </section>
 
   <!-- Award Section -->
-<section class="awards-section">
-  <h2 class="section-title animate-on-scroll">{{ getText('awardsTitle') }}</h2>
-  <div class="awards-grid">
-    <div 
-      class="awards-item" 
-      (click)="openAwardsModal()"
-    >
-      <div class="awards-preview animate-on-scroll">
-        <img src="/assets/awards.png" style="object-fit: contain;" alt="Awards collection">
-        <div class="awards-count">{{awardsCount}}</div>
-      </div>
-      <div class="awards-overlay">
-        <span>View All Awards</span>
+  <section class="awards-section">
+    <h2 class="section-title animate-on-scroll">{{ getText('awardsTitle') }}</h2>
+    <div class="awards-grid">
+      <div class="awards-item" (click)="openAwardsModal()">
+        <div class="awards-preview animate-on-scroll">
+          <img src="/assets/awards.png" style="object-fit: contain;" alt="Awards collection">
+          <div class="awards-count">{{awardsCount}}</div>
+        </div>
+        <div class="awards-overlay">
+          <span>View All Awards</span>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Gallery Section - A few personal photos -->
   <section class="gallery-section">
     <h2 class="section-title animate-on-scroll">{{ getText('snapshots') }}</h2>
     <div class="gallery-grid">
       <!-- Fixed Gallery Items -->
-      <div 
-        class="gallery-item animate-on-scroll" data-delay="1" 
-        (click)="openGalleryModal('/assets/coding.png')"
-      >
+      <div class="gallery-item animate-on-scroll" data-delay="1" (click)="openGalleryModal('/assets/coding.png')">
         <img src="/assets/coding.png" alt="Working on project">
         <div class="gallery-overlay">
           <span>Coding Session</span>
         </div>
       </div>
-      
-      <div 
-        class="gallery-item animate-on-scroll" data-delay="2" 
-        (click)="openGalleryModal('/assets/team.jpg')"
-      >
+
+      <div class="gallery-item animate-on-scroll" data-delay="2" (click)="openGalleryModal('/assets/team.jpg')">
         <img src="/assets/team.jpg" alt="Team building">
         <div class="gallery-overlay">
           <span>Team Building</span>
         </div>
       </div>
-      
-      <div 
-        class="gallery-item animate-on-scroll" data-delay="3" 
-        (click)="openGalleryModal('/assets/pmm.jpg')"
-      >
+
+      <div class="gallery-item animate-on-scroll" data-delay="3" (click)="openGalleryModal('/assets/pmm.jpg')">
         <img src="/assets/pmm.jpg" alt="Traveling">
         <div class="gallery-overlay">
           <span>PMM's Story</span>
         </div>
       </div>
-      
-      <div 
-        class="gallery-item animate-on-scroll" data-delay="4" 
-        (click)="openGalleryModal('/assets/konser.jpg')"
-      >
+
+      <div class="gallery-item animate-on-scroll" data-delay="4" (click)="openGalleryModal('/assets/konser.jpg')">
         <img src="/assets/konser.jpg" alt="Hobby">
         <div class="gallery-overlay">
           <span>Music Festival</span>
@@ -243,35 +231,35 @@
 
   <!-- Award Modal -->
   <ion-modal [isOpen]="isAwardsModalOpen" (didDismiss)="closeAwardsModal()" class="awards-modal"
-  [backdropDismiss]="true">
-  <ng-template>
-    <ion-content class="modal-content">
-      <ion-header class="awards-modal-header animate-on-scroll">
-        <ion-toolbar>
-          <ion-title>Awards & Achievements</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="closeAwardsModal()">
-              <ion-icon name="close-outline"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <div class="awards-modal-content">
-        <div class="awards-carousel">
-          <div class="award-slide" *ngFor="let award of awards; let i = index">
-            <div class="award-image-container">
-              <img [src]="award.image" [alt]="award.title" loading="lazy">
-            </div>
-            <div class="award-info">
-              <h3>{{award.title}}</h3>
-              <p>{{award.description}}</p>
+    [backdropDismiss]="true">
+    <ng-template>
+      <ion-content class="modal-content">
+        <ion-header class="awards-modal-header animate-on-scroll">
+          <ion-toolbar>
+            <ion-title>Awards & Achievements</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="closeAwardsModal()">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <div class="awards-modal-content">
+          <div class="awards-carousel">
+            <div class="award-slide" *ngFor="let award of awards; let i = index">
+              <div class="award-image-container">
+                <img [src]="award.image" [alt]="award.title" loading="lazy">
+              </div>
+              <div class="award-info">
+                <h3>{{award.title}}</h3>
+                <p>{{award.description}}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </ion-content>
-  </ng-template>
-</ion-modal>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 
   <!-- Gallery Modal -->
   <ion-modal [isOpen]="isGalleryModalOpen" (didDismiss)="closeGalleryModal()" class="gallery-modal"

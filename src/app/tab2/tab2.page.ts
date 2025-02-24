@@ -10,7 +10,8 @@ interface Translations {
   title: string;
   readyToExperience: string;
   tryOutMessage: string;
-  launchProject: string;
+  launchWebsite: string;  
+  launchAndroid: string;
   imageCaptions: {
     [key: string]: string;
   };
@@ -34,7 +35,8 @@ export class Tab2Page {
       title: 'Pertanian Mobile App',
       readyToExperience: 'Siap Mencobanya?',
       tryOutMessage: 'Coba project luar biasa ini sekarang!',
-      launchProject: 'Mulai Project',
+      launchWebsite: 'Buka Website',  // Updated
+      launchAndroid: 'Unduh Aplikasi Android',  // Added
       imageCaptions: {
         'Tampilan Halaman Depan': 'Tampilan Halaman Depan',
         'Tampilan Menu Daftar': 'Tampilan Menu Daftar',
@@ -51,7 +53,8 @@ export class Tab2Page {
       title: 'Pertanian Mobile App',
       readyToExperience: 'Ready to Experience It?',
       tryOutMessage: 'Try out this awesome project now!',
-      launchProject: 'Launch Project',
+      launchWebsite: 'Open Website',  // Updated
+      launchAndroid: 'Download Android App',  // Added
       imageCaptions: {
         'Tampilan Halaman Depan': 'Home Page View',
         'Tampilan Menu Daftar': 'Registration Menu View',
@@ -114,7 +117,8 @@ export class Tab2Page {
     }
   ];
 
-  projectUrl: string = 'https://your-project-url.com';
+  projectUrl: string = 'https://pertanian-mobile-c1537.web.app';
+  androidUrl: string = 'https://drive.google.com/file/d/184bu_ml32G58AOZ6CUdQtvhEFWzsOv2j/view?usp=drive_link';
   isImageModalOpen = false;
   selectedImage: ProjectImage | null = null;
 
@@ -146,9 +150,14 @@ export class Tab2Page {
     document.querySelector('.cta-content h3')!.textContent = t.readyToExperience;
     document.querySelector('.cta-content p')!.textContent = t.tryOutMessage;
     
-    const launchButton = document.querySelector('.try-btn');
-    if (launchButton) {
-      launchButton.textContent = t.launchProject;
+    const websiteButton = document.querySelector('.website-btn');
+    if (websiteButton) {
+      websiteButton.textContent = t.launchWebsite;
+    }
+
+    const androidButton = document.querySelector('.android-btn');
+    if (androidButton) {
+      androidButton.textContent = t.launchAndroid;
     }
 
     // Update image captions

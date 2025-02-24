@@ -11,14 +11,14 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end" class="biodata-button">
-      <ion-button routerLink="/biodata">Biodata</ion-button>
+      <ion-button (click)="navigateToBiodata()">Biodata</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="split-screen">
   <!-- Left Panel - Fixed Content -->
-  <div class="left-panel">
+  <div class="left-panel" #leftPanel>
 
     <div class="bg-elements">
       <div class="bg-shape"></div>
@@ -26,7 +26,7 @@
       <div class="bg-shape"></div>
       <div class="bg-shape"></div>
     </div>
-    
+
     <div class="profile-container">
       <div class="profile-image" (click)="openProfileImageModal()">
         <ion-img src="/assets/foto.JPG" alt="Foto Profil"></ion-img>
@@ -59,23 +59,31 @@
   </div>
 
   <!-- Right Panel - Scrollable Content -->
-  <div class="right-panel">
+  <div class="right-panel" #rightPanel>
     <!-- About Section -->
     <section id="about" class="section">
       <h2 class="section-title">Profil Singkat</h2>
       <div class="section-content">
         <p>
-          Seorang Software Engineer yang fokus di pengembangan aplikasi mobile hybrid. Saya memiliki keahlian utama
-          dalam Ionic Framework yang saya kombinasikan dengan JavaScript dan HTML untuk membuat
-          aplikasi-aplikasi mobile yang bisa digunakan di berbagai platform.
+          Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi
+          dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan Ionic Framework yang dipadukan
+          dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.73 yang saya raih
+          selama masa perkuliahan di Institut Teknologi dan Bisnis Indonesia, saya membuktikan komitmen dan dedikasi
+          yang kuat dalam bidang akademik.
         </p>
         <p>
-          Di dunia perkuliahan, saya berhasil mencapai IPK 3.73 yang menunjukkan dedikasi saya dalam bidang akademik.
-          Saya memiliki passion yang besar dalam teknologi dan selalu antusias untuk mempelajari hal-hal baru di dunia
-          IT. Sebagai developer, saya senang mengeksplorasi teknologi-teknologi terbaru dan menerapkannya dalam
-          pengembangan
-          aplikasi. Keahlian saya dalam Ionic Framework memungkinkan saya untuk membuat aplikasi mobile hybrid yang
-          efisien dan berkualitas tinggi.
+          Pengalaman saya mencakup berbagai proyek pengembangan aplikasi, termasuk pembuatan Todolist APK menggunakan
+          JavaScript dan ApliKasir dengan C#. Dalam proyek-proyek tersebut, saya berkontribusi sebagai backend developer
+          dan berhasil mengimplementasikan fitur-fitur seperti TaskController dan UIEdit. Pengetahuan teknis saya
+          diperkuat melalui program student exchange di Telkom University, di mana saya memperdalam pemahaman tentang
+          pengembangan perangkat lunak, keamanan sistem, dan manajemen database. Kemampuan bahasa Inggris saya yang
+          berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim
+          internasional.
+        </p>
+        <p>
+          Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi
+          yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal
+          pengembangan perangkat lunak
         </p>
       </div>
     </section>
@@ -212,6 +220,23 @@
       <p>© 2025 - Hak cipta dilindungi undang-undang, Maulana Farras</p>
     </footer>
   </div>
+
+  <div class="flip-card-container" [class.visible]="isFlipCardVisible">
+    <div class="flip-card" [class.flipped]="isCardFlipped">
+      <div class="card-face front">
+        <img src="/assets/foto.JPG" alt="Profile Photo">
+        <h2>Maulana Farras</h2>
+        <p>Software Engineer</p>
+        <p>Web & Mobile Developer</p>
+      </div>
+      <div class="card-face back">
+        <h2>Loading Biodata...</h2>
+        <p>Please wait while we prepare your detailed information</p>
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+    </div>
+  </div>
+
 </ion-content>
 
 <!-- Profile Image Modal -->

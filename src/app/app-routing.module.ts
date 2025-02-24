@@ -13,7 +13,11 @@ const routes: Routes = [
   {
     path: 'biodata',
     loadChildren: () => import('./biodata/biodata.module').then( m => m.BiodataPageModule)
-  }
+  },
+  {
+    path: 'galeri-kehidupan',
+    loadChildren: () => import('./galeri-kehidupan/galeri-kehidupan.module').then( m => m.GaleriKehidupanPageModule)
+  },
 ];
 
 @NgModule({
