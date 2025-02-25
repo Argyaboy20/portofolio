@@ -7,12 +7,22 @@
       <h1 class="main-title">Gallery Life</h1>
       <p class="subtitle">Capture My Moments</p>
     </div>
+
+    <div class="audio-player">
+      <ion-button fill="clear" (click)="togglePlay()">
+        <ion-icon [name]="isPlaying ? 'pause' : 'play'" slot="icon-only"></ion-icon>
+      </ion-button>
+      <div class="song-info">
+        <span class="song-title">Photograph</span>
+        <span class="song-artist">Ed Sheeran</span>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <!-- Category Selector -->
-  <ion-segment [(ngModel)]="selectedCategory" color="secondary" class="category-selector">
+  <ion-segment [(ngModel)]="selectedCategory" color="secondary" class="category-selector" (ionChange)="updateFilteredPhotos()">
     <ion-segment-button value="cerita-hidup">
       <ion-label>Cerita Hidup</ion-label>
     </ion-segment-button>
@@ -21,14 +31,12 @@
     </ion-segment-button>
   </ion-segment>
 
-  <!-- Photo Grid -->
+  <!-- Photo Grid with Virtual Scroll -->
   <div class="photo-grid">
-    <div *ngFor="let photo of getFilteredPhotos()" 
-         class="photo-card"
-         (click)="selectPhoto(photo)">
+    <div *ngFor="let photo of filteredPhotos" class="photo-card" (click)="selectPhoto(photo)">
       <div class="photo-inner">
         <div class="photo-front">
-          <img [src]="photo.imageUrl" [alt]="photo.title">
+          <img [src]="photo.thumbnailUrl || photo.imageUrl" [alt]="photo.title" loading="lazy">
           <h3>{{ photo.title }}</h3>
         </div>
         <div class="photo-back">
@@ -40,7 +48,7 @@
   </div>
 
   <!-- Photo Detail Modal -->
-  <ion-modal [isOpen]="!!selectedPhoto" (didDismiss)="selectedPhoto = null">
+  <ion-modal [isOpen]="!!selectedPhoto" (didDismiss)="selectedPhoto = null" class="photo-modal">
     <ng-template>
       <ion-header>
         <ion-toolbar>
@@ -55,7 +63,7 @@
 
       <ion-content class="ion-padding">
         <div class="modal-content">
-          <img [src]="selectedPhoto?.imageUrl" [alt]="selectedPhoto?.title">
+          <img [src]="selectedPhoto?.imageUrl" [alt]="selectedPhoto?.title" loading="lazy">
           <div class="detail-content">
             <span class="date">{{ selectedPhoto?.date }}</span>
             <h2>{{ selectedPhoto?.title }}</h2>

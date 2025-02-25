@@ -24,6 +24,19 @@
       <p>{{ translations[currentLanguage].heroSubtitle }}</p>
     </section>
 
+    <!-- Gallery Section -->
+    <h2 class="section-title">{{ translations[currentLanguage].galleryTitle }}</h2>
+    <section class="gallery-section">
+      <div class="gallery-grid">
+        <div class="gallery-item" *ngFor="let item of galleryItems" (click)="openImageModal(item)">
+          <img [src]="item.src" [alt]="item.title">
+          <div class="gallery-caption">
+            <h3>{{ item.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Skills Section -->
     <h2 class="section-title">{{ translations[currentLanguage].skillsTitle }}</h2>
     <section class="skills-section">
@@ -37,16 +50,21 @@
         </div>
       </div>
     </section>
-
-    <!-- Contact Section -->
-    <h2 class="section-title">{{ translations[currentLanguage].contactTitle }}</h2>
-    <section class="contact-section">
-      <div class="contact-grid">
-        <a *ngFor="let contact of contacts" [href]="contact.link" target="_blank" class="contact-card">
-          <ion-icon [name]="contact.icon"></ion-icon>
-          <span>{{contact.label}}</span>
-        </a>
-      </div>
-    </section>
   </div>
+
+  <!-- Image Modal -->
+  <ion-modal [isOpen]="showModal" class="gallery-modal">
+    <ng-template>
+      <div class="modal-content" *ngIf="selectedImage">
+        <div class="close-button" (click)="closeModal()">
+          <ion-icon name="close-outline"></ion-icon>
+        </div>
+        <img [src]="selectedImage.src" [alt]="selectedImage.title">
+        <div class="image-caption">
+          <h2>{{ selectedImage.title }}</h2>
+          <p>{{ selectedImage.description }}</p>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
 </ion-content>

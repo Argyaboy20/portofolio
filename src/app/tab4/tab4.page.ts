@@ -8,6 +8,12 @@ interface ProjectImage {
   techStack: string[];
 }
 
+interface DevTool {
+  name: string;
+  icon: string;
+  description: string;
+}
+
 @Component({
   selector: 'app-tab4',
   templateUrl: './tab4.page.html',
@@ -21,13 +27,15 @@ export class Tab4Page {
       subtitle: 'di Dunia Digital',
       viewProject: 'Lihat Project',
       techStack: 'Tech Stack',
-      details: 'Detail Project'
+      details: 'Detail Project',
+      devTools: 'Alat alat Pengembangan'
     },
     en: {
       subtitle: 'to Digital World',
       viewProject: 'View Project',
       techStack: 'Tech Stack',
-      details: 'Project Details'
+      details: 'Project Details',
+      devTools: 'Development Tools'
     }
   };
 
@@ -48,6 +56,30 @@ export class Tab4Page {
     },
     // Add other project images similarly
   ];
+
+  developmentTools: DevTool[] = [
+    {
+      name: 'Bahasa C#',
+      icon: 'code-slash',
+      description: 'Bahasa pemrograman utama untuk pengembangan aplikasi desktop'
+    },
+    {
+      name: 'Json',
+      icon: 'document-text',
+      description: 'Format data untuk penyimpanan dan pertukaran data dalam aplikasi'
+    },
+    {
+      name: 'General Library',
+      icon: 'library',
+      description: 'Pustaka umum untuk mendukung fungsi-fungsi aplikasi'
+    },
+    {
+      name: 'Password Hashing',
+      icon: 'lock-closed',
+      description: 'Teknik pengamanan untuk melindungi data sensitif pengguna'
+    }
+  ];
+
 
   isModalOpen = false;
   selectedProject: ProjectImage | null = null;

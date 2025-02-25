@@ -1,4 +1,5 @@
 .modern-header {
+
     ion-toolbar {
         --background: linear-gradient(135deg, #6366F1, #3B82F6);
         --border-width: 0;
@@ -37,7 +38,8 @@
     .header-icon {
         font-size: 24px;
         color: white;
-        animation: pulse 2s infinite;
+        // Reduced animation impact
+        animation: pulse 3s ease-in-out infinite;
     }
 
     .main-title {
@@ -66,7 +68,7 @@
     }
 
     50% {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 
     100% {
@@ -108,14 +110,17 @@
     grid-template-columns: repeat(2, 1fr); // 2 columns
     gap: 16px;
     padding: 16px;
-    max-width: 900px; // Maximum width
-    margin: 0 auto; // Center the grid
+    max-width: 900px;
+    margin: 0 auto;
+    will-change: transform;
+    contain: content;
 }
 
 .photo-card {
     perspective: 1000px;
     aspect-ratio: 1; // Make it square
     cursor: pointer;
+    contain: layout style;
 
     .photo-inner {
         position: relative;
@@ -147,6 +152,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         h3 {
@@ -244,11 +250,53 @@ ion-modal {
     }
 }
 
+/* Audio Player */
+.audio-player {
+    display: flex;
+    align-items: center;
+    padding: 6px 15px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    margin: 10px auto;
+    border-radius: 20px;
+    width: fit-content;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    ion-button {
+        --padding-start: 6px;
+        --padding-end: 6px;
+        --color: white;
+        height: 35px;
+        width: 35px;
+
+        ion-icon {
+            font-size: 20px;
+        }
+    }
+
+    .song-info {
+        margin-left: 8px;
+        display: flex;
+        flex-direction: column;
+
+        .song-title {
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .song-artist {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 11px;
+        }
+    }
+}
+
 // Media query for smaller screens
 @media (max-width: 480px) {
     .photo-grid {
-      grid-template-columns: 1fr; // Single column on small screens
-      gap: 12px;
-      padding: 12px;
+        grid-template-columns: 1fr; // Single column on small screens
+        gap: 12px;
+        padding: 12px;
     }
-  }
+}

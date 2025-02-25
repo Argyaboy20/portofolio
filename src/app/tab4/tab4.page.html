@@ -49,6 +49,20 @@
     </div>
   </div>
 
+  <!-- Alat alat Pengembangan Section -->
+  <div class="dev-tools-section">
+    <h2>{{ translations[currentLanguage].devTools }}</h2>
+    <div class="tools-container">
+      <div class="tool-card" *ngFor="let tool of developmentTools">
+        <div class="tool-icon">
+          <ion-icon [name]="tool.icon"></ion-icon>
+        </div>
+        <h3>{{ tool.name }}</h3>
+        <p>{{ tool.description }}</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Project Modal -->
   <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="project-modal">
     <ng-template>

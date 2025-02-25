@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { createAnimation, Animation } from '@ionic/angular';
 
@@ -30,6 +30,7 @@ interface Translations {
   sarjanaTI: string;
   semester: string;
   achievements: string;
+  tools: string;
 }
 
 interface TranslationDict {
@@ -55,6 +56,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       aboutContent2: 'Pengalaman saya mencakup berbagai proyek pengembangan aplikasi, termasuk pembuatan Todolist APK menggunakan JavaScript dan ApliKasir dengan C#. Dalam proyek-proyek tersebut, saya berkontribusi sebagai backend developer dan berhasil mengimplementasikan fitur-fitur seperti TaskController dan UIEdit. Pengetahuan teknis saya diperkuat melalui program student exchange di Telkom University, di mana saya memperdalam pemahaman tentang pengembangan perangkat lunak, keamanan sistem, dan manajemen database. Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional.',
       aboutContent3: 'Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak',
       keahlian: 'Keahlian',
+      tools: 'Alat dan Teknologi',
       projectTerbaru: 'Project Terbaru',
       terbaru: 'Terbaru',
       terlama: 'Terlama',
@@ -73,6 +75,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       aboutContent2: 'My experience spans various app development projects, including the creation of Todolist APK using JavaScript and ApliKasir with C#. In these projects, I contributed as a backend developer and successfully implemented features such as TaskController and UIEdit. My technical knowledge was strengthened through a student exchange program at Telkom University, where I deepened my understanding of software development, system security, and database management. My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams.',
       aboutContent3: 'I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. Contact me if you are interested in further collaboration on software development.',
       keahlian: 'Skills',
+      tools: 'Tools and Technologies',
       projectTerbaru: 'Latest Projects',
       terbaru: 'Newest',
       terlama: 'Oldest',
@@ -147,6 +150,9 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     // Update education section
     document.querySelector('#education .section-title')!.textContent = t.pendidikan;
 
+    // Update Tools section
+    document.querySelector('#tools .section-title')!.textContent = t.tools;
+
     const degree = document.querySelector('.degree');
     if (degree) {
       degree.textContent = t.sarjanaTI;
@@ -209,6 +215,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   // Add new properties for responsive layout
   @ViewChild('leftPanel', { static: true }) leftPanel!: ElementRef;
   @ViewChild('rightPanel', { static: true }) rightPanel!: ElementRef;
+  @ViewChildren('skillBar') skillBars!: QueryList<ElementRef>;
 
   private scrollHandler: (() => void) | null = null;
 
@@ -222,11 +229,29 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     // Initialize responsive layout handlers
     this.initializeResponsiveLayout();
+    this.initSkillBarAnimations();
 
     // Handle window resize
     window.addEventListener('resize', () => {
       this.handleResponsiveLayout();
     });
+  }
+
+   // Add this method to your class
+   initSkillBarAnimations() {
+    if (this.skillBars) {
+      setTimeout(() => {
+        this.skillBars.forEach(bar => {
+          const element = bar.nativeElement;
+          element.addEventListener('click', () => {
+            element.classList.add('animate-pulse');
+            setTimeout(() => {
+              element.classList.remove('animate-pulse');
+            }, 800);
+          });
+        });
+      }, 500);
+    }
   }
 
   private initializeResponsiveLayout() {

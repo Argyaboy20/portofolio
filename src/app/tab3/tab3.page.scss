@@ -1,13 +1,13 @@
-// Variables
-$primary-color: #4a90e2;
-$secondary-color: #50e3c2;
-$bg-color-dark: #1a1a1a;
-$bg-color-darker: #121212;
-$section-bg: #242424;
-$text-color-light: #ffffff;
-$text-color-muted: #b3b3b3;
-$gradient-start: #4a90e2;
-$gradient-end: #50e3c2;
+// Variables - Warna yang lebih gelap namun tetap futuristik
+$primary-color: #4d6aff;      // Biru yang lebih cerah
+$secondary-color: #00e5ff;    // Cyan
+$accent-color: #9c4dff;       // Ungu yang lebih cerah
+$bg-color-dark: #1a1a2e;      // Background gelap kebiruan
+$card-bg: rgba(26, 27, 54, 0.85); // Card background gelap
+$text-color-light: #f0f0f0;   // Text terang
+$text-color-muted: #b8b8d4;   // Text muted yang sesuai
+$gradient-start: #4d6aff;
+$gradient-end: #00e5ff;
 
 /* General Styles */
 .blog-title {
@@ -15,7 +15,6 @@ $gradient-end: #50e3c2;
     display: inline-block;
 
     &:hover {
-
         .primary-text,
         .secondary-text {
             opacity: 0.8;
@@ -37,9 +36,14 @@ $gradient-end: #50e3c2;
 
 /* Toolbar Styles */
 ion-toolbar {
+    --background: #{$bg-color-dark};
+    --border-color: transparent;
+    --color: #{$text-color-light};
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    
     ion-buttons {
         ion-button {
-            --color: #{$primary-color};
+            --color: #{$secondary-color};
             font-weight: 500;
             position: relative;
             overflow: hidden;
@@ -61,7 +65,7 @@ ion-toolbar {
             }
 
             &:hover {
-                --color: #{$secondary-color};
+                --color: #{$accent-color};
                 animation: buttonHover 0.6s ease;
 
                 &::before {
@@ -97,7 +101,6 @@ ion-toolbar {
         opacity: 0;
         transform: translateY(-10px);
     }
-
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -108,11 +111,9 @@ ion-toolbar {
     0% {
         transform: translateY(0);
     }
-
     50% {
         transform: translateY(-3px);
     }
-
     100% {
         transform: translateY(0);
     }
@@ -120,51 +121,177 @@ ion-toolbar {
 
 /* Content Styles */
 ion-content {
-    --background: #{$bg-color-dark};
+    --background: linear-gradient(135deg, #{$bg-color-dark}, #16213e);
+    
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://api.placeholder.com/400/320') no-repeat;
+        background-size: cover;
+        opacity: 0.05;
+        z-index: -1;
+    }
 }
 
 /* Portfolio Container */
 .portfolio-container {
     padding: 20px;
-    background: $bg-color-dark;
     color: $text-color-light;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Section Title Styles */
 .section-title {
-    background: $section-bg;
+    background: linear-gradient(135deg, $primary-color, $accent-color);
     padding: 15px 25px;
     border-radius: 10px;
-    color: $text-color-light;
+    color: white;
     margin: 40px 0 20px;
     font-size: 1.8rem;
-    border-left: 5px solid $primary-color;
     text-transform: uppercase;
     letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Hero Section */
 .hero-section {
     text-align: center;
     padding: 60px 20px;
-    background: linear-gradient(135deg, rgba($gradient-start, 0.1), rgba($gradient-end, 0.1));
+    background: linear-gradient(135deg, rgba($primary-color, 0.9), rgba($secondary-color, 0.7));
     border-radius: 20px;
-    color: $text-color-light;
+    color: white;
     margin-bottom: 40px;
-    border: 1px solid rgba($primary-color, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    position: relative;
+    overflow: hidden;
+    
+    // Decoration elements
+    &::before, &::after {
+        content: '';
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+    
+    &::before {
+        width: 300px;
+        height: 300px;
+        top: -150px;
+        right: -100px;
+    }
+    
+    &::after {
+        width: 200px;
+        height: 200px;
+        bottom: -100px;
+        left: -50px;
+    }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
         margin-bottom: 15px;
-        background: linear-gradient(135deg, $gradient-start, $gradient-end);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     p {
         font-size: 1.2rem;
-        color: $text-color-muted;
+        color: rgba(255, 255, 255, 0.9);
+    }
+}
+
+/* Gallery Section */
+.gallery-section {
+    margin: 30px 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+        
+        .gallery-caption {
+            opacity: 1;
+        }
+    }
+    
+    img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+    }
+    
+    .gallery-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        color: white;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+}
+
+.gallery-modal {
+    --background: rgba(13, 17, 40, 0.95);
+    
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 20px;
+        
+        img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 10px;
+        }
+        
+        .image-caption {
+            margin-top: 20px;
+            color: white;
+            text-align: center;
+            max-width: 90%;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 }
 
@@ -177,22 +304,42 @@ ion-content {
 }
 
 .skill-card {
-    background: $section-bg;
+    background: $card-bg;
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     text-align: center;
-    border: 1px solid rgba($primary-color, 0.1);
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    
+    // Decoration element
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        left: -50px;
+        width: 100px;
+        height: 100px;
+        background: linear-gradient(135deg, $primary-color, $secondary-color);
+        border-radius: 50%;
+        opacity: 0.15;
+        transition: all 0.3s ease;
+    }
 
     &:hover {
         transform: translateY(-5px);
-        border-color: rgba($primary-color, 0.3);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        
+        &::before {
+            transform: scale(3);
+            opacity: 0.1;
+        }
     }
 
     ion-icon {
         font-size: 2.5rem;
-        color: $primary-color;
+        color: $secondary-color;
         margin-bottom: 15px;
     }
 
@@ -203,7 +350,7 @@ ion-content {
 
     .skill-level {
         height: 8px;
-        background: rgba($bg-color-darker, 0.5);
+        background: rgba(255, 255, 255, 0.1);
         border-radius: 4px;
         overflow: hidden;
 
@@ -211,42 +358,7 @@ ion-content {
             height: 100%;
             background: linear-gradient(135deg, $gradient-start, $gradient-end);
             border-radius: 4px;
-            transition: width 0.3s ease;
+            transition: width 0.8s ease-in-out;
         }
-    }
-}
-
-/* Contact Section */
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px 0;
-}
-
-.contact-card {
-    background: $section-bg;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    text-decoration: none;
-    color: $text-color-light;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    border: 1px solid rgba($primary-color, 0.1);
-
-    &:hover {
-        transform: translateY(-5px);
-        border-color: rgba($primary-color, 0.3);
-    }
-
-    ion-icon {
-        font-size: 2.5rem;
-        color: $primary-color;
-        margin-bottom: 10px;
-    }
-
-    span {
-        color: $text-color-muted;
     }
 }

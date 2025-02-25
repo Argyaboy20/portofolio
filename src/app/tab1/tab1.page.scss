@@ -538,33 +538,206 @@ ion-content {
 /* Styling untuk skills */
 .skill-bar {
     margin-bottom: 1.5rem;
+
+    /* Add cursor pointer to indicate interactivity */
+    .skill-progress {
+        cursor: pointer;
+        position: relative;
+
+        /* Add subtle hover effect */
+        &:hover {
+            .progress-fill {
+                box-shadow: 0 0 10px rgba(74, 144, 226, 0.6);
+                transform: scaleY(1.2);
+
+                /* Bouncing animation for the percentage text */
+                span {
+                    animation: bounce 0.6s ease infinite alternate;
+                }
+            }
+        }
+
+        /* Active state (when clicked) */
+        &:active {
+            .progress-fill {
+                animation: pulse 0.8s ease-in-out;
+                box-shadow: 0 0 15px rgba(74, 144, 226, 0.8), 0 0 5px rgba(80, 227, 194, 0.8);
+            }
+        }
+    }
+
+    .progress-fill {
+        height: 100%;
+        border-radius: 5px;
+        background: linear-gradient(to right, #4a90e2, #50e3c2);
+        position: relative;
+        transition: width 0.5s ease-in-out;
+
+        /* Enhance the appearance of the percentage */
+        span {
+            transition: all 0.3s ease;
+            padding: 2px 6px;
+            background: linear-gradient(to right, $primary-color, $secondary-color);
+            color: $text-color-light;
+            border-radius: 10px;
+            font-weight: bold;
+            top: -25px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    }
 }
 
-.skill-name {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+/* Animation keyframes for skill bar effects */
+@keyframes pulse {
+    0% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(1.4);
+    }
+
+    100% {
+        transform: scaleY(1);
+    }
 }
 
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Add a ripple effect when clicked */
 .skill-progress {
+    width: 100%;
     height: 10px;
-    background: #e0e0e0;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(to right, $primary-color, $secondary-color);
+    background-color: #f5f7fa;
     border-radius: 5px;
     position: relative;
+    margin-top: 8px;
+    overflow: hidden;
 
-    span {
+    &::after {
+        content: '';
         position: absolute;
-        right: 5px;
-        top: -20px;
-        font-size: 0.8rem;
-        color: $bg-color-dark;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+    }
+
+    &:active::after {
+        animation: ripple 0.6s ease-out;
+    }
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.5;
+    }
+
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+/* Percentage text */
+.progress-fill span {
+    position: absolute;
+    right: 5px;
+    top: -25px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  /* For the different skill levels */
+  [data-progress="85%"] .progress-fill { width: 85%; }
+  [data-progress="78%"] .progress-fill { width: 78%; }
+  [data-progress="70%"] .progress-fill { width: 70%; }
+  [data-progress="80%"] .progress-fill { width: 80%; }
+  [data-progress="75%"] .progress-fill { width: 75%; }
+
+/* Tools section styling */
+.tools-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.2rem 0.8rem;
+    background: linear-gradient(145deg, #ffffff, #f5f7fa);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(74, 144, 226, 0.1);
+
+        .tool-icon {
+            background: linear-gradient(135deg, $primary-color, $secondary-color);
+
+            ion-icon {
+                color: white;
+            }
+        }
+    }
+}
+
+.tool-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74, 144, 226, 0.1);
+    margin-bottom: 0.8rem;
+    transition: all 0.3s ease;
+
+    ion-icon {
+        font-size: 1.8rem;
+        color: $primary-color;
+        transition: color 0.3s ease;
+    }
+}
+
+.tool-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: $bg-color-dark;
+    margin-bottom: 0.3rem;
+}
+
+.tool-level {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    background: rgba(80, 227, 194, 0.1);
+    color: $primary-color;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: rgba(80, 227, 194, 0.2);
     }
 }
 
@@ -812,6 +985,10 @@ footer {
 }
 
 @media (max-width: 480px) {
+    .tools-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
     .blog-title {
         font-size: 0.8rem;
         margin-left: -12.3rem;
@@ -952,6 +1129,33 @@ footer {
         .achievement-badge {
             padding: 0.3rem 0.8rem;
         }
+    }
+
+    .tools-container {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 1rem;
+    }
+
+    .tool-item {
+        padding: 1rem 0.6rem;
+    }
+
+    .tool-icon {
+        width: 40px;
+        height: 40px;
+
+        ion-icon {
+            font-size: 1.5rem;
+        }
+    }
+
+    .tool-name {
+        font-size: 0.8rem;
+    }
+
+    .tool-level {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.5rem;
     }
 }
 

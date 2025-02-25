@@ -199,6 +199,81 @@ ion-toolbar {
     }
 }
 
+/* Tools Section  */
+.tools-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.tools-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 10px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    padding: 20px 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    width: 140px;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+
+        .tool-icon {
+            background: linear-gradient(135deg, $gradient-start, $gradient-end);
+
+            ion-icon {
+                color: white;
+            }
+        }
+    }
+}
+
+.tool-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #f5f7fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+
+    ion-icon {
+        font-size: 30px;
+        color: $primary-color;
+        transition: color 0.3s ease;
+    }
+}
+
+.tool-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: $text-color-dark;
+    margin-bottom: 8px;
+}
+
+.tool-description {
+    font-size: 0.85rem;
+    color: lighten($text-color-dark, 30%);
+    line-height: 1.4;
+}
+
+
 /* CTA Section */
 .cta-section {
     margin-top: 40px;

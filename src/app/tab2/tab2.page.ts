@@ -6,12 +6,19 @@ interface ProjectImage {
   caption: string;
 }
 
+interface DevelopmentTool {
+  name: string;
+  description: string;
+  icon: string;
+}
+
 interface Translations {
   title: string;
   readyToExperience: string;
   tryOutMessage: string;
-  launchWebsite: string;  
+  launchWebsite: string;
   launchAndroid: string;
+  toolsTitle: string;
   imageCaptions: {
     [key: string]: string;
   };
@@ -35,8 +42,9 @@ export class Tab2Page {
       title: 'Pertanian Mobile App',
       readyToExperience: 'Siap Mencobanya?',
       tryOutMessage: 'Coba project luar biasa ini sekarang!',
-      launchWebsite: 'Buka Website',  // Updated
-      launchAndroid: 'Unduh Aplikasi Android',  // Added
+      launchWebsite: 'Buka Website',
+      launchAndroid: 'Unduh Aplikasi Android',
+      toolsTitle: 'Alat alat Pengembangan',
       imageCaptions: {
         'Tampilan Halaman Depan': 'Tampilan Halaman Depan',
         'Tampilan Menu Daftar': 'Tampilan Menu Daftar',
@@ -53,8 +61,9 @@ export class Tab2Page {
       title: 'Pertanian Mobile App',
       readyToExperience: 'Ready to Experience It?',
       tryOutMessage: 'Try out this awesome project now!',
-      launchWebsite: 'Open Website',  // Updated
-      launchAndroid: 'Download Android App',  // Added
+      launchWebsite: 'Open Website',
+      launchAndroid: 'Download Android App',
+      toolsTitle: 'Development Tools',
       imageCaptions: {
         'Tampilan Halaman Depan': 'Home Page View',
         'Tampilan Menu Daftar': 'Registration Menu View',
@@ -117,6 +126,34 @@ export class Tab2Page {
     }
   ];
 
+  developmentTools: DevelopmentTool[] = [
+    {
+      name: 'HTML',
+      description: this.currentLanguage === 'id' ? 'Struktur dasar aplikasi' : 'Basic structure of the application',
+      icon: 'logo-html5'
+    },
+    {
+      name: 'JavaScript',
+      description: this.currentLanguage === 'id' ? 'Interaktivitas dan dinamisme' : 'Interactivity and dynamics',
+      icon: 'logo-javascript'
+    },
+    {
+      name: 'UI/UX Design',
+      description: this.currentLanguage === 'id' ? 'Desain antarmuka pengguna' : 'User interface design',
+      icon: 'brush'
+    },
+    {
+      name: 'MySQL',
+      description: this.currentLanguage === 'id' ? 'Database untuk penyimpanan data' : 'Database for data storage',
+      icon: 'server'
+    },
+    {
+      name: 'Ionic Framework',
+      description: this.currentLanguage === 'id' ? 'Framework pengembangan aplikasi hybrid' : 'Hybrid app development framework',
+      icon: 'phone-portrait'
+    }
+  ];
+
   projectUrl: string = 'https://pertanian-mobile-c1537.web.app';
   androidUrl: string = 'https://drive.google.com/file/d/184bu_ml32G58AOZ6CUdQtvhEFWzsOv2j/view?usp=drive_link';
   isImageModalOpen = false;
@@ -142,14 +179,14 @@ export class Tab2Page {
 
   updateContent() {
     const t = this.translations[this.currentLanguage];
-    
+
     // Update section title
     document.querySelector('.section-title')!.textContent = t.title;
-    
+
     // Update CTA section
     document.querySelector('.cta-content h3')!.textContent = t.readyToExperience;
     document.querySelector('.cta-content p')!.textContent = t.tryOutMessage;
-    
+
     const websiteButton = document.querySelector('.website-btn');
     if (websiteButton) {
       websiteButton.textContent = t.launchWebsite;
@@ -170,6 +207,27 @@ export class Tab2Page {
         caption: t.imageCaptions[this.selectedImage.originalCaption] || this.selectedImage.originalCaption
       };
     }
+
+    // Update tool descriptions when language changes
+    this.developmentTools = this.developmentTools.map(tool => {
+      const updatedDescription = tool.name === 'HTML' ?
+        (this.currentLanguage === 'id' ? 'Struktur dasar aplikasi' : 'Basic structure of the application') :
+        tool.name === 'JavaScript' ?
+          (this.currentLanguage === 'id' ? 'Interaktivitas dan dinamisme' : 'Interactivity and dynamics') :
+          tool.name === 'UI/UX Design' ?
+            (this.currentLanguage === 'id' ? 'Desain antarmuka pengguna' : 'User interface design') :
+            tool.name === 'MySQL' ?
+              (this.currentLanguage === 'id' ? 'Database untuk penyimpanan data' : 'Database for data storage') :
+              tool.name === 'Ionic Framework' ?
+                (this.currentLanguage === 'id' ? 'Framework pengembangan aplikasi hybrid' : 'Hybrid app development framework') :
+                tool.description;
+
+      return {
+        ...tool,
+        description: updatedDescription
+      };
+    });
+
   }
 
   openImageModal(image: ProjectImage) {

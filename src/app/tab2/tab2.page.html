@@ -30,6 +30,21 @@
       </div>
     </div>
 
+    <!-- Tools Section -->
+    <div class="tools-section">
+      <h2 class="section-title">{{ translations[currentLanguage].toolsTitle }}</h2>
+      <div class="tools-container">
+        <div class="tool-item" *ngFor="let tool of developmentTools">
+          <div class="tool-icon">
+            <ion-icon [name]="tool.icon"></ion-icon>
+          </div>
+          <div class="tool-name">{{tool.name}}</div>
+          <div class="tool-description">{{tool.description}}</div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- CTA Section -->
     <div class="cta-section">
       <div class="cta-content">
@@ -49,17 +64,14 @@
 </ion-content>
 
 <!-- Image Modal -->
-<ion-modal 
-    [isOpen]="isImageModalOpen" 
-    (didDismiss)="closeImageModal()" 
-    class="image-preview-modal"
-    [backdropDismiss]="true">
-    <ng-template>
-        <ion-content class="modal-content" (click)="closeImageModal()">
-            <div class="modal-image-container">
-                <img [src]="selectedImage?.url" [alt]="selectedImage?.caption" class="full-size-image">
-                <div class="image-caption" *ngIf="selectedImage?.caption">{{selectedImage?.caption}}</div>
-            </div>
-        </ion-content>
-    </ng-template>
+<ion-modal [isOpen]="isImageModalOpen" (didDismiss)="closeImageModal()" class="image-preview-modal"
+  [backdropDismiss]="true">
+  <ng-template>
+    <ion-content class="modal-content" (click)="closeImageModal()">
+      <div class="modal-image-container">
+        <img [src]="selectedImage?.url" [alt]="selectedImage?.caption" class="full-size-image">
+        <div class="image-caption" *ngIf="selectedImage?.caption">{{selectedImage?.caption}}</div>
+      </div>
+    </ion-content>
+  </ng-template>
 </ion-modal>

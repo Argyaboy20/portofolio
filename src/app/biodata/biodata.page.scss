@@ -32,7 +32,7 @@ ion-toolbar {
             transition: all 0.3s ease;
             animation: buttonSlideIn 0.5s ease forwards;
 
-            // Add pseudo-element for hover effect
+            // Optimized pseudo-element for hover effect
             &::before {
                 content: '';
                 position: absolute;
@@ -48,7 +48,6 @@ ion-toolbar {
 
             &:hover {
                 --color: #{$secondary-color};
-                animation: buttonHover 0.6s ease;
 
                 &::before {
                     transform: scaleX(1);
@@ -107,6 +106,20 @@ ion-toolbar {
 ion-content {
     --background: #f5f7fa;
     font-family: 'Roboto', sans-serif;
+    --padding-top: 0;
+    --padding-bottom: 20px;
+    --offset-bottom: auto !important;
+    --overflow: auto;
+    overflow: auto;
+}
+
+ion-header {
+    z-index: 100;
+    position: relative;
+
+    ion-toolbar {
+        --padding-end: 15px;
+    }
 }
 
 .primary-text {
@@ -122,8 +135,14 @@ ion-content {
 }
 
 .biodata-content {
-    --background: #f9f9f9;
-    font-family: 'Roboto', sans-serif;
+    padding-top: var(--ion-safe-area-top, 0);
+    padding-bottom: var(--ion-safe-area-bottom, 0);
+    --offset-top: 0 !important;
+
+    .scroll-content {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
 }
 
 /* Hero Section dengan Background Animasi */
@@ -135,18 +154,41 @@ ion-content {
     justify-content: center;
     position: relative;
     overflow: hidden;
-}
+    will-change: transform;
+    /* Hint for browser optimization */
 
-.hero-content {
-    text-align: center;
-    z-index: 2;
-    padding: 2rem;
+    .hero-content {
+        text-align: center;
+        z-index: 2;
+        padding: 2rem;
+        /* Pre-animate the hero content to avoid lag */
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .hero-title {
+        font-size: 3rem;
+        color: $text-color-light;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 600px;
+        margin: 0 auto;
+    }
 }
 
 .animated-circle {
     position: absolute;
     border-radius: 50%;
     opacity: 0.2;
+    will-change: transform;
+    /* Optimize for animation */
+    backface-visibility: hidden;
+    /* Reduce composite layers */
 }
 
 .circle-1 {
@@ -177,24 +219,15 @@ ion-content {
 }
 
 @keyframes float {
-    0% {
-        transform: translate(0, 0) rotate(0deg);
+
+    0%,
+    100% {
+        transform: translate(0, 0);
     }
 
     50% {
-        transform: translate(15px, 15px) rotate(10deg);
+        transform: translate(15px, 15px);
     }
-
-    100% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-}
-
-.hero-title {
-    font-size: 3rem;
-    color: $text-color-light;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .gradient-text {
@@ -205,16 +238,11 @@ ion-content {
     font-weight: 700;
 }
 
-.hero-subtitle {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
 /* Section Styling */
 section {
     padding: 4rem 2rem;
+    contain: content;
+    /* Improve scroll performance */
 }
 
 .section-title {
@@ -405,7 +433,7 @@ section {
     }
 }
 
-/* Quick Facts Section */
+/* Quick Facts Section - streamlined */
 .facts-section {
     background: linear-gradient(135deg, #2c3e50, #4a90e2);
     color: $text-color-light;
@@ -459,39 +487,39 @@ section {
 .quotes-section {
     background-color: $bg-color-light;
     padding: 6rem 2rem;
-}
 
-.quote-container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-}
+    .quote-container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+    }
 
-.quote-icon {
-    font-size: 4rem;
-    color: rgba(74, 144, 226, 0.1);
-    position: absolute;
-    top: -2rem;
-    left: 50%;
-    transform: translateX(-50%);
-}
+    .quote-icon {
+        font-size: 4rem;
+        color: rgba(74, 144, 226, 0.1);
+        position: absolute;
+        top: -2rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 
-blockquote {
-    font-size: 1.8rem;
-    color: $bg-color-dark;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0 2rem;
-    font-style: italic;
-}
+    blockquote {
+        font-size: 1.8rem;
+        color: $bg-color-dark;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0 2rem;
+        font-style: italic;
+    }
 
-cite {
-    display: block;
-    color: $primary-color;
-    font-style: normal;
-    margin-top: 1.5rem;
-    font-weight: 500;
+    cite {
+        display: block;
+        color: $primary-color;
+        font-style: normal;
+        margin-top: 1.5rem;
+        font-weight: 500;
+    }
 }
 
 /* Gallery Section */
@@ -519,6 +547,7 @@ cite {
         height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
+        will-change: transform;
     }
 
     &:hover {
@@ -874,7 +903,7 @@ cite {
 
     &:hover {
         .awards-preview {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .awards-overlay {

@@ -276,6 +276,92 @@ ion-toolbar {
     }
 }
 
+// Dev Tools Section
+.dev-tools-section {
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(45deg, $neon-blue, $neon-purple);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 10px rgba($neon-blue, 0.3);
+    }
+}
+
+.tools-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+}
+
+.tool-card {
+    background: rgba($cosmic-grey, 0.3);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba($neon-blue, 0.1);
+    
+    &:hover {
+        transform: translateY(-5px);
+        background: rgba($cosmic-grey, 0.5);
+        box-shadow: 0 10px 30px rgba($neon-purple, 0.2);
+        
+        .tool-icon {
+            transform: scale(1.1);
+        }
+    }
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba($neon-blue, 0.05), rgba($neon-purple, 0.05));
+        z-index: -1;
+    }
+    
+    h3 {
+        color: $neon-blue;
+        margin: 1rem 0;
+        font-size: 1.3rem;
+    }
+    
+    p {
+        color: rgba($star-white, 0.7);
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+}
+
+.tool-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba($neon-purple, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    border: 2px solid $neon-purple;
+    
+    ion-icon {
+        font-size: 30px;
+        color: $neon-blue;
+    }
+}
+
 // Modal Styles
 .project-modal {
     --width: 90%;
@@ -374,5 +460,9 @@ ion-toolbar {
     h2 {
       font-size: 1.2rem;
     }
+  }
+  
+  .tools-container {
+    grid-template-columns: 1fr;
   }
 }

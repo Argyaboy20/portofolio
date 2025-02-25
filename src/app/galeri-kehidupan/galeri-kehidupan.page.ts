@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, Platform } from '@ionic/angular';
 
 interface PhotoItem {
   id: number;
   category: 'cerita-hidup' | 'pmm-life';
   imageUrl: string;
+  thumbnailUrl?: string;
   title: string;
   description: string;
   date: string;
+  loaded?: boolean;
 }
 
 @Component({
@@ -17,10 +19,13 @@ interface PhotoItem {
   styleUrls: ['./galeri-kehidupan.page.scss'],
   standalone: false,
 })
-export class GaleriKehidupanPage implements OnInit {
+export class GaleriKehidupanPage implements OnInit, OnDestroy {
   selectedCategory: 'cerita-hidup' | 'pmm-life' = 'cerita-hidup';
   selectedPhoto: PhotoItem | null = null;
-  
+  audio: HTMLAudioElement;
+  isPlaying: boolean = false;
+  filteredPhotos: PhotoItem[] = [];
+
   photos: PhotoItem[] = [
     {
       id: 1,
@@ -65,30 +70,117 @@ export class GaleriKehidupanPage implements OnInit {
     {
       id: 3,
       category: 'pmm-life',
-      imageUrl: 'assets/images/pmm1.jpg',
-      title: 'PMM Adventure',
-      description: 'Petualangan seru bersama tim PMM.',
-      date: '1 Feb 2024'
+      imageUrl: 'assets/pmm4.jpg',
+      title: 'PMM Beginning',
+      description: 'Foto bareng pertama kali sewaktu PMM.',
+      date: '17 Feb 2024'
     },
     {
       id: 4,
       category: 'pmm-life',
-      imageUrl: 'assets/images/pmm2.jpg',
-      title: 'PMM Project',
-      description: 'Proyek inovatif yang mengubah komunitas.',
-      date: '10 Feb 2024'
-    }
+      imageUrl: 'assets/mnB.jpg',
+      title: 'PMM life',
+      description: 'Foto bareng grup MN B, Sasalimpetan.',
+      date: '19 Feb 2024'
+    },
+    {
+      id: 8,
+      category: 'pmm-life',
+      imageUrl: 'assets/gedungSate.JPG',
+      title: 'Sampurasun Bandung',
+      description: 'Modnus pertama ke Gedung Sate',
+      date: '24 Feb 2024'
+    },
+    {
+      id: 9,
+      category: 'pmm-life',
+      imageUrl: 'assets/modnus2.JPG',
+      title: 'TFT 2024',
+      description: 'Modnus ketika mengikuti TFT 2024 bertajuk belajar bahasa isyarat',
+      date: '2 Maret 2024'
+    },
+    {
+      id: 10,
+      category: 'pmm-life',
+      imageUrl: 'assets/modnus3.jpg',
+      title: 'Kaulinan Barudak',
+      description: 'Bermain permainan tradisional bersama teman teman.',
+      date: '8 Maret 2024'
+    },
+    {
+      id: 11,
+      category: 'pmm-life',
+      imageUrl: 'assets/modnus4.jpg',
+      title: 'Workshop alat musik sunda',
+      description: 'Bermain suling sunda.',
+      date: '23 Maret 2024'
+    },
   ];
 
-  constructor() { }
+  constructor(private platform: Platform, private zone: NgZone) {
+    this.audio = new Audio('assets/audio/photograph.mp3');
+    this.audio.loop = true;
 
-  ngOnInit() { }
+    // Preload audio
+    this.audio.preload = 'metadata';
+  }
 
-  getFilteredPhotos() {
-    return this.photos.filter(photo => photo.category === this.selectedCategory);
+  togglePlay() {
+    if (this.isPlaying) {
+      this.audio.pause();
+    } else {
+      // Use promise to handle play() properly
+      const playPromise = this.audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log('Audio playback prevented: ', error);
+        });
+      }
+    }
+    this.isPlaying = !this.isPlaying;
+  }
+
+  ngOnInit() {
+    // Initialize filtered photos immediately
+    this.updateFilteredPhotos();
+
+    // Defer image loading for better initial performance
+    setTimeout(() => {
+      this.preloadImages();
+    }, 100);
+  }
+
+  ngOnDestroy() {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio.currentTime = 0;
+    }
+  }
+
+  updateFilteredPhotos() {
+    // Use NgZone to ensure UI updates properly
+    this.zone.run(() => {
+      this.filteredPhotos = this.photos.filter(photo => photo.category === this.selectedCategory);
+    });
   }
 
   selectPhoto(photo: PhotoItem) {
     this.selectedPhoto = photo;
+  }
+
+  // Preload images in background for smoother experience
+  private preloadImages() {
+    // Only preload visible category images first
+    const initialPhotos = this.filteredPhotos.slice(0, 4);
+
+    initialPhotos.forEach(photo => {
+      if (!photo.loaded) {
+        const img = new Image();
+        img.onload = () => {
+          photo.loaded = true;
+        };
+        img.src = photo.imageUrl;
+      }
+    });
   }
 }
