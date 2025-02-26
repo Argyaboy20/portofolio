@@ -1,0 +1,334 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      <a routerLink="/tabs/tab1" class="blog-title">
+        <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
+      </a>
+    </ion-title>
+    <ion-buttons slot="end" class="language-button">
+      <ion-button (click)="toggleLanguage()">
+        {{ currentLanguage === 'id' ? 'EN' : 'ID' }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" class="biodata-button">
+      <ion-button (click)="navigateToBiodata()">Biodata</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="split-screen">
+  <!-- Left Panel - Fixed Content -->
+  <div class="left-panel" #leftPanel>
+
+    <div class="bg-elements">
+      <div class="bg-shape"></div>
+      <div class="bg-shape"></div>
+      <div class="bg-shape"></div>
+      <div class="bg-shape"></div>
+    </div>
+
+    <div class="profile-container">
+      <div class="profile-image" (click)="openProfileImageModal()">
+        <ion-img src="/assets/foto.JPG" alt="Foto Profil"></ion-img>
+      </div>
+      <h1 class="name">Maulana Farras</h1>
+      <p class="title">Web Developer | Fullstack Developer |</p>
+      <p class="title1">Ionic Developer | UI/UX Designer </p>
+
+      <div class="contact-info">
+        <h3>Kontak Pribadi</h3>
+        <div class="social-links">
+          <a href="mailto:maulanafarras030520@gmail.com" target="_email">
+            <ion-icon name="mail-outline"></ion-icon>
+          </a>
+          <a href="https://instagram.com/holla.arrr" target="_instagram">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+          <a href="https://linkedin.com/in/maulanafarras" target="_linkedin">
+            <ion-icon name="logo-linkedin"></ion-icon>
+          </a>
+          <a href="https://github.com/Argyaboy20" target="_github">
+            <ion-icon name="logo-github"></ion-icon>
+          </a>
+          <a href="https://discord.gg/argyaboy" target="_discord">
+            <ion-icon name="logo-discord"></ion-icon>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel - Scrollable Content -->
+  <div class="right-panel" #rightPanel>
+    <!-- About Section -->
+    <section id="about" class="section">
+      <h2 class="section-title">Profil Singkat</h2>
+      <div class="section-content">
+        <p>
+          Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi
+          dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan Ionic Framework yang dipadukan
+          dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.73 yang saya raih
+          selama masa perkuliahan di Institut Teknologi dan Bisnis Indonesia, saya membuktikan komitmen dan dedikasi
+          yang kuat dalam bidang akademik.
+        </p>
+        <p>
+          Pengalaman saya mencakup berbagai proyek pengembangan aplikasi, termasuk pembuatan Todolist APK menggunakan
+          JavaScript dan ApliKasir dengan C#. Dalam proyek-proyek tersebut, saya berkontribusi sebagai backend developer
+          dan berhasil mengimplementasikan fitur-fitur seperti TaskController dan UIEdit. Pengetahuan teknis saya
+          diperkuat melalui program student exchange di Telkom University, di mana saya memperdalam pemahaman tentang
+          pengembangan perangkat lunak, keamanan sistem, dan manajemen database. Kemampuan bahasa Inggris saya yang
+          berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim
+          internasional.
+        </p>
+        <p>
+          Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi
+          yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal
+          pengembangan perangkat lunak
+        </p>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+      <h2 class="section-title">Pendidikan</h2>
+      <div class="section-content">
+        <div class="education-timeline">
+          <div class="education-item">
+            <div class="education-icon">
+              <ion-icon name="school-outline"></ion-icon>
+            </div>
+            <div class="education-details">
+              <h3 class="school-name">Institut Teknologi dan Bisnis Indonesia</h3>
+              <p class="degree">Rekayasa Perangkat Lunak</p>
+              <p class="duration">2022 - 2026</p>
+              <div class="education-stats">
+                <div class="stat-item">
+                  <span class="stat-label">IPK</span>
+                  <span class="stat-value">3.73</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Semester</span>
+                  <span class="stat-value">6</span>
+                </div>
+              </div>
+              <div class="achievements">
+                <div class="achievement-badge">
+                  <ion-icon name="trophy-outline"></ion-icon>
+                  <span>Pertukaran Mahasiswa Merdeka Batch 4</span>
+                </div>
+                <div class="achievement-badge">
+                  <ion-icon name="ribbon-outline"></ion-icon>
+                  <span>MSIB Batch 8</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <h2 class="section-title">Keahlian</h2>
+      <div class="section-content">
+
+        <div class="skill-bar">
+          <div class="skill-name">HTML/CSS</div>
+          <div class="skill-progress" data-progress="85%">
+            <div class="progress-fill">
+              <span>85%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-bar">
+          <div class="skill-name">JavaScript</div>
+          <div class="skill-progress" data-progress="78%">
+            <div class="progress-fill">
+              <span>78%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-bar">
+          <div class="skill-name">Angular</div>
+          <div class="skill-progress" data-progress="70%">
+            <div class="progress-fill">
+              <span>70%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill-bar">
+          <div class="skill-name">UI/UX Design</div>
+          <div class="skill-progress" data-progress="80%">
+            <div class="progress-fill">
+              <span>80%</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="skill-bar">
+          <div class="skill-name">Ionic Framework</div>
+          <div class="skill-progress" data-progress="75%">
+            <div class="progress-fill">
+              <span>75%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools section -->
+    <section id="tools" class="section">
+      <h2 class="section-title">Alat dan Teknologi</h2>
+      <div class="section-content">
+        <div class="tools-container">
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="logo-github"></ion-icon>
+            </div>
+            <span class="tool-name">GitHub</span>
+            <div class="tool-level">Intermediate</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="code-slash-outline"></ion-icon>
+            </div>
+            <span class="tool-name">VS Code</span>
+            <div class="tool-level">Advanced</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="terminal-outline"></ion-icon>
+            </div>
+            <span class="tool-name">NPM/Node.js</span>
+            <div class="tool-level">Intermediate</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="logo-ionic"></ion-icon>
+            </div>
+            <span class="tool-name">Ionic CLI</span>
+            <div class="tool-level">Intermediate</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="logo-angular"></ion-icon>
+            </div>
+            <span class="tool-name">Angular CLI</span>
+            <div class="tool-level">Intermediate</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="git-branch-outline"></ion-icon>
+            </div>
+            <span class="tool-name">Git</span>
+            <div class="tool-level">Intermediate</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+            </div>
+            <span class="tool-name">Capacitor</span>
+            <div class="tool-level">Intermediate</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="desktop-outline"></ion-icon>
+            </div>
+            <span class="tool-name">Chrome DevTools</span>
+            <div class="tool-level">Advanced</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="layers-outline"></ion-icon>
+            </div>
+            <span class="tool-name">Firebase</span>
+            <div class="tool-level">Basic</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Project Terbaru</h2>
+        <div class="sort-buttons">
+          <ion-button size="small" fill="clear" (click)="sortProjects('newest')">
+            <ion-icon name="arrow-down-outline" slot="start"></ion-icon>
+            Terbaru
+          </ion-button>
+          <ion-button size="small" fill="clear" (click)="sortProjects('oldest')">
+            <ion-icon name="arrow-up-outline" slot="start"></ion-icon>
+            Terlama
+          </ion-button>
+        </div>
+      </div>
+      <div class="section-content">
+        <div class="project-grid">
+
+          <div class="project-card" *ngFor="let project of projects">
+            <div class="project-image">
+              <ion-img [src]="project.image" [alt]="project.title"></ion-img>
+            </div>
+            <div class="project-info">
+              <h3>{{project.title}}</h3>
+              <span class="project-duration">{{project.duration}}</span>
+              <p>{{project.description}}</p>
+              <div class="project-links">
+                <a (click)="navigateWithAnimation(project.demoLink)" class="demo-link">Lihat Demo</a>
+                <a [href]="project.sourceLink" target="_github">Source Code</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 - Hak cipta dilindungi undang-undang, Maulana Farras</p>
+    </footer>
+  </div>
+
+  <div class="flip-card-container" [class.visible]="isFlipCardVisible">
+    <div class="flip-card" [class.flipped]="isCardFlipped">
+      <div class="card-face front">
+        <img src="/assets/foto.JPG" alt="Profile Photo">
+        <h2>Maulana Farras</h2>
+        <p>Software Engineer</p>
+        <p>Web & Mobile Developer</p>
+      </div>
+      <div class="card-face back">
+        <h2>Loading Biodata...</h2>
+        <p>Please wait while we prepare your detailed information</p>
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<!-- Profile Image Modal -->
+<ion-modal [isOpen]="isProfileImageModalOpen" (didDismiss)="closeProfileImageModal()" class="profile-image-modal"
+  [backdropDismiss]="true">
+  <ng-template>
+    <ion-content class="modal-content" (click)="closeProfileImageModal()">
+      <div class="modal-image-container">
+        <img src="/assets/foto.JPG" alt="Foto Profil" class="full-size-image">
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

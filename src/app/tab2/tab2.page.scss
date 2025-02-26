@@ -1,0 +1,756 @@
+// Existing variables
+$primary-color: #4a90e2;
+$secondary-color: #50e3c2;
+$bg-color-dark: #2c3e50;
+$bg-color-light: #f5f7fa;
+$text-color-dark: #333;
+$text-color-light: #fff;
+
+// New variables
+$gradient-start: #4a90e2;
+$gradient-end: #50e3c2;
+
+/* Gaya umum */
+.blog-title {
+    text-decoration: none;
+    display: inline-block;
+
+    &:hover {
+
+        .primary-text,
+        .secondary-text {
+            opacity: 0.8;
+        }
+    }
+}
+
+ion-toolbar {
+    ion-buttons {
+        ion-button {
+            --color: #{$primary-color};
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: buttonSlideIn 0.5s ease forwards;
+
+            // Add pseudo-element for hover effect
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(to right, $primary-color, $secondary-color);
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform 0.3s ease;
+            }
+
+            &:hover {
+                --color: #{$secondary-color};
+                animation: buttonHover 0.6s ease;
+
+                &::before {
+                    transform: scaleX(1);
+                    transform-origin: left;
+                }
+            }
+        }
+
+        &.language-button {
+            margin-right: 0;
+            position: absolute;
+            right: 1.5rem;
+
+            ion-button {
+                animation-delay: 0.2s;
+            }
+        }
+
+        &.biodata-button {
+            margin-right: 4.5rem;
+
+            ion-button {
+                animation-delay: 0.1s;
+            }
+        }
+    }
+}
+
+// Keyframes for button hover effect
+@keyframes buttonSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes buttonHover {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.primary-text {
+    color: $primary-color;
+    font-weight: 700;
+    margin-left: 10.3rem;
+}
+
+.secondary-text {
+    color: $secondary-color;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* New Gallery Styles */
+.showcase-container {
+    padding: 20px;
+    background: $bg-color-light;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, $gradient-start, $gradient-end);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.gallery-section {
+    margin-bottom: 40px;
+}
+
+.image-gallery {
+    width: 100%;
+    overflow: hidden;
+
+    .gallery-scroll {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 15px;
+        padding: 10px 15px;
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, $gradient-start, $gradient-end);
+            border-radius: 4px;
+        }
+    }
+}
+
+.gallery-item {
+    min-width: 280px;
+    border-radius: 12px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    background: white;
+
+    &:hover {
+        transform: translateY(-5px);
+
+        img {
+            transform: scale(1.05);
+        }
+    }
+
+    img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .image-caption {
+        padding: 12px;
+        font-size: 0.9rem;
+        color: $text-color-dark;
+        text-align: center;
+    }
+}
+
+/* Tools Section  */
+.tools-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.tools-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 10px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    padding: 20px 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    width: 140px;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+
+        .tool-icon {
+            background: linear-gradient(135deg, $gradient-start, $gradient-end);
+
+            ion-icon {
+                color: white;
+            }
+        }
+    }
+}
+
+.tool-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #f5f7fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+
+    ion-icon {
+        font-size: 30px;
+        color: $primary-color;
+        transition: color 0.3s ease;
+    }
+}
+
+.tool-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: $text-color-dark;
+    margin-bottom: 8px;
+}
+
+.tool-description {
+    font-size: 0.85rem;
+    color: lighten($text-color-dark, 30%);
+    line-height: 1.4;
+}
+
+
+/* CTA Section */
+.cta-section {
+    margin-top: 40px;
+    padding: 30px 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+    .cta-content {
+        text-align: center;
+        max-width: 500px;
+        margin: 0 auto;
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, $gradient-start, $gradient-end);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: lighten($text-color-dark, 20%);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.website-btn,
+.android-btn {
+    --border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+
+    ion-icon {
+        margin-left: 8px;
+    }
+}
+
+.website-btn {
+    --background: linear-gradient(135deg, #{$gradient-start}, #{$gradient-end});
+    --box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+
+    &:hover {
+        --background: linear-gradient(135deg, #{darken($gradient-start, 5%)}, #{darken($gradient-end, 5%)});
+    }
+}
+
+.android-btn {
+    --background: linear-gradient(135deg, #4CAF50, #8BC34A);
+    --box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+
+    &:hover {
+        --background: linear-gradient(135deg, #{darken(#4CAF50, 5%)}, #{darken(#8BC34A, 5%)});
+    }
+}
+
+.image-preview-modal {
+    --width: 100%;
+    --height: 100%;
+    --backdrop-opacity: 0.8;
+
+    &::part(content) {
+        --background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.modal-content {
+    --background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.modal-image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+
+    .full-size-image {
+        max-width: 90%;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(80, 227, 194, 0.3);
+    }
+
+    .image-caption {
+        margin-top: 15px;
+        color: white;
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(5px);
+    }
+}
+
+.gallery-item {
+    img {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}
+
+/* Tambahkan animasi untuk modal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-image-container {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Galaxy Fold and extremely small devices */
+@media screen and (max-width: 280px) {
+    .blog-title {
+        font-size: 0.8rem;
+        margin-left: 4px;
+    }
+
+    ion-toolbar ion-buttons {
+        ion-button {
+            font-size: 0.8rem;
+        }
+
+        &.language-button {
+            right: 0.2rem;
+        }
+
+        &.biodata-button {
+            margin-right: 2rem;
+        }
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .gallery-item {
+        min-width: 220px;
+    }
+
+    .tool-item {
+        width: 100px;
+    }
+
+    .cta-section .cta-content h3 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .blog-title {
+        font-size: 0.8rem;
+        margin-left: -11.0rem;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .gallery-section {
+        margin-bottom: 25px;
+    }
+
+    .gallery-item {
+        min-width: 240px;
+    }
+
+    .tools-container {
+        gap: 10px;
+    }
+
+    .tool-item {
+        width: 110px;
+        padding: 15px 10px;
+    }
+
+    .tool-icon {
+        width: 50px;
+        height: 50px;
+        
+        ion-icon {
+            font-size: 25px;
+        }
+    }
+
+    .cta-section {
+        padding: 20px 15px;
+    }
+
+    .cta-section .cta-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .cta-section .cta-content p {
+        font-size: 0.9rem;
+    }
+
+    .website-btn,
+    .android-btn {
+        font-size: 0.9rem;
+    }
+}
+
+/* Responsive for tablets and mobile */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .showcase-container {
+        padding: 15px;
+    }
+
+    .gallery-section {
+        margin-bottom: 30px;
+    }
+
+    .gallery-item {
+        min-width: 260px;
+
+        img {
+            height: 180px;
+        }
+    }
+
+    .tools-container {
+        padding: 15px 5px;
+        gap: 15px;
+    }
+
+    .tool-item {
+        padding: 15px 10px;
+        width: 120px;
+    }
+
+    .tool-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+    }
+
+    .tool-name {
+        font-size: 0.9rem;
+    }
+
+    .tool-description {
+        font-size: 0.8rem;
+    }
+
+    .cta-section {
+        margin-top: 30px;
+        padding: 25px 15px;
+    }
+
+    .cta-section .cta-content h3 {
+        font-size: 1.6rem;
+    }
+
+    .cta-section .cta-content p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+
+    .button-container {
+        max-width: 250px;
+    }
+
+    .image-preview-modal {
+        .modal-image-container {
+            padding: 10px;
+
+            .full-size-image {
+                max-width: 95%;
+                max-height: 70vh;
+            }
+
+            .image-caption {
+                margin-top: 10px;
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
+    }
+}
+
+/* iPad Air, iPad Mini */
+@media screen and (max-width: 820px) {
+    .blog-title {
+        font-size: 1.1rem;
+        left: 12px;
+    }
+
+    ion-toolbar ion-buttons {
+        &.language-button {
+            right: 1rem;
+        }
+
+        &.biodata-button {
+            margin-right: 3.5rem;
+        }
+    }
+
+    .showcase-container {
+        padding: 15px 20px;
+    }
+
+    .gallery-item {
+        min-width: 270px;
+    }
+
+    .tools-container {
+        max-width: 700px;
+    }
+
+    .tool-item {
+        width: 130px;
+    }
+}
+
+/* Tablets and small laptops */
+@media screen and (max-width: 1024px) {
+    .blog-title {
+        font-size: 1.2rem;
+    }
+
+    .gallery-scroll {
+        padding: 10px 10px;
+    }
+
+    .gallery-item {
+        min-width: 260px;
+    }
+
+    .tools-container {
+        max-width: 750px;
+    }
+
+    .tool-item {
+        width: 130px;
+    }
+}
+
+/* iPhone 12 Pro Max, iPhone 11 Pro Max, iPhone XS Max */
+@media screen and (max-width: 428px) {
+    .blog-title {
+        font-size: 1rem;
+        left: 10px;
+    }
+
+    ion-toolbar ion-buttons {
+        &.language-button {
+            right: 0.5rem;
+        }
+
+        &.biodata-button {
+            margin-right: 3rem;
+        }
+    }
+
+    .section-title {
+        font-size: 1.7rem;
+    }
+
+    .gallery-item {
+        min-width: 250px;
+    }
+
+    .cta-section .cta-content h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* iPhone 12, iPhone 12 Pro, iPhone X, iPhone XS */
+@media screen and (max-width: 390px) {
+    .blog-title {
+        font-size: 0.9rem;
+        left: 8px;
+    }
+
+    .gallery-item {
+        min-width: 240px;
+    }
+
+    .tool-item {
+        width: 115px;
+    }
+
+    .cta-section .cta-content h3 {
+        font-size: 1.4rem;
+    }
+}
+
+/* iPhone 12 Mini, iPhone SE */
+@media screen and (max-width: 375px) {
+    .blog-title {
+        font-size: 0.85rem;
+        left: 6px;
+    }
+
+    ion-toolbar ion-buttons {
+        ion-button {
+            font-size: 0.9rem;
+        }
+
+        &.language-button {
+            right: 0.3rem;
+        }
+
+        &.biodata-button {
+            margin-right: 2.5rem;
+        }
+    }
+
+    .gallery-item {
+        min-width: 230px;
+
+        img {
+            height: 170px;
+        }
+    }
+
+    .tool-item {
+        width: 100px;
+        padding: 15px 10px;
+    }
+
+    .tool-icon {
+        width: 45px;
+        height: 45px;
+        
+        ion-icon {
+            font-size: 22px;
+        }
+    }
+
+    .tool-name {
+        font-size: 0.85rem;
+    }
+
+    .tool-description {
+        font-size: 0.75rem;
+    }
+}

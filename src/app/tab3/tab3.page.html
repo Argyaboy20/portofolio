@@ -1,0 +1,72 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      <a routerLink="/tabs/tab1" class="blog-title">
+        <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
+      </a>
+    </ion-title>
+    <ion-buttons slot="end" class="language-button">
+      <ion-button (click)="toggleLanguage()">
+        {{ currentLanguage === 'id' ? 'EN' : 'ID' }}
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" class="biodata-button">
+      <ion-button routerLink="/biodata">Biodata</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="portfolio-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1>{{ translations[currentLanguage].heroTitle }}</h1>
+      <p>{{ translations[currentLanguage].heroSubtitle }}</p>
+    </section>
+
+    <!-- Gallery Section -->
+    <h2 class="section-title">{{ translations[currentLanguage].galleryTitle }}</h2>
+    <section class="gallery-section">
+      <div class="gallery-grid">
+        <div class="gallery-item" *ngFor="let item of galleryItems" (click)="openImageModal(item)">
+          <img [src]="item.src" [alt]="item.title">
+          <div class="gallery-caption">
+            <h3>{{ item.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <h2 class="section-title">{{ translations[currentLanguage].skillsTitle }}</h2>
+    <section class="skills-section">
+      <div class="skills-grid">
+        <div class="skill-card" *ngFor="let skill of skills">
+          <ion-icon [name]="skill.icon"></ion-icon>
+          <h3>{{skill.name}}</h3>
+          <div class="skill-level">
+            <div class="progress-bar" [style.width.%]="skill.level"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Image Modal -->
+  <ion-modal [isOpen]="isModalOpen" class="gallery-modal" (didDismiss)="closeModal()">
+    <ng-template>
+      <div class="modal-content" *ngIf="selectedImage">
+        <div class="close-button" (click)="closeModal()">
+          <ion-icon name="close-outline"></ion-icon>
+        </div>
+        <div class="image-container">
+          <img [src]="selectedImage.src" [alt]="selectedImage.title">
+        </div>
+        <div class="image-caption">
+          <h2>{{ selectedImage.title }}</h2>
+          <p>{{ selectedImage.description }}</p>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
+</ion-content>
