@@ -1,8 +1,9 @@
 {
     "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/index.html"
-      }
-    ]
+      { "source": "/biodata", "destination": "/index.html" },
+      { "source": "/tabs/:tab", "destination": "/index.html" },
+      { "source": "/galeri-kehidupan", "destination": "/index.html" },
+      { "source": "/(.*)", "destination": "/index.html" }
+    ],
+    "trailingSlash": false
   }
