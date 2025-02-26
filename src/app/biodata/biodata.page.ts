@@ -1,6 +1,8 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { ToastController, Platform } from '@ionic/angular';
 import { PostProvider } from '../../provider/post-providers';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 // Define types for our translations
 type Language = 'id' | 'en';
@@ -47,7 +49,7 @@ interface Translations {
   styleUrls: ['./biodata.page.scss'],
   standalone: false,
 })
-export class BiodataPage implements OnInit, AfterViewInit {
+export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   isAwardsModalOpen = false;
   awards = [
     {
@@ -61,6 +63,8 @@ export class BiodataPage implements OnInit, AfterViewInit {
       description: 'Conducted an independent student exchange to Telkom University.'
     },
   ];
+
+  private backButtonSubscription!: Subscription;
 
   // Tambahkan getter untuk menghitung jumlah awards
   get awardsCount(): string {
@@ -200,10 +204,30 @@ export class BiodataPage implements OnInit, AfterViewInit {
 
   constructor(
     private postProvider: PostProvider,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private platform: Platform,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      // Check if any modal is open
+      if (this.isAwardsModalOpen) {
+        this.closeAwardsModal();
+      } else if (this.isGalleryModalOpen) {
+        this.closeGalleryModal();
+      } else {
+        // Navigate back to tab1
+        this.router.navigate(['/tabs/tab1']);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // Clean up the subscription when the component is destroyed
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
   }
 
   toggleLanguage() {

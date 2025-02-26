@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { ModalController, Platform, IonModal } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 interface Skill {
   name: string;
@@ -32,7 +34,9 @@ interface TranslationDict {
   styleUrls: ['./tab3.page.scss'],
   standalone: false,
 })
-export class Tab3Page {
+export class Tab3Page implements OnInit, OnDestroy {
+  @ViewChild(IonModal) modal!: IonModal;
+  
   currentLanguage: 'id' | 'en' = 'id';
   translations: TranslationDict = {
     id: {
@@ -64,7 +68,7 @@ export class Tab3Page {
       id: 1, 
       src: '/assets/portofolio.png', 
       title: 'Beranda Utama', 
-      description: 'Menu Beranda Utama dari Web Portofolio sayas' 
+      description: 'Menu Beranda Utama dari Web Portofolio saya' 
     },
     { 
       id: 2, 
@@ -78,18 +82,43 @@ export class Tab3Page {
       title: 'Menu Galeri Kehidupan', 
       description: 'Foto foto tentang perjalanan hidup saya' 
     },
-      { 
-        id: 4, 
-        src: '/assets/permo.png', 
-        title: 'Menu Project Permo', 
-        description: 'Tampilan menu dari project Pertanian Mobile (Permo) saya' 
-      }
+    { 
+      id: 4, 
+      src: '/assets/permo.png', 
+      title: 'Menu Project Permo', 
+      description: 'Tampilan menu dari project Pertanian Mobile (Permo) saya' 
+    }
   ];
 
   selectedImage: GalleryItem | null = null;
-  showModal: boolean = false;
+  isModalOpen: boolean = false;
 
-  constructor(private modalController: ModalController) {}
+  private backButtonSubscription!: Subscription;
+
+  constructor(
+    private modalController: ModalController,
+    private platform: Platform,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      // Check if modal is open
+      if (this.isModalOpen) {
+        this.closeModal();
+      } else {
+        // Navigate back to tab1
+        this.router.navigate(['/tabs/tab1']);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // Clean up the subscription when the component is destroyed
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+  }
 
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
@@ -97,11 +126,10 @@ export class Tab3Page {
 
   openImageModal(image: GalleryItem) {
     this.selectedImage = image;
-    this.showModal = true;
+    this.isModalOpen = true;
   }
 
   closeModal() {
-    this.showModal = false;
-    this.selectedImage = null;
+    this.isModalOpen = false;
   }
 }

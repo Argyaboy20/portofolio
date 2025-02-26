@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 interface PhotoItem {
   id: number;
@@ -25,6 +27,8 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
   audio: HTMLAudioElement;
   isPlaying: boolean = false;
   filteredPhotos: PhotoItem[] = [];
+
+  private backButtonSubscription!: Subscription;
 
   photos: PhotoItem[] = [
     {
@@ -117,7 +121,11 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(private platform: Platform, private zone: NgZone) {
+  constructor(
+    private platform: Platform,
+    private zone: NgZone,
+    private router: Router // Tambahkan Router ke constructor
+  ) {
     this.audio = new Audio('assets/audio/photograph.mp3');
     this.audio.loop = true;
 
@@ -148,12 +156,23 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     setTimeout(() => {
       this.preloadImages();
     }, 100);
+
+     // Tambahkan subscription untuk backbutton
+     this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      // Navigasi kembali ke halaman biodata
+      this.router.navigate(['/biodata']);
+    });
   }
 
   ngOnDestroy() {
     if (this.audio) {
       this.audio.pause();
       this.audio.currentTime = 0;
+    }
+
+    // Bersihkan subscription saat komponen dihancurkan
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
     }
   }
 

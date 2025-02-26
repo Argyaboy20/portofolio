@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 interface ProjectImage {
   url: string;
@@ -20,7 +23,7 @@ interface DevTool {
   styleUrls: ['./tab4.page.scss'],
   standalone: false,
 })
-export class Tab4Page {
+export class Tab4Page implements OnInit, OnDestroy {
   currentLanguage: 'id' | 'en' = 'id';
   translations = {
     id: {
@@ -83,6 +86,31 @@ export class Tab4Page {
 
   isModalOpen = false;
   selectedProject: ProjectImage | null = null;
+  private backButtonSubscription!: Subscription;
+
+  constructor(
+    private platform: Platform,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      // Check if modal is open
+      if (this.isModalOpen) {
+        this.closeModal();
+      } else {
+        // Navigate back to tab1
+        this.router.navigate(['/tabs/tab1']);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // Clean up the subscription when the component is destroyed
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+  }
 
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';

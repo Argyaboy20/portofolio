@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 interface ProjectImage {
   url: string;
@@ -35,7 +38,7 @@ interface TranslationDict {
   styleUrls: ['tab2.page.scss'],
   standalone: false,
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit, OnDestroy {
   currentLanguage: 'id' | 'en' = 'id';
   translations: TranslationDict = {
     id: {
@@ -158,10 +161,33 @@ export class Tab2Page {
   androidUrl: string = 'https://drive.google.com/file/d/184bu_ml32G58AOZ6CUdQtvhEFWzsOv2j/view?usp=drive_link';
   isImageModalOpen = false;
   selectedImage: ProjectImage | null = null;
+  private backButtonSubscription!: Subscription;
 
-  constructor() {
+  constructor(
+    private platform: Platform,
+    private router: Router
+  ) {
     // Inisialisasi caption pertama kali
     this.updateImageCaptions();
+  }
+
+  ngOnInit() {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+      // Check if image modal is open
+      if (this.isImageModalOpen) {
+        this.closeImageModal();
+      } else {
+        // Navigate back to tab1
+        this.router.navigate(['/tabs/tab1']);
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // Clean up the subscription when the component is destroyed
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
   }
 
   toggleLanguage() {

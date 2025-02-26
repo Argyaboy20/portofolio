@@ -53,13 +53,15 @@
   </div>
 
   <!-- Image Modal -->
-  <ion-modal [isOpen]="showModal" class="gallery-modal">
+  <ion-modal [isOpen]="isModalOpen" class="gallery-modal" (didDismiss)="closeModal()">
     <ng-template>
       <div class="modal-content" *ngIf="selectedImage">
         <div class="close-button" (click)="closeModal()">
           <ion-icon name="close-outline"></ion-icon>
         </div>
-        <img [src]="selectedImage.src" [alt]="selectedImage.title">
+        <div class="image-container">
+          <img [src]="selectedImage.src" [alt]="selectedImage.title">
+        </div>
         <div class="image-caption">
           <h2>{{ selectedImage.title }}</h2>
           <p>{{ selectedImage.description }}</p>

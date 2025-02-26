@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { createAnimation, Animation } from '@ionic/angular';
+import { createAnimation, Animation, Platform, AlertController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { App } from '@capacitor/app';
 
 interface Project {
   title: string;
@@ -47,6 +49,7 @@ interface TranslationDict {
 export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   isFlipCardVisible = false;
   isCardFlipped = false;
+  private backButtonSubscription!: Subscription;
 
   currentLanguage: 'id' | 'en' = 'id'; // default to Indonesian
   translations: TranslationDict = {
@@ -219,11 +222,58 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   private scrollHandler: (() => void) | null = null;
 
-  constructor(private navCtrl: NavController) { }
+  constructor(
+    private navCtrl: NavController,
+    private platform: Platform,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
     // Sort projects by newest first by default
     this.sortProjects('newest');
+
+    this.setupBackButtonHandler();
+  }
+
+  // Tambahkan metode baru untuk menangani tombol back
+  private setupBackButtonHandler() {
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
+      // Karena ini adalah halaman utama, kita perlu konfirmasi sebelum keluar
+      if (this.isProfileImageModalOpen) {
+        // Jika modal terbuka, tutup modal saja
+        this.closeProfileImageModal();
+      } else if (this.isFlipCardVisible) {
+        // Jika flip card sedang ditampilkan, tutup saja
+        this.isFlipCardVisible = false;
+        this.isCardFlipped = false;
+      } else {
+        // Ini adalah halaman utama, konfirmasi keluar dari aplikasi
+        this.confirmExitApp();
+      }
+    });
+  }
+
+  // Metode untuk konfirmasi keluar
+  async confirmExitApp() {
+    const alert = await this.alertController.create({
+      header: this.currentLanguage === 'id' ? 'Konfirmasi' : 'Confirmation',
+      message: this.currentLanguage === 'id' ? 'Apakah Anda yakin ingin keluar dari aplikasi?' : 'Are you sure you want to exit the app?',
+      buttons: [
+        {
+          text: this.currentLanguage === 'id' ? 'Batal' : 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: this.currentLanguage === 'id' ? 'Keluar' : 'Exit',
+          handler: () => {
+            // Gunakan Capacitor App plugin untuk keluar
+            App.exitApp();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   ngAfterViewInit() {
@@ -237,8 +287,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-   // Add this method to your class
-   initSkillBarAnimations() {
+  // Add this method to your class
+  initSkillBarAnimations() {
     if (this.skillBars) {
       setTimeout(() => {
         this.skillBars.forEach(bar => {
@@ -304,6 +354,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     window.removeEventListener('resize', () => {
       this.handleResponsiveLayout();
     });
+
+    // Unsubscribe dari backButton subscription
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
   }
 
 
