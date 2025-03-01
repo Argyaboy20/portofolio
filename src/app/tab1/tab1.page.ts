@@ -419,45 +419,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   navigateToBiodata() {
     this.isFlipCardVisible = true;
-
-    // Start the flip animation after a short delay
+    this.isCardFlipped = true;
+    
+    // Use a simpler navigation approach, similar to your project navigation
     setTimeout(() => {
-      this.isCardFlipped = true;
-
-      // Wait for the flip animation to complete before navigating
-      setTimeout(() => {
-        // Create the navigation animation
-        const animation = (baseEl: HTMLElement, opts?: any): Animation => {
-          const enteringAnimation = createAnimation()
-            .addElement(opts.enteringEl)
-            .duration(300)
-            .fromTo('transform', 'translateX(100%)', 'translateX(0)')
-            .fromTo('opacity', '0.2', '1');
-
-          const leavingAnimation = createAnimation()
-            .addElement(opts.leavingEl)
-            .duration(300)
-            .fromTo('transform', 'translateX(0)', 'translateX(-100%)')
-            .fromTo('opacity', '1', '0.2');
-
-          return createAnimation()
-            .addAnimation(enteringAnimation)
-            .addAnimation(leavingAnimation);
-        };
-
-        // Navigate to biodata page
-        this.navCtrl.navigateForward('/biodata', {
-          animated: true,
-          animation
-        }).then(() => {
-          // Reset the flip card state after navigation
-          setTimeout(() => {
-            this.isFlipCardVisible = false;
-            this.isCardFlipped = false;
-          }, 300);
-        });
-      }, 900); // Match this with the flip animation duration
-    }, 100);
+      this.navCtrl.navigateForward('/biodata').then(() => {
+        // Reset the flip card state after navigation completes
+        setTimeout(() => {
+          this.isFlipCardVisible = false;
+          this.isCardFlipped = false;
+        }, 300);
+      });
+    }, 800); // Give enough time for the flip animation to be visible
   }
 
   // Open profile image modal
