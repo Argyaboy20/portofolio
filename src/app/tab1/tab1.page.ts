@@ -378,28 +378,43 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   // Metode untuk navigasi dengan animasi
   navigateWithAnimation(path: string) {
+    // Make sure path starts with /
+    if (!path.startsWith('/')) {
+      path = '/' + path;
+    }
+    
+    // Create your custom animation
     const animation = (baseEl: HTMLElement, opts?: any): Animation => {
       const enteringAnimation = createAnimation()
         .addElement(opts.enteringEl)
         .duration(300)
         .fromTo('transform', 'translateX(100%)', 'translateX(0)')
         .fromTo('opacity', '0.2', '1');
-
+  
       const leavingAnimation = createAnimation()
         .addElement(opts.leavingEl)
         .duration(300)
         .fromTo('transform', 'translateX(0)', 'translateX(-100%)')
         .fromTo('opacity', '1', '0.2');
-
+  
       return createAnimation()
         .addAnimation(enteringAnimation)
         .addAnimation(leavingAnimation);
     };
-
-    this.navCtrl.navigateForward(path, {
-      animated: true,
-      animation
-    });
+  
+    // Use absolute URL navigation - this is the key change
+    const url = window.location.origin + path;
+    
+    // Use standard navigation for mobile browsers
+    if (this.platform.is('mobile') || window.innerWidth <= 768) {
+      window.location.href = url;
+    } else {
+      // Use animated navigation for desktop
+      this.navCtrl.navigateForward(path, {
+        animated: true,
+        animation
+      });
+    }
   }
 
   navigateToBiodata() {
