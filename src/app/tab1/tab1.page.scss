@@ -334,6 +334,97 @@ ion-content {
     height: 100%;
     overflow-y: auto;
     padding: 2rem 3rem;
+    position: relative;
+}
+
+/* Elemen 3D untuk right panel */
+.right-panel-3d-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Keyframes untuk animasi elemen 3D */
+@keyframes float3d-1 {
+    0% { transform: rotate(15deg) translateZ(20px) translateY(0); }
+    50% { transform: rotate(20deg) translateZ(20px) translateY(-15px); }
+    100% { transform: rotate(15deg) translateZ(20px) translateY(0); }
+}
+
+@keyframes float3d-2 {
+    0% { transform: rotate(-10deg) translateZ(15px) translateX(0); }
+    50% { transform: rotate(-15deg) translateZ(15px) translateX(15px); }
+    100% { transform: rotate(-10deg) translateZ(15px) translateX(0); }
+}
+
+@keyframes float3d-3 {
+    0% { transform: rotate(25deg) translateZ(25px) scale(1); }
+    50% { transform: rotate(20deg) translateZ(25px) scale(1.1); }
+    100% { transform: rotate(25deg) translateZ(25px) scale(1); }
+}
+
+@keyframes float3d-4 {
+    0% { transform: rotate(-15deg) translateZ(18px) translateY(0) translateX(0); }
+    33% { transform: rotate(-10deg) translateZ(18px) translateY(-10px) translateX(5px); }
+    66% { transform: rotate(-20deg) translateZ(18px) translateY(10px) translateX(-5px); }
+    100% { transform: rotate(-15deg) translateZ(18px) translateY(0) translateX(0); }
+}
+
+.bg-element-3d {
+    position: absolute;
+    opacity: 0.15;
+    pointer-events: none;
+    
+    &:nth-child(1) {
+        top: 10%;
+        right: 5%;
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, rgba(74, 144, 226, 0.8), rgba(80, 227, 194, 0.8));
+        border-radius: 24% 76% 35% 65% / 27% 36% 64% 73%;
+        box-shadow: 5px 5px 15px rgba(74, 144, 226, 0.3);
+        animation: float3d-1 8s ease-in-out infinite;
+    }
+    
+    &:nth-child(2) {
+        top: 40%;
+        left: 8%;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(45deg, rgba(80, 227, 194, 0.8), rgba(74, 144, 226, 0.8));
+        clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        box-shadow: 3px 3px 12px rgba(80, 227, 194, 0.3);
+        animation: float3d-2 10s ease-in-out infinite;
+    }
+    
+    &:nth-child(3) {
+        bottom: 15%;
+        right: 15%;
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(to right, 
+                rgba(76, 169, 216, 0.8),
+                rgba(78, 198, 205, 0.8));
+        border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+        box-shadow: 4px 4px 14px rgba(76, 169, 216, 0.3);
+        animation: float3d-3 12s ease-in-out infinite;
+    }
+    
+    &:nth-child(4) {
+        bottom: 35%;
+        left: 20%;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(to right, rgba(74, 144, 226, 0.8), rgba(74, 144, 226, 0.2));
+        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        box-shadow: 2px 2px 10px rgba(74, 144, 226, 0.3);
+        animation: float3d-4 15s ease-in-out infinite;
+    }
 }
 
 /* Styling untuk section */
