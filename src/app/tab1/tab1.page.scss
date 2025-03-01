@@ -21,6 +21,17 @@ $text-color-light: #fff;
     }
 }
 
+.refresh-toast {
+    --min-height: 50px;
+    --background: var(--ion-color-primary);
+    --color: white;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    margin-top: 10px;
+    z-index: 9999;
+  }
+
 ion-toolbar {
     ion-buttons {
         ion-button {

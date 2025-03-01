@@ -145,125 +145,96 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.sortProjects('newest');
     
     // Re-inisialisasi UI dan komponen
-    setTimeout(() => {
+    setTimeout(async () => {
       try {
         // Pastikan bahasa tidak berubah
         this.currentLanguage = currentLang;
         
-        // Wait for the next cycle to ensure DOM is ready
-        setTimeout(() => {
-          this.updateContent();
-          
-          // Inisialisasi ulang animasi dan layout responsive
-          this.initSkillBarAnimations();
-          this.handleResponsiveLayout();
-          
-          console.log('Refresh selesai');
-          
-          // Tampilkan toast sukses
-          this.presentToast({
-            message: this.currentLanguage === 'id' ? 'Refresh berhasil!' : 'Refresh successful!',
-            color: 'success',
-            duration: 2000
-          });
-        }, 100);
+        // Update content synchronously
+        this.updateContent();
+        
+        // Inisialisasi ulang animasi dan layout responsive
+        this.initSkillBarAnimations();
+        this.handleResponsiveLayout();
+        
+        console.log('Refresh selesai');
+        
+        // Display success toast immediately with await
+        await this.presentToast({
+          message: this.currentLanguage === 'id' ? 'Refresh berhasil!' : 'Refresh successful!',
+          color: 'success',
+          duration: 2000
+        });
       } catch (error) {
         console.error('Error saat refresh:', error);
         
-        // Tampilkan toast error
-        this.presentToast({
+        // Display error toast immediately with await
+        await this.presentToast({
           message: this.currentLanguage === 'id' ? 'Gagal refresh. Silakan coba lagi.' : 'Refresh failed. Please try again.',
           color: 'danger',
           duration: 3000
         });
       } finally {
-        // Pastikan complete() dipanggil bahkan jika terjadi error
+        // Complete the refresh event
         if (event && event.target && typeof event.target.complete === 'function') {
           event.target.complete();
         }
       }
-    }, 1000);
+    }, 500); // Reduced timeout for better responsiveness
   }
-
-  // Metode untuk menampilkan toast
+  
+  // Make sure the presentToast method is implemented correctly
   async presentToast(options: { message: string, color: string, duration: number }) {
+    // Force any existing toasts to dismiss
+    await this.toastController.dismiss();
+    
     const toast = await this.toastController.create({
       message: options.message,
       duration: options.duration,
       position: 'top',
       color: options.color,
-      buttons: [{ text: 'OK', role: 'cancel' }]
+      buttons: [{ text: 'OK', role: 'cancel' }],
+      cssClass: 'refresh-toast' // Add a custom CSS class for styling
     });
     
     await toast.present();
+    return toast; // Return the toast for better handling
   }
 
   //update Content untuk tombol translate
   updateContent() {
     const t = this.translations[this.currentLanguage];
   
-    // Update all text content with null checks
-    const aboutTitle = document.querySelector('#about .section-title');
-    if (aboutTitle) aboutTitle.textContent = t.profilSingkat;
-  
-    // Update all three paragraphs in the about section
+    // Use a more reliable approach with safe selectors
+    this.safeUpdateElement('#about .section-title', t.profilSingkat);
+    
     const aboutParagraphs = document.querySelectorAll('#about .section-content p');
-    if (aboutParagraphs.length >= 3) {
-      aboutParagraphs[0].textContent = t.aboutContent;
-      aboutParagraphs[1].textContent = t.aboutContent2;
-      aboutParagraphs[2].textContent = t.aboutContent3;
-    }
+    if (aboutParagraphs.length >= 1) aboutParagraphs[0].textContent = t.aboutContent;
+    if (aboutParagraphs.length >= 2) aboutParagraphs[1].textContent = t.aboutContent2;
+    if (aboutParagraphs.length >= 3) aboutParagraphs[2].textContent = t.aboutContent3;
   
-    const skillsTitle = document.querySelector('#skills .section-title');
-    if (skillsTitle) skillsTitle.textContent = t.keahlian;
-    
-    const projectsTitle = document.querySelector('#projects .section-title');
-    if (projectsTitle) projectsTitle.textContent = t.projectTerbaru;
-    
-    const contactInfo = document.querySelector('.contact-info h3');
-    if (contactInfo) contactInfo.textContent = t.contactPerson;
-  
-    // Update education section
-    const educationTitle = document.querySelector('#education .section-title');
-    if (educationTitle) educationTitle.textContent = t.pendidikan;
-  
-    // Update Tools section
-    const toolsTitle = document.querySelector('#tools .section-title');
-    if (toolsTitle) toolsTitle.textContent = t.tools;
-  
-    const degree = document.querySelector('.degree');
-    if (degree) {
-      degree.textContent = t.sarjanaTI;
-    }
+    this.safeUpdateElement('#skills .section-title', t.keahlian);
+    this.safeUpdateElement('#projects .section-title', t.projectTerbaru);
+    this.safeUpdateElement('.contact-info h3', t.contactPerson);
+    this.safeUpdateElement('#education .section-title', t.pendidikan);
+    this.safeUpdateElement('#tools .section-title', t.tools);
+    this.safeUpdateElement('.degree', t.sarjanaTI);
+    this.safeUpdateElement('footer p', t.copyright);
   
     // Update buttons text
     const sortButtons = document.querySelectorAll('.sort-buttons ion-button');
-    if (sortButtons.length >= 2) {
-      sortButtons[0].textContent = t.terbaru;
-      sortButtons[1].textContent = t.terlama;
-    }
+    if (sortButtons.length >= 1) sortButtons[0].textContent = t.terbaru;
+    if (sortButtons.length >= 2) sortButtons[1].textContent = t.terlama;
   
-    // Update project cards
+    // Update project cards with more reliable method
+    const projectCards = document.querySelectorAll('.project-card');
     this.projects.forEach((project, index) => {
-      const projectCards = document.querySelectorAll('.project-card');
       if (index < projectCards.length) {
         const card = projectCards[index];
-        const demoLink = card.querySelector('.demo-link');
-        if (demoLink) {
-          demoLink.textContent = t.viewDemo;
-        }
-        const sourceLink = card.querySelector('a[target="_github"]');
-        if (sourceLink) {
-          sourceLink.textContent = t.sourceCode;
-        }
+        this.safeUpdateSubElement(card, '.demo-link', t.viewDemo);
+        this.safeUpdateSubElement(card, 'a[target="_github"]', t.sourceCode);
       }
     });
-  
-    // Update footer
-    const footer = document.querySelector('footer p');
-    if (footer) {
-      footer.textContent = t.copyright;
-    }
   
     // Update project descriptions based on language
     if (this.currentLanguage === 'en') {
@@ -287,6 +258,17 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.projects[2].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
       this.projects[2].duration = 'April - Mei 2024';
     }
+  }
+  
+  // Helper methods for safer DOM updates
+  private safeUpdateElement(selector: string, text: string) {
+    const element = document.querySelector(selector);
+    if (element) element.textContent = text;
+  }
+  
+  private safeUpdateSubElement(parent: Element, selector: string, text: string) {
+    const element = parent.querySelector(selector);
+    if (element) element.textContent = text;
   }
 
   // Profile image modal state
