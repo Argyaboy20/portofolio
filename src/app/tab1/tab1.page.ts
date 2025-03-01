@@ -419,18 +419,51 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   navigateToBiodata() {
     this.isFlipCardVisible = true;
-    this.isCardFlipped = true;
-    
-    // Use a simpler navigation approach, similar to your project navigation
+  
+    // Start the flip animation after a short delay
     setTimeout(() => {
-      this.navCtrl.navigateForward('/biodata').then(() => {
-        // Reset the flip card state after navigation completes
+      this.isCardFlipped = true;
+  
+      // Wait for the flip animation to complete before navigating
+      setTimeout(() => {
+        // Use standard navigation for mobile browsers
+        if (this.platform.is('mobile') || window.innerWidth <= 768) {
+          // For mobile, use direct URL navigation
+          window.location.href = window.location.origin + '/biodata';
+        } else {
+          // For desktop, use animated navigation
+          const animation = (baseEl: HTMLElement, opts?: any): Animation => {
+            const enteringAnimation = createAnimation()
+              .addElement(opts.enteringEl)
+              .duration(300)
+              .fromTo('transform', 'translateX(100%)', 'translateX(0)')
+              .fromTo('opacity', '0.2', '1');
+  
+            const leavingAnimation = createAnimation()
+              .addElement(opts.leavingEl)
+              .duration(300)
+              .fromTo('transform', 'translateX(0)', 'translateX(-100%)')
+              .fromTo('opacity', '1', '0.2');
+  
+            return createAnimation()
+              .addAnimation(enteringAnimation)
+              .addAnimation(leavingAnimation);
+          };
+  
+          // Navigate to biodata page
+          this.navCtrl.navigateForward('/biodata', {
+            animated: true,
+            animation
+          });
+        }
+        
+        // Reset the flip card state after navigation
         setTimeout(() => {
           this.isFlipCardVisible = false;
           this.isCardFlipped = false;
         }, 300);
-      });
-    }, 800); // Give enough time for the flip animation to be visible
+      }, 900); // Match this with the flip animation duration
+    }, 100);
   }
 
   // Open profile image modal
