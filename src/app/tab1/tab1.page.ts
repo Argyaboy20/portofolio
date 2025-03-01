@@ -149,20 +149,24 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       try {
         // Pastikan bahasa tidak berubah
         this.currentLanguage = currentLang;
-        this.updateContent();
         
-        // Inisialisasi ulang animasi dan layout responsive
-        this.initSkillBarAnimations();
-        this.handleResponsiveLayout();
-        
-        console.log('Refresh selesai');
-        
-        // Tampilkan toast sukses
-        this.presentToast({
-          message: this.currentLanguage === 'id' ? 'Refresh berhasil!' : 'Refresh successful!',
-          color: 'success',
-          duration: 2000
-        });
+        // Wait for the next cycle to ensure DOM is ready
+        setTimeout(() => {
+          this.updateContent();
+          
+          // Inisialisasi ulang animasi dan layout responsive
+          this.initSkillBarAnimations();
+          this.handleResponsiveLayout();
+          
+          console.log('Refresh selesai');
+          
+          // Tampilkan toast sukses
+          this.presentToast({
+            message: this.currentLanguage === 'id' ? 'Refresh berhasil!' : 'Refresh successful!',
+            color: 'success',
+            duration: 2000
+          });
+        }, 100);
       } catch (error) {
         console.error('Error saat refresh:', error);
         
@@ -197,36 +201,48 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   //update Content untuk tombol translate
   updateContent() {
     const t = this.translations[this.currentLanguage];
-
-    // Update all text content
-    document.querySelector('#about .section-title')!.textContent = t.profilSingkat;
-
+  
+    // Update all text content with null checks
+    const aboutTitle = document.querySelector('#about .section-title');
+    if (aboutTitle) aboutTitle.textContent = t.profilSingkat;
+  
     // Update all three paragraphs in the about section
     const aboutParagraphs = document.querySelectorAll('#about .section-content p');
-    aboutParagraphs[0].textContent = t.aboutContent;
-    aboutParagraphs[1].textContent = t.aboutContent2;
-    aboutParagraphs[2].textContent = t.aboutContent3;
-
-    document.querySelector('#skills .section-title')!.textContent = t.keahlian;
-    document.querySelector('#projects .section-title')!.textContent = t.projectTerbaru;
-    document.querySelector('.contact-info h3')!.textContent = t.contactPerson;
-
+    if (aboutParagraphs.length >= 3) {
+      aboutParagraphs[0].textContent = t.aboutContent;
+      aboutParagraphs[1].textContent = t.aboutContent2;
+      aboutParagraphs[2].textContent = t.aboutContent3;
+    }
+  
+    const skillsTitle = document.querySelector('#skills .section-title');
+    if (skillsTitle) skillsTitle.textContent = t.keahlian;
+    
+    const projectsTitle = document.querySelector('#projects .section-title');
+    if (projectsTitle) projectsTitle.textContent = t.projectTerbaru;
+    
+    const contactInfo = document.querySelector('.contact-info h3');
+    if (contactInfo) contactInfo.textContent = t.contactPerson;
+  
     // Update education section
-    document.querySelector('#education .section-title')!.textContent = t.pendidikan;
-
+    const educationTitle = document.querySelector('#education .section-title');
+    if (educationTitle) educationTitle.textContent = t.pendidikan;
+  
     // Update Tools section
-    document.querySelector('#tools .section-title')!.textContent = t.tools;
-
+    const toolsTitle = document.querySelector('#tools .section-title');
+    if (toolsTitle) toolsTitle.textContent = t.tools;
+  
     const degree = document.querySelector('.degree');
     if (degree) {
       degree.textContent = t.sarjanaTI;
     }
-
+  
     // Update buttons text
     const sortButtons = document.querySelectorAll('.sort-buttons ion-button');
-    sortButtons[0].textContent = t.terbaru;
-    sortButtons[1].textContent = t.terlama;
-
+    if (sortButtons.length >= 2) {
+      sortButtons[0].textContent = t.terbaru;
+      sortButtons[1].textContent = t.terlama;
+    }
+  
     // Update project cards
     this.projects.forEach((project, index) => {
       const projectCards = document.querySelectorAll('.project-card');
@@ -242,32 +258,32 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     });
-
+  
     // Update footer
     const footer = document.querySelector('footer p');
     if (footer) {
       footer.textContent = t.copyright;
     }
-
+  
     // Update project descriptions based on language
     if (this.currentLanguage === 'en') {
       // Translate project descriptions to English
       this.projects[0].description = 'This project aims to create a personal website as my portfolio in Software Engineering, developed with Ionic Framework and MySQL backend';
       this.projects[0].duration = 'February 2025 - present';
-
+  
       this.projects[1].description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend';
       this.projects[1].duration = 'November 2024 - February 2025';
-
+  
       this.projects[2].description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
       this.projects[2].duration = 'April - May 2024';
     } else {
       // Reset to original Indonesian descriptions
       this.projects[0].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework dan backend berupa MySql';
       this.projects[0].duration = 'Februari 2025 - sekarang';
-
+  
       this.projects[1].description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql';
       this.projects[1].duration = 'November 2024 - Februari 2025';
-
+  
       this.projects[2].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
       this.projects[2].duration = 'April - Mei 2024';
     }
