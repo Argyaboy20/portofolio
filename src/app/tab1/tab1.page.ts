@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { createAnimation, Animation, Platform, AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { App } from '@capacitor/app';
@@ -134,6 +134,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }, 0);
   }
 
+  //refreh ulang halaman
   doRefresh(event: any) {
     console.log('Memulai refresh halaman');
     
@@ -155,8 +156,22 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         this.handleResponsiveLayout();
         
         console.log('Refresh selesai');
+        
+        // Tampilkan toast sukses
+        this.presentToast({
+          message: this.currentLanguage === 'id' ? 'Refresh berhasil!' : 'Refresh successful!',
+          color: 'success',
+          duration: 2000
+        });
       } catch (error) {
         console.error('Error saat refresh:', error);
+        
+        // Tampilkan toast error
+        this.presentToast({
+          message: this.currentLanguage === 'id' ? 'Gagal refresh. Silakan coba lagi.' : 'Refresh failed. Please try again.',
+          color: 'danger',
+          duration: 3000
+        });
       } finally {
         // Pastikan complete() dipanggil bahkan jika terjadi error
         if (event && event.target && typeof event.target.complete === 'function') {
@@ -166,6 +181,20 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }, 1000);
   }
 
+  // Metode untuk menampilkan toast
+  async presentToast(options: { message: string, color: string, duration: number }) {
+    const toast = await this.toastController.create({
+      message: options.message,
+      duration: options.duration,
+      position: 'top',
+      color: options.color,
+      buttons: [{ text: 'OK', role: 'cancel' }]
+    });
+    
+    await toast.present();
+  }
+
+  //update Content untuk tombol translate
   updateContent() {
     const t = this.translations[this.currentLanguage];
 
@@ -257,7 +286,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private navCtrl: NavController,
     private platform: Platform,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
