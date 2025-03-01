@@ -137,138 +137,150 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   //refreh ulang halaman
   doRefresh(event: any) {
     console.log('Memulai refresh halaman');
-    
-    // Simpan status bahasa saat ini
-    const currentLang = this.currentLanguage;
-    
-    // Urutkan ulang proyek sesuai dengan keadaan terakhir
-    this.sortProjects('newest');
-    
-    // Re-inisialisasi UI dan komponen
-    setTimeout(async () => {
-      try {
-        // Pastikan bahasa tidak berubah
-        this.currentLanguage = currentLang;
-        
-        // Update content synchronously
+
+    try {
+      // Set language back to default (Indonesian)
+      this.currentLanguage = 'id';
+
+      // Sort projects by newest
+      this.sortProjects('newest');
+
+      // Simple timeout to simulate loading
+      setTimeout(() => {
+        // Apply all updates
         this.updateContent();
-        
-        // Inisialisasi ulang animasi dan layout responsive
         this.initSkillBarAnimations();
         this.handleResponsiveLayout();
-        
-        console.log('Refresh selesai');
-        
-        // Display success toast immediately with await
-        await this.presentToast({
-          message: this.currentLanguage === 'id' ? 'Refresh berhasil!' : 'Refresh successful!',
+
+        console.log('Refresh selesai dengan bahasa:', this.currentLanguage);
+
+        // Show success message
+        this.presentToast({
+          message: 'Refresh berhasil!', // Always in Indonesian since we reset to default
           color: 'success',
           duration: 2000
         });
-      } catch (error) {
-        console.error('Error saat refresh:', error);
-        
-        // Display error toast immediately with await
-        await this.presentToast({
-          message: this.currentLanguage === 'id' ? 'Gagal refresh. Silakan coba lagi.' : 'Refresh failed. Please try again.',
-          color: 'danger',
-          duration: 3000
-        });
-      } finally {
-        // Complete the refresh event
-        if (event && event.target && typeof event.target.complete === 'function') {
-          event.target.complete();
-        }
-      }
-    }, 500); // Reduced timeout for better responsiveness
+
+        // Complete the refresh
+        event.target.complete();
+      }, 1000);
+    } catch (error) {
+      console.error('Error during refresh:', error);
+
+      // Show error message
+      this.presentToast({
+        message: 'Refresh gagal! Silakan coba lagi.',
+        color: 'danger',
+        duration: 3000
+      });
+
+      // Complete the refresh even if there's an error
+      event.target.complete();
+    }
   }
-  
-  // Make sure the presentToast method is implemented correctly
+
+  // Metode untuk menampilkan toast
   async presentToast(options: { message: string, color: string, duration: number }) {
-    // Force any existing toasts to dismiss
-    await this.toastController.dismiss();
-    
     const toast = await this.toastController.create({
       message: options.message,
       duration: options.duration,
       position: 'top',
       color: options.color,
-      buttons: [{ text: 'OK', role: 'cancel' }],
-      cssClass: 'refresh-toast' // Add a custom CSS class for styling
+      buttons: [{ text: 'OK', role: 'cancel' }]
     });
-    
+
     await toast.present();
-    return toast; // Return the toast for better handling
   }
 
   //update Content untuk tombol translate
   updateContent() {
     const t = this.translations[this.currentLanguage];
-  
-    // Use a more reliable approach with safe selectors
-    this.safeUpdateElement('#about .section-title', t.profilSingkat);
-    
+
+    // Update all text content with null checks
+    const aboutTitle = document.querySelector('#about .section-title');
+    if (aboutTitle) aboutTitle.textContent = t.profilSingkat;
+
+    // Update all three paragraphs in the about section
     const aboutParagraphs = document.querySelectorAll('#about .section-content p');
-    if (aboutParagraphs.length >= 1) aboutParagraphs[0].textContent = t.aboutContent;
-    if (aboutParagraphs.length >= 2) aboutParagraphs[1].textContent = t.aboutContent2;
-    if (aboutParagraphs.length >= 3) aboutParagraphs[2].textContent = t.aboutContent3;
-  
-    this.safeUpdateElement('#skills .section-title', t.keahlian);
-    this.safeUpdateElement('#projects .section-title', t.projectTerbaru);
-    this.safeUpdateElement('.contact-info h3', t.contactPerson);
-    this.safeUpdateElement('#education .section-title', t.pendidikan);
-    this.safeUpdateElement('#tools .section-title', t.tools);
-    this.safeUpdateElement('.degree', t.sarjanaTI);
-    this.safeUpdateElement('footer p', t.copyright);
-  
+    if (aboutParagraphs.length >= 3) {
+      aboutParagraphs[0].textContent = t.aboutContent;
+      aboutParagraphs[1].textContent = t.aboutContent2;
+      aboutParagraphs[2].textContent = t.aboutContent3;
+    }
+
+    const skillsTitle = document.querySelector('#skills .section-title');
+    if (skillsTitle) skillsTitle.textContent = t.keahlian;
+
+    const projectsTitle = document.querySelector('#projects .section-title');
+    if (projectsTitle) projectsTitle.textContent = t.projectTerbaru;
+
+    const contactInfo = document.querySelector('.contact-info h3');
+    if (contactInfo) contactInfo.textContent = t.contactPerson;
+
+    // Update education section
+    const educationTitle = document.querySelector('#education .section-title');
+    if (educationTitle) educationTitle.textContent = t.pendidikan;
+
+    // Update Tools section
+    const toolsTitle = document.querySelector('#tools .section-title');
+    if (toolsTitle) toolsTitle.textContent = t.tools;
+
+    const degree = document.querySelector('.degree');
+    if (degree) {
+      degree.textContent = t.sarjanaTI;
+    }
+
     // Update buttons text
     const sortButtons = document.querySelectorAll('.sort-buttons ion-button');
-    if (sortButtons.length >= 1) sortButtons[0].textContent = t.terbaru;
-    if (sortButtons.length >= 2) sortButtons[1].textContent = t.terlama;
-  
-    // Update project cards with more reliable method
-    const projectCards = document.querySelectorAll('.project-card');
+    if (sortButtons.length >= 2) {
+      sortButtons[0].textContent = t.terbaru;
+      sortButtons[1].textContent = t.terlama;
+    }
+
+    // Update project cards
     this.projects.forEach((project, index) => {
+      const projectCards = document.querySelectorAll('.project-card');
       if (index < projectCards.length) {
         const card = projectCards[index];
-        this.safeUpdateSubElement(card, '.demo-link', t.viewDemo);
-        this.safeUpdateSubElement(card, 'a[target="_github"]', t.sourceCode);
+        const demoLink = card.querySelector('.demo-link');
+        if (demoLink) {
+          demoLink.textContent = t.viewDemo;
+        }
+        const sourceLink = card.querySelector('a[target="_github"]');
+        if (sourceLink) {
+          sourceLink.textContent = t.sourceCode;
+        }
       }
     });
-  
+
+    // Update footer
+    const footer = document.querySelector('footer p');
+    if (footer) {
+      footer.textContent = t.copyright;
+    }
+
     // Update project descriptions based on language
     if (this.currentLanguage === 'en') {
       // Translate project descriptions to English
       this.projects[0].description = 'This project aims to create a personal website as my portfolio in Software Engineering, developed with Ionic Framework and MySQL backend';
       this.projects[0].duration = 'February 2025 - present';
-  
+
       this.projects[1].description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend';
       this.projects[1].duration = 'November 2024 - February 2025';
-  
+
       this.projects[2].description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
       this.projects[2].duration = 'April - May 2024';
     } else {
       // Reset to original Indonesian descriptions
       this.projects[0].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework dan backend berupa MySql';
       this.projects[0].duration = 'Februari 2025 - sekarang';
-  
+
       this.projects[1].description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql';
       this.projects[1].duration = 'November 2024 - Februari 2025';
-  
+
       this.projects[2].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
       this.projects[2].duration = 'April - Mei 2024';
     }
-  }
-  
-  // Helper methods for safer DOM updates
-  private safeUpdateElement(selector: string, text: string) {
-    const element = document.querySelector(selector);
-    if (element) element.textContent = text;
-  }
-  
-  private safeUpdateSubElement(parent: Element, selector: string, text: string) {
-    const element = parent.querySelector(selector);
-    if (element) element.textContent = text;
   }
 
   // Profile image modal state
@@ -366,7 +378,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   private initializeResponsiveLayout() {
     this.handleResponsiveLayout();
+    // Tidak perlu setup scroll handler di sini lagi, karena sudah ditangani di handleResponsiveLayout()
+  }
 
+  // Method baru untuk setup scroll handler saja
+  private setupScrollHandler() {
     // Define scroll handler
     this.scrollHandler = () => {
       if (window.innerWidth <= 768) {
@@ -391,7 +407,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     if (window.innerWidth <= 768) {
       // Mobile layout
       if (!this.scrollHandler) {
-        this.initializeResponsiveLayout(); // Re-initialize if needed
+        // Cukup setup scroll handler langsung
+        this.setupScrollHandler();
       }
     } else {
       // Desktop layout
@@ -442,7 +459,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     if (!path.startsWith('/')) {
       path = '/' + path;
     }
-    
+
     // Create your custom animation
     const animation = (baseEl: HTMLElement, opts?: any): Animation => {
       const enteringAnimation = createAnimation()
@@ -450,21 +467,21 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         .duration(300)
         .fromTo('transform', 'translateX(100%)', 'translateX(0)')
         .fromTo('opacity', '0.2', '1');
-  
+
       const leavingAnimation = createAnimation()
         .addElement(opts.leavingEl)
         .duration(300)
         .fromTo('transform', 'translateX(0)', 'translateX(-100%)')
         .fromTo('opacity', '1', '0.2');
-  
+
       return createAnimation()
         .addAnimation(enteringAnimation)
         .addAnimation(leavingAnimation);
     };
-  
+
     // Use absolute URL navigation - this is the key change
     const url = window.location.origin + path;
-    
+
     // Use standard navigation for mobile browsers
     if (this.platform.is('mobile') || window.innerWidth <= 768) {
       window.location.href = url;
@@ -479,11 +496,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   navigateToBiodata() {
     this.isFlipCardVisible = true;
-  
+
     // Start the flip animation after a short delay
     setTimeout(() => {
       this.isCardFlipped = true;
-  
+
       // Wait for the flip animation to complete before navigating
       setTimeout(() => {
         // Use standard navigation for mobile browsers
@@ -498,25 +515,25 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
               .duration(300)
               .fromTo('transform', 'translateX(100%)', 'translateX(0)')
               .fromTo('opacity', '0.2', '1');
-  
+
             const leavingAnimation = createAnimation()
               .addElement(opts.leavingEl)
               .duration(300)
               .fromTo('transform', 'translateX(0)', 'translateX(-100%)')
               .fromTo('opacity', '1', '0.2');
-  
+
             return createAnimation()
               .addAnimation(enteringAnimation)
               .addAnimation(leavingAnimation);
           };
-  
+
           // Navigate to biodata page
           this.navCtrl.navigateForward('/biodata', {
             animated: true,
             animation
           });
         }
-        
+
         // Reset the flip card state after navigation
         setTimeout(() => {
           this.isFlipCardVisible = false;
