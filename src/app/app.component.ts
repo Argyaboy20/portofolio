@@ -9,5 +9,9 @@ import { NavController } from '@ionic/angular';
   standalone: false,
 })
 export class AppComponent {
-  constructor(private router: Router, private navCtrl: NavController) {}
+  constructor(private router: Router) {
+    if (window.location.pathname === '/' || window.location.pathname === '') {
+      this.router.navigateByUrl('/tabs/tab1');
+    }
+  }
 }
