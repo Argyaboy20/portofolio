@@ -145,16 +145,24 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     
     // Re-inisialisasi UI dan komponen
     setTimeout(() => {
-      // Pastikan bahasa tidak berubah
-      this.currentLanguage = currentLang;
-      this.updateContent();
-      
-      // Inisialisasi ulang animasi dan layout responsive
-      this.initSkillBarAnimations();
-      this.handleResponsiveLayout();
-      
-      console.log('Refresh selesai');
-      event.target.complete();
+      try {
+        // Pastikan bahasa tidak berubah
+        this.currentLanguage = currentLang;
+        this.updateContent();
+        
+        // Inisialisasi ulang animasi dan layout responsive
+        this.initSkillBarAnimations();
+        this.handleResponsiveLayout();
+        
+        console.log('Refresh selesai');
+      } catch (error) {
+        console.error('Error saat refresh:', error);
+      } finally {
+        // Pastikan complete() dipanggil bahkan jika terjadi error
+        if (event && event.target && typeof event.target.complete === 'function') {
+          event.target.complete();
+        }
+      }
     }, 1000);
   }
 
