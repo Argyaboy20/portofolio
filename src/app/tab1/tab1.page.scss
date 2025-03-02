@@ -22,6 +22,8 @@ $text-color-light: #fff;
 }
 
 ion-toolbar {
+    --background: #000000 !important;
+    
     ion-buttons {
         ion-button {
             --color: #{$primary-color};

@@ -26,6 +26,7 @@ $gradient-end: #50e3c2;
 }
 
 ion-toolbar {
+    --background: #2c3e50 !important;
     ion-buttons {
         ion-button {
             --color: #{$primary-color};

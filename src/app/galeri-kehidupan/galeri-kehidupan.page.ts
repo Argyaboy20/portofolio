@@ -119,6 +119,15 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       description: 'Bermain suling sunda.',
       date: '23 Maret 2024'
     },
+    {
+      id: 12,
+      category: 'cerita-hidup',
+      imageUrl: 'assets/berangkatPMM.jpg',
+      title: 'Acara Pelepasan untuk berangkat PMM',
+      description: 'Diadakan acara pelepasan bagi yang mengikuti program Kampus Merdeka (flagship) dari pemerintah',
+      date: '31 Januari 2024'
+    },
+    
   ];
 
   constructor(
