@@ -249,7 +249,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
 
   async submitForm() {
     if (!this.formData.nama || !this.formData.email || !this.formData.pesan) {
-      await this.presentToast('Tolong isi semua data yang dibutuhkan', 'warning');
+      await this.presentToast('Isi semua data yang dibutuhkan ya', 'warning');
       return;
     }
 
