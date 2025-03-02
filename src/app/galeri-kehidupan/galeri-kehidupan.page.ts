@@ -177,10 +177,36 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
   }
 
   updateFilteredPhotos() {
-    // Use NgZone to ensure UI updates properly
-    this.zone.run(() => {
-      this.filteredPhotos = this.photos.filter(photo => photo.category === this.selectedCategory);
-    });
+    // Dapatkan elemen grid foto
+    const photoGrid = document.querySelector('.photo-grid');
+    
+    // Tambahkan kelas untuk animasi fade out
+    if (photoGrid) {
+      photoGrid.classList.add('grid-fade-out');
+    }
+    
+    // Tunggu animasi fade out selesai sebelum mengubah data
+    setTimeout(() => {
+      // Use NgZone to ensure UI updates properly
+      this.zone.run(() => {
+        this.filteredPhotos = this.photos.filter(photo => photo.category === this.selectedCategory);
+        
+        // Setelah data diperbarui, tambahkan animasi fade in
+        setTimeout(() => {
+          if (photoGrid) {
+            photoGrid.classList.remove('grid-fade-out');
+            photoGrid.classList.add('grid-fade-in');
+            
+            // Reset kelas animasi setelah transisi selesai
+            setTimeout(() => {
+              if (photoGrid) {
+                photoGrid.classList.remove('grid-fade-in');
+              }
+            }, 500);
+          }
+        }, 50);
+      });
+    }, 200); // Waktu untuk animasi fade out
   }
 
   selectPhoto(photo: PhotoItem) {

@@ -67,7 +67,7 @@ ion-toolbar {
         }
 
         &.gallery-button {
-            margin-right: 4.5rem;
+            margin-right: 3.5rem;
 
             ion-button {
                 animation-delay: 0.1s;
@@ -1244,6 +1244,18 @@ section {
 
 /* Responsif untuk tablet dan mobile */
 @media (max-width: 768px) {
+    ion-toolbar {
+        ion-buttons {
+            &.gallery-button {
+                margin-right: 1.5rem;
+            }
+
+            &.language-button {
+                margin-right: -1.0rem;
+            }
+        }
+    }
+
     .hero-title {
         font-size: 2.5rem;
     }
@@ -1281,8 +1293,8 @@ section {
             right: auto;
         }
 
-         /* Adding specific fix for the second dot if needed */
-         &:nth-child(2) .timeline-dot {
+        /* Adding specific fix for the second dot if needed */
+        &:nth-child(2) .timeline-dot {
             /* Ensure exact alignment with the timeline */
             left: 20px;
             top: 15px;
