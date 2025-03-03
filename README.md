@@ -1,12 +1,12 @@
 # Website Portofolio
 
-![Screenshot MIT License](./assets/dokumentasi/MIT.png)
-![Screenshot Menu Utama Website](./assets/dokumentasi/portofolio1.png)
-![Screenshot Menu Biodata Website](./assets/dokumentasi/portofolio2.png)
+![Screenshot MIT License](/assets/dokumentasi/MIT.png)
+![Screenshot Menu Utama Website](/assets/dokumentasi/portofolio1.png)
+![Screenshot Menu Biodata Website](/assets/dokumentasi/portofolio2.png)
 
 Website portofolio pribadi yang menampilkan proyek-proyek, biodata, dan pengalaman karir saya. Dibangun dengan Ionic Framework, Angular, Javascript dan Html/Css.
 
-📋 * Daftar Isi
+📋 Daftar Isi
 
 * Demo
 * Teknologi
@@ -105,9 +105,11 @@ Website ini dioptimalkan untuk:
 🔄 Responsive design untuk berbagai ukuran layar
 
 📞 Kontak
+
 Untuk pertanyaan atau kolaborasi, silakan hubungi:
 📧 Email: maulanafarras030520@gmail.com
 💼 GitHub: [Argyaboy20](https://github.com/Argyaboy20)
 
 📄 Lisensi
+
 Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](https://github.com/Argyaboy20/portofolio/blob/main/LICENSE) untuk detail lebih lanjut.
