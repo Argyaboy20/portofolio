@@ -19,7 +19,7 @@ Website portofolio pribadi yang menampilkan proyek-proyek, biodata, dan pengalam
 * Lisensi
 
 # 🌐 Demo
-Website ini dapat diakses melalui GitHub Pages: [Portofolio Website](https://rasfarras.vercel.app)
+Website ini dapat diakses melalui Vercel App: [Portofolio Website](https://rasfarras.vercel.app)
 
 # 🛠️ Teknologi
 - Framework: Ionic
@@ -132,3 +132,6 @@ Untuk pertanyaan atau kolaborasi, silakan hubungi:
 # 📄 Lisensi
 
 Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](https://github.com/Argyaboy20/portofolio/blob/main/LICENSE) untuk detail lebih lanjut.
+
+
+© 2025 Maulana Farras. All Rights Reserved.
