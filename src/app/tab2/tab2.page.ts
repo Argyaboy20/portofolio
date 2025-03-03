@@ -158,7 +158,7 @@ export class Tab2Page implements OnInit, OnDestroy {
   ];
 
   projectUrl: string = 'https://pertanian-mobile-c1537.web.app';
-  androidUrl: string = 'https://drive.google.com/file/d/184bu_ml32G58AOZ6CUdQtvhEFWzsOv2j/view?usp=drive_link';
+  androidUrl: string = 'https://www.mediafire.com/file/lx1ej96z0datdfu/PertanianMobile.apk/file';
   isImageModalOpen = false;
   selectedImage: ProjectImage | null = null;
   private backButtonSubscription!: Subscription;

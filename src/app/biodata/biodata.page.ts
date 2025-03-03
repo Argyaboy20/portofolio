@@ -29,11 +29,9 @@ interface TranslationKeys {
   coffeeCups: string;
   snapshots: string;
   connect: string;
-  nameLabel: string;
-  messageLabel: string;
-  sendButton: string;
+  photoGallery: string;
   otherWays: string;
-  stackOverflowProfile: string;
+  whatsappContact: string;
   quoraProfile: string;
   awardsTitle: string;
 }
@@ -51,6 +49,7 @@ interface Translations {
 })
 export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   isAwardsModalOpen = false;
+  isImageZoomed = false;
   awards = [
     {
       image: '/assets/bestPerfomance.jpg',
@@ -63,6 +62,18 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       description: 'Conducted an independent student exchange to Telkom University.'
     },
   ];
+
+  rotatingPhotos = [
+    { src: '/assets/foto.JPG', caption: 'Picture of me' },
+    { src: '/assets/tempat.JPG', caption: 'Exploring new places' },
+    { src: '/assets/team.jpg', caption: 'Team building activities' },
+    { src: '/assets/belajar.jpg', caption: 'Learning new technologies' }
+  ];
+  currentPhotoIndex = 0;
+  currentRotatingPhoto = '';
+  currentPhotoCaption = '';
+  photoProgressPercentage = 0;
+  photoRotationInterval: any;
 
   private backButtonSubscription!: Subscription;
 
@@ -162,11 +173,9 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       coffeeCups: "Cangkir Kopi",
       snapshots: "Potret Kehidupan",
       connect: "Mari Terhubung",
-      nameLabel: "Nama Anda",
-      messageLabel: "Pesan Anda",
-      sendButton: "Kirim Pesan",
+      photoGallery: "Galeri Foto Rotasi",
       otherWays: "Platform Diskusi Saya",
-      stackOverflowProfile: "Profil Stack Overflow",
+      whatsappContact: "Hubungi di sini",
       quoraProfile: "Profil Quora",
       awardsTitle: "Penghargaan",
     },
@@ -192,11 +201,9 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       coffeeCups: "Coffee Cups",
       snapshots: "Life Snapshots",
       connect: "Let's Connect",
-      nameLabel: "Your Name",
-      messageLabel: "Your Message",
-      sendButton: "Send Message",
+      photoGallery: "Rotating Photo Gallery",
       otherWays: "My Discussion Platforms",
-      stackOverflowProfile: "Stack Overflow Profile",
+      whatsappContact: "Contact me here",
       quoraProfile: "Quora Profile",
       awardsTitle: "Awards & Achievements",
     }
@@ -221,6 +228,8 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
         this.router.navigate(['/tabs/tab1']);
       }
     });
+
+    this.startPhotoRotation();
   }
 
   ngOnDestroy() {
@@ -228,10 +237,28 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
+
+    this.stopPhotoRotation();
   }
 
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
+  }
+
+  toggleImageZoom(event: MouseEvent): void {
+    // Only toggle zoom when clicking directly on the image
+    if ((event.target as HTMLElement).tagName === 'IMG') {
+      this.isImageZoomed = !this.isImageZoomed;
+      event.stopPropagation();
+    } else {
+      // If clicking outside the image when zoomed, reset zoom
+      if (this.isImageZoomed) {
+        this.isImageZoomed = false;
+      } else {
+        // Otherwise close the modal (existing behavior)
+        this.closeGalleryModal();
+      }
+    }
   }
 
   getText(key: keyof TranslationKeys): string {
@@ -245,6 +272,42 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
 
   closeGalleryModal() {
     this.isGalleryModalOpen = false;
+    this.isImageZoomed = false;
+  }
+
+  //Gallery Rotate
+  startPhotoRotation() {
+    // Set initial photo
+    this.updateCurrentPhoto();
+    
+    // Start progress animation
+    const rotationDuration = 5000; // 5 seconds per photo
+    const updateInterval = 50; // Update progress every 50ms
+    let progress = 0;
+    
+    this.photoRotationInterval = setInterval(() => {
+      progress += updateInterval;
+      this.photoProgressPercentage = (progress / rotationDuration) * 100;
+      
+      if (progress >= rotationDuration) {
+        // Move to next photo
+        this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.rotatingPhotos.length;
+        this.updateCurrentPhoto();
+        progress = 0;
+      }
+    }, updateInterval);
+  }
+
+  stopPhotoRotation() {
+    if (this.photoRotationInterval) {
+      clearInterval(this.photoRotationInterval);
+    }
+  }
+  
+  updateCurrentPhoto() {
+    const photo = this.rotatingPhotos[this.currentPhotoIndex];
+    this.currentRotatingPhoto = photo.src;
+    this.currentPhotoCaption = photo.caption;
   }
 
   async submitForm() {

@@ -508,6 +508,10 @@ ion-toolbar {
     ion-buttons[slot="end"] {
         margin-right: -10px; /* Add some margin to the right */
         margin-left: -30px;
+
+        .bio-btn {
+            margin-right: -25px;
+        }
     }
 
     .welcome-text {
@@ -627,7 +631,7 @@ ion-toolbar {
 @media screen and (max-width: 428px) {
     .blog-title {
         font-size: 1rem;
-        margin-left: 0;
+        margin-left: -1.5rem;
     }
 
     .primary-text,
