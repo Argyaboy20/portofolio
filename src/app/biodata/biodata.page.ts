@@ -29,7 +29,6 @@ interface TranslationKeys {
   coffeeCups: string;
   snapshots: string;
   connect: string;
-  photoGallery: string;
   otherWays: string;
   whatsappContact: string;
   quoraProfile: string;
@@ -172,8 +171,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       techStacks: "Tech Stack",
       coffeeCups: "Cangkir Kopi",
       snapshots: "Potret Kehidupan",
-      connect: "Mari Terhubung",
-      photoGallery: "Galeri Foto Rotasi",
+      connect: "Galeri Sekilas",
       otherWays: "Platform Diskusi Saya",
       whatsappContact: "Hubungi di sini",
       quoraProfile: "Profil Quora",
@@ -200,8 +198,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       techStacks: "Tech Stacks",
       coffeeCups: "Coffee Cups",
       snapshots: "Life Snapshots",
-      connect: "Let's Connect",
-      photoGallery: "Rotating Photo Gallery",
+      connect: "Glance Gallery",
       otherWays: "My Discussion Platforms",
       whatsappContact: "Contact me here",
       quoraProfile: "Quora Profile",

@@ -123,7 +123,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       id: 12,
       category: 'cerita-hidup',
       imageUrl: 'assets/berangkatPMM.jpg',
-      title: 'Acara Pelepasan untuk berangkat PMM',
+      title: 'Acara Pelepasan',
       description: 'Diadakan acara pelepasan bagi yang mengikuti program Kampus Merdeka (flagship) dari pemerintah',
       date: '31 Januari 2024'
     },

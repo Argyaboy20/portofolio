@@ -33,6 +33,9 @@ interface Translations {
   semester: string;
   achievements: string;
   tools: string;
+  karirKedua: string;
+  adminOfficer: string;
+  klikUntukDetail: string;
 }
 
 interface TranslationDict {
@@ -70,7 +73,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       pendidikan: 'Pendidikan',
       sarjanaTI: 'Rekayasa Perangkat Lunak',
       semester: 'Semester',
-      achievements: 'Prestasi'
+      achievements: 'Prestasi',
+      karirKedua: 'Karir Kedua',
+      adminOfficer: 'Staff Administrasi',
+      klikUntukDetail: 'Klik untuk melihat detail lebih lanjut'
     },
     en: {
       profilSingkat: 'Brief Profile',
@@ -89,7 +95,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       pendidikan: 'Education',
       sarjanaTI: 'Bachelor of Software Engineering',
       semester: 'Semester',
-      achievements: 'Achievements'
+      achievements: 'Achievements',
+      karirKedua: 'Second Career',
+      adminOfficer: 'Administration Officer',
+      klikUntukDetail: 'Click to see more details'
     }
   };
 
@@ -252,6 +261,16 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     });
+
+    // Update career section
+    const careerTitle = document.querySelector('#career .section-title');
+    if (careerTitle) careerTitle.textContent = t.karirKedua;
+
+    const adminOfficerTitle = document.querySelector('.career-details h3');
+    if (adminOfficerTitle) adminOfficerTitle.textContent = t.adminOfficer;
+
+    const careerDescription = document.querySelector('.career-description');
+    if (careerDescription) careerDescription.textContent = t.klikUntukDetail;
 
     // Update footer
     const footer = document.querySelector('footer p');

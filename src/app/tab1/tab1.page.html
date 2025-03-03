@@ -19,14 +19,11 @@
 <ion-content [fullscreen]="true" class="split-screen">
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-      pullingIcon="chevron-down-circle-outline"
-      pullingText="Tarik untuk refresh"
-      refreshingSpinner="circles"
-      refreshingText="Memuat...">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Tarik untuk refresh"
+      refreshingSpinner="circles" refreshingText="Memuat...">
     </ion-refresher-content>
   </ion-refresher>
-  
+
   <!-- Left Panel - Fixed Content -->
   <div class="left-panel" #leftPanel>
 
@@ -60,7 +57,7 @@
           <a href="https://github.com/Argyaboy20" target="_github">
             <ion-icon name="logo-github"></ion-icon>
           </a>
-          <a href="https://discord.gg/argyaboy" target="_discord">
+          <a href="https://discord.com/users/1050237808213774418" target="_discord">
             <ion-icon name="logo-discord"></ion-icon>
           </a>
         </div>
@@ -124,7 +121,7 @@
                 <div class="bg-element-3d"></div>
                 <div class="bg-element-3d"></div>
               </div>
-              
+
               <h3 class="school-name">Institut Teknologi dan Bisnis Indonesia</h3>
               <p class="degree">Rekayasa Perangkat Lunak</p>
               <p class="duration">2022 - 2026</p>
@@ -328,6 +325,25 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Section -->
+    <section id="career" class="section">
+      <h2 class="section-title">Karir Kedua</h2>
+      <div class="section-content">
+        <div class="career-container">
+          <div class="career-item" (click)="navigateWithAnimation('/admin')">
+            <div class="career-icon">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
+            <div class="career-details">
+              <h3>Staff Administrasi</h3>
+              <p class="career-description">{{ currentLanguage === 'id' ? 'Klik untuk melihat detail lebih lanjut' :
+                'Click to see more details' }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -36,9 +36,13 @@
     }
 
     .header-icon {
-        font-size: 24px;
-        color: white;
-        // Reduced animation impact
+        width: 24px;
+        height: 24px;
+        // Added 3D effects
+        filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.3));
+        transform-style: preserve-3d;
+        perspective: 500px;
+        // Kept the original animation
         animation: pulse 3s ease-in-out infinite;
     }
 
