@@ -78,26 +78,32 @@ Langkah Instalasi
 
 Development Mode
 * Menjalankan di browser
+
 ionic serve
 
 * Menjalankan di Android
+
 ionic capacitor run android
 
 * Menjalankan di iOS
+
 ionic capacitor run ios
 
 Production Build
 
 * Build untuk web
+
 ionic build --prod
 
 * Build untuk Android
+
 ionic capacitor build android --prod
 
 * Build untuk iOS
+
 ionic capacitor build ios --prod
 
-📝 Rencana Pengembangan
+# 📝 Rencana Pengembangan
 
 * ❌ Menambahkan fitur dark mode 
 * ✅ Integrasi dengan media sosial
@@ -105,7 +111,7 @@ ionic capacitor build ios --prod
 * ✅ Menambahkan menu karir kedua (Administrasi) 
 * ❌ Optimasi performa dan aksesibilitas
 
-📱 Kompatibilitas
+# 📱 Kompatibilitas
 
 Website ini dioptimalkan untuk:
 
@@ -115,7 +121,7 @@ Website ini dioptimalkan untuk:
 
 🔄 Responsive design untuk berbagai ukuran layar
 
-📞 Kontak
+# 📞 Kontak
 
 Untuk pertanyaan atau kolaborasi, silakan hubungi:
 
@@ -123,6 +129,6 @@ Untuk pertanyaan atau kolaborasi, silakan hubungi:
 
 💼 GitHub: [Argyaboy20](https://github.com/Argyaboy20)
 
-📄 Lisensi
+# 📄 Lisensi
 
 Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](https://github.com/Argyaboy20/portofolio/blob/main/LICENSE) untuk detail lebih lanjut.
