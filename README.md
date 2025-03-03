@@ -1,8 +1,8 @@
 # Website Portofolio
 
-![Screenshot MIT License](/assets/dokumentasi/MIT.png)
-![Screenshot Menu Utama Website](/assets/dokumentasi/portofolio1.png)
-![Screenshot Menu Biodata Website](/assets/dokumentasi/portofolio2.png)
+![Screenshot MIT License](/assets/dokumentasi/MIT.PNG)
+![Screenshot Menu Utama Website](/assets/dokumentasi/portofolio1.PNG)
+![Screenshot Menu Biodata Website](/assets/dokumentasi/portofolio2.PNG)
 
 Website portofolio pribadi yang menampilkan proyek-proyek, biodata, dan pengalaman karir saya. Dibangun dengan Ionic Framework, Angular, Javascript dan Html/Css.
 
@@ -19,7 +19,7 @@ Website portofolio pribadi yang menampilkan proyek-proyek, biodata, dan pengalam
 * Lisensi
 
 🌐 Demo
-Website ini dapat diakses melalui GitHub Pages: [Portofolio Website](https://github.com/Argyaboy20/portofolio.git)
+Website ini dapat diakses melalui GitHub Pages: [Portofolio Website](https://rasfarras.vercel.app)
 
 🛠️ Teknologi
 - Framework: Ionic
@@ -31,9 +31,13 @@ Website ini dapat diakses melalui GitHub Pages: [Portofolio Website](https://git
 ✨ Fitur
 
 🏠 Halaman utama dengan navigasi intuitif
+
 📂 Showcasing project-project terbaik
+
 👤 Biodata lengkap
+
 🖼️ Galeri perjalanan hidup
+
 📋 Informasi karir sebagai staf administrasi
 
 📌 Struktur Menu
@@ -46,9 +50,9 @@ Project
 - Project ApliKasir (/tabs/tab4)
 
 
-Biodata (/biodata) - Informasi lengkap tentang diri saya
-Galeri Kehidupan (/galeri-kehidupan) - Dokumentasi perjalanan hidup
-Karir Administrasi (/admin) - Informasi tentang karir kedua sebagai staf administrasi
+- Biodata (/biodata) - Informasi lengkap tentang diri saya
+- Galeri Kehidupan (/galeri-kehidupan) - Dokumentasi perjalanan hidup 
+- Karir Administrasi (/admin) - Informasi tentang karir kedua sebagai staf administrasi
 
 💻 Instalasi
 Prasyarat
@@ -58,18 +62,20 @@ Prasyarat
 
 Langkah Instalasi
 1. Clone repositori
-git clone https://github.com/Argyaboy20/portofolio.git
-cd portofolio
+- git clone https://github.com/Argyaboy20/portofolio.git
+- cd portofolio
 
 2. Install dependencies
-npm install
+- npm install
 
 3. Jalankan aplikasi dalam mode development
-ionic serve
+- ionic serve
 
 4. Aplikasi akan berjalan di http://localhost:8100/
 
+
 🚀 Penggunaan
+
 Development Mode
 # Menjalankan di browser
 ionic serve
@@ -99,15 +105,21 @@ ionic capacitor build ios --prod
 ❌ Optimasi performa dan aksesibilitas
 
 📱 Kompatibilitas
+
 Website ini dioptimalkan untuk:
+
 💻 Desktop (Chrome, Firefox, Safari, Edge)
+
 📱 Mobile devices (iOS, Android)
+
 🔄 Responsive design untuk berbagai ukuran layar
 
 📞 Kontak
 
 Untuk pertanyaan atau kolaborasi, silakan hubungi:
+
 📧 Email: maulanafarras030520@gmail.com
+
 💼 GitHub: [Argyaboy20](https://github.com/Argyaboy20)
 
 📄 Lisensi
