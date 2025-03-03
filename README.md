@@ -1,12 +1,12 @@
 # Website Portofolio
 
-![Screenshot MIT License](/assets/dokumentasi/MIT.PNG)
-![Screenshot Menu Utama Website](/assets/dokumentasi/portofolio1.PNG)
-![Screenshot Menu Biodata Website](/assets/dokumentasi/portofolio2.PNG)
+![Screenshot MIT License](/src/assets/dokumentasi/MIT.png)
+![Screenshot Menu Utama Website](/src/assets/dokumentasi/portofolio1.png)
+![Screenshot Menu Biodata Website](/src/assets/dokumentasi/portofolio2.png)
 
 Website portofolio pribadi yang menampilkan proyek-proyek, biodata, dan pengalaman karir saya. Dibangun dengan Ionic Framework, Angular, Javascript dan Html/Css.
 
-📋 Daftar Isi
+# 📋 Daftar Isi
 
 * Demo
 * Teknologi
@@ -18,17 +18,17 @@ Website portofolio pribadi yang menampilkan proyek-proyek, biodata, dan pengalam
 * Kontak
 * Lisensi
 
-🌐 Demo
+# 🌐 Demo
 Website ini dapat diakses melalui GitHub Pages: [Portofolio Website](https://rasfarras.vercel.app)
 
-🛠️ Teknologi
+# 🛠️ Teknologi
 - Framework: Ionic
 - Programming Language: JavaScript
 - Frontend: HTML5, CSS3, Angular
 - Deployment: Vercel App
 - Version Control: Git
 
-✨ Fitur
+# ✨ Fitur
 
 🏠 Halaman utama dengan navigasi intuitif
 
@@ -40,7 +40,7 @@ Website ini dapat diakses melalui GitHub Pages: [Portofolio Website](https://ras
 
 📋 Informasi karir sebagai staf administrasi
 
-📌 Struktur Menu
+# 📌 Struktur Menu
 
 Menu Utama (/tabs/tab1) - Tampilan awal website dengan pengenalan singkat
 
@@ -54,7 +54,7 @@ Project
 - Galeri Kehidupan (/galeri-kehidupan) - Dokumentasi perjalanan hidup 
 - Karir Administrasi (/admin) - Informasi tentang karir kedua sebagai staf administrasi
 
-💻 Instalasi
+# 💻 Instalasi
 Prasyarat
 - Node.js (v12 atau lebih baru)
 - npm (v6 atau lebih baru)
@@ -74,35 +74,36 @@ Langkah Instalasi
 4. Aplikasi akan berjalan di http://localhost:8100/
 
 
-🚀 Penggunaan
+# 🚀 Penggunaan
 
 Development Mode
-# Menjalankan di browser
+* Menjalankan di browser
 ionic serve
 
-# Menjalankan di Android
+* Menjalankan di Android
 ionic capacitor run android
 
-# Menjalankan di iOS
+* Menjalankan di iOS
 ionic capacitor run ios
 
 Production Build
-# Build untuk web
+
+* Build untuk web
 ionic build --prod
 
-# Build untuk Android
+* Build untuk Android
 ionic capacitor build android --prod
 
-# Build untuk iOS
+* Build untuk iOS
 ionic capacitor build ios --prod
 
 📝 Rencana Pengembangan
 
-❌ Menambahkan fitur dark mode 
-✅ Integrasi dengan media sosial
-✅ Menambahkan form kontak interaktif
-✅ Menambahkan menu karir kedua (Administrasi) 
-❌ Optimasi performa dan aksesibilitas
+* ❌ Menambahkan fitur dark mode 
+* ✅ Integrasi dengan media sosial
+* ✅ Menambahkan form kontak interaktif
+* ✅ Menambahkan menu karir kedua (Administrasi) 
+* ❌ Optimasi performa dan aksesibilitas
 
 📱 Kompatibilitas
 
