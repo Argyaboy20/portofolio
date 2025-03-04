@@ -1,13 +1,112 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin</ion-title>
+  <ion-toolbar color="dark">
+    <ion-title class="ion-text-center" routerLink="/tabs/tab1" >Maulana Farras Blog's</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleLanguage()" class="translation-btn">
+        <ion-icon slot="icon-only" name="language-outline"></ion-icon>
+        {{ language === 'id' ? 'EN' : 'ID' }}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="career-container">
+    <!-- Profile Section -->
+    <ion-card class="profile-card">
+      <ion-card-header>
+        <ion-avatar class="profile-avatar">
+          <img src="/assets/PasPhoto.jpg" alt="Profile" />
+        </ion-avatar>
+        <ion-card-title class="ion-text-center">{{ language === 'id' ? 'Karir Administrasi' : 'Administration Career'
+          }}</ion-card-title>
+        <ion-card-subtitle class="ion-text-center">{{ language === 'id' ? 'Profesional & Efisien' : 'Professional &
+          Efficient' }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <!-- Work Experience Section -->
+    <ion-card class="experience-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="briefcase-outline"></ion-icon>
+          {{ language === 'id' ? 'Pengalaman Kerja' : 'Work Experience' }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item lines="none" *ngFor="let job of workExperience">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <h2 class="job-title">{{ language === 'id' ? job.titleId : job.titleEn }}</h2>
+                  <h3 class="company-name">{{ job.company }}</h3>
+                  <p class="job-period">{{ job.period }}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <div class="job-description" [innerHTML]="language === 'id' ? job.descriptionId : job.descriptionEn">
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Skills Section -->
+    <ion-card class="skills-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="build-outline"></ion-icon>
+          {{ language === 'id' ? 'Keterampilan Administrasi' : 'Administration Skills' }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6" size-md="4" *ngFor="let tool of adminTools">
+              <ion-button expand="block" class="skill-button" [color]="tool.color">
+                <div class="skill-content">
+                  <ion-icon [name]="tool.icon" class="skill-icon"></ion-icon>
+                  <div class="skill-name">{{ language === 'id' ? tool.nameId : tool.nameEn }}</div>
+                </div>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Recommendations Section -->
+    <ion-card class="recommendations-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="people-outline"></ion-icon>
+          {{ language === 'id' ? 'Rekomendasi' : 'Recommendations' }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <swiper-container [pagination]="true" [autoplay]="true">
+          <swiper-slide *ngFor="let rec of recommendations">
+            <div class="recommendation-slide">
+              <a [href]="rec.link" target="_blank" class="recommendation-link">
+                <ion-avatar>
+                  <img [src]="rec.avatar" alt="Recommender" />
+                </ion-avatar>
+                <h3>{{ rec.name }}</h3>
+                <h4>{{ rec.position }}</h4>
+                <p>{{ language === 'id' ? rec.textId : rec.textEn }}</p>
+                <div class="rating">
+                  <ion-icon name="star" *ngFor="let star of [1,2,3,4,5]"></ion-icon>
+                </div>
+              </a>
+            </div>
+          </swiper-slide>
+        </swiper-container>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
