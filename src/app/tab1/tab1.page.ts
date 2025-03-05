@@ -53,6 +53,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   isFlipCardVisible = false;
   isCardFlipped = false;
   private backButtonSubscription!: Subscription;
+  private screenshotPrevention: (() => void) | null = null;
 
   currentLanguage: 'id' | 'en' = 'id'; // default to Indonesian
   translations: TranslationDict = {
@@ -324,6 +325,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.sortProjects('newest');
 
     this.setupBackButtonHandler();
+
+    this.setupScreenshotPrevention();
   }
 
   ngAfterViewInit() {
@@ -336,7 +339,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.handleResponsiveLayout();
     });
 
-    this.preventScreenshot();
   }
 
   ngOnDestroy() {
@@ -351,35 +353,116 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.backButtonSubscription.unsubscribe();
     }
 
-    // Remove event listeners to prevent memory leaks
-    document.removeEventListener('contextmenu', this.preventAction);
-    document.removeEventListener('dragstart', this.preventAction);
-    document.removeEventListener('selectstart', this.preventAction);
+    this.removeScreenshotPrevention();
   }
 
-  preventScreenshot(event?: Event) {
-    // Prevent default actions
-    if (event) {
-      event.preventDefault();
-      event.stopPropagation();
+  //Method larang Screenshot
+  private setupScreenshotPrevention() {
+    // Metode pencegahan screenshot yang komprehensif
+    this.screenshotPrevention = () => {
+      // Cegah screenshot melalui berbagai metode
+      this.preventNativeScreenshot();
+      this.blockBrowserScreenshot();
+    };
+
+    // Tambahkan event listener untuk mencegah screenshot
+    window.addEventListener('keydown', this.handleKeyPress);
+    
+    // Cegah screenshot pada elemen gambar spesifik
+    const profileImage = document.querySelector('.full-size-image');
+    if (profileImage) {
+      profileImage.addEventListener('contextmenu', this.preventScreenshot);
+      profileImage.addEventListener('dragstart', this.preventScreenshot);
+      profileImage.addEventListener('selectstart', this.preventScreenshot);
     }
 
-    // Disable right-click, drag, and selection
-    document.addEventListener('contextmenu', this.preventAction);
-    document.addEventListener('dragstart', this.preventAction);
-    document.addEventListener('selectstart', this.preventAction);
+    // Tambahkan CSS untuk mencegah screenshot
+    this.addScreenshotPreventionStyles();
   }
 
-  private preventAction = (event: Event) => {
+  private removeScreenshotPrevention() {
+    // Hapus event listener
+    window.removeEventListener('keydown', this.handleKeyPress);
+    
+    const profileImage = document.querySelector('.full-size-image');
+    if (profileImage) {
+      profileImage.removeEventListener('contextmenu', this.preventScreenshot);
+      profileImage.removeEventListener('dragstart', this.preventScreenshot);
+      profileImage.removeEventListener('selectstart', this.preventScreenshot);
+    }
+
+    // Hapus CSS pencegahan screenshot
+    this.removeScreenshotPreventionStyles();
+  }
+
+  private preventNativeScreenshot() {
+    // Cegah screenshot pada level browser
+    document.addEventListener('copy', this.preventCopy);
+    document.addEventListener('cut', this.preventCopy);
+  }
+
+  private blockBrowserScreenshot() {
+    // Tambahkan metode tambahan untuk mencegah screenshot
+    if (window.navigator && window.navigator.clipboard) {
+      window.navigator.clipboard.writeText = () => {
+        this.showScreenshotAlert();
+        return Promise.reject('Screenshot is not allowed');
+      };
+    }
+  }
+
+  private addScreenshotPreventionStyles() {
+    const style = document.createElement('style');
+    style.id = 'screenshot-prevention-styles';
+    style.innerHTML = `
+      .full-size-image {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        pointer-events: none;
+        -webkit-touch-callout: none;
+        -webkit-user-drag: none;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  private removeScreenshotPreventionStyles() {
+    const style = document.getElementById('screenshot-prevention-styles');
+    if (style) {
+      style.remove();
+    }
+  }
+
+  private preventCopy = (event: Event) => {
     event.preventDefault();
+    this.showScreenshotAlert();
   }
 
-  async showDownloadRestrictionAlert() {
+  private handleKeyPress = (event: KeyboardEvent) => {
+    // Cegah screenshot menggunakan tombol keyboard
+    if (
+      (event.metaKey || event.ctrlKey) && 
+      (event.key === 'c' || event.key === 'x' || event.key === 'Print Screen')
+    ) {
+      event.preventDefault();
+      this.showScreenshotAlert();
+    }
+  }
+
+  private preventScreenshot = (event: Event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    this.showScreenshotAlert();
+  }
+
+  private async showScreenshotAlert() {
     const alert = await this.alertController.create({
-      header: this.currentLanguage === 'id' ? 'Unduh Dibatasi' : 'Download Restricted',
+      header: this.currentLanguage === 'id' ? 'Screenshot Dibatasi' : 'Screenshot Restricted',
       message: this.currentLanguage === 'id' 
-        ? 'Maaf, mengunduh atau screenshot foto profil tidak diizinkan.' 
-        : 'Sorry, downloading or screenshots of profile photos are not allowed.',
+        ? 'Maaf, screenshot foto profil tidak diizinkan.' 
+        : 'Sorry, screenshots of profile photos are not allowed.',
       buttons: ['OK']
     });
 
