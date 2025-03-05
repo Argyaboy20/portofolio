@@ -382,11 +382,9 @@
           src="/assets/foto.JPG" 
           alt="Foto Profil" 
           class="full-size-image"
-          (contextmenu)="showRestrictedAlert()"
-          (dragstart)="showRestrictedAlert()"
-          (selectstart)="showRestrictedAlert()"
-          (copy)="showRestrictedAlert()"
-          (cut)="showRestrictedAlert()"
+          (contextmenu)="showDownloadRestrictionAlert()"
+          (dragstart)="showDownloadRestrictionAlert()"
+          (selectstart)="showDownloadRestrictionAlert()"
         >
       </div>
     </ion-content>

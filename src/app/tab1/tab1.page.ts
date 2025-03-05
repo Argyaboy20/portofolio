@@ -53,7 +53,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   isFlipCardVisible = false;
   isCardFlipped = false;
   private backButtonSubscription!: Subscription;
-  private preventionListeners: (() => void)[] = [];
+  private screenshotPrevention: (() => void) | null = null;
 
   currentLanguage: 'id' | 'en' = 'id'; // default to Indonesian
   translations: TranslationDict = {
@@ -325,8 +325,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.sortProjects('newest');
 
     this.setupBackButtonHandler();
-
-    this.setupComprehensiveProtection();
   }
 
   ngAfterViewInit() {
@@ -339,6 +337,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.handleResponsiveLayout();
     });
 
+    this.preventScreenshot();
   }
 
   ngOnDestroy() {
@@ -353,92 +352,32 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.backButtonSubscription.unsubscribe();
     }
 
-    this.removeAllPreventionMethods();
+    // Remove event listeners to prevent memory leaks
+    document.removeEventListener('contextmenu', this.preventAction);
+    document.removeEventListener('dragstart', this.preventAction);
+    document.removeEventListener('selectstart', this.preventAction);
   }
 
-  private setupComprehensiveProtection() {
-    // Tambahkan metode pencegahan
-    this.preventDownloadAndScreenshot();
-  }
-
-  private preventDownloadAndScreenshot() {
-    // Tambahkan listener untuk berbagai event
-    const preventDownload = (event: Event) => {
+  preventScreenshot(event?: Event) {
+    // Prevent default actions
+    if (event) {
       event.preventDefault();
       event.stopPropagation();
-      this.showRestrictedAlert();
-    };
-
-    // Pilih elemen gambar
-    const profileImage = document.querySelector('.full-size-image') as HTMLImageElement;
-    
-    if (profileImage) {
-      // Tambahkan event listeners
-      const events = [
-        'contextmenu',  // Cegah klik kanan
-        'dragstart',    // Cegah drag
-        'selectstart',  // Cegah seleksi
-        'copy',         // Cegah copy
-        'cut'           // Cegah cut
-      ];
-
-      events.forEach(eventType => {
-        profileImage.addEventListener(eventType, preventDownload);
-        this.preventionListeners.push(() => 
-          profileImage.removeEventListener(eventType, preventDownload)
-        );
-      });
-
-      // Tambahkan CSS untuk mencegah interaksi
-      profileImage.style.userSelect = 'none';
-      profileImage.style.webkitUserSelect = 'none';
-      profileImage.style.userSelect = 'none';
-      profileImage.style.pointerEvents = 'none';
     }
 
-    // Tambahkan pencegahan screenshot global
-    const preventScreenshot = (event: KeyboardEvent) => {
-      // Cegah screenshot melalui keyboard
-      if (
-        (event.metaKey || event.ctrlKey) && 
-        (event.key === 'c' || event.key === 'x' || event.key === 'Print Screen')
-      ) {
-        event.preventDefault();
-        this.showRestrictedAlert();
-      }
-    };
-
-    window.addEventListener('keydown', preventScreenshot);
-    this.preventionListeners.push(() => 
-      window.removeEventListener('keydown', preventScreenshot)
-    );
-
-    // Tambahkan CSS global untuk pencegahan
-    const styleElement = document.createElement('style');
-    styleElement.innerHTML = `
-      .full-size-image {
-        -webkit-user-select: none !important;
-        -moz-user-select: none !important;
-        -ms-user-select: none !important;
-        user-select: none !important;
-        pointer-events: none !important;
-        -webkit-touch-callout: none !important;
-        -webkit-user-drag: none !important;
-      }
-    `;
-    document.head.appendChild(styleElement);
-    this.preventionListeners.push(() => styleElement.remove());
+    // Disable right-click, drag, and selection
+    document.addEventListener('contextmenu', this.preventAction);
+    document.addEventListener('dragstart', this.preventAction);
+    document.addEventListener('selectstart', this.preventAction);
   }
 
-  private removeAllPreventionMethods() {
-    // Hapus semua listener pencegahan
-    this.preventionListeners.forEach(removeListener => removeListener());
-    this.preventionListeners = [];
+  private preventAction = (event: Event) => {
+    event.preventDefault();
   }
 
-  async showRestrictedAlert() {
+  async showDownloadRestrictionAlert() {
     const alert = await this.alertController.create({
-      header: this.currentLanguage === 'id' ? 'Aksi Dibatasi' : 'Action Restricted',
+      header: this.currentLanguage === 'id' ? 'Unduh Dibatasi' : 'Download Restricted',
       message: this.currentLanguage === 'id' 
         ? 'Maaf, mengunduh atau screenshot foto profil tidak diizinkan.' 
         : 'Sorry, downloading or screenshots of profile photos are not allowed.',
