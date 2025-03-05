@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { IonicModule, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { inject } from "@vercel/analytics"
+
+
+inject();
 
 interface PhotoItem {
   id: number;

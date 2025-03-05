@@ -2,6 +2,10 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ModalController, Platform, IonModal } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { inject } from "@vercel/analytics"
+
+
+inject();
 
 interface Skill {
   name: string;

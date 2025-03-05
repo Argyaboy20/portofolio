@@ -1,5 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { register } from 'swiper/element/bundle';
+import { inject } from "@vercel/analytics"
+
+inject();
 
 @Component({
   selector: 'app-admin',

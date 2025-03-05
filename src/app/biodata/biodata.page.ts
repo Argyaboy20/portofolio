@@ -3,6 +3,10 @@ import { ToastController, Platform } from '@ionic/angular';
 import { PostProvider } from '../../provider/post-providers';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { inject } from "@vercel/analytics"
+
+
+inject();
 
 // Define types for our translations
 type Language = 'id' | 'en';

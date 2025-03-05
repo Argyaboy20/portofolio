@@ -5,7 +5,10 @@ import { Subscription } from 'rxjs';
 import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { inject } from "@vercel/analytics"
 
+
+inject();
 
 interface Project {
   title: string;
