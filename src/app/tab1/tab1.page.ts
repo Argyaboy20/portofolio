@@ -106,7 +106,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     {
       title: 'Web Portofolio',
       duration: 'Februari 2025 - sekarang',
-      description: 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework dan backend berupa MySql',
+      description: 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework berbasis HTML dan Javascript',
       image: '/assets/portofolio.png',
       demoLink: '/tabs/tab3',
       sourceLink: 'https://github.com/Argyaboy20/portofolio.git',
@@ -131,6 +131,13 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       startDate: new Date(2024, 3, 1)  // April 1, 2024
     }
   ];
+
+  constructor(
+    private navCtrl: NavController,
+    private platform: Platform,
+    private alertController: AlertController,
+    private toastController: ToastController
+  ) { }
 
   // Add this method to your class
   toggleLanguage() {
@@ -312,18 +319,71 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   private scrollHandler: (() => void) | null = null;
 
-  constructor(
-    private navCtrl: NavController,
-    private platform: Platform,
-    private alertController: AlertController,
-    private toastController: ToastController
-  ) { }
-
   ngOnInit() {
     // Sort projects by newest first by default
     this.sortProjects('newest');
 
     this.setupBackButtonHandler();
+  }
+
+  ngAfterViewInit() {
+    // Initialize responsive layout handlers
+    this.initializeResponsiveLayout();
+    this.initSkillBarAnimations();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      this.handleResponsiveLayout();
+    });
+
+    this.preventScreenshot();
+  }
+
+  ngOnDestroy() {
+    // Clean up event listeners
+    this.removeResponsiveHandlers();
+    window.removeEventListener('resize', () => {
+      this.handleResponsiveLayout();
+    });
+
+    // Unsubscribe dari backButton subscription
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+
+    // Remove event listeners to prevent memory leaks
+    document.removeEventListener('contextmenu', this.preventAction);
+    document.removeEventListener('dragstart', this.preventAction);
+    document.removeEventListener('selectstart', this.preventAction);
+  }
+
+  preventScreenshot(event?: Event) {
+    // Prevent default actions
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    // Disable right-click, drag, and selection
+    document.addEventListener('contextmenu', this.preventAction);
+    document.addEventListener('dragstart', this.preventAction);
+    document.addEventListener('selectstart', this.preventAction);
+  }
+
+  private preventAction = (event: Event) => {
+    event.preventDefault();
+  }
+
+  async showDownloadRestrictionAlert() {
+    const alert = await this.alertController.create({
+      header: this.currentLanguage === 'id' ? 'Unduh Dibatasi' : 'Download Restricted',
+      message: this.currentLanguage === 'id' 
+        ? 'Maaf, mengunduh atau screenshot foto profil tidak diizinkan.' 
+        : 'Sorry, downloading or screenshots of profile photos are not allowed.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
   // Tambahkan metode baru untuk menangani tombol back
@@ -365,17 +425,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     });
 
     await alert.present();
-  }
-
-  ngAfterViewInit() {
-    // Initialize responsive layout handlers
-    this.initializeResponsiveLayout();
-    this.initSkillBarAnimations();
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      this.handleResponsiveLayout();
-    });
   }
 
   // Add this method to your class
@@ -443,20 +492,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.scrollHandler = null;
     }
   }
-
-  ngOnDestroy() {
-    // Clean up event listeners
-    this.removeResponsiveHandlers();
-    window.removeEventListener('resize', () => {
-      this.handleResponsiveLayout();
-    });
-
-    // Unsubscribe dari backButton subscription
-    if (this.backButtonSubscription) {
-      this.backButtonSubscription.unsubscribe();
-    }
-  }
-
 
   // Method to sort projects
   sortProjects(order: 'newest' | 'oldest') {

@@ -40,7 +40,7 @@
       </div>
       <h1 class="name">Maulana Farras</h1>
       <p class="title">Web Developer | Fullstack Developer |</p>
-      <p class="title1">Ionic Developer | UI/UX Designer </p>
+      <p class="title1">Ionic Developer </p>
 
       <div class="contact-info">
         <h3>Kontak Pribadi</h3>
@@ -378,7 +378,14 @@
   <ng-template>
     <ion-content class="modal-content" (click)="closeProfileImageModal()">
       <div class="modal-image-container">
-        <img src="/assets/foto.JPG" alt="Foto Profil" class="full-size-image">
+        <img 
+          src="/assets/foto.JPG" 
+          alt="Foto Profil" 
+          class="full-size-image"
+          (contextmenu)="showDownloadRestrictionAlert()"
+          (dragstart)="showDownloadRestrictionAlert()"
+          (selectstart)="showDownloadRestrictionAlert()"
+        >
       </div>
     </ion-content>
   </ng-template>

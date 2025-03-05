@@ -89,6 +89,7 @@ ion-toolbar {
     margin-bottom: 20px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
 
     ion-card-title {
         display: flex;
@@ -102,13 +103,20 @@ ion-toolbar {
         }
     }
 
+    ion-list {
+        --background: linear-gradient(135deg, rgba(30, 55, 153, 0.7), rgba(37, 67, 117, 0.7));
+        padding: 0;
+        margin: 0;
+    }
+
     ion-item {
-        --background: transparent;
-        margin-bottom: 15px;
+        --background: linear-gradient(135deg, rgba(30, 55, 153, 0.7), rgba(37, 67, 117, 0.7));
+        --background-activated: rgba(0, 198, 255, 0.1);
         border-left: 3px solid var(--accent-color);
-        padding-left: 10px;
         transition: all 0.3s ease;
-        --background-hover: rgba(0, 198, 255, 0.1);
+        --border-width: 0;
+        --inner-border-width: 0;
+        border: none;
 
         &:hover {
             border-left: 3px solid var(--secondary-color);
@@ -143,7 +151,6 @@ ion-toolbar {
         color: rgba(255, 255, 255, 0.8);
         white-space: pre-line;
         
-        /* Ensure bullet points display properly */
         ul {
             padding-left: 20px;
             margin: 5px 0;
@@ -310,6 +317,17 @@ ion-toolbar {
         margin-bottom: 10px;
     }
 
+    .experience-card {
+        ion-item {
+            &:hover {
+                border-left: 3px solid var(--secondary-color);
+                --background: rgba(0, 198, 255, 0.1);
+                transform: translateX(5px);
+                transition: all 0.3s ease;
+            }
+        }
+    }
+
     .recommendations-card {
         padding: 10px;
         
@@ -384,6 +402,17 @@ ion-toolbar {
         margin-bottom: 15px;
     }
 
+    .experience-card {
+        ion-item {
+            &:hover {
+                border-left: 3px solid var(--secondary-color);
+                --background: rgba(0, 198, 255, 0.1);
+                transform: translateX(5px);
+                transition: all 0.3s ease;
+            }
+        }
+    }
+
     .recommendations-card {
         padding: 15px;
         
@@ -449,6 +478,17 @@ ion-toolbar {
         }
     }
 
+    .experience-card {
+        ion-item {
+            &:hover {
+                border-left: 3px solid var(--secondary-color);
+                --background: rgba(0, 198, 255, 0.1);
+                transform: translateX(5px);
+                transition: all 0.3s ease;
+            }
+        }
+    }
+
     .recommendations-card {
         padding: 20px;
         
@@ -495,6 +535,17 @@ ion-toolbar {
         margin-bottom: 20px;
     }
 
+    .experience-card {
+        ion-item {
+            &:hover {
+                border-left: 3px solid var(--secondary-color);
+                --background: rgba(0, 198, 255, 0.1);
+                transform: translateX(5px);
+                transition: all 0.3s ease;
+            }
+        }
+    }
+
     .recommendations-card {
         padding: 20px;
         
@@ -531,6 +582,17 @@ ion-toolbar {
 
     .profile-card, .experience-card, .skills-card {
         margin-bottom: 15px;
+    }
+
+    .experience-card {
+        ion-item {
+            &:hover {
+                border-left: 3px solid var(--secondary-color);
+                --background: rgba(0, 198, 255, 0.1);
+                transform: translateX(5px);
+                transition: all 0.3s ease;
+            }
+        }
     }
 
     .recommendations-card {
@@ -571,6 +633,17 @@ ion-toolbar {
         margin-bottom: 10px;
     }
 
+    .experience-card {
+        ion-item {
+            &:hover {
+                border-left: 3px solid var(--secondary-color);
+                --background: rgba(0, 198, 255, 0.1);
+                transform: translateX(5px);
+                transition: all 0.3s ease;
+            }
+        }
+    }
+
     .recommendations-card {
         padding: 10px;
         
@@ -607,6 +680,17 @@ ion-toolbar {
 
     .profile-card, .experience-card, .skills-card {
         margin-bottom: 5px;
+    }
+
+    .experience-card {
+        ion-item {
+            &:hover {
+                border-left: 3px solid var(--secondary-color);
+                --background: rgba(0, 198, 255, 0.1);
+                transform: translateX(5px);
+                transition: all 0.3s ease;
+            }
+        }
     }
 
     .recommendations-card {
