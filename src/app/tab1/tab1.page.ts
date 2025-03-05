@@ -448,10 +448,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     await alert.present();
   }
 
-  
-
-  
-
   // Tambahkan metode baru untuk menangani tombol back
   private setupBackButtonHandler() {
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {

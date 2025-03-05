@@ -378,7 +378,16 @@
   <ng-template>
     <ion-content class="modal-content" (click)="closeProfileImageModal()">
       <div class="modal-image-container">
-        <img src="/assets/foto.JPG" alt="Foto Profil" class="full-size-image">
+        <img 
+          src="/assets/foto.JPG" 
+          alt="Foto Profil" 
+          class="full-size-image"
+          (contextmenu)="showRestrictedAlert()"
+          (dragstart)="showRestrictedAlert()"
+          (selectstart)="showRestrictedAlert()"
+          (copy)="showRestrictedAlert()"
+          (cut)="showRestrictedAlert()"
+        >
       </div>
     </ion-content>
   </ng-template>
