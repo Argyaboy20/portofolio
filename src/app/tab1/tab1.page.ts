@@ -3,6 +3,9 @@ import { NavController, ToastController } from '@ionic/angular';
 import { createAnimation, Animation, Platform, AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { App } from '@capacitor/app';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { Capacitor } from '@capacitor/core';
+
 
 interface Project {
   title: string;
@@ -356,6 +359,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     document.removeEventListener('contextmenu', this.preventAction);
     document.removeEventListener('dragstart', this.preventAction);
     document.removeEventListener('selectstart', this.preventAction);
+    document.removeEventListener('keydown', this.preventScreenshotShortcuts);
+    document.removeEventListener('keydown', this.preventDevToolsScreenshot, true);
   }
 
   preventScreenshot(event?: Event) {
@@ -365,21 +370,69 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       event.stopPropagation();
     }
 
-    // Disable right-click, drag, and selection
+    // Disable right-click, drag, selection, and screenshot attempts
     document.addEventListener('contextmenu', this.preventAction);
     document.addEventListener('dragstart', this.preventAction);
     document.addEventListener('selectstart', this.preventAction);
+
+    // Prevent Print Screen / Screenshot keyboard shortcuts
+    document.addEventListener('keydown', this.preventScreenshotShortcuts);
+
+    // Prevent screenshots via browser developer tools
+    document.addEventListener('keydown', this.preventDevToolsScreenshot, true);
+
+    // Android-specific screenshot prevention
+    if (this.platform.is('android')) {
+      try {
+        // Set screen orientation to prevent easy screenshots
+        ScreenOrientation.lock({
+          orientation: 'portrait'
+        });
+      } catch (error) {
+        console.error('Error locking screen orientation:', error);
+      }
+    }
   }
 
   private preventAction = (event: Event) => {
     event.preventDefault();
   }
 
+  private preventScreenshotShortcuts = (event: KeyboardEvent) => {
+    // Prevent Print Screen, F12 (DevTools), Ctrl+P (Print), Ctrl+Shift+I (DevTools)
+    const preventKeys = [
+      'PrintScreen',
+      'F12',
+      'KeyP'  // For Ctrl+P print prevention
+    ];
+  
+    if (
+      preventKeys.includes(event.code) ||
+      (event.ctrlKey && (event.code === 'KeyP' || event.code === 'KeyI')) ||
+      (event.metaKey && (event.code === 'KeyP' || event.code === 'KeyI'))
+    ) {
+      event.preventDefault();
+      this.showDownloadRestrictionAlert();
+    }
+  }
+
+  private preventDevToolsScreenshot = (event: KeyboardEvent) => {
+    // Additional screenshot prevention for browser dev tools
+    if (
+      event.ctrlKey &&
+      (event.shiftKey || event.altKey) &&
+      (event.key === 'I' || event.key === 'J')
+    ) {
+      event.preventDefault();
+      this.showDownloadRestrictionAlert();
+    }
+  }
+
   async showDownloadRestrictionAlert() {
     const alert = await this.alertController.create({
       header: this.currentLanguage === 'id' ? 'Unduh Dibatasi' : 'Download Restricted',
-      message: this.currentLanguage === 'id' 
-        ? 'Maaf, mengunduh atau screenshot foto profil tidak diizinkan.' 
+      message: this.currentLanguage === 'id'
+        ? 'Maaf, mengunduh atau screenshot foto profil tidak diizinkan.'
         : 'Sorry, downloading or screenshots of profile photos are not allowed.',
       buttons: ['OK']
     });
