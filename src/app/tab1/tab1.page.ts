@@ -3,8 +3,8 @@ import { NavController, ToastController } from '@ionic/angular';
 import { createAnimation, Animation, Platform, AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { App } from '@capacitor/app';
-import { ScreenOrientation } from '@capacitor/screen-orientation';
 import { Capacitor } from '@capacitor/core';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
 
 
 interface Project {
@@ -381,15 +381,30 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     // Prevent screenshots via browser developer tools
     document.addEventListener('keydown', this.preventDevToolsScreenshot, true);
 
-    // Android-specific screenshot prevention
-    if (this.platform.is('android')) {
+    // Platform-specific screenshot prevention
+    if (Capacitor.getPlatform() === 'android' || Capacitor.getPlatform() === 'ios') {
       try {
-        // Set screen orientation to prevent easy screenshots
-        ScreenOrientation.lock({
-          orientation: 'portrait'
-        });
+        // Android-specific secure flag
+        if (Capacitor.getPlatform() === 'android') {
+          try {
+            ScreenOrientation.lock({
+              orientation: 'portrait'
+            });
+          } catch (error) {
+            console.error('Error locking screen orientation:', error);
+          }
+        }
+
+        // Additional prevention method
+        if (this.platform.is('android') || this.platform.is('ios')) {
+          // Programmatically prevent screenshots by adding a secure flag
+          const windowRef = window as any;
+          if (windowRef.plugins && windowRef.plugins.preventScreenshot) {
+            windowRef.plugins.preventScreenshot.prevent();
+          }
+        }
       } catch (error) {
-        console.error('Error locking screen orientation:', error);
+        console.error('Error preventing screenshots:', error);
       }
     }
   }
@@ -405,7 +420,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       'F12',
       'KeyP'  // For Ctrl+P print prevention
     ];
-  
+
     if (
       preventKeys.includes(event.code) ||
       (event.ctrlKey && (event.code === 'KeyP' || event.code === 'KeyI')) ||
