@@ -436,7 +436,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.preventionListeners = [];
   }
 
-  private async showRestrictedAlert() {
+  async showRestrictedAlert() {
     const alert = await this.alertController.create({
       header: this.currentLanguage === 'id' ? 'Aksi Dibatasi' : 'Action Restricted',
       message: this.currentLanguage === 'id' 
