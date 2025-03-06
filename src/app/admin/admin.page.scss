@@ -158,6 +158,90 @@ ion-toolbar {
     }
 }
 
+// Job item hover effect for Modal Effect Experience Card
+.job-item {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+   
+    &:hover {
+      background-color: rgba(var(--ion-color-primary-rgb), 0.1);
+    }
+  }
+  
+  // Project Modal Styles
+  .project-modal {
+    --background: #141e30;
+    --height: 90%;
+    --width: 90%;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+  }
+  
+  .project-content {
+    background: #141e30;
+    color: white;
+  }
+  
+  .project-images-slider {
+    width: auto;
+    height: 250px auto;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .project-image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .project-details-card {
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 16px;
+    border-radius: 8px;
+    
+    ion-card-title {
+      color: white;
+    }
+    
+    ion-card-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    ion-card-content {
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+  
+  .tech-used {
+    margin-top: 20px;
+    
+    h4 {
+      color: white;
+      margin-bottom: 10px;
+    }
+    
+    ion-chip {
+      margin: 5px;
+    }
+  }
+  
+  // Make sure swiper navigation and pagination are visible on dark background
+  ::ng-deep .swiper-button-next,
+  ::ng-deep .swiper-button-prev {
+    color: white !important;
+  }
+  
+  ::ng-deep .swiper-pagination-bullet {
+    background: white !important;
+    opacity: 0.7;
+  }
+  
+  ::ng-deep .swiper-pagination-bullet-active {
+    opacity: 1;
+  }
+
 // Skills Card
 .skills-card {
     --background: linear-gradient(135deg, rgba(28, 58, 148, 0.7), rgba(20, 46, 123, 0.7));

@@ -35,7 +35,7 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item lines="none" *ngFor="let job of workExperience">
+          <ion-item lines="none" *ngFor="let job of workExperience; let i = index" (click)="openProjectModal(i)" class="job-item">
             <ion-grid>
               <ion-row>
                 <ion-col size="12">
@@ -110,3 +110,48 @@
     </ion-card>
   </div>
 </ion-content>
+
+<!-- Project Modal -->
+<ion-modal [isOpen]="showProjectModal" [backdropDismiss]="true" (willDismiss)="closeProjectModal()" [cssClass]="'project-modal'">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="dark">
+        <ion-title>{{ language === 'id' ? currentProject?.titleId : currentProject?.titleEn }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeProjectModal()">
+            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content [fullscreen]="true" [style]="{'--background': '#141e30'}">
+      <div class="project-content ion-padding">
+        <!-- Project Images Slider -->
+        <swiper-container [pagination]="true" [navigation]="true" class="project-images-slider">
+          <swiper-slide *ngFor="let image of currentProject?.images">
+            <img [src]="image" alt="Project Image" class="project-image"/>
+          </swiper-slide>
+        </swiper-container>
+
+        <!-- Project Details -->
+        <ion-card class="project-details-card">
+          <ion-card-header>
+            <ion-card-title>{{ language === 'id' ? currentProject?.projectNameId : currentProject?.projectNameEn }}</ion-card-title>
+            <ion-card-subtitle>{{ currentProject?.company }} | {{ currentProject?.period }}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <div [innerHTML]="language === 'id' ? currentProject?.projectDescId : currentProject?.projectDescEn"></div>
+            
+            <!-- Technologies Used -->
+            <div class="tech-used" *ngIf="currentProject?.technologies">
+              <h4>{{ language === 'id' ? 'Teknologi yang Digunakan' : 'Technologies Used' }}</h4>
+              <ion-chip *ngFor="let tech of currentProject?.technologies" outline="true" color="primary">
+                {{ tech }}
+              </ion-chip>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

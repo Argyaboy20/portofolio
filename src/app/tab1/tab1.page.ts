@@ -293,7 +293,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           // Set the click handler
           institute.onclick = (event) => {
             // Using arrow function to preserve 'this' context
-            this.openSocialMediaLink('instagram', '@itb_indonesia');
+            this.openExternalLink('https://www.instagram.com/itb_indonesia');
           };
 
           institute.appendChild(strong);

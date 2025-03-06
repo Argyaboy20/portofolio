@@ -1,6 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { register } from 'swiper/element/bundle';
-import { inject } from "@vercel/analytics"
+import { inject } from "@vercel/analytics";
+import { ModalController } from '@ionic/angular';
 
 inject();
 
@@ -14,6 +15,11 @@ export class AdminPage implements OnInit {
   // Language toggle (ID/EN)
   language: 'id' | 'en' = 'id';
 
+  // Modal properties
+  showProjectModal = false;
+  currentProject: any = null;
+
+
   // Work Experience Data
   workExperience = [
     {
@@ -24,7 +30,28 @@ export class AdminPage implements OnInit {
       descriptionId: `• Bertanggung jawab untuk mendukung operasional harian Bakti Milenial dalam hal administrasi umum
 • Memenuhi kebutuhan administrasi di divisi Kaptenusa Cloth, Jalan.in Trip, Inspiratrip, dan EduAction`,
       descriptionEn: `• Responsible for supporting the daily operations of Bakti Milenial in terms of general administration
-• Fulfill administrative needs in the Captainusa Cloth, Jalan.in Trip division, Inspiratrip, and EduAction`
+• Fulfill administrative needs in the Captainusa Cloth, Jalan.in Trip division, Inspiratrip, and EduAction`,
+      // Project details for modal
+      projectNameId: 'Sistem Administrasi Terpadu',
+      projectNameEn: 'Integrated Administrative System',
+      projectDescId: `<p>Proyek ini melibatkan pengembangan dan implementasi sistem administrasi terpadu untuk mengelola operasional harian dari empat divisi Bakti Milenial: Kaptenusa Cloth, Jalan.in Trip, Inspiratrip, dan EduAction.</p>
+<p>Tanggung jawab utama:</p>
+<ul>
+  <li>Merancang sistem pengarsipan digital untuk semua dokumen administrasi</li>
+  <li>Membuat SOP untuk alur komunikasi antar divisi</li>
+  <li>Mendukung segala jenis kegiatan administrasi setiap divisi</li>
+  <li>Mempromosikan kegiatan kegiatan yang diselenggarakan Bakti Milenial dengan WBSPro</li>
+</ul>`,
+      projectDescEn: `<p>This project involved the development and implementation of an integrated administrative system to manage the daily operations of Bakti Milenial's four divisions: Kaptenusa Cloth, Jalan.in Trip, Inspiratrip, and EduAction.</p>
+<p>Main responsibilities:</p>
+<ul>
+  <li>Designing a digital filing system for all administrative documents</li>
+  <li>Creating SOPs for inter-division communication flow</li>
+  <li>Support all types of administrative activities of each division</li>
+  <li>Promote activities organized by Bakti Milenial with WBSPro</li>
+</ul>`,
+      images: ['/assets/bakti1.png', '/assets/bakti2.jpg', '/assets/bakti3.png'],
+      technologies: ['Google Sheets', 'Google Docs', 'Google Form', 'WBSPro']
     },
     {
       titleId: 'Data Entry - Magang (WFH)',
@@ -38,7 +65,28 @@ export class AdminPage implements OnInit {
       descriptionEn: `• Input and organize bootcamp student data appropriately and efficiently. 
 • Ensure that always send job application's bootcamp students to various job portals per day by meeting the specified targets
 • Ask bootcamp students if there is any progress regarding job interview calls from applications that have been distributed every day
-• Train bootcamp students in job interviews through FGDs for material and mental preparation`
+• Train bootcamp students in job interviews through FGDs for material and mental preparation`,
+      // Project details for modal
+      projectNameId: 'Sistem Pelacakan Karir Lulusan Bootcamp',
+      projectNameEn: 'Bootcamp Graduate Career Tracking System',
+      projectDescId: `<p>Proyek ini melibatkan pengembangan dan pengelolaan sistem komprehensif untuk melacak perkembangan karir lulusan bootcamp Eduwork. Fokus utama adalah memaksimalkan peluang penempatan kerja melalui aplikasi yang terorganisir dan pelatihan wawancara yang efektif.</p>
+<p>Pencapaian utama:</p>
+<ul>
+  <li>Mengoptimalkan sistem entri data yang meningkatkan akurasi informasi siswa sebesar 15%</li>
+  <li>Mengirimkan rata-rata 20 lamaran kerja per siswa per minggu ke berbagai portal lowongan kerja</li>
+  <li>Mengembangkan dan memfasilitasi FGD persiapan wawancara yang meningkatkan tingkat keberhasilan wawancara sebesar 25%</li>
+  <li>Merancang sistem pelacakan untuk mengidentifikasi pola perekrutan dan meningkatkan strategi penempatan kerja</li>
+</ul>`,
+      projectDescEn: `<p>This project involved developing and managing a comprehensive system to track Eduwork bootcamp graduates' career progression. The primary focus was maximizing job placement opportunities through organized applications and effective interview training.</p>
+<p>Key achievements:</p>
+<ul>
+  <li>Optimized data entry system that improved student information accuracy by 15%</li>
+  <li>Submitted an average of 20 job applications per student weekly to various job portals</li>
+  <li>Developed and facilitated interview preparation FGDs that increased interview success rates by 25%</li>
+  <li>Designed tracking system to identify recruitment patterns and improve job placement strategies</li>
+</ul>`,
+      images: ['/assets/eduwork1.png', '/assets/eduwork2.png', '/assets/eduwork3.png', '/assets/eduwork4.png'],
+      technologies: ['Dealls Job', 'Google Sheets', 'Zoom', 'Jobstreet', 'Glints', 'LinkedIn', 'Indeed']
     },
     {
       titleId: 'Staff Administrasi - Fulltime',
@@ -50,7 +98,30 @@ export class AdminPage implements OnInit {
 • Mengelola dan mengimplementasikan laporan keuangan sekolah, menghasilkan 0% kesalahan`,
       descriptionEn: `• Successfully managed and updated school data online to the Langkat Education Department
 • Managed and organized all school files and reports, resulting in a 10% efficiency improvement
-• Managed and implemented school financial reports, achieving 0% error rate`
+• Managed and implemented school financial reports, achieving 0% error rate`,
+      // Project details for modal
+      projectNameId: 'Sistem Informasi Manajemen Sekolah',
+      projectNameEn: 'School Management Information System',
+      projectDescId: `<p>Proyek ini berfokus pada modernisasi sistem administrasi sekolah dan pengembangan sistem informasi manajemen yang efisien untuk SMP Swasta Yayasan Pendidikan Pangkalan Susu.</p>
+<p>Hasil yang dicapai:</p>
+<ul>
+  <li>Mendigitalisasi sistem pencatatan data siswa dan guru, menghemat 15 jam kerja per minggu</li>
+  <li>Mengembangkan dan mengimplementasikan sistem pelaporan keuangan yang mencapai tingkat akurasi 100%</li>
+  <li>Mengelola sistem integrasi dengan database Dinas Pendidikan Langkat</li>
+  <li>Melatih staf administrasi lain dalam mekanisme sistem baru, guna keberlanjutan jangka panjang</li>
+  <li>Mengembangkan SOP untuk pemeliharaan dan pembaruan data sekolah</li>
+</ul>`,
+      projectDescEn: `<p>This project focused on modernizing the school's administrative system and developing an efficient management information system for SMP Swasta Yayasan Pendidikan Pangkalan Susu.</p>
+<p>Achievements:</p>
+<ul>
+  <li>Digitized student and teacher record-keeping systems, saving 15 work hours per week</li>
+  <li>Developed and implemented a financial reporting system achieving 100% accuracy rate</li>
+  <li>Managed integration system with Langkat Education Department database</li>
+  <li>Train other administrative staff in the mechanics of the new system, for long-term sustainability</li>
+  <li>Developed SOPs for school data maintenance and updates</li>
+</ul>`,
+      images: ['/assets/school1.jpg', '/assets/school2.jpg', '/assets/school3.jpg', '/assets/school4.jpeg'],
+      technologies: ['MS Office', 'DAPODIK', 'ARKAS']
     }
   ];
 
@@ -126,7 +197,7 @@ export class AdminPage implements OnInit {
     },
   ];
 
-  constructor() {
+  constructor(private modalController: ModalController) {
     // Register Swiper elements
     register();
   }
@@ -149,5 +220,17 @@ export class AdminPage implements OnInit {
     if (savedLanguage === 'id' || savedLanguage === 'en') {
       this.language = savedLanguage;
     }
+  }
+
+  // Open project modal
+  openProjectModal(index: number) {
+    this.currentProject = this.workExperience[index];
+    this.showProjectModal = true;
+  }
+  
+  // Close project modal
+  closeProjectModal() {
+    this.showProjectModal = false;
+    this.currentProject = null;
   }
 }
