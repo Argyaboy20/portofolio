@@ -60,6 +60,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   isCardFlipped = false;
   private backButtonSubscription!: Subscription;
   private screenshotPrevention: (() => void) | null = null;
+  isMerdekaProgramModalOpen = false;
 
   currentLanguage: 'id' | 'en' = 'id'; // default to Indonesian
   translations: TranslationDict = {
@@ -215,6 +216,38 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     await toast.present();
   }
 
+
+  // Method to open external links
+  openExternalLink(url: string) {
+    window.open(url, '_blank');
+  }
+
+  // Method to open social media links
+  openSocialMediaLink(platform: string, username: string) {
+    let url = '';
+    switch (platform) {
+      case 'instagram':
+        url = `https://www.instagram.com/${username}`;
+        break;
+      // You can add more platforms if needed
+      default:
+        return;
+    }
+    window.open(url, '_blank');
+  }
+
+  // Method to navigate to a specific project
+  navigateToProject(projectTitle: string) {
+    // Find the project in the projects array
+    const project = this.projects.find(p => p.title === projectTitle);
+
+    if (project) {
+      // Use the existing navigateWithAnimation method with the project's demo link
+      this.navigateWithAnimation(project.demoLink);
+    }
+  }
+
+
   //update Content untuk tombol translate
   updateContent() {
     const t = this.translations[this.currentLanguage];
@@ -223,12 +256,85 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     const aboutTitle = document.querySelector('#about .section-title');
     if (aboutTitle) aboutTitle.textContent = t.profilSingkat;
 
-    // Update all three paragraphs in the about section
-    const aboutParagraphs = document.querySelectorAll('#about .section-content p');
-    if (aboutParagraphs.length >= 3) {
-      aboutParagraphs[0].textContent = t.aboutContent;
-      aboutParagraphs[1].textContent = t.aboutContent2;
-      aboutParagraphs[2].textContent = t.aboutContent3;
+    // Update about section while preserving clickable elements
+    const aboutSection = document.querySelector('#about .section-content');
+    if (aboutSection) {
+      // First paragraph - preserve Ionic Framework link
+      const p1 = aboutSection.querySelector('p:nth-child(1)');
+      if (p1) {
+        const ionicLink = p1.querySelector('.clickable-text');
+        if (ionicLink) {
+          // Create text nodes for before and after the link
+          const beforeText = this.currentLanguage === 'en' ?
+            'A Software Engineer focused on hybrid mobile application development with a passion for creating innovative solutions. My core expertise lies in using ' :
+            'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan ';
+
+          const afterText = this.currentLanguage === 'en' ?
+            ' combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.73 achieved during my college years at ' :
+            ' yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.73 yang saya raih selama masa perkuliahan di ';
+
+          // Clear the paragraph and rebuild it
+          p1.innerHTML = '';
+          p1.appendChild(document.createTextNode(beforeText));
+          p1.appendChild(ionicLink.cloneNode(true));
+          p1.appendChild(document.createTextNode(afterText));
+
+          // Add the institute name with proper translation
+          const institute = document.createElement('span');
+          institute.className = 'clickable-text';
+          institute.style.color = '#4a90e2';
+
+          // Create the strong element inside
+          const strong = document.createElement('strong');
+          strong.textContent = this.currentLanguage === 'en' ?
+            'Indonesian Institute of Technology and Business' :
+            'Institut Teknologi dan Bisnis Indonesia';
+
+          // Set the click handler
+          institute.onclick = (event) => {
+            // Using arrow function to preserve 'this' context
+            this.openSocialMediaLink('instagram', '@itb_indonesia');
+          };
+
+          institute.appendChild(strong);
+          p1.appendChild(institute);
+
+          // Add the final part of the paragraph
+          const finalText = this.currentLanguage === 'en' ?
+            ', I have demonstrated strong commitment and dedication in academic field.' :
+            ', saya membuktikan komitmen dan dedikasi yang kuat dalam bidang akademik.';
+
+          p1.appendChild(document.createTextNode(finalText));
+        }
+      }
+
+      // Second paragraph - preserve ApliKasir link
+      const p2 = aboutSection.querySelector('p:nth-child(2)');
+      if (p2) {
+        const aplikasirLink = p2.querySelector('.clickable-text');
+        if (aplikasirLink) {
+          // Create text nodes for before and after the link
+          const beforeText = this.currentLanguage === 'en' ?
+            'My experience includes various application development projects, including creating a Todolist APK using JavaScript and ' :
+            'Pengalaman saya mencakup berbagai proyek pengembangan aplikasi, termasuk pembuatan Todolist APK menggunakan JavaScript dan ';
+
+          const afterText = this.currentLanguage === 'en' ?
+            ' with C#. In these projects, I contributed as a backend developer and successfully implemented features such as TaskController and UIEdit. My technical knowledge was strengthened through a student exchange program at Telkom University, where I deepened my understanding of software development, system security, and database management.' :
+            ' dengan C#. Dalam proyek-proyek tersebut, saya berkontribusi sebagai backend developer dan berhasil mengimplementasikan fitur-fitur seperti TaskController dan UIEdit. Pengetahuan teknis saya diperkuat melalui program student exchange di Telkom University, di mana saya memperdalam pemahaman tentang pengembangan perangkat lunak, keamanan sistem, dan manajemen database.';
+
+          // Clear the paragraph and rebuild it
+          p2.innerHTML = '';
+          p2.appendChild(document.createTextNode(beforeText));
+          p2.appendChild(aplikasirLink.cloneNode(true));
+          p2.appendChild(document.createTextNode(afterText));
+        }
+      }
+
+      // Third paragraph - simple text replacement
+      const p3 = aboutSection.querySelector('p:nth-child(3)');
+      if (p3) {
+        p3.textContent = t.aboutContent3;
+      }
     }
 
     const skillsTitle = document.querySelector('#skills .section-title');
@@ -667,6 +773,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         }, 300);
       }, 900); // Match this with the flip animation duration
     }, 100);
+  }
+
+  openMerdekaProgramModal() {
+    this.isMerdekaProgramModalOpen = true;
+  }
+
+  closeMerdekaProgramModal() {
+    this.isMerdekaProgramModalOpen = false;
+  }
+
+  preventModalClose(event: Event) {
+    event.stopPropagation();
   }
 
   // Open profile image modal

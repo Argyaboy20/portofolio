@@ -221,6 +221,16 @@ ion-toolbar {
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 20px;
 
+    .recommendation-link {
+        text-decoration: none; // Removes the default underline
+        color: inherit; // Maintains the existing text color
+        display: block; // Ensures the entire slide is clickable
+        
+        &:hover {
+            text-decoration: none; // Ensures no underline on hover
+        }
+    }
+
 
     ion-card-title {
         display: flex;
