@@ -252,7 +252,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
             localStorage.getItem('currentLanguage') === 'id';
 
           this.toastController.create({
-            message: isIndonesian
+            message: this.currentLanguage === 'id' 
               ? 'Scroll lagi ke bawah untuk kontak yang bisa dihubungi'
               : 'Scroll down further to see contact information',
             duration: 3000,
