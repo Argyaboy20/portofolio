@@ -112,19 +112,19 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
 
   private initSectionAnimations() {
     const sections = document.querySelectorAll('.animate-on-scroll');
-    
+
     const observerOptions = {
       root: null,
       rootMargin: '-50px 0px', // Memberikan margin untuk trigger yang lebih tepat
       threshold: [0, 0.2] // Menambahkan multiple thresholds
     };
-  
+
     const sectionObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         // Mendapatkan arah scroll
         const boundingRect = entry.boundingClientRect;
         const scrollingDown = boundingRect.top < 0;
-  
+
         if (entry.isIntersecting) {
           // Element masuk viewport
           entry.target.classList.add('animate');
@@ -138,7 +138,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
             // Scroll ke atas, tambahkan animasi fade out
             entry.target.classList.add('animate-out');
             entry.target.classList.remove('animate');
-            
+
             // Hapus class animate-out setelah animasi selesai
             entry.target.addEventListener('animationend', () => {
               if (!entry.isIntersecting) {
@@ -149,7 +149,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
         }
       });
     }, observerOptions);
-  
+
     sections.forEach(section => {
       sectionObserver.observe(section);
     });
@@ -234,6 +234,36 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.startPhotoRotation();
+
+    const scrollToContact = localStorage.getItem('scrollToContact');
+    if (scrollToContact === 'true') {
+      // Clear the flag
+      localStorage.removeItem('scrollToContact');
+
+      // Give the page time to render
+      setTimeout(() => {
+        const contactSection = document.querySelector('.contact-section');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+
+          // Show toast notification - using a simple check to determine language
+          // If you have currentLanguage in your BiodataPage, use it directly
+          const isIndonesian = document.documentElement.lang === 'id' ||
+            localStorage.getItem('currentLanguage') === 'id';
+
+          this.toastController.create({
+            message: isIndonesian
+              ? 'Scroll lagi ke bawah untuk kontak yang bisa dihubungi'
+              : 'Scroll down further to see contact information',
+            duration: 3000,
+            position: 'bottom',
+            color: 'primary',
+            cssClass: 'custom-toast',
+            buttons: [{ text: 'OK', role: 'cancel' }]
+          }).then(toast => toast.present());
+        }
+      }, 1000);
+    }
   }
 
   ngOnDestroy() {
@@ -286,16 +316,16 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   startPhotoRotation() {
     // Set initial photo
     this.updateCurrentPhoto();
-    
+
     // Start progress animation
     const rotationDuration = 5000; // 5 seconds per photo
     const updateInterval = 50; // Update progress every 50ms
     let progress = 0;
-    
+
     this.photoRotationInterval = setInterval(() => {
       progress += updateInterval;
       this.photoProgressPercentage = (progress / rotationDuration) * 100;
-      
+
       if (progress >= rotationDuration) {
         // Move to next photo
         this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.rotatingPhotos.length;
@@ -310,7 +340,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       clearInterval(this.photoRotationInterval);
     }
   }
-  
+
   updateCurrentPhoto() {
     const photo = this.rotatingPhotos[this.currentPhotoIndex];
     this.currentRotatingPhoto = photo.src;

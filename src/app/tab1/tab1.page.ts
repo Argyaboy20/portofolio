@@ -487,8 +487,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   navigateToBiodataContact() {
     // Use standard navigation for mobile browsers
     if (this.platform.is('mobile') || window.innerWidth <= 768) {
-      // For mobile, use direct URL navigation
-      window.location.href = window.location.origin + '/biodata#contact-section';
+      // For mobile, navigate first, then scroll to the contact section after the page loads
+      window.location.href = window.location.origin + '/biodata';
+      
+      // Set a flag in localStorage to indicate we should scroll to contact section after page loads
+      localStorage.setItem('scrollToContact', 'true');
     } else {
       // For desktop, use animated navigation
       const animation = (baseEl: HTMLElement, opts?: any): Animation => {
@@ -497,18 +500,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           .duration(300)
           .fromTo('transform', 'translateX(100%)', 'translateX(0)')
           .fromTo('opacity', '0.2', '1');
-
+  
         const leavingAnimation = createAnimation()
           .addElement(opts.leavingEl)
           .duration(300)
           .fromTo('transform', 'translateX(0)', 'translateX(-100%)')
           .fromTo('opacity', '1', '0.2');
-
+  
         return createAnimation()
           .addAnimation(enteringAnimation)
           .addAnimation(leavingAnimation);
       };
-
+  
       // Navigate to biodata page
       this.navCtrl.navigateForward('/biodata', {
         animated: true,
@@ -519,7 +522,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           const contactSection = document.querySelector('.contact-section');
           if (contactSection) {
             contactSection.scrollIntoView({ behavior: 'smooth' });
-
+  
             // Add a delayed toast notification after scrolling
             setTimeout(() => {
               this.toastController.create({
