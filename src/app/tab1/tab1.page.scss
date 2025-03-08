@@ -21,6 +21,15 @@ $text-color-light: #fff;
     }
 }
 
+/* Custom alert pesan */
+.custom-toast {
+    opacity: 1 !important;
+    --background: var(--ion-color-primary) !important;
+    --color: white !important;
+    --border-radius: 8px !important;
+    --box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2) !important;
+  }
+
 ion-toolbar {
     --background: #000000 !important;
 
@@ -1434,10 +1443,9 @@ footer {
 
     .merdeka-program-modal {
         --width: 95%;
-        --height: 75%;
 
         .modal-content {
-            padding: 15px;
+            padding: 5px;
         }
 
         .modal-header {

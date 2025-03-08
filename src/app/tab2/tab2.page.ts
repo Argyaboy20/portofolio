@@ -268,5 +268,8 @@ export class Tab2Page implements OnInit, OnDestroy {
   closeImageModal() {
     this.isImageModalOpen = false;
     this.selectedImage = null;
+
+    // Navigate back to the tab2 page
+    this.router.navigateByUrl('/tabs/tab2');
   }
 }

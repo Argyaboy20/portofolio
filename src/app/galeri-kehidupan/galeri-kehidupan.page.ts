@@ -224,6 +224,9 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
 
   selectPhoto(photo: PhotoItem) {
     this.selectedPhoto = photo;
+
+    // Navigate back to the galeri page
+    this.router.navigateByUrl('/galeri-kehidupan');
   }
 
   // Preload images in background for smoother experience

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { inject } from "@vercel/analytics";
 import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 inject();
 
@@ -197,7 +198,10 @@ export class AdminPage implements OnInit {
     },
   ];
 
-  constructor(private modalController: ModalController) {
+  constructor(
+    private modalController: ModalController,
+    private router: Router
+  ) {
     // Register Swiper elements
     register();
   }
@@ -232,5 +236,7 @@ export class AdminPage implements OnInit {
   closeProjectModal() {
     this.showProjectModal = false;
     this.currentProject = null;
+    // Navigate back to the admin page
+    this.router.navigateByUrl('/admin');
   }
 }

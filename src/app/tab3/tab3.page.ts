@@ -135,5 +135,8 @@ export class Tab3Page implements OnInit, OnDestroy {
 
   closeModal() {
     this.isModalOpen = false;
+
+    // Navigate back to the tab3 page
+    this.router.navigateByUrl('/tabs/tab3');
   }
 }

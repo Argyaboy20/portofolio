@@ -128,5 +128,8 @@ export class Tab4Page implements OnInit, OnDestroy {
   closeModal() {
     this.isModalOpen = false;
     this.selectedProject = null;
+
+    // Navigate back to the tab4 page
+    this.router.navigateByUrl('/tabs/tab4');
   }
 }

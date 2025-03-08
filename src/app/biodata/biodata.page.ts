@@ -92,6 +92,9 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
 
   closeAwardsModal() {
     this.isAwardsModalOpen = false;
+
+    // Navigate back to the biodata page
+    this.router.navigateByUrl('/biodata');
   }
 
   isGalleryModalOpen = false;
@@ -274,9 +277,12 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   closeGalleryModal() {
     this.isGalleryModalOpen = false;
     this.isImageZoomed = false;
+
+    // Navigate back to the biodata page
+    this.router.navigateByUrl('/biodata');
   }
 
-  //Gallery Rotate
+  //Gallery Rotates
   startPhotoRotation() {
     // Set initial photo
     this.updateCurrentPhoto();

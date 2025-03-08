@@ -333,7 +333,68 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       // Third paragraph - simple text replacement
       const p3 = aboutSection.querySelector('p:nth-child(3)');
       if (p3) {
-        p3.textContent = t.aboutContent3;
+        const contactLink = p3.querySelector('.clickable-text');
+        if (contactLink) {
+          // Create text nodes for before and after the link
+          const beforeText = this.currentLanguage === 'en' ?
+            'My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. ' :
+            'Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. ';
+
+          const afterText = this.currentLanguage === 'en' ?
+            ' if you are interested in further collaboration on software development.' :
+            ' jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak';
+
+          // Update the contact text based on language
+          const contactStrong = contactLink.querySelector('strong');
+          if (contactStrong) {
+            contactStrong.textContent = this.currentLanguage === 'en' ? 'Contact me' : 'Hubungi saya';
+          }
+
+          // Clear the paragraph and rebuild it
+          p3.innerHTML = '';
+          p3.appendChild(document.createTextNode(beforeText));
+          p3.appendChild(contactLink.cloneNode(true));
+          p3.appendChild(document.createTextNode(afterText));
+
+          // Re-attach click event to the new element
+          const newContactLink = p3.querySelector('.clickable-text');
+          if (newContactLink) {
+            newContactLink.addEventListener('click', () => {
+              this.navigateToBiodataContact();
+            });
+          }
+        } else {
+          // If the contact link doesn't exist yet, create the full paragraph with the clickable element
+          const fullText = this.currentLanguage === 'en' ?
+            'My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. ' :
+            'Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. ';
+
+          const contactText = this.currentLanguage === 'en' ? 'Contact me' : 'Hubungi saya';
+
+          const afterText = this.currentLanguage === 'en' ?
+            ' if you are interested in further collaboration on software development.' :
+            ' jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak';
+
+          // Create the paragraph with the clickable span
+          p3.innerHTML = fullText;
+
+          // Create clickable span
+          const span = document.createElement('span');
+          span.className = 'clickable-text';
+          span.style.color = '#4a90e2';
+          span.addEventListener('click', () => {
+            this.navigateToBiodataContact();
+          });
+
+          // Create strong element inside span
+          const strong = document.createElement('strong');
+          strong.textContent = contactText;
+          span.appendChild(strong);
+
+          // Append the span and after text
+          p3.appendChild(span);
+          p3.appendChild(document.createTextNode(afterText));
+        }
       }
     }
 
@@ -419,6 +480,62 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
       this.projects[2].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
       this.projects[2].duration = 'April - Mei 2024';
+    }
+  }
+
+  // Add this method to navigate to biodata page contact section for third paragraph
+  navigateToBiodataContact() {
+    // Use standard navigation for mobile browsers
+    if (this.platform.is('mobile') || window.innerWidth <= 768) {
+      // For mobile, use direct URL navigation
+      window.location.href = window.location.origin + '/biodata#contact-section';
+    } else {
+      // For desktop, use animated navigation
+      const animation = (baseEl: HTMLElement, opts?: any): Animation => {
+        const enteringAnimation = createAnimation()
+          .addElement(opts.enteringEl)
+          .duration(300)
+          .fromTo('transform', 'translateX(100%)', 'translateX(0)')
+          .fromTo('opacity', '0.2', '1');
+
+        const leavingAnimation = createAnimation()
+          .addElement(opts.leavingEl)
+          .duration(300)
+          .fromTo('transform', 'translateX(0)', 'translateX(-100%)')
+          .fromTo('opacity', '1', '0.2');
+
+        return createAnimation()
+          .addAnimation(enteringAnimation)
+          .addAnimation(leavingAnimation);
+      };
+
+      // Navigate to biodata page
+      this.navCtrl.navigateForward('/biodata', {
+        animated: true,
+        animation
+      }).then(() => {
+        // After navigation, set a timeout to scroll to the contact section
+        setTimeout(() => {
+          const contactSection = document.querySelector('.contact-section');
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Add a delayed toast notification after scrolling
+            setTimeout(() => {
+              this.toastController.create({
+                message: this.currentLanguage === 'id' 
+                  ? 'Scroll lagi ke bawah untuk kontak yang bisa dihubungi' 
+                  : 'Scroll down further to see contact information',
+                duration: 3000,
+                position: 'bottom', // Position at bottom
+                color: 'primary', // Using primary color for better visibility
+                cssClass: 'custom-toast', // Adding a CSS class for additional styling
+                buttons: [{ text: 'OK', role: 'cancel' }]
+              }).then(toast => toast.present());
+            }, 1000);
+          }
+        }, 500); // Give the page some time to load
+      });
     }
   }
 
