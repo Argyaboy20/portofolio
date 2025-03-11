@@ -45,13 +45,13 @@ export class Tab3Page implements OnInit, OnDestroy {
   translations: TranslationDict = {
     id: {
       heroTitle: 'Web Portofolio',
-      heroSubtitle: 'Pengembang Web, Pengembang Full-Stack, Desainer UI/UX & Pengembang Ionic',
+      heroSubtitle: 'Pengembang Web, Pengembang Full-Stack & Pengembang Ionic',
       skillsTitle: 'Alat-Alat Pengembangan',
       galleryTitle: 'Tampilan UI/UX'
     },
     en: {
       heroTitle: 'Web Portofolio',
-      heroSubtitle: 'Web Developer, Fullstack Developer, UI/UX Designer, Ionic Developer',
+      heroSubtitle: 'Web Developer, Fullstack Developer & Ionic Developer',
       skillsTitle: 'Development Tools',
       galleryTitle: 'UI/UX View'
     }

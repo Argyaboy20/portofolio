@@ -819,19 +819,21 @@ section {
 
 /* Base animation classes */
 .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
-    will-change: opacity, transform;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
 }
 
 .animate-on-scroll.animate {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .animate-on-scroll.animate-out {
-    animation: fadeOut 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 /* Different animation variations */
@@ -1334,6 +1336,10 @@ section {
         .timeline-dot {
             left: 20px;
             right: auto;
+
+            :nth-child(even) & {
+                left: 20px;
+            }
         }
 
         /* Adding specific fix for the second dot if needed */

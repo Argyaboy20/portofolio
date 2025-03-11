@@ -32,7 +32,7 @@
   <section class="timeline-section">
     <h2 class="section-title animate-on-scroll">{{ getText('journey') }}</h2>
     <div class="timeline">
-      <!-- Update each timeline item with translations -->
+      <!-- Update Mobile App timeline item with translations -->
       <div class="timeline-item animate-on-scroll">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
@@ -41,7 +41,7 @@
           <p>{{ getText('currentDesc') }}</p>
         </div>
       </div>
-      <!-- Update each timeline item with translations -->
+      <!-- Update Web Developer timeline item with translations -->
       <div class="timeline-item animate-on-scroll">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
@@ -50,11 +50,39 @@
           <p>{{ getText('webDesc') }}</p>
         </div>
       </div>
-      <!-- Update each timeline item with translations -->
+      <!-- Update PMM timeline item with translations -->
       <div class="timeline-item animate-on-scroll">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
-          <h3>2022 - {{ currentLanguage === 'id' ? 'Sekarang' : 'Present' }}</h3>
+          <h3>{{ currentLanguage === 'id' ? 'Feb - Jun 2024' : 'Feb - Jun 2024' }}</h3>
+          <h4>{{ getText('pmmRole') }}</h4>
+          <p>{{ getText('pmmDesc') }}</p>
+        </div>
+      </div>
+      <!-- Update Pelatih Robotik timeline item with translations -->
+      <div class="timeline-item animate-on-scroll">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>{{ currentLanguage === 'id' ? 'Mei - Agustus 2023' : 'May - August 2023' }}</h3>
+          <h4>{{ getText('roboticsRole') }}</h4>
+          <p>{{ getText('roboticsDesc') }}</p>
+        </div>
+      </div>
+      <!-- Update Pilmapres timeline item with translations -->
+      <div class="timeline-item animate-on-scroll">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>{{ currentLanguage === 'id' ? 'Mei 2023' : 'May 2023' }}</h3>
+          <h4>{{ getText('pilmapresRole') }}</h4>
+          <p>{{ getText('pilmapresDesc') }}</p>
+        </div>
+      </div>
+
+      <!-- Update education timeline item with translations -->
+      <div class="timeline-item animate-on-scroll">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h3>{{ currentLanguage === 'id' ? 'Agustus 2022 - Sekarang' : 'August 2022 - Present' }}</h3>
           <h4>{{ getText('education') }}</h4>
           <p>{{ getText('eduDesc') }}</p>
         </div>
@@ -203,7 +231,8 @@
         <h3>{{ getText('otherWays') }}</h3>
         <div class="contact-item">
           <ion-icon name="logo-whatsapp"></ion-icon>
-          <a href="https://wa.me/+6285761787971?text=Halo%20Maulana%2C%20saya%20tertarik%20untuk%20bekerjasama%20dalam%20pengembangan%20software.%20Berikut%20rincian%20softwarenya.%0A%0A1.%20Jenis%20software%3A%20%28website%2Fmobile%2Fhybrid%29%0A2.%20Target%20user%3A%20%0A3.%20Fungsi%20software%3A%20" target="_blank">
+          <a href="https://wa.me/+6285761787971?text=Halo%20Maulana%2C%20saya%20tertarik%20untuk%20bekerjasama%20dalam%20pengembangan%20software.%20Berikut%20rincian%20softwarenya.%0A%0A1.%20Jenis%20software%3A%20%28website%2Fmobile%2Fhybrid%29%0A2.%20Target%20user%3A%20%0A3.%20Fungsi%20software%3A%20"
+            target="_blank">
             <span class="bold-text">{{ getText('whatsappContact') }}</span>
           </a>
         </div>
@@ -226,7 +255,7 @@
       <ion-content class="modal-content">
         <ion-header class="awards-modal-header animate-on-scroll">
           <ion-toolbar>
-            <ion-title>Awards & Achievements</ion-title>
+            <ion-title>{{ getText('awardsTitle') }}</ion-title>
             <ion-buttons slot="end">
               <ion-button (click)="closeAwardsModal()">
                 <ion-icon name="close-outline"></ion-icon>
@@ -238,11 +267,11 @@
           <div class="awards-carousel">
             <div class="award-slide" *ngFor="let award of awards; let i = index">
               <div class="award-image-container">
-                <img [src]="award.image" [alt]="award.title" loading="lazy">
+                <img [src]="award.image" [alt]="getAwardText(award, 'title')" loading="lazy">
               </div>
               <div class="award-info">
-                <h3>{{award.title}}</h3>
-                <p>{{award.description}}</p>
+                <h3>{{ getAwardText(award, 'title') }}</h3>
+                <p>{{ getAwardText(award, 'description') }}</p>
               </div>
             </div>
           </div>

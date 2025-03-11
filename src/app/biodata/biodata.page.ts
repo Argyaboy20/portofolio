@@ -37,6 +37,12 @@ interface TranslationKeys {
   whatsappContact: string;
   quoraProfile: string;
   awardsTitle: string;
+  pilmapresRole: string;
+  pilmapresDesc: string;
+  roboticsRole: string;
+  roboticsDesc: string;
+  pmmRole: string;
+  pmmDesc: string;
 }
 
 interface Translations {
@@ -51,38 +57,64 @@ interface Translations {
   standalone: false,
 })
 export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
+  private backButtonSubscription!: Subscription;
   isAwardsModalOpen = false;
   isImageZoomed = false;
   awards = [
     {
       image: '/assets/bestPerfomance.jpg',
-      title: 'Best Perfomance Intern of The Month (October)',
-      description: 'Fully contributes to the team at work.'
+      title: {
+        id: 'Best Perfomance Intern of The Month (October)',
+        en: 'Best Performance Intern of The Month (October)'
+      },
+      description: {
+        id: 'Berkontribusi penuh kepada tim di tempat kerja.',
+        en: 'Fully contributes to the team at work.'
+      }
     },
     {
       image: '/assets/batch4.jpg',
-      title: 'PMM Batch 4 2024',
-      description: 'Conducted an independent student exchange to Telkom University.'
+      title: {
+        id: 'PMM Batch 4 2024',
+        en: 'PMM Batch 4 2024'
+      },
+      description: {
+        id: 'Melakukan pertukaran pelajar mandiri ke Telkom University.',
+        en: 'Conducted an independent student exchange to Telkom University.'
+      }
+    },
+    {
+      image: '/assets/robotik.png',
+      title: {
+        id: 'Pelatih Robotik 2023',
+        en: 'Robotics Trainer 2023'
+      },
+      description: {
+        id: 'Menjadi pelatih dalam pelatihan robotik untuk siswa SMA.',
+        en: 'Became a trainer in robotics training for high school students.'
+      }
+    },
+    {
+      image: '/assets/pilmapres.png',
+      title: {
+        id: 'Pilmapres 2023',
+        en: 'Pilmapres 2023'
+      },
+      description: {
+        id: 'Berpartisipasi dalam kompetisi Pilmapres dengan menyajikan ide untuk mengatasi masalah SGDs.',
+        en: 'Participated in the Pilmapres competition by presenting ideas to overcome the SGDs problem.'
+      }
     },
   ];
-
-  rotatingPhotos = [
-    { src: '/assets/foto.JPG', caption: 'Picture of me' },
-    { src: '/assets/tempat.JPG', caption: 'Exploring new places' },
-    { src: '/assets/team.jpg', caption: 'Team building activities' },
-    { src: '/assets/belajar.jpg', caption: 'Learning new technologies' }
-  ];
-  currentPhotoIndex = 0;
-  currentRotatingPhoto = '';
-  currentPhotoCaption = '';
-  photoProgressPercentage = 0;
-  photoRotationInterval: any;
-
-  private backButtonSubscription!: Subscription;
 
   // Tambahkan getter untuk menghitung jumlah awards
   get awardsCount(): string {
     return `+${this.awards.length}`;
+  }
+
+  // Add this helper method to get the text in the current language
+  getAwardText(award: any, field: 'title' | 'description'): string {
+    return award[field][this.currentLanguage];
   }
 
   // Add these methods
@@ -97,64 +129,6 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigateByUrl('/biodata');
   }
 
-  isGalleryModalOpen = false;
-  currentGalleryImage = '';
-  currentLanguage: Language = 'id'; // Default language is Indonesian
-  formData = {
-    nama: '',
-    email: '',
-    pesan: ''
-  };
-
-  ngAfterViewInit() {
-    this.initSectionAnimations();
-  }
-
-  private initSectionAnimations() {
-    const sections = document.querySelectorAll('.animate-on-scroll');
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '-50px 0px', // Memberikan margin untuk trigger yang lebih tepat
-      threshold: [0, 0.2] // Menambahkan multiple thresholds
-    };
-
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        // Mendapatkan arah scroll
-        const boundingRect = entry.boundingClientRect;
-        const scrollingDown = boundingRect.top < 0;
-
-        if (entry.isIntersecting) {
-          // Element masuk viewport
-          entry.target.classList.add('animate');
-          entry.target.classList.remove('animate-out');
-        } else {
-          // Element keluar viewport
-          if (scrollingDown) {
-            // Scroll ke bawah, tidak perlu animasi fade out
-            entry.target.classList.remove('animate');
-          } else {
-            // Scroll ke atas, tambahkan animasi fade out
-            entry.target.classList.add('animate-out');
-            entry.target.classList.remove('animate');
-
-            // Hapus class animate-out setelah animasi selesai
-            entry.target.addEventListener('animationend', () => {
-              if (!entry.isIntersecting) {
-                entry.target.classList.remove('animate-out');
-              }
-            }, { once: true });
-          }
-        }
-      });
-    }, observerOptions);
-
-    sections.forEach(section => {
-      sectionObserver.observe(section);
-    });
-  }
-
   // Translation objects
   translations: Translations = {
     id: {
@@ -166,7 +140,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       webRole: "Web Developer",
       webDesc: "Memulai karir sebagai front-end developer dengan fokus pada framework Angular. Bekerja dalam tim untuk membangun aplikasi web yang interaktif dan modern.",
       education: "Institut Teknologi dan Bisnis Indonesia",
-      eduDesc: "Menempuh pendidikan S1 dengan IPK 3.73. Aktif mencoba semua lomba dan hal hal baru. Mengembangkan project-project inovatif selama masa kuliah.",
+      eduDesc: "Menempuh pendidikan S1 dengan IPK 3.78. Aktif mencoba semua lomba dan hal hal baru. Mengembangkan project-project inovatif selama masa kuliah.",
       hobbiesTitle: "Hobby dan Ketertarikan",
       codingDesc: "Menghabiskan waktu luang untuk eksplorasi teknologi baru dan mengerjakan side projects.",
       gamingDesc: "Menikmati game sepakbola untuk relaksasi dan mengasah kemampuan problem-solving.",
@@ -183,6 +157,12 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       whatsappContact: "Hubungi di sini",
       quoraProfile: "Profil Quora",
       awardsTitle: "Penghargaan",
+      pilmapresRole: "Pilmapres 2023",
+      pilmapresDesc: "Berpartisipasi dalam Pemilihan Mahasiswa Berprestasi 2023 mewakili prodi dan fakultas. Mengembangkan karya inovatif dan mempresentasikan gagasan baru di bidang teknologi.",
+      roboticsRole: "Pelatih Robotik",
+      roboticsDesc: "Mengadakan pelatihan dalam pembuatan robot pengikut garis, desain robot pengikut garis, simulasi robot dengan Arduino IDE Interface.",
+      pmmRole: "Pertukaran Mahasiswa Merdeka 4",
+      pmmDesc: "Mengikuti program Pertukaran Mahasiswa Merdeka Batch 4 untuk memperluas wawasan dan pengalaman belajar di luar kampus asal.",
     },
     en: {
       heroTitle: "Hello, I'm",
@@ -193,7 +173,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       webRole: "Web Developer",
       webDesc: "Started career as a front-end developer focusing on Angular framework. Working in teams to build interactive and modern web applications.",
       education: "Indonesia Institute of Technology and Business",
-      eduDesc: "Pursuing Bachelor's degree with 3.73 GPA. Actively participating in competitions and exploring new opportunities. Developing innovative projects during college years.",
+      eduDesc: "Pursuing Bachelor's degree with 3.78 GPA. Actively participating in competitions and exploring new opportunities. Developing innovative projects during college years.",
       hobbiesTitle: "Hobbies & Interests",
       codingDesc: "Spending free time exploring new technologies and working on side projects.",
       gamingDesc: "Enjoying football games for relaxation and improving problem-solving skills.",
@@ -210,8 +190,31 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       whatsappContact: "Contact me here",
       quoraProfile: "Quora Profile",
       awardsTitle: "Awards & Achievements",
+      pilmapresRole: "Outstanding Student Award 2023",
+      pilmapresDesc: "Participated in the Outstanding Student Selection 2023 representing the department and faculty. Developed innovative work and presented new ideas in technology.",
+      roboticsRole: "Robotics Trainer",
+      roboticsDesc: "Conducted training in line follower robot development, line follower robot design, and robot simulation with Arduino IDE Interface.",
+      pmmRole: "Merdeka Student Exchange Program 4",
+      pmmDesc: "Participated in the Merdeka Student Exchange Program Batch 4 to expand knowledge and learning experiences outside the home campus.",
     }
   };
+
+  rotatingPhotos = [
+    { src: '/assets/foto.JPG', caption: 'Picture of me' },
+    { src: '/assets/tempat.JPG', caption: 'Exploring new places' },
+    { src: '/assets/team.jpg', caption: 'Team building activities' },
+    { src: '/assets/belajar.jpg', caption: 'Learning new technologies' }
+  ];
+  currentPhotoIndex = 0;
+  currentRotatingPhoto = '';
+  currentPhotoCaption = '';
+  photoProgressPercentage = 0;
+  photoRotationInterval: any;
+
+
+  isGalleryModalOpen = false;
+  currentGalleryImage = '';
+  currentLanguage: Language = 'id'; // Default language is Indonesian
 
   constructor(
     private postProvider: PostProvider,
@@ -252,7 +255,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
             localStorage.getItem('currentLanguage') === 'id';
 
           this.toastController.create({
-            message: this.currentLanguage === 'id' 
+            message: this.currentLanguage === 'id'
               ? 'Scroll lagi ke bawah untuk kontak yang bisa dihubungi'
               : 'Scroll down further to see contact information',
             duration: 3000,
@@ -266,6 +269,10 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit() {
+    this.initSectionAnimations();
+  }
+
   ngOnDestroy() {
     // Clean up the subscription when the component is destroyed
     if (this.backButtonSubscription) {
@@ -275,6 +282,63 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.stopPhotoRotation();
   }
 
+  private initSectionAnimations() {
+    const sections = document.querySelectorAll('.animate-on-scroll');
+    let lastScrollY = window.scrollY;
+  
+    // Create a function to determine scroll direction
+    const getScrollDirection = () => {
+      const scrollY = window.scrollY;
+      const direction = scrollY > lastScrollY ? 'down' : 'up';
+      lastScrollY = scrollY > 0 ? scrollY : 0;
+      return direction;
+    };
+  
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50px 0px',
+      threshold: 0.1
+    };
+  
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const scrollDirection = getScrollDirection();
+      
+      entries.forEach(entry => {
+        // Add a data attribute to track animation state
+        if (!entry.target.hasAttribute('data-animated')) {
+          entry.target.setAttribute('data-animated', 'false');
+        }
+        
+        const wasAnimated = entry.target.getAttribute('data-animated') === 'true';
+        
+        if (entry.isIntersecting) {
+          // Element is visible
+          entry.target.classList.add('animate');
+          entry.target.classList.remove('animate-out');
+          entry.target.setAttribute('data-animated', 'true');
+        } else {
+          // Element is not visible
+          if (scrollDirection === 'up' && wasAnimated) {
+            // Only apply fade-out when scrolling up and element was previously animated
+            entry.target.classList.add('animate-out');
+            entry.target.classList.remove('animate');
+          } else if (scrollDirection === 'down') {
+            // When scrolling down past an element, just remove animation classes
+            entry.target.classList.remove('animate');
+            entry.target.classList.remove('animate-out');
+          }
+        }
+      });
+    }, observerOptions);
+  
+    sections.forEach(section => {
+      sectionObserver.observe(section);
+    });
+  
+    // Also track scroll events for better direction detection
+    window.addEventListener('scroll', getScrollDirection);
+  }
+  
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
   }
@@ -345,35 +409,6 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     const photo = this.rotatingPhotos[this.currentPhotoIndex];
     this.currentRotatingPhoto = photo.src;
     this.currentPhotoCaption = photo.caption;
-  }
-
-  async submitForm() {
-    if (!this.formData.nama || !this.formData.email || !this.formData.pesan) {
-      await this.presentToast('Isi semua data yang dibutuhkan ya', 'warning');
-      return;
-    }
-
-    const data = {
-      aksi: 'add_connect',
-      nama: this.formData.nama,
-      email: this.formData.email,
-      pesan: this.formData.pesan
-    };
-
-    this.postProvider.postData(data, 'koneksi.php').subscribe({
-      next: async (response: any) => {
-        if (response.success) {
-          await this.presentToast('Pesan berhasil terkirim!', 'success');
-          this.formData = { nama: '', email: '', pesan: '' };
-        } else {
-          await this.presentToast(response.message || 'Pesan gagal terkirim', 'danger');
-        }
-      },
-      error: async (error) => {
-        console.error('Error:', error);
-        await this.presentToast(error.message || 'Terjadi kesalahan pada server', 'danger');
-      }
-    });
   }
 
   async presentToast(message: string, color: string) {

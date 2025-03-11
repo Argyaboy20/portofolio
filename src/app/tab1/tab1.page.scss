@@ -476,7 +476,70 @@ ion-content {
 /* Styling untuk section */
 .section {
     margin-bottom: 4rem;
+    opacity: 0;
+    transition: all 0.6s ease-out;
+    transform: translateY(20px);
 }
+
+.section.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+.section.animate-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s ease-in;
+}
+
+/* Different animation directions for different sections */
+#about.section {
+    transform: translateX(-20px);
+  }
+  
+  #about.section.animate-in {
+    transform: translateX(0);
+  }
+  
+  #about.section.animate-out {
+    transform: translateX(20px);
+  }
+  
+  #education.section {
+    transform: translateY(20px);
+  }
+  
+  #skills.section {
+    transform: translateX(20px);
+  }
+  
+  #skills.section.animate-in {
+    transform: translateX(0);
+  }
+  
+  #skills.section.animate-out {
+    transform: translateX(-20px);
+  }
+  
+  #tools.section {
+    transform: translateY(20px);
+  }
+  
+  #projects.section {
+    transform: translateX(-20px);
+  }
+  
+  #projects.section.animate-in {
+    transform: translateX(0);
+  }
+  
+  #projects.section.animate-out {
+    transform: translateX(20px);
+  }
+  
+  #career.section {
+    transform: translateY(20px);
+  }
 
 .demo-link {
     position: relative;

@@ -20,6 +20,18 @@ export class AdminPage implements OnInit {
   showProjectModal = false;
   currentProject: any = null;
 
+  constructor(
+    private modalController: ModalController,
+    private router: Router
+  ) {
+    // Register Swiper elements
+    register();
+  }
+
+  ngOnInit() {
+    // Initialize with default language or user preference
+    this.checkUserLanguagePreference();
+  }
 
   // Work Experience Data
   workExperience = [
@@ -197,19 +209,6 @@ export class AdminPage implements OnInit {
       link: 'https://www.linkedin.com/in/maulanafarras/details/recommendations/'
     },
   ];
-
-  constructor(
-    private modalController: ModalController,
-    private router: Router
-  ) {
-    // Register Swiper elements
-    register();
-  }
-
-  ngOnInit() {
-    // Initialize with default language or user preference
-    this.checkUserLanguagePreference();
-  }
 
   // Toggle between Indonesian and English
   toggleLanguage() {

@@ -146,21 +146,6 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     this.audio.preload = 'metadata';
   }
 
-  togglePlay() {
-    if (this.isPlaying) {
-      this.audio.pause();
-    } else {
-      // Use promise to handle play() properly
-      const playPromise = this.audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log('Audio playback prevented: ', error);
-        });
-      }
-    }
-    this.isPlaying = !this.isPlaying;
-  }
-
   ngOnInit() {
     // Initialize filtered photos immediately
     this.updateFilteredPhotos();
@@ -187,6 +172,21 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
+  }
+
+  togglePlay() {
+    if (this.isPlaying) {
+      this.audio.pause();
+    } else {
+      // Use promise to handle play() properly
+      const playPromise = this.audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log('Audio playback prevented: ', error);
+        });
+      }
+    }
+    this.isPlaying = !this.isPlaying;
   }
 
   updateFilteredPhotos() {

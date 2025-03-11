@@ -61,6 +61,9 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   private backButtonSubscription!: Subscription;
   private screenshotPrevention: (() => void) | null = null;
   isMerdekaProgramModalOpen = false;
+  private scrollHandler: (() => void) | null = null;
+  // Profile image modal state
+  isProfileImageModalOpen = false;
 
   currentLanguage: 'id' | 'en' = 'id'; // default to Indonesian
   translations: TranslationDict = {
@@ -140,12 +143,90 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }
   ];
 
+  @ViewChildren('sectionElement') sectionElements!: QueryList<ElementRef>;
+  // Add new properties for responsive layout
+  @ViewChild('leftPanel', { static: true }) leftPanel!: ElementRef;
+  @ViewChild('rightPanel', { static: true }) rightPanel!: ElementRef;
+  @ViewChildren('skillBar') skillBars!: QueryList<ElementRef>;
+
+
   constructor(
     private navCtrl: NavController,
     private platform: Platform,
     private alertController: AlertController,
     private toastController: ToastController
   ) { }
+
+  ngOnInit() {
+    // Sort projects by newest first by default
+    this.sortProjects('newest');
+
+    this.setupBackButtonHandler();
+  }
+
+  ngAfterViewInit() {
+    // Initialize responsive layout handlers
+    this.initializeResponsiveLayout();
+    this.initSkillBarAnimations();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      this.handleResponsiveLayout();
+    });
+
+    this.preventScreenshot();
+
+    this.setupScrollAnimations();
+  }
+
+  ngOnDestroy() {
+    // Clean up event listeners
+    this.removeResponsiveHandlers();
+    window.removeEventListener('resize', () => {
+      this.handleResponsiveLayout();
+    });
+
+    // Unsubscribe dari backButton subscription
+    if (this.backButtonSubscription) {
+      this.backButtonSubscription.unsubscribe();
+    }
+
+    // Remove event listeners to prevent memory leaks
+    document.removeEventListener('contextmenu', this.preventAction);
+    document.removeEventListener('dragstart', this.preventAction);
+    document.removeEventListener('selectstart', this.preventAction);
+    document.removeEventListener('keydown', this.preventScreenshotShortcuts);
+    document.removeEventListener('keydown', this.preventDevToolsScreenshot, true);
+  }
+
+  setupScrollAnimations() {
+    // Get all section elements
+    const sections = document.querySelectorAll('.section');
+    
+    // Create an Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Add class when element is entering viewport while scrolling down
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          entry.target.classList.remove('animate-out');
+        } else {
+          // When scrolling up and element leaves viewport
+          if (entry.boundingClientRect.top > 0) {
+            entry.target.classList.add('animate-out');
+            entry.target.classList.remove('animate-in');
+          }
+        }
+      });
+    }, { 
+      threshold: 0.1 // Trigger when at least 10% of the element is visible
+    });
+  
+    // Observe all section elements
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  }
 
   // Add this method to your class
   toggleLanguage() {
@@ -540,56 +621,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         }, 500); // Give the page some time to load
       });
     }
-  }
-
-  // Profile image modal state
-  isProfileImageModalOpen = false;
-
-  // Add new properties for responsive layout
-  @ViewChild('leftPanel', { static: true }) leftPanel!: ElementRef;
-  @ViewChild('rightPanel', { static: true }) rightPanel!: ElementRef;
-  @ViewChildren('skillBar') skillBars!: QueryList<ElementRef>;
-
-  private scrollHandler: (() => void) | null = null;
-
-  ngOnInit() {
-    // Sort projects by newest first by default
-    this.sortProjects('newest');
-
-    this.setupBackButtonHandler();
-  }
-
-  ngAfterViewInit() {
-    // Initialize responsive layout handlers
-    this.initializeResponsiveLayout();
-    this.initSkillBarAnimations();
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      this.handleResponsiveLayout();
-    });
-
-    this.preventScreenshot();
-  }
-
-  ngOnDestroy() {
-    // Clean up event listeners
-    this.removeResponsiveHandlers();
-    window.removeEventListener('resize', () => {
-      this.handleResponsiveLayout();
-    });
-
-    // Unsubscribe dari backButton subscription
-    if (this.backButtonSubscription) {
-      this.backButtonSubscription.unsubscribe();
-    }
-
-    // Remove event listeners to prevent memory leaks
-    document.removeEventListener('contextmenu', this.preventAction);
-    document.removeEventListener('dragstart', this.preventAction);
-    document.removeEventListener('selectstart', this.preventAction);
-    document.removeEventListener('keydown', this.preventScreenshotShortcuts);
-    document.removeEventListener('keydown', this.preventDevToolsScreenshot, true);
   }
 
   preventScreenshot(event?: Event) {
