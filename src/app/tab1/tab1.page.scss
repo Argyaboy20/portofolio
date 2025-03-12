@@ -28,7 +28,7 @@ $text-color-light: #fff;
     --color: white !important;
     --border-radius: 8px !important;
     --box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2) !important;
-  }
+}
 
 ion-toolbar {
     --background: #000000 !important;
@@ -484,8 +484,8 @@ ion-content {
 .section.animate-in {
     opacity: 1;
     transform: translateY(0);
-  }
-  
+}
+
 .section.animate-out {
     opacity: 0;
     transform: translateY(-20px);
@@ -495,51 +495,51 @@ ion-content {
 /* Different animation directions for different sections */
 #about.section {
     transform: translateX(-20px);
-  }
-  
-  #about.section.animate-in {
+}
+
+#about.section.animate-in {
     transform: translateX(0);
-  }
-  
-  #about.section.animate-out {
+}
+
+#about.section.animate-out {
     transform: translateX(20px);
-  }
-  
-  #education.section {
+}
+
+#education.section {
     transform: translateY(20px);
-  }
-  
-  #skills.section {
+}
+
+#skills.section {
     transform: translateX(20px);
-  }
-  
-  #skills.section.animate-in {
+}
+
+#skills.section.animate-in {
     transform: translateX(0);
-  }
-  
-  #skills.section.animate-out {
+}
+
+#skills.section.animate-out {
     transform: translateX(-20px);
-  }
-  
-  #tools.section {
+}
+
+#tools.section {
     transform: translateY(20px);
-  }
-  
-  #projects.section {
+}
+
+#projects.section {
     transform: translateX(-20px);
-  }
-  
-  #projects.section.animate-in {
+}
+
+#projects.section.animate-in {
     transform: translateX(0);
-  }
-  
-  #projects.section.animate-out {
+}
+
+#projects.section.animate-out {
     transform: translateX(20px);
-  }
-  
-  #career.section {
+}
+
+#career.section {
     transform: translateY(20px);
-  }
+}
 
 .demo-link {
     position: relative;
@@ -614,13 +614,13 @@ ion-content {
     cursor: pointer;
     color: var(--ion-color-primary);
     transition: color 0.3s ease;
-  }
-  
-  .clickable-text:hover {
+}
+
+.clickable-text:hover {
     cursor: pointer;
     color: var(--ion-color-primary-tint);
     text-decoration: none;
-  }
+}
 
 // Education section styling
 .education-timeline {
@@ -753,15 +753,15 @@ ion-content {
 .merdeka-program-modal {
     ion-header {
         ion-toolbar {
-          --background: linear-gradient(to right, #4a90e2, #50e3c2);
-          --color: white;
+            --background: linear-gradient(to right, #4a90e2, #50e3c2);
+            --color: white;
         }
     }
 
     ion-content {
         --background: rgba(255, 255, 255, 0.9);
     }
-    
+
     .modal-content {
         display: flex;
         flex-direction: column;
@@ -773,13 +773,13 @@ ion-content {
         border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         position: relative;
-        
+
         // Stop propagation to prevent immediate closing when clicking inside
         &:click {
             pointer-events: none;
         }
     }
-  
+
     .modal-header {
         display: flex;
         justify-content: space-between;
@@ -787,7 +787,7 @@ ion-content {
         width: 100%;
         margin-bottom: 20px;
         padding: 0 10px;
-  
+
         h2 {
             margin: 0;
             font-size: 1.5rem;
@@ -795,7 +795,7 @@ ion-content {
             font-weight: 600;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
-  
+
         ion-button {
             --color: $primary-color;
             --background: transparent;
@@ -803,27 +803,27 @@ ion-content {
             border-radius: 50%;
             width: 40px;
             height: 40px;
-            
+
             ion-icon {
                 font-size: 1.5rem;
             }
-            
+
             &:hover {
                 background: rgba(74, 144, 226, 0.1);
             }
         }
     }
-  
+
     .modal-education-item {
         width: 100%;
-      
+
         .education-item {
             background: linear-gradient(145deg, #ffffff, #f5f7fa);
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
         }
     }
-  
+
     .modal-description {
         margin-top: 1rem;
         padding: 0 1rem 1rem;
@@ -839,6 +839,7 @@ ion-content {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
@@ -1257,10 +1258,113 @@ ion-content {
     }
 }
 
+// Volunteer Section Styles
+#volunteer {
+    margin-top: 35px;
+    padding-top: 35px;
+
+    .volunteer-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        .volunteer-item {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(255, 252, 220, 0.1) 0%, rgba(255, 252, 220, 0.05) 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 252, 220, 0.2);
+            backdrop-filter: blur(10px);
+            background: #fffcdc;
+
+            &:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                background: linear-gradient(135deg, rgba(255, 252, 220, 0.15) 0%, rgba(20, 40, 29, 0.05) 100%);
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(255, 252, 220, 0.1) 0%, transparent 70%);
+                transform: rotate(45deg);
+                z-index: -1;
+                transition: all 0.6s ease;
+            }
+
+            &:hover:before {
+                transform: rotate(90deg);
+            }
+
+            .volunteer-icon {
+                background: linear-gradient(135deg, #14281D, #1a3324);
+                color: #fffcdc;
+                border-radius: 12px;
+                padding: 1rem;
+                margin-right: 1.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                ion-icon {
+                    font-size: 2rem;
+                }
+            }
+
+            .volunteer-details {
+                flex: 1;
+
+                h3 {
+                    margin: 0 0 0.5rem 0;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    color: #14281D;
+                }
+
+                .volunteer-description {
+                    margin: 0;
+                    color: rgba(20, 40, 29, 0.8);
+                    font-size: 0.9rem;
+                }
+            }
+
+            .volunteer-badge {
+                background: rgba(20, 40, 29, 0.1);
+                border-radius: 50%;
+                width: 2.5rem;
+                height: 2.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+
+                ion-icon {
+                    color: #14281D;
+                    font-size: 1.2rem;
+                }
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}
+
+
+
 /* Footer */
 footer {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: -1.5rem;
     padding: 1.5rem 0;
     color: #777;
     font-size: 0.9rem;
@@ -1269,6 +1373,30 @@ footer {
         color: #e74c3c;
         vertical-align: middle;
     }
+}
+
+/* Powered by section */
+.right-panel-footer {
+    position: relative;
+    width: auto;
+    margin: 0rem -3rem 0;
+    margin-bottom: -2rem;
+    overflow: hidden;
+    /* Mencegah scroll horizontal */
+}
+
+.right-panel-footer ion-toolbar {
+    --background: #2c3e50;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --min-height: 40px;
+}
+
+.powered-by-text {
+    font-family: 'Trebuchet MS';
+    font-size: 13px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 500;
 }
 
 /* Profile Image Modal Styling */
@@ -1400,6 +1528,48 @@ footer {
             font-size: 1.1em;
         }
     }
+
+    .volunteer-container {
+        gap: 1rem;
+
+        .volunteer-item {
+            flex-direction: column;
+            padding: 1rem;
+            text-align: center;
+
+            .volunteer-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                padding: 0.7rem;
+
+                ion-icon {
+                    font-size: 1.5rem;
+                }
+            }
+
+            .volunteer-details {
+                width: 100%;
+
+                h3 {
+                    font-size: 1rem;
+                }
+
+                .volunteer-description {
+                    font-size: 0.8rem;
+                }
+            }
+
+            .volunteer-badge {
+                margin-top: 1rem;
+                width: 2rem;
+                height: 2rem;
+
+                ion-icon {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
 }
 
 
@@ -1457,6 +1627,48 @@ footer {
         .modal-description {
             font-size: 0.8rem;
             padding: 0.5rem;
+        }
+    }
+
+    .volunteer-container {
+        gap: 1rem;
+
+        .volunteer-item {
+            flex-direction: column;
+            padding: 1rem;
+            text-align: center;
+
+            .volunteer-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                padding: 0.7rem;
+
+                ion-icon {
+                    font-size: 1.5rem;
+                }
+            }
+
+            .volunteer-details {
+                width: 100%;
+
+                h3 {
+                    font-size: 1rem;
+                }
+
+                .volunteer-description {
+                    font-size: 0.8rem;
+                }
+            }
+
+            .volunteer-badge {
+                margin-top: 1rem;
+                width: 2rem;
+                height: 2rem;
+
+                ion-icon {
+                    font-size: 1rem;
+                }
+            }
         }
     }
 }
@@ -1535,6 +1747,44 @@ footer {
         .modal-description {
             font-size: 0.85rem;
             padding: 0.8rem;
+        }
+    }
+
+    .volunteer-container {
+        gap: 1.2rem;
+
+        .volunteer-item {
+            flex-direction: column;
+            padding: 1.2rem;
+            text-align: center;
+
+            .volunteer-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                padding: 0.8rem;
+
+                ion-icon {
+                    font-size: 1.7rem;
+                }
+            }
+
+            .volunteer-details {
+                width: 100%;
+
+                h3 {
+                    font-size: 1.1rem;
+                }
+
+                .volunteer-description {
+                    font-size: 0.85rem;
+                }
+            }
+
+            .volunteer-badge {
+                margin-top: 1rem;
+                width: 2.2rem;
+                height: 2.2rem;
+            }
         }
     }
 }
@@ -1754,7 +2004,26 @@ footer {
         }
     }
 
+    .volunteer-container {
+        .volunteer-item {
+            padding: 1.3rem;
 
+            .volunteer-icon {
+                padding: 0.9rem;
+                margin-right: 1.2rem;
+
+                ion-icon {
+                    font-size: 1.8rem;
+                }
+            }
+
+            .volunteer-details {
+                h3 {
+                    font-size: 1.15rem;
+                }
+            }
+        }
+    }
 }
 
 /* Add these new media queries */
@@ -1795,6 +2064,16 @@ footer {
         .modal-description {
             font-size: 0.95rem;
             padding: 1.1rem;
+        }
+    }
+
+    .volunteer-container {
+        .volunteer-item {
+            padding: 1.4rem;
+
+            .volunteer-icon {
+                margin-right: 1.3rem;
+            }
         }
     }
 }
@@ -1861,6 +2140,20 @@ footer {
             padding: 1.2rem;
         }
     }
+
+    .volunteer-container {
+        .volunteer-item {
+            .volunteer-icon {
+                padding: 0.9rem;
+                margin-right: 1.2rem;
+            }
+
+            .volunteer-badge {
+                width: 2.3rem;
+                height: 2.3rem;
+            }
+        }
+    }
 }
 
 /* iPhone 12 Pro Max, iPhone 11 Pro Max, iPhone XS Max */
@@ -1914,6 +2207,23 @@ footer {
             padding: 0.8rem;
         }
     }
+
+    .volunteer-container {
+        .volunteer-item {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.2rem;
+
+            .volunteer-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .volunteer-badge {
+                margin-top: 1rem;
+            }
+        }
+    }
 }
 
 /* iPhone 12, iPhone 12 Pro, iPhone X, iPhone XS */
@@ -1957,6 +2267,36 @@ footer {
             padding: 0.6rem;
         }
     }
+
+    .volunteer-container {
+        .volunteer-item {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.2rem;
+
+            .volunteer-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                padding: 0.8rem;
+
+                ion-icon {
+                    font-size: 1.7rem;
+                }
+            }
+
+            .volunteer-details {
+                .volunteer-description {
+                    font-size: 0.85rem;
+                }
+            }
+
+            .volunteer-badge {
+                margin-top: 1rem;
+                width: 2.2rem;
+                height: 2.2rem;
+            }
+        }
+    }
 }
 
 /* iPhone 12 Mini, iPhone SE */
@@ -1988,8 +2328,10 @@ footer {
                 .career-icon {
                     width: 50px;
                     height: 50px;
-                    margin-right: 0;  /* Change to 0 for column layout */
-                    margin-bottom: 15px; /* Add margin bottom instead */
+                    margin-right: 0;
+                    /* Change to 0 for column layout */
+                    margin-bottom: 15px;
+                    /* Add margin bottom instead */
                 }
             }
         }
@@ -2027,6 +2369,44 @@ footer {
         .modal-description {
             font-size: 0.75rem;
             padding: 0.5rem;
+        }
+    }
+
+    .volunteer-container {
+        .volunteer-item {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.1rem;
+
+            .volunteer-icon {
+                margin-right: 0;
+                margin-bottom: 0.9rem;
+                padding: 0.8rem;
+
+                ion-icon {
+                    font-size: 1.6rem;
+                }
+            }
+
+            .volunteer-details {
+                h3 {
+                    font-size: 1.05rem;
+                }
+
+                .volunteer-description {
+                    font-size: 0.8rem;
+                }
+            }
+
+            .volunteer-badge {
+                margin-top: 0.9rem;
+                width: 2.1rem;
+                height: 2.1rem;
+
+                ion-icon {
+                    font-size: 1.1rem;
+                }
+            }
         }
     }
 }

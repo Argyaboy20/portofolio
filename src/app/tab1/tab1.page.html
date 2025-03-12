@@ -76,17 +76,17 @@
     </div>
 
     <!-- About Section -->
-    <section id="about" class="section"  #sectionElement>
+    <section id="about" class="section" #sectionElement>
       <h2 class="section-title">Profil Singkat</h2>
       <div class="section-content">
         <p>
           Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi
-          dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan 
+          dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan
           <span class="clickable-text" (click)="openExternalLink('https://ionicframework.com/')">
             <strong>Ionic Framework</strong>
-          </span> 
-          yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. 
-          Dengan IPK 3.78 yang saya raih selama masa perkuliahan di 
+          </span>
+          yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform.
+          Dengan IPK 3.78 yang saya raih selama masa perkuliahan di
           <span class="clickable-text" (click)="openExternalLink('https://www.instagram.com/itb_indonesia')">
             <strong>Institut Teknologi dan Bisnis Indonesia</strong>
           </span>,
@@ -94,10 +94,10 @@
         </p>
         <p>
           Pengalaman saya mencakup berbagai proyek pengembangan aplikasi, termasuk pembuatan Todolist APK menggunakan
-          JavaScript dan 
+          JavaScript dan
           <span class="clickable-text" (click)="navigateToProject('ApliKasir')">
             <strong>ApliKasir</strong>
-          </span> 
+          </span>
           dengan C#. Dalam proyek-proyek tersebut, saya berkontribusi sebagai backend developer
           dan berhasil mengimplementasikan fitur-fitur seperti TaskController dan UIEdit. Pengetahuan teknis saya
           diperkuat melalui program student exchange di Telkom University, di mana saya memperdalam pemahaman tentang
@@ -108,10 +108,10 @@
           berkolaborasi secara efektif dalam tim
           internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam
           pengembangan aplikasi
-          yang inovatif dan bermanfaat. 
+          yang inovatif dan bermanfaat.
           <span class="clickable-text" (click)="navigateToBiodataContact()">
             <strong>Hubungi saya</strong>
-          </span> 
+          </span>
           jika anda tertarik untuk bekerja sama lebih lanjut dalam hal
           pengembangan perangkat lunak
         </p>
@@ -409,10 +409,39 @@
       </div>
     </section>
 
+    <!-- Volunteer Section -->
+    <section id="volunteer" class="section" #sectionElement>
+      <h2 class="section-title">{{ currentLanguage === 'id' ? 'Relawan' : 'Volunteer' }}</h2>
+      <div class="section-content">
+        <div class="volunteer-container">
+          <div class="volunteer-item" (click)="navigateWithAnimation('/relawan')">
+            <div class="volunteer-icon">
+              <ion-icon name="people-outline"></ion-icon>
+            </div>
+            <div class="volunteer-details">
+              <h3>{{ currentLanguage === 'id' ? 'Aktivitas Sosial' : 'Social Activities' }}</h3>
+              <p class="volunteer-description">{{ currentLanguage === 'id' ? 'Klik untuk melihat keterlibatan dalam
+                kegiatan sosial' : 'Click to see involvement in social activities' }}</p>
+            </div>
+            <div class="volunteer-badge">
+              <ion-icon name="heart-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer>
       <p>© 2025 - Hak cipta dilindungi undang-undang, Maulana Farras</p>
     </footer>
+
+    <!-- Powered by section -->
+    <ion-footer class="right-panel-footer">
+      <ion-toolbar>
+        <ion-title class="powered-by-text">Powered by Hostinger and Github</ion-title>
+      </ion-toolbar>
+    </ion-footer>
   </div>
 
   <div class="flip-card-container" [class.visible]="isFlipCardVisible">

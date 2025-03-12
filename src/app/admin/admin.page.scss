@@ -166,9 +166,10 @@ ion-card-header {
 }
 
 .career-container {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 20px;
+    width: 100%;
 }
 
 // Header & Translation Button
@@ -546,6 +547,7 @@ ion-toolbar {
 @media screen and (max-width: 280px) {
     .career-container {
         padding: 5px;
+        width: 100%;
     }
 
     ion-content {
@@ -645,7 +647,8 @@ ion-toolbar {
 /* Devices with max-width 480px */
 @media (max-width: 480px) {
     .career-container {
-        padding: 10px;
+        padding: 5px;
+        width: 100%;
     }
 
     ion-content {
@@ -728,7 +731,8 @@ ion-toolbar {
 /* Responsif untuk tablet dan mobile */
 @media (max-width: 768px) {
     .career-container {
-        padding: 10px;
+        padding: 5px;
+        width: 100%;
     }
 
     ion-content {
@@ -801,6 +805,7 @@ ion-toolbar {
 @media screen and (max-width: 1024px) {
     .career-container {
         padding: 15px;
+        width: 100%;
     }
 
     ion-content {
@@ -838,7 +843,8 @@ ion-toolbar {
 /* iPad Air, iPad Mini */
 @media screen and (max-width: 820px) {
     .career-container {
-        padding: 20px;
+        padding: 15px;
+        width: 100%;
     }
 
     ion-content {
@@ -903,6 +909,7 @@ ion-toolbar {
 @media screen and (max-width: 428px) {
     .career-container {
         padding: 15px;
+        width: 100%;
     }
 
     ion-content {
@@ -967,6 +974,7 @@ ion-toolbar {
 @media screen and (max-width: 390px) {
     .career-container {
         padding: 10px;
+        width: 100%;
     }
 
     ion-content {
@@ -1031,6 +1039,7 @@ ion-toolbar {
 @media screen and (max-width: 375px) {
     .career-container {
         padding: 5px;
+        width: 100%;
     }
 
     ion-content {

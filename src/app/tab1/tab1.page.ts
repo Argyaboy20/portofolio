@@ -42,6 +42,9 @@ interface Translations {
   karirKedua: string;
   adminOfficer: string;
   klikUntukDetail: string;
+  relawan: string;
+  aktivitasSosial: string;
+  klikUntukKegiatan: string;
 }
 
 interface TranslationDict {
@@ -87,7 +90,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       achievements: 'Prestasi',
       karirKedua: 'Karir Kedua',
       adminOfficer: 'Staff Administrasi',
-      klikUntukDetail: 'Klik untuk melihat detail lebih lanjut'
+      klikUntukDetail: 'Klik untuk melihat detail lebih lanjut',
+      relawan: 'Relawan',
+      aktivitasSosial: 'Aktivitas Sosial',
+      klikUntukKegiatan: 'Klik untuk melihat keterlibatan dalam kegiatan sosial'
     },
     en: {
       profilSingkat: 'Brief Profile',
@@ -109,7 +115,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       achievements: 'Achievements',
       karirKedua: 'Second Career',
       adminOfficer: 'Administration Officer',
-      klikUntukDetail: 'Click to see more details'
+      klikUntukDetail: 'Click to see more details',
+      relawan: 'Volunteer',
+      aktivitasSosial: 'Social Activities',
+      klikUntukKegiatan: 'Click to see involvement in social activities'
     }
   };
 
@@ -202,7 +211,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   setupScrollAnimations() {
     // Get all section elements
     const sections = document.querySelectorAll('.section');
-    
+
     // Create an Intersection Observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -218,10 +227,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           }
         }
       });
-    }, { 
+    }, {
       threshold: 0.1 // Trigger when at least 10% of the element is visible
     });
-  
+
     // Observe all section elements
     sections.forEach(section => {
       observer.observe(section);
@@ -570,7 +579,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     if (this.platform.is('mobile') || window.innerWidth <= 768) {
       // For mobile, navigate first, then scroll to the contact section after the page loads
       window.location.href = window.location.origin + '/biodata';
-      
+
       // Set a flag in localStorage to indicate we should scroll to contact section after page loads
       localStorage.setItem('scrollToContact', 'true');
     } else {
@@ -581,18 +590,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           .duration(300)
           .fromTo('transform', 'translateX(100%)', 'translateX(0)')
           .fromTo('opacity', '0.2', '1');
-  
+
         const leavingAnimation = createAnimation()
           .addElement(opts.leavingEl)
           .duration(300)
           .fromTo('transform', 'translateX(0)', 'translateX(-100%)')
           .fromTo('opacity', '1', '0.2');
-  
+
         return createAnimation()
           .addAnimation(enteringAnimation)
           .addAnimation(leavingAnimation);
       };
-  
+
       // Navigate to biodata page
       this.navCtrl.navigateForward('/biodata', {
         animated: true,
@@ -603,12 +612,12 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           const contactSection = document.querySelector('.contact-section');
           if (contactSection) {
             contactSection.scrollIntoView({ behavior: 'smooth' });
-  
+
             // Add a delayed toast notification after scrolling
             setTimeout(() => {
               this.toastController.create({
-                message: this.currentLanguage === 'id' 
-                  ? 'Scroll lagi ke bawah untuk kontak yang bisa dihubungi' 
+                message: this.currentLanguage === 'id'
+                  ? 'Scroll lagi ke bawah untuk kontak yang bisa dihubungi'
                   : 'Scroll down further to see contact information',
                 duration: 3000,
                 position: 'bottom', // Position at bottom
@@ -707,8 +716,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     const alert = await this.alertController.create({
       header: this.currentLanguage === 'id' ? 'Unduh Dibatasi' : 'Download Restricted',
       message: this.currentLanguage === 'id'
-        ? 'Maaf, mengunduh atau screenshot foto profil tidak diizinkan.'
-        : 'Sorry, downloading or screenshots of profile photos are not allowed.',
+        ? 'Mengunduh atau screenshot foto profil tidak diizinkan!'
+        : 'Downloading or screenshots of profile photo are not allowed!',
       buttons: ['OK']
     });
 
