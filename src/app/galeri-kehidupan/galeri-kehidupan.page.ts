@@ -70,7 +70,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     {
       id: 7,
       category: 'cerita-hidup',
-      imageUrl: 'assets/kontesRobotik.JPG',
+      imageUrl: 'assets/kontesRobotik.jpg',
       title: 'Panitia Robotik',
       description: 'Menjadi panitia dalam kontes robotik line follower untuk adik adik SMA yang sudah dibekali ilmu',
       date: '12 Oktober 2023'
@@ -94,7 +94,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     {
       id: 8,
       category: 'pmm-life',
-      imageUrl: 'assets/gedungSate.JPG',
+      imageUrl: 'assets/gedungSate.jpg',
       title: 'Sampurasun Bandung',
       description: 'Modnus pertama ke Gedung Sate',
       date: '24 Feb 2024'
@@ -102,7 +102,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     {
       id: 9,
       category: 'pmm-life',
-      imageUrl: 'assets/modnus2.JPG',
+      imageUrl: 'assets/modnus2.jpg',
       title: 'TFT 2024',
       description: 'Modnus ketika mengikuti TFT 2024 bertajuk belajar bahasa isyarat',
       date: '2 Maret 2024'
