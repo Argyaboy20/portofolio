@@ -25,6 +25,9 @@ interface Translations {
   heroSubtitle: string;
   skillsTitle: string;
   galleryTitle: string;
+  speedTitle: string;
+  speedDescription: string;
+  viewFullReport: string;
 }
 
 interface TranslationDict {
@@ -40,20 +43,26 @@ interface TranslationDict {
 })
 export class Tab3Page implements OnInit, OnDestroy {
   @ViewChild(IonModal) modal!: IonModal;
-  
+
   currentLanguage: 'id' | 'en' = 'id';
   translations: TranslationDict = {
     id: {
       heroTitle: 'Web Portofolio',
       heroSubtitle: 'Pengembang Web, Pengembang Full-Stack & Pengembang Ionic',
       skillsTitle: 'Alat-Alat Pengembangan',
-      galleryTitle: 'Tampilan UI/UX'
+      galleryTitle: 'Tampilan UI/UX',
+      speedTitle: 'Kecepatan Web',
+      speedDescription: 'Laporan kecepatan web portofolio',
+      viewFullReport: 'Lihat laporan web secara lengkap'
     },
     en: {
       heroTitle: 'Web Portofolio',
       heroSubtitle: 'Web Developer, Fullstack Developer & Ionic Developer',
       skillsTitle: 'Development Tools',
-      galleryTitle: 'UI/UX View'
+      galleryTitle: 'UI/UX View',
+      speedTitle: 'Web Performance',
+      speedDescription: 'Web portfolio performance report',
+      viewFullReport: 'View full web report'
     }
   };
 
@@ -68,41 +77,41 @@ export class Tab3Page implements OnInit, OnDestroy {
   ];
 
   galleryItems: GalleryItem[] = [
-    { 
-      id: 1, 
-      src: '/assets/portofolio.png', 
-      title: 'Beranda Utama', 
-      description: 'Menu Beranda Utama dari Web Portofolio saya' 
+    {
+      id: 1,
+      src: '/assets/portofolio.png',
+      title: 'Beranda Utama',
+      description: 'Menu Beranda Utama dari Web Portofolio saya'
     },
-    { 
-      id: 2, 
-      src: '/assets/biodata.png', 
-      title: 'Menu Biodata', 
-      description: 'Tampilan dari menu biodata lengkap seputar saya' 
+    {
+      id: 2,
+      src: '/assets/biodata.png',
+      title: 'Menu Biodata',
+      description: 'Tampilan dari menu biodata lengkap seputar saya'
     },
-    { 
-      id: 3, 
-      src: '/assets/galeri.png', 
-      title: 'Menu Galeri Kehidupan', 
-      description: 'Foto foto tentang perjalanan hidup saya' 
+    {
+      id: 3,
+      src: '/assets/galeri.png',
+      title: 'Menu Galeri Kehidupan',
+      description: 'Foto foto tentang perjalanan hidup saya'
     },
-    { 
-      id: 4, 
-      src: '/assets/admin.png', 
-      title: 'Menu Karir Administrasi', 
-      description: 'Tampilan menu dari perjalanan karir administrasi saya' 
+    {
+      id: 4,
+      src: '/assets/admin.png',
+      title: 'Menu Karir Administrasi',
+      description: 'Tampilan menu dari perjalanan karir administrasi saya'
     },
-    { 
-      id: 5, 
-      src: '/assets/permo.png', 
-      title: 'Menu Project Permo', 
-      description: 'Tampilan menu dari project Pertanian Mobile (Permo) saya' 
+    {
+      id: 5,
+      src: '/assets/permo.png',
+      title: 'Menu Project Permo',
+      description: 'Tampilan menu dari project Pertanian Mobile (Permo) saya'
     },
-    { 
-      id: 6, 
-      src: '/assets/menuAplikasir.png', 
-      title: 'Menu Project ApliKasir', 
-      description: 'Tampilan menu dari project ApliKasir saya yang berkolaborasi dengan tim' 
+    {
+      id: 6,
+      src: '/assets/menuAplikasir.png',
+      title: 'Menu Project ApliKasir',
+      description: 'Tampilan menu dari project ApliKasir saya yang berkolaborasi dengan tim'
     }
   ];
 
@@ -115,7 +124,7 @@ export class Tab3Page implements OnInit, OnDestroy {
     private modalController: ModalController,
     private platform: Platform,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.backButtonSubscription = this.platform.backButton.subscribe(() => {

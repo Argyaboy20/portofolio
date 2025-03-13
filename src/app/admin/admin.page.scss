@@ -104,7 +104,7 @@ ion-content {
 }
 
 // Enhance cards with subtle 3D effects
-.profile-card, .experience-card, .skills-card, .recommendations-card {
+.profile-card, .experience-card, .skills-card, .recommendations-card, .typing-speed-card {
     position: relative;
     transform: translateZ(0);
     transition: transform 0.3s ease;
@@ -437,6 +437,48 @@ ion-toolbar {
         }
     }
 }
+
+// TypingSpeed Card
+.typing-speed-card {
+    --background: linear-gradient(135deg, rgba(25, 50, 140, 0.7), rgba(18, 40, 113, 0.7));
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+    
+    ion-card-header {
+      ion-card-title {
+        display: flex;
+        align-items: center;
+        font-size: 22px;
+        color: var(--accent-color);
+        
+        ion-icon {
+          margin-right: 8px;
+        }
+      }
+    }
+    
+    ion-card-content {
+      .typing-speed-image {
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto 16px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      
+      .typing-speed-text {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #ffffff;
+        text-align: center;
+        margin: 0 auto;
+        max-width: 85%;
+      }
+    }
+  }
 
 // Recommendations Card
 .recommendations-card {

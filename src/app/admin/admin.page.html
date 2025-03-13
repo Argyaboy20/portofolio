@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="dark">
-    <ion-title class="ion-text-center" routerLink="/tabs/tab1" >Maulana Farras Blog's</ion-title>
+    <ion-title class="ion-text-center" routerLink="/tabs/tab1">Maulana Farras Blog's</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="toggleLanguage()" class="translation-btn">
         <ion-icon slot="icon-only" name="language-outline"></ion-icon>
@@ -37,7 +37,8 @@
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item lines="none" *ngFor="let job of workExperience; let i = index" (click)="openProjectModal(i)" class="job-item">
+          <ion-item lines="none" *ngFor="let job of workExperience; let i = index" (click)="openProjectModal(i)"
+            class="job-item">
             <ion-grid>
               <ion-row>
                 <ion-col size="12">
@@ -82,6 +83,27 @@
       </ion-card-content>
     </ion-card>
 
+    <!-- Typing Speed Section -->
+    <ion-card class="typing-speed-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="speedometer-outline"></ion-icon>
+          {{ language === 'id' ? 'Kecepatan Mengetik' : 'Typing Speed' }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="ion-text-center">
+        <img src="/assets/typingSpeed.png" alt="Typing Speed Certificate" class="typing-speed-image" />
+        <p class="typing-speed-text">
+          {{ language === 'id' ? 'Kecepatan mengetik adalah faktor penting dalam efisiensi administrasi. Hasil tes ini
+          menunjukkan kemampuan mengetik cepat dan akurat, membantu mempercepat pekerjaan entry data dan aktivitas
+          administratif lainnya.' : 'Typing speed is an important factor in administrative efficiency. This test result
+          demonstrates fast and accurate typing abilities, helping to expedite data entry work and other administrative
+          activities.' }}
+        </p>
+      </ion-card-content>
+    </ion-card>
+
+
     <!-- Recommendations Section -->
     <ion-card class="recommendations-card">
       <ion-card-header>
@@ -114,7 +136,8 @@
 </ion-content>
 
 <!-- Project Modal -->
-<ion-modal [isOpen]="showProjectModal" [backdropDismiss]="true" (willDismiss)="closeProjectModal()" [cssClass]="'project-modal'">
+<ion-modal [isOpen]="showProjectModal" [backdropDismiss]="true" (willDismiss)="closeProjectModal()"
+  [cssClass]="'project-modal'">
   <ng-template>
     <ion-header>
       <ion-toolbar color="dark">
@@ -131,19 +154,20 @@
         <!-- Project Images Slider -->
         <swiper-container [pagination]="true" [navigation]="true" class="project-images-slider">
           <swiper-slide *ngFor="let image of currentProject?.images">
-            <img [src]="image" alt="Project Image" class="project-image"/>
+            <img [src]="image" alt="Project Image" class="project-image" />
           </swiper-slide>
         </swiper-container>
 
         <!-- Project Details -->
         <ion-card class="project-details-card">
           <ion-card-header>
-            <ion-card-title>{{ language === 'id' ? currentProject?.projectNameId : currentProject?.projectNameEn }}</ion-card-title>
+            <ion-card-title>{{ language === 'id' ? currentProject?.projectNameId : currentProject?.projectNameEn
+              }}</ion-card-title>
             <ion-card-subtitle>{{ currentProject?.company }} | {{ currentProject?.period }}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             <div [innerHTML]="language === 'id' ? currentProject?.projectDescId : currentProject?.projectDescEn"></div>
-            
+
             <!-- Technologies Used -->
             <div class="tech-used" *ngIf="currentProject?.technologies">
               <h4>{{ language === 'id' ? 'Teknologi yang Digunakan' : 'Technologies Used' }}</h4>
