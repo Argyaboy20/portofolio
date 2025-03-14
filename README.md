@@ -4,7 +4,7 @@
 ![Screenshot Menu Utama Website](/src/assets/dokumentasi/portofolio1.png)
 ![Screenshot Menu Biodata Website](/src/assets/dokumentasi/portofolio2.png)
 
-Website portofolio pribadi yang menampilkan proyek-proyek, biodata, dan pengalaman karir saya. Dibangun dengan Ionic Framework, Angular, Javascript dan Html/Css.
+Website portofolio pribadi yang menampilkan proyek-proyek, biodata, dan pengalaman karir saya. Dibangun dengan Ionic Framework, Angular, Javascript dan HTML/CSS.
 
 # 📋 Daftar Isi
 
@@ -19,7 +19,7 @@ Website portofolio pribadi yang menampilkan proyek-proyek, biodata, dan pengalam
 * Lisensi
 
 # 🌐 Demo
-Website ini dapat diakses melalui Vercel App: [Portofolio Website](https://rasfarras.vercel.app)
+Website ini dapat diakses melalui Vercel App: [Portofolio Website](https://rasfarras.my.id)
 
 # 🛠️ Teknologi
 - Framework: Ionic
@@ -40,6 +40,8 @@ Website ini dapat diakses melalui Vercel App: [Portofolio Website](https://rasfa
 
 📋 Informasi karir sebagai staf administrasi
 
+🫂 Pengalaman di bidang relawan
+
 # 📌 Struktur Menu
 
 Menu Utama (/tabs/tab1) - Tampilan awal website dengan pengenalan singkat
@@ -53,6 +55,7 @@ Project
 - Biodata (/biodata) - Informasi lengkap tentang diri saya
 - Galeri Kehidupan (/galeri-kehidupan) - Dokumentasi perjalanan hidup 
 - Karir Administrasi (/admin) - Informasi tentang karir kedua sebagai staf administrasi
+- Relawan (/relawan) - Seputar pengalaman di bidang relawan / volunteering
 
 # 💻 Instalasi
 Prasyarat
@@ -109,7 +112,9 @@ ionic capacitor build ios --prod
 * ✅ Integrasi dengan media sosial
 * ✅ Menambahkan form kontak interaktif
 * ✅ Menambahkan menu karir kedua (Administrasi) 
-* ❌ Optimasi performa dan aksesibilitas
+* ✅ Optimasi performa dan aksesibilitas
+* ✅ Menambah menu baru (menu Relawan)
+
 
 # 📱 Kompatibilitas
 
@@ -135,3 +140,5 @@ Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](https://gith
 
 
 © 2025 Maulana Farras. All Rights Reserved.
+
+Powered by Hostinger and Github
