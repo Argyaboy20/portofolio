@@ -79,32 +79,31 @@ Langkah Instalasi
 
 # 🚀 Penggunaan
 
-Development Mode
+DEVELOPMENT MODE
 * Menjalankan di browser
 
-ionic serve
+-> ionic serve
 
 * Menjalankan di Android
 
-ionic capacitor run android
+-> ionic capacitor run android
 
 * Menjalankan di iOS
 
-ionic capacitor run ios
+-> ionic capacitor run ios
 
-Production Build
-
+PRODUCTION BUILD
 * Build untuk web
 
-ionic build --prod
+-> ionic build --prod
 
 * Build untuk Android
 
-ionic capacitor build android --prod
+-> ionic capacitor build android --prod
 
 * Build untuk iOS
 
-ionic capacitor build ios --prod
+-> ionic capacitor build ios --prod
 
 # 📝 Rencana Pengembangan
 
