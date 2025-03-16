@@ -1271,6 +1271,7 @@ ion-content {
         .volunteer-item {
             display: flex;
             align-items: center;
+            justify-content: center;
             background: linear-gradient(135deg, rgba(255, 252, 220, 0.1) 0%, rgba(255, 252, 220, 0.05) 100%);
             border-radius: 16px;
             padding: 1.5rem;
@@ -1279,12 +1280,13 @@ ion-content {
             overflow: hidden;
             border: 1px solid rgba(255, 252, 220, 0.2);
             backdrop-filter: blur(10px);
-            background: #fffcdc;
+            background: #5b62b3;
+            cursor: pointer;
 
             &:hover {
                 transform: translateY(-5px);
                 box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-                background: linear-gradient(135deg, rgba(255, 252, 220, 0.15) 0%, rgba(20, 40, 29, 0.05) 100%);
+                background: #5b62b3;
             }
 
             &:before {
@@ -1302,10 +1304,11 @@ ion-content {
 
             &:hover:before {
                 transform: rotate(90deg);
+                background: radial-gradient(circle, rgba(255, 252, 220, 0.1) 0%, transparent 70%);
             }
 
             .volunteer-icon {
-                background: linear-gradient(135deg, #14281D, #1a3324);
+                background: linear-gradient(135deg, #6da0e1, #6da0e1);
                 color: #fffcdc;
                 border-radius: 12px;
                 padding: 1rem;
@@ -1326,13 +1329,13 @@ ion-content {
                     margin: 0 0 0.5rem 0;
                     font-size: 1.2rem;
                     font-weight: 600;
-                    color: #14281D;
+                    color: #ffffff
                 }
 
                 .volunteer-description {
                     margin: 0;
-                    color: rgba(20, 40, 29, 0.8);
                     font-size: 0.9rem;
+                    color: #ffffff;
                 }
             }
 
@@ -1347,7 +1350,7 @@ ion-content {
                 transition: all 0.3s ease;
 
                 ion-icon {
-                    color: #14281D;
+                    color: #ffffff;
                     font-size: 1.2rem;
                 }
 
@@ -1528,48 +1531,6 @@ footer {
             font-size: 1.1em;
         }
     }
-
-    .volunteer-container {
-        gap: 1rem;
-
-        .volunteer-item {
-            flex-direction: column;
-            padding: 1rem;
-            text-align: center;
-
-            .volunteer-icon {
-                margin-right: 0;
-                margin-bottom: 1rem;
-                padding: 0.7rem;
-
-                ion-icon {
-                    font-size: 1.5rem;
-                }
-            }
-
-            .volunteer-details {
-                width: 100%;
-
-                h3 {
-                    font-size: 1rem;
-                }
-
-                .volunteer-description {
-                    font-size: 0.8rem;
-                }
-            }
-
-            .volunteer-badge {
-                margin-top: 1rem;
-                width: 2rem;
-                height: 2rem;
-
-                ion-icon {
-                    font-size: 1rem;
-                }
-            }
-        }
-    }
 }
 
 
@@ -1639,9 +1600,9 @@ footer {
             text-align: center;
 
             .volunteer-icon {
-                margin-right: 0;
-                margin-bottom: 1rem;
-                padding: 0.7rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 ion-icon {
                     font-size: 1.5rem;
@@ -1759,9 +1720,13 @@ footer {
             text-align: center;
 
             .volunteer-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 margin-right: 0;
-                margin-bottom: 1rem;
-                padding: 0.8rem;
+                /* Change to 0 for column layout */
+                margin-bottom: 16px;
+                /* Add margin bottom instead */
 
                 ion-icon {
                     font-size: 1.7rem;
@@ -2009,8 +1974,10 @@ footer {
             padding: 1.3rem;
 
             .volunteer-icon {
-                padding: 0.9rem;
-                margin-right: 1.2rem;
+                margin-right: 0px;
+                display: flex;
+                align-items: left;
+                justify-content: left;
 
                 ion-icon {
                     font-size: 1.8rem;

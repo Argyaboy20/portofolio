@@ -29,9 +29,13 @@ const routes: Routes = [
   {
     path: 'galeri-kehidupan',
     loadChildren: () => import('./galeri-kehidupan/galeri-kehidupan.module').then( m => m.GaleriKehidupanPageModule)
-  },  {
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
+  },  {
+    path: 'relawan',
+    loadChildren: () => import('./relawan/relawan.module').then( m => m.RelawanPageModule)
   },
 
 ];

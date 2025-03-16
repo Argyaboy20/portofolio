@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title routerLink="/tabs/tab1">{{ currentLang === 'id' ? 'Maulana Farras Blog' : 'Maulana Farras Blog' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleLanguage()" class="language-toggle">
+        🌐 {{ currentLang === 'id' ? 'EN | ID' : 'ID | EN' }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="canvas-container"></div>
+
+  <div class="container">
+    <h1 class="title">{{ currentLang === 'id' ? 'Pengalaman Relawan' : 'Volunteer Experience' }}</h1>
+
+    <ion-card class="experience-card" *ngFor="let experience of experiences">
+      <ion-card-header>
+        <ion-card-title class="position">{{ currentLang === 'id' ? 'Posisi: ' : 'Position: ' }}{{ experience.position
+          }}</ion-card-title>
+        <ion-card-subtitle class="organization">{{ currentLang === 'id' ? 'Organisasi: ' : 'Organization: ' }}{{
+          experience.organization }}</ion-card-subtitle>
+        <div class="period">{{ currentLang === 'id' ? 'Periode: ' : 'Period: ' }}{{ experience.period }}</div>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="description" *ngIf="experience.descriptionType === 'list'">
+          <ul>
+            <li *ngFor="let item of currentLang === 'id' ? experience.descriptionId : experience.descriptionEn">
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+        <div class="description" *ngIf="experience.descriptionType === 'paragraph'">
+          <p>{{ currentLang === 'id' ? experience.descriptionId[0] : experience.descriptionEn[0] }}</p>
+        </div>
+
+        <!-- Gallery Button -->
+        <ion-button expand="block" (click)="openGallery(experience)" class="gallery-button">
+          {{ currentLang === 'id' ? 'Lihat Galeri Foto' : 'View Photo Gallery' }}
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="footer">
+      <p>© 2025 - {{ currentLang === 'id' ? 'Portofolio Pengalaman Relawan' : 'Volunteer Experience Portfolio' }}</p>
+    </div>
+  </div>
+</ion-content>
+
+<!-- Photo Gallery Modal -->
+<ion-modal [isOpen]="isGalleryOpen" (didDismiss)="closeGallery()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{ currentLang === 'id' ? 'Galeri Foto' : 'Photo Gallery' }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeGallery()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content>
+      <div class="gallery-container">
+        <swiper-container [pagination]="true" [navigation]="true" class="photo-slides">
+          <swiper-slide *ngFor="let photo of currentGalleryPhotos">
+            <div class="photo-container">
+              <img [src]="photo.url" [alt]="photo.caption" class="gallery-image">
+              <div class="photo-caption">
+                {{ currentLang === 'id' ? photo.captionId : photo.captionEn }}
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
