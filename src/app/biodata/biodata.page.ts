@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { ToastController, Platform } from '@ionic/angular';
 import { PostProvider } from '../../provider/post-providers';
 import { Router } from '@angular/router';
@@ -50,16 +50,44 @@ interface Translations {
   en: TranslationKeys;
 }
 
+// Interface untuk image cache
+interface CachedImage {
+  src: string;
+  blob?: Blob;
+  objectUrl?: string;
+  isLoaded: boolean;
+  isLoading: boolean;
+}
+
 @Component({
   selector: 'app-biodata',
   templateUrl: './biodata.page.html',
   styleUrls: ['./biodata.page.scss'],
   standalone: false,
 })
+
 export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('zoomableImage') zoomableImage!: ElementRef;
+  
   private backButtonSubscription!: Subscription;
   isAwardsModalOpen = false;
   isImageZoomed = false;
+  
+  // Zoom properties
+  private currentScale = 1;
+  private lastPosX = 0;
+  private lastPosY = 0;
+  private isDragging = false;
+  private startX = 0;
+  private startY = 0;
+  private translateX = 0;
+  private translateY = 0;
+  
+  // Image cache properties
+  private imageCache: Map<string, CachedImage> = new Map();
+  private cachePriorityQueue: string[] = [];
+  private maxCacheSize = 15; // Maximum number of images to cache
+  
   awards = [
     {
       image: '/assets/bestPerfomance.jpg',
@@ -140,7 +168,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       webRole: "Web Developer",
       webDesc: "Memulai karir sebagai front-end developer dengan fokus pada framework Angular. Bekerja dalam tim untuk membangun aplikasi web yang interaktif dan modern.",
       education: "Institut Teknologi dan Bisnis Indonesia",
-      eduDesc: "Menempuh pendidikan S1 dengan IPK 3.78. Aktif mencoba semua lomba dan hal hal baru. Mengembangkan project-project inovatif selama masa kuliah.",
+      eduDesc: "Menempuh pendidikan S1 dengan IPK 3.79. Aktif mencoba semua lomba dan hal hal baru. Mengembangkan project-project inovatif selama masa kuliah.",
       hobbiesTitle: "Hobby dan Ketertarikan",
       codingDesc: "Menghabiskan waktu luang untuk eksplorasi teknologi baru dan mengerjakan side projects.",
       gamingDesc: "Menikmati game sepakbola untuk relaksasi dan mengasah kemampuan problem-solving.",
@@ -173,7 +201,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       webRole: "Web Developer",
       webDesc: "Started career as a front-end developer focusing on Angular framework. Working in teams to build interactive and modern web applications.",
       education: "Indonesia Institute of Technology and Business",
-      eduDesc: "Pursuing Bachelor's degree with 3.78 GPA. Actively participating in competitions and exploring new opportunities. Developing innovative projects during college years.",
+      eduDesc: "Pursuing Bachelor's degree with 3.79 GPA. Actively participating in competitions and exploring new opportunities. Developing innovative projects during college years.",
       hobbiesTitle: "Hobbies & Interests",
       codingDesc: "Spending free time exploring new technologies and working on side projects.",
       gamingDesc: "Enjoying football games for relaxation and improving problem-solving skills.",
@@ -220,7 +248,8 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     private postProvider: PostProvider,
     private toastController: ToastController,
     private platform: Platform,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit() {
@@ -234,6 +263,16 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
         // Navigate back to tab1
         this.router.navigate(['/tabs/tab1']);
       }
+    });
+
+    // Precache rotating photos
+    this.rotatingPhotos.forEach(photo => {
+      this.preloadImage(photo.src);
+    });
+
+    // Precache award images
+    this.awards.forEach(award => {
+      this.preloadImage(award.image);
     });
 
     this.startPhotoRotation();
@@ -280,6 +319,93 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.stopPhotoRotation();
+    
+    // Clean up image cache
+    this.clearImageCache();
+  }
+
+  // Metode untuk preload dan caching gambar
+  preloadImage(src: string): void {
+    // Jika gambar sudah dalam cache, prioritaskan
+    if (this.imageCache.has(src)) {
+      const cachedImage = this.imageCache.get(src);
+      // Memindahkan ke depan dalam priority queue
+      this.cachePriorityQueue = this.cachePriorityQueue.filter(url => url !== src);
+      this.cachePriorityQueue.unshift(src);
+      return;
+    }
+
+    // Buat entri cache baru
+    const cacheEntry: CachedImage = {
+      src,
+      isLoaded: false,
+      isLoading: true
+    };
+    
+    this.imageCache.set(src, cacheEntry);
+    this.cachePriorityQueue.push(src);
+
+    // Cek apakah cache melebihi kapasitas maksimum
+    if (this.cachePriorityQueue.length > this.maxCacheSize) {
+      const oldestSrc = this.cachePriorityQueue.pop();
+      if (oldestSrc) {
+        const oldEntry = this.imageCache.get(oldestSrc);
+        if (oldEntry && oldEntry.objectUrl) {
+          URL.revokeObjectURL(oldEntry.objectUrl);
+        }
+        this.imageCache.delete(oldestSrc);
+      }
+    }
+
+    // Fetch gambar dan simpan sebagai blob
+    fetch(src)
+      .then(response => response.blob())
+      .then(blob => {
+        const objectUrl = URL.createObjectURL(blob);
+        const imageEntry = this.imageCache.get(src);
+        if (imageEntry) {
+          imageEntry.blob = blob;
+          imageEntry.objectUrl = objectUrl;
+          imageEntry.isLoaded = true;
+          imageEntry.isLoading = false;
+        }
+      })
+      .catch(error => {
+        console.error(`Failed to cache image ${src}:`, error);
+        const imageEntry = this.imageCache.get(src);
+        if (imageEntry) {
+          imageEntry.isLoading = false;
+        }
+      });
+  }
+
+  // Mendapatkan URL gambar (dari cache jika tersedia)
+  getImageUrl(src: string): string {
+    const cachedImage = this.imageCache.get(src);
+    if (cachedImage && cachedImage.isLoaded && cachedImage.objectUrl) {
+      // Memindahkan ke depan dalam priority queue
+      this.cachePriorityQueue = this.cachePriorityQueue.filter(url => url !== src);
+      this.cachePriorityQueue.unshift(src);
+      return cachedImage.objectUrl;
+    }
+    
+    // Jika tidak ada dalam cache, preload dan gunakan URL asli
+    if (!cachedImage) {
+      this.preloadImage(src);
+    }
+    return src;
+  }
+
+  // Membersihkan cache gambar
+  clearImageCache(): void {
+    // Revoke semua objectURL untuk mencegah memory leak
+    this.imageCache.forEach(entry => {
+      if (entry.objectUrl) {
+        URL.revokeObjectURL(entry.objectUrl);
+      }
+    });
+    this.imageCache.clear();
+    this.cachePriorityQueue = [];
   }
 
   private initSectionAnimations() {
@@ -343,20 +469,225 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
   }
 
+  // Diganti dengan implementasi zoom yang lebih canggih
   toggleImageZoom(event: MouseEvent): void {
-    // Only toggle zoom when clicking directly on the image
+    // Periksa apakah ini adalah klik langsung di gambar
     if ((event.target as HTMLElement).tagName === 'IMG') {
       this.isImageZoomed = !this.isImageZoomed;
       event.stopPropagation();
+      
+      if (this.isImageZoomed) {
+        // Setup zoom controls
+        this.setupZoomControls();
+      } else {
+        // Reset zoom
+        this.resetZoom();
+      }
     } else {
-      // If clicking outside the image when zoomed, reset zoom
+      // Jika mengklik di luar gambar ketika zoom aktif, reset zoom
       if (this.isImageZoomed) {
         this.isImageZoomed = false;
+        this.resetZoom();
       } else {
-        // Otherwise close the modal (existing behavior)
+        // Tutup modal (existing behavior)
         this.closeGalleryModal();
       }
     }
+  }
+
+  // Setup zoom controls
+  private setupZoomControls(): void {
+    if (!this.zoomableImage) return;
+    
+    const imgElement = this.zoomableImage.nativeElement;
+    
+    // Reset posisi dan scale
+    this.currentScale = 1;
+    this.translateX = 0;
+    this.translateY = 0;
+    this.applyTransform();
+    
+    // Setup event listeners for mouse/touch
+    this.setupMouseEvents(imgElement);
+    this.setupTouchEvents(imgElement);
+    this.setupWheelEvent(imgElement);
+    
+    // Tambahkan class untuk styling
+    this.renderer.addClass(imgElement, 'zoomable-active');
+  }
+  
+  // Setup mouse events
+  private setupMouseEvents(element: HTMLElement): void {
+    // Mouse down
+    element.addEventListener('mousedown', (e: MouseEvent) => {
+      if (!this.isImageZoomed) return;
+      this.isDragging = true;
+      this.startX = e.clientX - this.translateX;
+      this.startY = e.clientY - this.translateY;
+      e.preventDefault();
+    });
+    
+    // Mouse move
+    document.addEventListener('mousemove', (e: MouseEvent) => {
+      if (!this.isDragging) return;
+      this.translateX = e.clientX - this.startX;
+      this.translateY = e.clientY - this.startY;
+      this.applyTransform();
+      e.preventDefault();
+    });
+    
+    // Mouse up
+    document.addEventListener('mouseup', () => {
+      this.isDragging = false;
+    });
+    
+    // Double click untuk zoom in/out
+    element.addEventListener('dblclick', (e: MouseEvent) => {
+      if (!this.isImageZoomed) return;
+      
+      const rect = element.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Zoom in pada titik klik
+      if (this.currentScale < 3) {
+        this.zoomAtPoint(x, y, this.currentScale * 2);
+      } else {
+        this.resetZoom();
+      }
+      
+      e.preventDefault();
+    });
+  }
+  
+  // Setup touch events
+  private setupTouchEvents(element: HTMLElement): void {
+    let lastTouchX = 0;
+    let lastTouchY = 0;
+    let initialDistance = 0;
+    
+    // Touch start
+    element.addEventListener('touchstart', (e: TouchEvent) => {
+      if (!this.isImageZoomed) return;
+      
+      if (e.touches.length === 1) {
+        // Single touch for pan
+        this.isDragging = true;
+        this.startX = e.touches[0].clientX - this.translateX;
+        this.startY = e.touches[0].clientY - this.translateY;
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
+      } else if (e.touches.length === 2) {
+        // Double touch for pinch zoom
+        initialDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+      }
+      e.preventDefault();
+    });
+    
+    // Touch move
+    element.addEventListener('touchmove', (e: TouchEvent) => {
+      if (!this.isImageZoomed) return;
+      
+      if (e.touches.length === 1 && this.isDragging) {
+        // Pan
+        this.translateX = e.touches[0].clientX - this.startX;
+        this.translateY = e.touches[0].clientY - this.startY;
+        this.applyTransform();
+        
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
+      } else if (e.touches.length === 2 && initialDistance > 0) {
+        // Pinch zoom
+        const currentDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        
+        const pinchScale = currentDistance / initialDistance;
+        const newScale = Math.max(0.5, Math.min(5, this.currentScale * pinchScale));
+        
+        // Zoom at midpoint of touches
+        const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+        const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        const rect = element.getBoundingClientRect();
+        this.zoomAtPoint(midX - rect.left, midY - rect.top, newScale);
+        
+        initialDistance = currentDistance;
+      }
+      e.preventDefault();
+    });
+    
+    // Touch end
+    element.addEventListener('touchend', () => {
+      this.isDragging = false;
+      initialDistance = 0;
+    });
+  }
+  
+  // Setup wheel event for zooming
+  private setupWheelEvent(element: HTMLElement): void {
+    element.addEventListener('wheel', (e: WheelEvent) => {
+      if (!this.isImageZoomed) return;
+      
+      const rect = element.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Zoom in/out at mouse position
+      const delta = e.deltaY > 0 ? 0.9 : 1.1;
+      const newScale = Math.max(0.5, Math.min(5, this.currentScale * delta));
+      this.zoomAtPoint(x, y, newScale);
+      
+      e.preventDefault();
+    });
+  }
+  
+  // Zoom in/out at a specific point
+  private zoomAtPoint(x: number, y: number, newScale: number): void {
+    if (!this.zoomableImage) return;
+    
+    const imgElement = this.zoomableImage.nativeElement;
+    const rect = imgElement.getBoundingClientRect();
+    
+    // Calculate new position to keep the point under cursor
+    const scaleRatio = newScale / this.currentScale;
+    const newTranslateX = x - (x - this.translateX) * scaleRatio;
+    const newTranslateY = y - (y - this.translateY) * scaleRatio;
+    
+    this.currentScale = newScale;
+    this.translateX = newTranslateX;
+    this.translateY = newTranslateY;
+    
+    this.applyTransform();
+  }
+  
+  // Apply transform to the image
+  private applyTransform(): void {
+    if (!this.zoomableImage) return;
+    
+    const imgElement = this.zoomableImage.nativeElement;
+    this.renderer.setStyle(
+      imgElement,
+      'transform',
+      `translate(${this.translateX}px, ${this.translateY}px) scale(${this.currentScale})`
+    );
+  }
+  
+  // Reset zoom
+  private resetZoom(): void {
+    if (!this.zoomableImage) return;
+    
+    const imgElement = this.zoomableImage.nativeElement;
+    this.currentScale = 1;
+    this.translateX = 0;
+    this.translateY = 0;
+    this.applyTransform();
+    
+    // Remove event listeners
+    this.renderer.removeClass(imgElement, 'zoomable-active');
   }
 
   getText(key: keyof TranslationKeys): string {
@@ -364,13 +695,18 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openGalleryModal(imageSrc: string) {
-    this.currentGalleryImage = imageSrc;
+    // Preload image when opening modal
+    this.preloadImage(imageSrc);
+    
+    // Use cached image if available
+    this.currentGalleryImage = this.getImageUrl(imageSrc);
     this.isGalleryModalOpen = true;
   }
 
   closeGalleryModal() {
     this.isGalleryModalOpen = false;
     this.isImageZoomed = false;
+    this.resetZoom();
 
     // Navigate back to the biodata page
     this.router.navigateByUrl('/biodata');
@@ -407,7 +743,13 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
 
   updateCurrentPhoto() {
     const photo = this.rotatingPhotos[this.currentPhotoIndex];
-    this.currentRotatingPhoto = photo.src;
+    
+    // Preload next photo
+    const nextIndex = (this.currentPhotoIndex + 1) % this.rotatingPhotos.length;
+    this.preloadImage(this.rotatingPhotos[nextIndex].src);
+    
+    // Use cached image if available
+    this.currentRotatingPhoto = this.getImageUrl(photo.src);
     this.currentPhotoCaption = photo.caption;
   }
 

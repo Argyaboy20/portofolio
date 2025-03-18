@@ -17,6 +17,7 @@ interface PhotoItem {
   description: string;
   date: string;
   loaded?: boolean;
+  cached?: boolean;
 }
 
 @Component({
@@ -31,6 +32,12 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
   audio: HTMLAudioElement;
   isPlaying: boolean = false;
   filteredPhotos: PhotoItem[] = [];
+
+  // Cache system
+  private imageCache: Map<string, string> = new Map();
+  private loadingImages: Map<string, boolean> = new Map();
+  private observerAttached: boolean = false;
+  private imageObserver: IntersectionObserver | null = null;
 
   private backButtonSubscription!: Subscription;
 
@@ -144,6 +151,9 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
 
     // Preload audio
     this.audio.preload = 'metadata';
+
+    // Inisialisasi cache dari localStorage jika ada
+    this.initializeCache();
   }
 
   ngOnInit() {
@@ -160,6 +170,9 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       // Navigasi kembali ke halaman biodata
       this.router.navigate(['/biodata']);
     });
+
+     // Setup Intersection Observer for lazy loading
+     this.setupIntersectionObserver();
   }
 
   ngOnDestroy() {
@@ -171,6 +184,11 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     // Bersihkan subscription saat komponen dihancurkan
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
+    }
+
+    // Clean up observer
+    if (this.imageObserver) {
+      this.imageObserver.disconnect();
     }
   }
 
@@ -223,10 +241,12 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
   }
 
   selectPhoto(photo: PhotoItem) {
-    this.selectedPhoto = photo;
-
-    // Navigate back to the galeri page
-    this.router.navigateByUrl('/galeri-kehidupan');
+    // Ensure the full resolution image is loaded before showing
+    this.loadFullImage(photo).then(() => {
+      this.selectedPhoto = photo;
+      // Navigate back to the galeri page
+      this.router.navigateByUrl('/galeri-kehidupan');
+    });
   }
 
   // Preload images in background for smoother experience
@@ -235,13 +255,166 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     const initialPhotos = this.filteredPhotos.slice(0, 4);
 
     initialPhotos.forEach(photo => {
-      if (!photo.loaded) {
-        const img = new Image();
-        img.onload = () => {
-          photo.loaded = true;
-        };
-        img.src = photo.imageUrl;
-      }
+      this.loadFullImage(photo);
     });
+  }
+  
+   // Initialize cache from localStorage
+   private initializeCache() {
+    try {
+      const cachedImages = localStorage.getItem('galeriImageCache');
+      if (cachedImages) {
+        this.imageCache = new Map(JSON.parse(cachedImages));
+        
+        // Mark cached photos
+        this.photos.forEach(photo => {
+          if (this.imageCache.has(photo.imageUrl)) {
+            photo.cached = true;
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error loading image cache:', error);
+      // Reset cache if corrupted
+      this.imageCache = new Map();
+      localStorage.removeItem('galeriImageCache');
+    }
+  }
+  
+  // Save cache to localStorage
+  private saveCache() {
+    try {
+      localStorage.setItem('galeriImageCache', 
+        JSON.stringify(Array.from(this.imageCache.entries())));
+    } catch (error: any) { // Type assertion untuk error
+      console.error('Error saving image cache:', error);
+      // If storage is full, clear it and try again
+      if (error.name === 'QuotaExceededError') {
+        localStorage.clear();
+        try {
+          localStorage.setItem('galeriImageCache', 
+            JSON.stringify(Array.from(this.imageCache.entries())));
+        } catch (e) {
+          console.error('Failed to save cache even after clearing storage:', e);
+        }
+      }
+    }
+  }
+  
+  // Create and setup intersection observer for lazy loading
+  private setupIntersectionObserver() {
+    if ('IntersectionObserver' in window) {
+      this.imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const imgElement = entry.target as HTMLImageElement;
+            const photoId = imgElement.dataset['photoId'];
+            
+            if (photoId) {
+              const photo = this.photos.find(p => p.id === Number(photoId));
+              if (photo) {
+                this.loadFullImage(photo).then(() => {
+                  imgElement.src = photo.imageUrl;
+                  imgElement.classList.add('loaded');
+                  observer.unobserve(imgElement);
+                });
+              }
+            }
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      });
+    }
+  }
+  
+  // Setup lazy loading for all images in the current view
+  private setupLazyLoading() {
+    if (!this.imageObserver) return;
+    
+    setTimeout(() => {
+      const imgElements = document.querySelectorAll('.photo-item img[data-photo-id]');
+      imgElements.forEach(img => {
+        this.imageObserver?.observe(img);
+      });
+    }, 100);
+  }
+  
+  // Load full image with caching
+  private loadFullImage(photo: PhotoItem): Promise<void> {
+    return new Promise((resolve) => {
+      // Skip if already loaded or being loaded
+      if (photo.loaded || this.loadingImages.get(photo.imageUrl)) {
+        resolve();
+        return;
+      }
+      
+      // Mark as loading
+      this.loadingImages.set(photo.imageUrl, true);
+      
+      // Check if image is in cache
+      if (this.imageCache.has(photo.imageUrl)) {
+        photo.loaded = true;
+        photo.cached = true;
+        this.loadingImages.set(photo.imageUrl, false);
+        resolve();
+        return;
+      }
+      
+      // Load the image
+      const img = new Image();
+      
+      img.onload = () => {
+        photo.loaded = true;
+        photo.cached = true;
+        
+        // Add to cache
+        this.cacheImage(photo.imageUrl);
+        
+        this.loadingImages.set(photo.imageUrl, false);
+        resolve();
+      };
+      
+      img.onerror = () => {
+        this.loadingImages.set(photo.imageUrl, false);
+        resolve();
+      };
+      
+      img.src = photo.imageUrl;
+    });
+  }
+  
+  // Cache image URL in memory and localStorage
+  private cacheImage(imageUrl: string): void {
+    // Add to memory cache
+    this.imageCache.set(imageUrl, imageUrl);
+    
+    // Maintain cache size (max 30 images)
+    if (this.imageCache.size > 30) {
+      const oldestKey = Array.from(this.imageCache.keys())[0];
+      this.imageCache.delete(oldestKey);
+    }
+    
+    // Update localStorage periodically instead of on every image
+    // to reduce performance impact
+    if (this.imageCache.size % 5 === 0) {
+      this.saveCache();
+    }
+  }
+  
+  // Public method to clear the cache (can be called from template if needed)
+  clearImageCache() {
+    this.imageCache = new Map();
+    localStorage.removeItem('galeriImageCache');
+    
+    // Reset loaded status
+    this.photos.forEach(photo => {
+      photo.loaded = false;
+      photo.cached = false;
+    });
+    
+    console.log('Image cache cleared');
   }
 }

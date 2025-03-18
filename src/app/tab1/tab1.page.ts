@@ -72,7 +72,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   translations: TranslationDict = {
     id: {
       profilSingkat: 'Profil Singkat',
-      aboutContent: 'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan Ionic Framework yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.73 yang saya raih selama masa perkuliahan di Institut Teknologi dan Bisnis Indonesia, saya membuktikan komitmen dan dedikasi yang kuat dalam bidang akademik.',
+      aboutContent: 'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan Ionic Framework yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.79 yang saya raih selama masa perkuliahan di Institut Teknologi dan Bisnis Indonesia, saya membuktikan komitmen dan dedikasi yang kuat dalam bidang akademik.',
       aboutContent2: 'Pengalaman saya mencakup berbagai proyek pengembangan aplikasi, termasuk pembuatan Todolist APK menggunakan JavaScript dan ApliKasir dengan C#. Dalam proyek-proyek tersebut, saya berkontribusi sebagai backend developer dan berhasil mengimplementasikan fitur-fitur seperti TaskController dan UIEdit. Pengetahuan teknis saya diperkuat melalui program student exchange di Telkom University, di mana saya memperdalam pemahaman tentang pengembangan perangkat lunak, keamanan sistem, dan manajemen database.',
       aboutContent3: 'Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak',
       keahlian: 'Keahlian',
@@ -97,7 +97,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     },
     en: {
       profilSingkat: 'Brief Profile',
-      aboutContent: 'A Software Engineer with a focus on hybrid mobile application development who is passionate about creating innovative solutions. My main expertise lies in using Ionic Framework combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.73 achieved during my studies at the Indonesian Institute of Technology and Business, I proved my strong commitment and dedication in academics.',
+      aboutContent: 'A Software Engineer with a focus on hybrid mobile application development who is passionate about creating innovative solutions. My main expertise lies in using Ionic Framework combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.79 achieved during my studies at the Indonesian Institute of Technology and Business, I proved my strong commitment and dedication in academics.',
       aboutContent2: 'My experience spans various app development projects, including the creation of Todolist APK using JavaScript and ApliKasir with C#. In these projects, I contributed as a backend developer and successfully implemented features such as TaskController and UIEdit. My technical knowledge was strengthened through a student exchange program at Telkom University, where I deepened my understanding of software development, system security, and database management.',
       aboutContent3: 'My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. Contact me if you are interested in further collaboration on software development.',
       keahlian: 'Skills',
@@ -360,8 +360,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan ';
 
           const afterText = this.currentLanguage === 'en' ?
-            ' combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.73 achieved during my college years at ' :
-            ' yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.73 yang saya raih selama masa perkuliahan di ';
+            ' combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.79 achieved during my college years at ' :
+            ' yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.79 yang saya raih selama masa perkuliahan di ';
 
           // Clear the paragraph and rebuild it
           p1.innerHTML = '';

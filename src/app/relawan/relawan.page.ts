@@ -33,19 +33,19 @@ export class RelawanPage implements OnInit {
       ],
       photos: [
         {
-          url: 'assets/img/volunteer/mnb-1.jpg',
+          url: 'assets/mnb1.JPG',
           captionId: 'Grup MN B saat melakukan pementasan budaya',
           captionEn: 'MN B group during cultural performance'
         },
         {
-          url: 'assets/img/volunteer/mnb-2.jpg',
+          url: 'assets/mnb2.JPG',
           captionId: 'Kegiatan bakti sosial di PPSGHD',
           captionEn: 'Social service activities at PPSGHD'
         },
         {
-          url: 'assets/img/volunteer/mnb-3.jpg',
-          captionId: 'Foto bersama peserta Student Exchange',
-          captionEn: 'Group photo with Student Exchange participants'
+          url: 'assets/mnb3.JPG',
+          captionId: 'Foto bersama peserta Kontribusi Sosial',
+          captionEn: 'Group photo with Social Contribution participants'
         }
       ]
     },
@@ -66,17 +66,17 @@ export class RelawanPage implements OnInit {
       ],
       photos: [
         {
-          url: 'assets/img/volunteer/team-1.jpg',
+          url: 'assets/team1.jpg',
           captionId: 'Talkshow Tel U Education Movement',
           captionEn: 'Tel U Education Movement Talkshow'
         },
         {
-          url: 'assets/img/volunteer/team-2.jpg',
+          url: 'assets/team2.jpg',
           captionId: 'Kegiatan di PPSGHD',
           captionEn: 'Activities at PPSGHD'
         },
         {
-          url: 'assets/img/volunteer/team-3.jpg',
+          url: 'assets/team3.jpg',
           captionId: 'Kegiatan di Panti Jompo FAKKU RAQABAH',
           captionEn: 'Activities at FAKKU RAQABAH Nursing Home'
         }
@@ -91,7 +91,7 @@ export class RelawanPage implements OnInit {
         'Berpartisipasi aktif dalam mengorganisir dan mendistribusikan paket makanan selama Ramadan kepada lebih dari 500 mahasiswa dan staf pengajar.',
         'Membantu mengkoordinasikan acara buka puasa bersama di kampus, memastikan operasional yang lancar dan pengalaman positif bagi semua peserta.',
         'Berkolaborasi dengan tim yang terdiri dari 25 relawan untuk mengelola pengumpulan dan penyaluran donasi untuk perayaan Idul Adha.',
-        'Mengkoordinir jamaah salat tarawtih.'
+        'Mengkoordinir jamaah salat tarawih.'
       ],
       descriptionEn: [
         'Actively participated in organizing and distributing food packages during Ramadan to over 500 students and faculty members.',
@@ -101,17 +101,17 @@ export class RelawanPage implements OnInit {
       ],
       photos: [
         {
-          url: 'assets/img/volunteer/prada-1.jpg',
+          url: 'assets/prada1.jpg',
           captionId: 'Distribusi paket makanan selama Ramadhan',
           captionEn: 'Distribution of food packages during Ramadan'
         },
         {
-          url: 'assets/img/volunteer/prada-2.jpg',
+          url: 'assets/prada2.jpg',
           captionId: 'Acara buka puasa bersama',
           captionEn: 'Community iftar event'
         },
         {
-          url: 'assets/img/volunteer/prada-3.jpg',
+          url: 'assets/prada3.png',
           captionId: 'Tim relawan PRADA',
           captionEn: 'PRADA volunteer team'
         },
