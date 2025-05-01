@@ -1148,7 +1148,7 @@ ion-content {
         margin-top: 20px;
 
         .career-item {
-            background: #4a90e2;
+            background: #76A77B;
             border-radius: 16px;
             padding: 24px;
             transition: all 0.3s ease;
@@ -1174,7 +1174,7 @@ ion-content {
             &:hover {
                 transform: translateY(-5px);
                 box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-                background: #3a80d2; // Slightly darker on hover
+                background: #657D6F; // Slightly darker on hover
 
                 &::before {
                     width: 8px;
@@ -1185,7 +1185,7 @@ ion-content {
                     background: rgba(255, 255, 255, 0.9);
 
                     ion-icon {
-                        color: #4a90e2;
+                        color: #76A77B;
                     }
                 }
             }
@@ -1203,7 +1203,7 @@ ion-content {
 
                 ion-icon {
                     font-size: 32px;
-                    color: #2c70c2;
+                    color: #76A77B;
                     transition: all 0.3s ease;
                 }
             }
@@ -1632,6 +1632,10 @@ footer {
             }
         }
     }
+
+    .right-panel-footer {
+        margin-right: -2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1751,6 +1755,10 @@ footer {
                 height: 2.2rem;
             }
         }
+    }
+
+    .right-panel-footer {
+        margin-right: -1.5rem;
     }
 }
 

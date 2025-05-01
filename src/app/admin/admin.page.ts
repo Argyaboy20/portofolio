@@ -36,6 +36,44 @@ export class AdminPage implements OnInit {
   // Work Experience Data
   workExperience = [
     {
+      titleId: 'Sekretaris dan Bendahara - Panitia BM8 Labuan Bajo (WFH)',
+      titleEn: 'Secretary and Treasurer - BM8 Labuan Bajo Committee (WFH)',
+      company: 'Bakti Milenial Foundation',
+      period: 'Mar 2025 - Sekarang',
+      descriptionId: `• Merancang formulir pendaftaran untuk fully funded, partial funded dan self funded serta formulir lainnya jika diperlukan
+• Menangani bidang CRM khususnya di bidang pemasaran dalam bentuk WA Blast
+• Membuat Rancangan Anggaran Biaya untuk kegiatan selanjutnya
+• Mencatat semua transaksi yang masuk dan keluar untuk program BM#8 
+• Mengkoordinir peserta baik yang full, parsial maupun swadaya untuk pembekalan`,
+      descriptionEn: `• Designing registration forms for fully funded, partially funded and self funded and other forms if needed
+• Handling the CRM field, especially in the field of marketing in the form of WA Blasts
+• Creating a Draft Budget for later activities
+• Recording all incoming and outgoing transactions for the BM#8 program 
+• Coordinating fully, partially and self funded participants for briefing`,
+      // Project details for modal
+      projectNameId: 'Administrasi Terpadu dan Optimal',
+      projectNameEn: 'Integrated and Optimal Administration',
+      projectDescId: `<p>Dalam pekerjaa ini menjabat sebagai sekretaris dan bendahara di Bakti Milenial#8 Labuan Bajo.</p>
+<p>Hasil yang dicapai:</p>
+<ul>
+  <li>Sistem pendaftaran yang terintegrasi dan terdokumentasikan dengan baik</li>
+  <li>Membuat Rancangan dan Anggaran Belanja dengan tepat</li>
+  <li>Mendukung semua urusan administrasi dan keperluan berkas lainnya selama periode berlangsung</li>
+  <li>Mempromosikan kegiatan kegiatan yang diselenggarakan Bakti Milenial dengan WBSPro</li>
+</ul>`,
+      projectDescEn: `<p>In this job, I served as secretary and treasurer at Bakti Millenial#8 Labuan Bajo.</p>
+<p>Achieved results:</p>
+<ul>
+  <li>Integrated and well-documented registration system</li>
+  <li>Make a proper Expenditure Plan and Budget</li>
+  <li>Support all administrative matters and other file requirements during the period.</li>
+  <li>Promote activities organized by Bakti Milenial with WBSPro</li>
+</ul>`,
+      images: ['/assets/bakti1.png', '/assets/bakti2.jpg', '/assets/bakti3.png'],
+      technologies: ['Google Sheets', 'Google Docs', 'Google Form', 'WBSPro']
+    },
+
+    {
       titleId: 'Kepala Admin & General Affair - Magang (WFH)',
       titleEn: 'Head of Admin & General Affair - Internship (WFH)',
       company: 'Bakti Milenial',
@@ -149,7 +187,9 @@ export class AdminPage implements OnInit {
     {
       nameId: 'Google Sheets',
       nameEn: 'Google Sheets',
-      icon: 'grid-outline',
+      icon: 'albums-outline',
+      isCustomIcon: true,
+      customIconPath: 'assets/icon/GoogleSheets.png',
       color: 'success'
     },
     {
@@ -167,14 +207,18 @@ export class AdminPage implements OnInit {
     {
       nameId: 'ClickUp',
       nameEn: 'ClickUp',
-      icon: 'checkmark-circle-outline',
+      icon: 'albums-outline', 
+      isCustomIcon: true,
+      customIconPath: 'assets/icon/Clickup.png', 
       color: 'secondary'
     },
     {
       nameId: 'Trello',
       nameEn: 'Trello',
       icon: 'albums-outline',
-      color: 'primary'
+      isCustomIcon: true, // tambahkan flag untuk mengidentifikasi icon kustom
+      customIconPath: 'assets/icon/Trello.png', // path ke icon kustom
+      color: 'dark'
     },
     {
       nameId: 'MS Office',
@@ -187,6 +231,14 @@ export class AdminPage implements OnInit {
       nameEn: 'Zoom',
       icon: 'videocam-outline',
       color: 'medium'
+    },
+    {
+      nameId: 'WBSPro',
+      nameEn: 'WBSPro',
+      icon: 'albums-outline',
+      isCustomIcon: true, // tambahkan flag untuk mengidentifikasi icon kustom
+      customIconPath: 'assets/icon/wbspro.png', // path ke icon kustom
+      color: 'light'
     }
   ];
 

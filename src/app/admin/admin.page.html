@@ -73,7 +73,8 @@
             <ion-col size="6" size-md="4" *ngFor="let tool of adminTools">
               <ion-button expand="block" class="skill-button" [color]="tool.color">
                 <div class="skill-content">
-                  <ion-icon [name]="tool.icon" class="skill-icon"></ion-icon>
+                  <ion-icon *ngIf="!tool.isCustomIcon" [name]="tool.icon" class="skill-icon"></ion-icon>
+                  <img *ngIf="tool.isCustomIcon" [src]="tool.customIconPath" class="skill-icon custom-icon" alt="Tool icon">
                   <div class="skill-name">{{ language === 'id' ? tool.nameId : tool.nameEn }}</div>
                 </div>
               </ion-button>

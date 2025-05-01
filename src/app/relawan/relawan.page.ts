@@ -114,11 +114,6 @@ export class RelawanPage implements OnInit {
           url: 'assets/prada3.png',
           captionId: 'Tim relawan PRADA',
           captionEn: 'PRADA volunteer team'
-        },
-        {
-          url: 'assets/img/volunteer/prada-4.jpg',
-          captionId: 'Persiapan pelaksanaan shalat tarawih',
-          captionEn: 'Preparation for tarawtih prayer congregation'
         }
       ]
     }
