@@ -124,6 +124,15 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   projects: Project[] = [
     {
+      title: 'Locana App',
+      duration: 'Mei 2025 - sekarang',
+      description: 'Project ini bertujuan sebagai project akhir di Skripsi saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP',
+      image: '/assets/logolocana.jpg',
+      demoLink: '/locana',
+      sourceLink: 'https://github.com/Argyaboy20/locana.git',
+      startDate: new Date(2025, 5, 2)  // Mei 2, 2025
+    },
+    {
       title: 'Web Portofolio',
       duration: 'Februari 2025 - sekarang',
       description: 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework berbasis HTML dan Javascript',
@@ -552,24 +561,30 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     // Update project descriptions based on language
     if (this.currentLanguage === 'en') {
       // Translate project descriptions to English
-      this.projects[0].description = 'This project aims to create a personal website as my portfolio in Software Engineering, developed with Ionic Framework and MySQL backend';
-      this.projects[0].duration = 'February 2025 - present';
+      this.projects[0].description = 'This project aims to be the final project in my thesis developed with Ionic Framework based on HTML, Node.js, and PHP.';
+      this.projects[0].duration = 'May 2025 - present';
 
-      this.projects[1].description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend';
-      this.projects[1].duration = 'November 2024 - February 2025';
+      this.projects[1].description = 'This project aims to create a personal website as my portfolio in Software Engineering, developed with Ionic Framework and MySQL backend';
+      this.projects[1].duration = 'February 2025 - present';
 
-      this.projects[2].description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
-      this.projects[2].duration = 'April - May 2024';
+      this.projects[2].description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend';
+      this.projects[2].duration = 'November 2024 - February 2025';
+
+      this.projects[3].description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
+      this.projects[3].duration = 'April - May 2024';
     } else {
       // Reset to original Indonesian descriptions
-      this.projects[0].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework dan backend berupa MySql';
-      this.projects[0].duration = 'Februari 2025 - sekarang';
+      this.projects[0].description = 'Project ini bertujuan sebagai project akhir di Skripsi saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP';
+      this.projects[0].duration = 'Mei 2025 - sekarang';
 
-      this.projects[1].description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql';
-      this.projects[1].duration = 'November 2024 - Februari 2025';
+      this.projects[1].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework dan backend berupa MySql';
+      this.projects[1].duration = 'Februari 2025 - sekarang';
 
-      this.projects[2].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
-      this.projects[2].duration = 'April - Mei 2024';
+      this.projects[2].description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql';
+      this.projects[2].duration = 'November 2024 - Februari 2025';
+
+      this.projects[3].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
+      this.projects[3].duration = 'April - Mei 2024';
     }
   }
 

@@ -1148,7 +1148,7 @@ ion-content {
         margin-top: 20px;
 
         .career-item {
-            background: #76A77B;
+            background: #1b508b;
             border-radius: 16px;
             padding: 24px;
             transition: all 0.3s ease;
@@ -1174,7 +1174,7 @@ ion-content {
             &:hover {
                 transform: translateY(-5px);
                 box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-                background: #657D6F; // Slightly darker on hover
+                background: #2543a5; // Slightly darker on hover
 
                 &::before {
                     width: 8px;
@@ -1185,7 +1185,7 @@ ion-content {
                     background: rgba(255, 255, 255, 0.9);
 
                     ion-icon {
-                        color: #76A77B;
+                        color: #003cff;
                     }
                 }
             }
@@ -1203,7 +1203,7 @@ ion-content {
 
                 ion-icon {
                     font-size: 32px;
-                    color: #76A77B;
+                    color: #003cff;
                     transition: all 0.3s ease;
                 }
             }

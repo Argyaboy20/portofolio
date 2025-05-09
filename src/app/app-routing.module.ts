@@ -37,6 +37,10 @@ const routes: Routes = [
     path: 'relawan',
     loadChildren: () => import('./relawan/relawan.module').then( m => m.RelawanPageModule)
   },
+  {
+    path: 'locana',
+    loadChildren: () => import('./locana/locana.module').then( m => m.LocanaPageModule)
+  },
 
 ];
 
