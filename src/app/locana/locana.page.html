@@ -1,13 +1,105 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title>locana</ion-title>
+    <ion-title class="ion-text-center">
+      <a routerLink="/tabs/tab1" class="blog-title">
+        <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
+      </a>
+    </ion-title>
+    <ion-buttons slot="end" class="biodata-button">
+      <ion-button routerLink="/biodata">Biodata</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end" class="language-button">
+      <ion-button (click)="toggleLanguage()">
+        {{ currentLanguage === 'id' ? 'EN' : 'ID' }}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">locana</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="locana-content">
+  <div class="page-container">
+    <div class="hero-section">
+      <h1 class="page-title">{{ translations[currentLanguage].locanaTitle }}</h1>
+      <p class="page-description">{{ translations[currentLanguage].locanaDescription }}</p>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery-section">
+      <h2 class="section-title">{{ translations[currentLanguage].galleryTitle }}</h2>
+      <div class="gallery-container">
+        <div class="gallery-item" *ngFor="let image of locanaImages">
+          <div class="image-card" (click)="openImageModal(image)">
+            <div class="image-wrapper">
+              <img [src]="image.url" [alt]="image.caption">
+            </div>
+            <div class="image-info">
+              <h3 class="image-title">{{ image.title }}</h3>
+              <p class="image-brief">{{ image.brief }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Development Tools Section -->
+    <div class="tools-section">
+      <h2 class="section-title">{{ translations[currentLanguage].toolsTitle }}</h2>
+      <div class="tools-container">
+        <div class="tool-item" *ngFor="let tool of developmentTools">
+          <div class="tool-icon">
+            <ion-icon [name]="tool.icon"></ion-icon>
+          </div>
+          <div class="tool-content">
+            <h3 class="tool-name">{{ tool.name }}</h3>
+            <p class="tool-description">{{ tool.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <div class="cta-content">
+        <h2 class="cta-title">{{ translations[currentLanguage].readyToExperience }}</h2>
+        <p class="cta-description">{{ translations[currentLanguage].tryOutMessage }}</p>
+        <div class="cta-buttons">
+          <ion-button expand="block" [href]="projectUrl" target="_blank" class="website-btn">
+            <ion-icon name="globe-outline" class="button-icon"></ion-icon>
+            {{ translations[currentLanguage].launchWebsite }}
+          </ion-button>
+          <ion-button expand="block" [href]="androidUrl" target="_blank" class="android-btn">
+            <ion-icon name="logo-android" class="button-icon"></ion-icon>
+            {{ translations[currentLanguage].launchAndroid }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
+
+<!-- Image Modal -->
+<ion-modal [isOpen]="isImageModalOpen" (didDismiss)="closeImageModal()" class="image-preview-modal" [backdropDismiss]="true">
+  <ng-template>
+    <ion-content class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">{{ selectedImage?.title }}</h2>
+        <ion-button fill="clear" (click)="closeImageModal()" class="close-button">
+          <ion-icon name="close-outline" size="large"></ion-icon>
+        </ion-button>
+      </div>
+      <div class="modal-image-container">
+        <img [src]="selectedImage?.url" [alt]="selectedImage?.caption" class="full-size-image">
+      </div>
+      <div class="modal-details">
+        <h3 class="detail-title">{{ translations[currentLanguage].detailsTitle }}</h3>
+        <p class="detail-text">{{ selectedImage?.description }}</p>
+        <div class="detail-features" *ngIf="selectedImage?.features">
+          <h4>{{ translations[currentLanguage].featuresTitle }}</h4>
+          <ul>
+            <li *ngFor="let feature of selectedImage?.features">{{ feature }}</li>
+          </ul>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

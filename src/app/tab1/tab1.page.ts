@@ -63,8 +63,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   isCardFlipped = false;
   private backButtonSubscription!: Subscription;
   private screenshotPrevention: (() => void) | null = null;
-  isMerdekaProgramModalOpen = false;
   private scrollHandler: (() => void) | null = null;
+
+  isMerdekaProgramModalOpen = false;
+  isMSIBModalOpen = false;
   // Profile image modal state
   isProfileImageModalOpen = false;
 
@@ -956,6 +958,14 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   closeMerdekaProgramModal() {
     this.isMerdekaProgramModalOpen = false;
+  }
+
+  openMSIBModal() {
+    this.isMSIBModalOpen = true;
+  }
+
+  closeMSIBModal() {
+    this.isMSIBModalOpen = false;
   }
 
   preventModalClose(event: Event) {

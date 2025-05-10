@@ -154,7 +154,7 @@
                   <ion-icon name="trophy-outline"></ion-icon>
                   <span>Pertukaran Mahasiswa Merdeka Batch 4</span>
                 </div>
-                <div class="achievement-badge">
+                <div class="achievement-badge" (click)="openMSIBModal()">
                   <ion-icon name="ribbon-outline"></ion-icon>
                   <span>MSIB Batch 8</span>
                 </div>
@@ -198,6 +198,39 @@
                             <div class="modal-description">
                               <p>Program Pertukaran Mahasiswa Merdeka (Student Exchange) di Telkom University memberikan
                                 kesempatan untuk mengembangkan keterampilan akademik dan pengalaman lintas kampus.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ion-content>
+                </ng-template>
+              </ion-modal>
+
+              <!-- MSIB Modal Section -->
+              <ion-modal [isOpen]="isMSIBModalOpen" (didDismiss)="closeMSIBModal()" class="msib-modal">
+                <ng-template>
+                  <ion-header>
+                    <ion-toolbar>
+                      <ion-buttons slot="start">
+                        <ion-button (click)="closeMSIBModal()">
+                          <ion-icon name="close-outline"></ion-icon>
+                        </ion-button>
+                      </ion-buttons>
+                      <ion-title>MSIB Batch 8</ion-title>
+                    </ion-toolbar>
+                  </ion-header>
+                  <ion-content class="modal-content">
+                    <div class="msib-program-details">
+                      <div class="modal-education-item">
+                        <div class="education-item">
+                          <div class="education-icon">
+                            <ion-icon name="school-outline"></ion-icon>
+                          </div>
+                          <div class="education-details">
+                            <div class="processing-status">
+                              <ion-icon name="hourglass-outline" class="hourglass-icon"></ion-icon>
+                              <span class="processing-text">Sedang berproses</span>
                             </div>
                           </div>
                         </div>
@@ -288,7 +321,7 @@
 
           <div class="tool-item">
             <div class="tool-icon">
-              <ion-icon name="terminal-outline"></ion-icon>
+              <ion-icon name="logo-npm"></ion-icon>
             </div>
             <span class="tool-name">NPM/Node.js</span>
             <div class="tool-level">Intermediate</div>
@@ -320,7 +353,7 @@
 
           <div class="tool-item">
             <div class="tool-icon">
-              <ion-icon name="phone-portrait-outline"></ion-icon>
+              <ion-icon name="logo-capacitor"></ion-icon>
             </div>
             <span class="tool-name">Capacitor</span>
             <div class="tool-level">Intermediate</div>
@@ -331,12 +364,12 @@
               <ion-icon name="desktop-outline"></ion-icon>
             </div>
             <span class="tool-name">Chrome DevTools</span>
-            <div class="tool-level">Advanced</div>
+            <div class="tool-level">Intermediate</div>
           </div>
 
           <div class="tool-item">
             <div class="tool-icon">
-              <ion-icon name="layers-outline"></ion-icon>
+              <ion-icon name="logo-firebase"></ion-icon>
             </div>
             <span class="tool-name">Firebase</span>
             <div class="tool-level">Basic</div>
@@ -344,10 +377,42 @@
 
           <div class="tool-item">
             <div class="tool-icon">
-              <ion-icon name="triangle-outline"></ion-icon>
+              <ion-icon name="logo-vercel"></ion-icon>
             </div>
             <span class="tool-name">Vercel</span>
             <div class="tool-level">Intermediate</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="logo-figma"></ion-icon>
+            </div>
+            <span class="tool-name">Figma</span>
+            <div class="tool-level">Basic</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="map-outline"></ion-icon>
+            </div>
+            <span class="tool-name">Leaflet</span>
+            <div class="tool-level">Basic</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="pulse-outline"></ion-icon>
+            </div>
+            <span class="tool-name">WebSocket</span>
+            <div class="tool-level">Basic</div>
+          </div>
+
+          <div class="tool-item">
+            <div class="tool-icon">
+              <ion-icon name="code-outline"></ion-icon>
+            </div>
+            <span class="tool-name">C#</span>
+            <div class="tool-level">Basic</div>
           </div>
         </div>
       </div>
