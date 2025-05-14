@@ -150,7 +150,7 @@ export class Tab2Page implements OnInit, OnDestroy {
       icon: 'brush'
     },
     {
-      name: 'MySQL',
+      name: 'MariaDB',
       description: this.currentLanguage === 'id' ? 'Database untuk penyimpanan data' : 'Database for data storage',
       icon: 'server'
     },

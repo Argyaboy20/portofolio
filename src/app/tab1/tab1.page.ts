@@ -139,7 +139,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       duration: 'Februari 2025 - sekarang',
       description: 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework berbasis HTML dan Javascript',
       image: '/assets/portofolio.png',
-      demoLink: '/tabs/tab3',
+      demoLink: '/portofolio',
       sourceLink: 'https://github.com/Argyaboy20/portofolio.git',
       startDate: new Date(2025, 1, 1)  // February 1, 2025
     },
@@ -148,7 +148,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       duration: 'November 2024 - Februari 2025',
       description: 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql',
       image: '/assets/permo_logo.jpg',
-      demoLink: '/tabs/tab2',
+      demoLink: '/pertanianmobile',
       sourceLink: 'https://github.com/Argyaboy20/Permo.git',
       startDate: new Date(2024, 10, 1)  // November 1, 2024
     },
@@ -157,7 +157,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       duration: 'April - Mei 2024',
       description: 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#. ',
       image: '/assets/apliKasir.png',
-      demoLink: '/tabs/tab4',
+      demoLink: '/aplikasir',
       sourceLink: 'https://github.com/hshinosa/ApliKasir-UI.git',
       startDate: new Date(2024, 3, 1)  // April 1, 2024
     }

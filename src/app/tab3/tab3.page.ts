@@ -72,7 +72,6 @@ export class Tab3Page implements OnInit, OnDestroy {
     { name: 'Angular', level: 80, icon: 'logo-angular' },
     { name: 'Node.js', level: 75, icon: 'server-outline' },
     { name: 'UI/UX Design', level: 85, icon: 'color-palette-outline' },
-    { name: 'Database MySql', level: 80, icon: 'server' },
     { name: 'Ionic Framework', level: 75, icon: 'logo-ionic' }
   ];
 
