@@ -4,6 +4,7 @@ import { createAnimation, Animation, Platform, AlertController } from '@ionic/an
 import { Subscription } from 'rxjs';
 import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
+import { Router } from '@angular/router';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
 import { inject } from "@vercel/analytics"
 
@@ -17,7 +18,7 @@ interface Project {
   image: string;
   demoLink: string;
   sourceLink: string;
-  startDate: Date;  // For sorting purposes
+  startDate: Date;  /* For sorting purposes */
 }
 
 // interface penerjemahan
@@ -174,7 +175,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     private navCtrl: NavController,
     private platform: Platform,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -901,6 +903,14 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         animation
       });
     }
+  }
+
+  navigateToAboutMe() {
+    this.router.navigate(['/aboutme']);
+  }
+
+  navigateToPrivacyPolicy() {
+    this.router.navigate(['/privacypolicy']);
   }
 
   navigateToBiodata() {
