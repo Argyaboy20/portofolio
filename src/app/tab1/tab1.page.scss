@@ -161,6 +161,71 @@ ion-content {
     height: 20px;
 }
 
+/* Style untuk menu */
+ion-menu.mobile-only {
+  --background: #2c3e50;
+  --width: 250px;
+  z-index: 1000; /* Pastikan z-index lebih tinggi */
+}
+
+/* Header menu */
+ion-menu.mobile-only ion-header ion-toolbar {
+  --background: #2c3e50;
+  --color: white;
+}
+
+/* Content menu */
+ion-menu.mobile-only ion-content {
+  --background: #2c3e50;
+  --color: white;
+}
+
+/* Item-item di menu */
+ion-menu.mobile-only ion-item {
+  --background: transparent;
+  --color: white;
+  --background-hover: rgba(255, 255, 255, 0.1);
+  --ripple-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+/* Gaya untuk icon di menu */
+ion-menu.mobile-only ion-icon {
+  color: white;
+}
+
+/* Perbaikan backdrop */
+.menu-content-backdrop {
+  background: rgba(0, 0, 0, 0.4) !important;
+  opacity: 1 !important;
+  z-index: 999 !important; /* Di bawah menu tapi di atas konten */
+}
+
+/* Pastikan item menu terlihat seperti bisa diklik */
+ion-menu.mobile-only ion-item[button] {
+  pointer-events: auto;
+  cursor: pointer;
+  --detail-icon-opacity: 1;
+  --detail-icon-color: white;
+}
+
+/* Tambahkan efek hover yang jelas */
+ion-menu.mobile-only ion-item[button]:hover {
+  --background: rgba(255, 255, 255, 0.2);
+}
+
+/* Tambahkan efek active untuk feedback saat klik */
+ion-menu.mobile-only ion-item[button]:active {
+  --background: rgba(255, 255, 255, 0.3);
+}
+
+/* Perbaiki masalah aria-hidden dengan memastikan menu tetap bisa diakses */
+ion-content.split-screen[aria-hidden="true"] ion-menu {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
 /* Split screen layout */
 .split-screen {
     display: flex;

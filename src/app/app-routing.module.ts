@@ -41,7 +41,15 @@ const routes: Routes = [
   {
     path: 'locana',
     loadChildren: () => import('./locana/locana.module').then( m => m.LocanaPageModule)
+  },  {
+    path: 'aboutme',
+    loadChildren: () => import('./aboutme/aboutme.module').then( m => m.AboutmePageModule)
   },
+  {
+    path: 'privacypolicy',
+    loadChildren: () => import('./privacypolicy/privacypolicy.module').then( m => m.PrivacypolicyPageModule)
+  },
+
 
 ];
 

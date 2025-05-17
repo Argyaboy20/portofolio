@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, AfterViewInit, QueryList, ViewChildren } from '@angular/core';
-import { NavController, ToastController } from '@ionic/angular';
+import { NavController, ToastController, MenuController, IonMenu } from '@ionic/angular';
 import { createAnimation, Animation, Platform, AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { App } from '@capacitor/app';
@@ -65,6 +65,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   private backButtonSubscription!: Subscription;
   private screenshotPrevention: (() => void) | null = null;
   private scrollHandler: (() => void) | null = null;
+
+  @ViewChild(IonMenu) menu!: IonMenu;
 
   isMerdekaProgramModalOpen = false;
   isMSIBModalOpen = false;
@@ -176,7 +178,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     private platform: Platform,
     private alertController: AlertController,
     private toastController: ToastController,
-    private router: Router
+    private router: Router,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
@@ -199,6 +202,16 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.preventScreenshot();
 
     this.setupScrollAnimations();
+
+    if (this.menu) {
+      this.menu.ionDidOpen.subscribe(() => {
+        console.log('Menu opened');
+      });
+
+      this.menu.ionDidClose.subscribe(() => {
+        console.log('Menu closed');
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -905,12 +918,37 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  navigateToAboutMe() {
-    this.router.navigate(['/aboutme']);
+  navigateToAboutMe(event?: Event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.menuCtrl.close('mainMenu').then(() => {
+      console.log('Menu closed, navigating to About Me');
+      this.router.navigate(['/aboutme']);
+    });
   }
 
-  navigateToPrivacyPolicy() {
-    this.router.navigate(['/privacypolicy']);
+  navigateToPrivacyPolicy(event?: Event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.menuCtrl.close('mainMenu').then(() => {
+      console.log('Menu closed, navigating to Privacy Policy');
+      this.router.navigate(['/privacypolicy']);
+    });
+  }
+
+  // Helper method to open menu before navigation
+  openMenu() {
+    this.menuCtrl.enable(true, 'mainMenu');
+    this.menuCtrl.open('mainMenu');
+  }
+
+  // Metode untuk menutup menu
+  closeMenu() {
+    this.menuCtrl.close('mainMenu');
   }
 
   navigateToBiodata() {
