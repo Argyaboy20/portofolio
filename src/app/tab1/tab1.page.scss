@@ -161,69 +161,75 @@ ion-content {
     height: 20px;
 }
 
-/* Style untuk menu */
 ion-menu.mobile-only {
-  --background: #2c3e50;
-  --width: 250px;
-  z-index: 1000; /* Pastikan z-index lebih tinggi */
+    --background: #2c3e50;
+    --width: 250px;
+    z-index: 1000;
+    /* Tetap tinggi untuk menu */
+    pointer-events: none;
+    /* Defaultnya tidak menghalangi interaksi */
 }
 
-/* Header menu */
-ion-menu.mobile-only ion-header ion-toolbar {
-  --background: #2c3e50;
-  --color: white;
+/* Hanya aktifkan pointer-events saat menu aktif */
+ion-menu.mobile-only.show-menu {
+    pointer-events: auto;
 }
 
-/* Content menu */
+/* Pastikan konten menu tetap bisa interaksi */
 ion-menu.mobile-only ion-content {
-  --background: #2c3e50;
-  --color: white;
+    --background: #2c3e50;
+    --color: white;
+    pointer-events: auto;
+    /* Content menu selalu bisa interaksi */
 }
 
 /* Item-item di menu */
 ion-menu.mobile-only ion-item {
-  --background: transparent;
-  --color: white;
-  --background-hover: rgba(255, 255, 255, 0.1);
-  --ripple-color: rgba(255, 255, 255, 0.1);
-  cursor: pointer;
+    --background: transparent;
+    --color: white;
+    --background-hover: rgba(255, 255, 255, 0.1);
+    --ripple-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    pointer-events: auto;
+    /* Pastikan item menu bisa diklik */
 }
 
 /* Gaya untuk icon di menu */
 ion-menu.mobile-only ion-icon {
-  color: white;
+    color: white;
 }
 
 /* Perbaikan backdrop */
 .menu-content-backdrop {
-  background: rgba(0, 0, 0, 0.4) !important;
-  opacity: 1 !important;
-  z-index: 999 !important; /* Di bawah menu tapi di atas konten */
+    background: rgba(0, 0, 0, 0.4) !important;
+    opacity: 1 !important;
+    z-index: 999 !important;
+    /* Di bawah menu tapi di atas konten */
 }
 
 /* Pastikan item menu terlihat seperti bisa diklik */
 ion-menu.mobile-only ion-item[button] {
-  pointer-events: auto;
-  cursor: pointer;
-  --detail-icon-opacity: 1;
-  --detail-icon-color: white;
+    pointer-events: auto;
+    cursor: pointer;
+    --detail-icon-opacity: 1;
+    --detail-icon-color: white;
 }
 
 /* Tambahkan efek hover yang jelas */
 ion-menu.mobile-only ion-item[button]:hover {
-  --background: rgba(255, 255, 255, 0.2);
+    --background: rgba(255, 255, 255, 0.2);
 }
 
 /* Tambahkan efek active untuk feedback saat klik */
 ion-menu.mobile-only ion-item[button]:active {
-  --background: rgba(255, 255, 255, 0.3);
+    --background: rgba(255, 255, 255, 0.3);
 }
 
 /* Perbaiki masalah aria-hidden dengan memastikan menu tetap bisa diakses */
 ion-content.split-screen[aria-hidden="true"] ion-menu {
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
 }
 
 /* Split screen layout */
@@ -343,6 +349,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    z-index: 10;
 }
 
 .profile-image {
@@ -355,6 +362,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     border: 3px solid $secondary-color;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 11;
 
     &:hover {
         transform: scale(1.05);
@@ -409,6 +418,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    position: relative;
+    z-index: 12;
 
     a {
         display: flex;
@@ -420,6 +431,9 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         margin: 0 0.5rem;
         background: rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease;
+        position: relative;
+        z-index: 15;
+        pointer-events: auto !important;
 
         &:hover {
             background: $primary-color;

@@ -205,13 +205,17 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.menu) {
       this.menu.ionDidOpen.subscribe(() => {
-        console.log('Menu opened');
+        // Tambahkan class untuk mengaktifkan pointer-events pada menu
+        document.querySelector('ion-menu.mobile-only')?.classList.add('show-menu');
       });
 
       this.menu.ionDidClose.subscribe(() => {
-        console.log('Menu closed');
+        // Hapus class saat menu tertutup
+        document.querySelector('ion-menu.mobile-only')?.classList.remove('show-menu');
       });
     }
+
+    this.fixProfileInteraction();
   }
 
   ngOnDestroy() {
@@ -232,6 +236,25 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     document.removeEventListener('selectstart', this.preventAction);
     document.removeEventListener('keydown', this.preventScreenshotShortcuts);
     document.removeEventListener('keydown', this.preventDevToolsScreenshot, true);
+  }
+
+  /* Method baru untuk memperbaiki interaksi profil */
+  private fixProfileInteraction() {
+    // Pastikan social links bisa diinteraksi
+    const socialLinks = document.querySelectorAll('.social-links a');
+    socialLinks.forEach(link => {
+      (link as HTMLElement).style.pointerEvents = 'auto';
+      (link as HTMLElement).style.position = 'relative';
+      (link as HTMLElement).style.zIndex = '15';
+    });
+
+    // Pastikan profile image bisa diklik
+    const profileImage = document.querySelector('.profile-image');
+    if (profileImage) {
+      (profileImage as HTMLElement).style.pointerEvents = 'auto';
+      (profileImage as HTMLElement).style.position = 'relative';
+      (profileImage as HTMLElement).style.zIndex = '11';
+    }
   }
 
   setupScrollAnimations() {
@@ -949,6 +972,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   // Metode untuk menutup menu
   closeMenu() {
     this.menuCtrl.close('mainMenu');
+    // Tambahkan timeout kecil untuk memastikan classList.remove dijalankan setelah animasi menu
+    setTimeout(() => {
+      document.querySelector('ion-menu')?.classList.remove('menu-opened');
+    }, 300);
   }
 
   navigateToBiodata() {
