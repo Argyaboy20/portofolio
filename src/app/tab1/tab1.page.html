@@ -7,7 +7,7 @@
 
     <!-- Title for desktop view (left-aligned) -->
     <div class="desktop-title-container desktop-only">
-      <a routerLink="/tabs/tab1" class="blog-title">
+      <a routerLink="/" class="blog-title">
         <span class="primary-text">Maulana Farras</span><span class="secondary-text"> Blog's</span>
       </a>
       <!-- "About Me" button for desktop view - positioned right after the title -->
@@ -49,7 +49,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-list>
+      <ion-list style="background: #000000;">
         <!-- Tambahkan event langsung untuk mengatasi masalah propagasi -->
         <ion-item button (click)="navigateToAboutMe($event)" detail="true">
           <ion-icon name="person-outline" slot="start"></ion-icon>
@@ -81,7 +81,7 @@
 
     <div class="profile-container">
       <div class="profile-image" (click)="openProfileImageModal()">
-        <ion-img src="/assets/foto.JPG" alt="Foto Profil"></ion-img>
+        <ion-img src="/assets/foto.jpg" alt="Foto Profil"></ion-img>
       </div>
       <h1 class="name">Maulana Farras</h1>
       <p class="title">Web Developer | Fullstack Developer |</p>
@@ -578,7 +578,7 @@
   <ng-template>
     <ion-content class="modal-content" (click)="closeProfileImageModal()">
       <div class="modal-image-container">
-        <img src="/assets/foto.JPG" alt="Foto Profil" class="full-size-image"
+        <img src="/assets/foto.jpg" alt="Foto Profil" class="full-size-image"
           (contextmenu)="showDownloadRestrictionAlert()" (dragstart)="showDownloadRestrictionAlert()"
           (selectstart)="showDownloadRestrictionAlert()">
       </div>

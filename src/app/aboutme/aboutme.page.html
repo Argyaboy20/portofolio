@@ -1,13 +1,100 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>aboutme</ion-title>
+    <ion-title routerLink="/" routerDirection="root">Maulana Farras Blog's</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/biodata" routerDirection="forward">
+        <ion-label>Biodata</ion-label>
+      </ion-button>
+      <ion-button (click)="toggleLanguage()">
+        <ion-icon name="language-outline" slot="start"></ion-icon>
+        <ion-label>{{ isEnglish ? 'EN' : 'ID' }}</ion-label>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">aboutme</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="about-me-page">
+  <!-- Desktop View -->
+  <div class="desktop-view">
+    <div class="main-content">
+      <div class="container">
+        <h1 class="page-title">{{ isEnglish ? 'About Me' : 'Tentang Saya' }}</h1>
+        
+        <div class="profile-section">
+          <div class="profile-image">
+            <img src="/assets/raskece.jpg" alt="Profile Photo">
+          </div>
+          
+          <div class="profile-info">
+            <h2>{{ isEnglish ? 'Hello there!' : 'Halo!' }}</h2>
+            
+            <!-- First paragraph -->
+            <p>{{ isEnglish ? 'My name is Maulana Farras. I am a 6th semester college student majoring in Software Engineering with a passion for technology and innovation. My academic journey has been an exciting blend of theoretical learning and practical applications, where I continuously strive to expand my knowledge horizon.' : 'Namaku Maulana Farras. Saya adalah mahasiswa semester 6 dari jurusan Rekayasa Perangkat Lunak dengan hasrat untuk teknologi dan inovasi. Perjalanan akademik saya telah menjadi perpaduan menarik antara pembelajaran teoretis dan aplikasi praktis, di mana saya terus berusaha untuk memperluas cakrawala pengetahuan saya.' }}</p>
+            
+            <!-- Second paragraph -->
+            <p>{{ isEnglish ? 'As someone who spends hours browsing the internet and reading about technological advancements, I find joy in discovering new tools, frameworks, and development approaches. This curiosity has led me to explore various aspects of software development, from frontend design to backend architecture, always seeking to understand how systems work beneath the surface.' : 'Sebagai seseorang yang menghabiskan berjam-jam menjelajah internet dan membaca tentang kemajuan teknologi, saya menemukan kegembiraan dalam menemukan alat, kerangka kerja, dan pendekatan pengembangan baru. Keingintahuan ini telah membawa saya untuk mengeksplorasi berbagai aspek pengembangan perangkat lunak, dari desain frontend hingga arsitektur backend, selalu berusaha memahami bagaimana sistem bekerja di balik permukaan.' }}</p>
+            
+            <!-- Third paragraph - about projects -->
+            <p>{{ isEnglish ? 'Throughout my journey as a software enthusiast, I have developed several projects that showcase my skills and interests. Locana is a location tracking application I created that provides real-time updates and geofencing capabilities, helping users keep track of telephone number from loved ones and other for investigating cases. My Web Portfolio serves as a digital showcase of my professional growth, featuring interactive elements and responsive design principles. Permo was created as an answer to the challenges I see in the environment of farmers or the general public who want to grow plants but are constrained by recognizing the surrounding soil that is suitable for their plants, the temperature that is suitable for plants at that time which is updated in realtime and accurately and others related to plants. Finally, Aplikasir is a desktop application with the C# programming language designed in groups aimed at recording the income and expenditure of goods, managing selling prices, recording incoming debts, paying off payments and online storage for a buying and selling business.' : 'Sepanjang perjalanan saya sebagai penggemar perangkat lunak, saya telah mengembangkan beberapa proyek yang menunjukkan keterampilan dan minat saya. Locana adalah aplikasi pelacakan lokasi yang saya buat yang menyediakan pembaruan real-time dan kemampuan geofencing, membantu pengguna melacak nomor telepon dari orang tersayang dan lainnya untuk kasus investigasi. Web Portfolio saya berfungsi sebagai tampilan digital dari pertumbuhan profesional saya, menampilkan elemen interaktif dan prinsip desain responsif. Permo dibuat sebagai jawaban atas tantangan yang saya lihat di lingkungan petani atau masyarakat umum yang ingin menanam tumbuhan tapi terkendala dengan mengenali tanah di sekitar yang cocok dengan tanamannya, suhu yang cocok dengan tumbuhan pada saat itu yang diperbarui secara realtime dan akurat dan lainnya yang berhubungan dengan tumbuhan. Terakhir, Aplikasir adalah aplikasi desktop dengan bahasa pemograman C# yang dirancang secara berkelompok yang ditujukan untuk mencatat pemasukan dan pengeluaran barang, mengatur harga jual, mencatat hutang masuk, pelunasan pembayaran dan storage online untuk sebuah usaha jual beli.' }}</p>
+            
+            <!-- Fourth paragraph -->
+            <p>{{ isEnglish ? 'I am always eager to learn new technologies and improve my skills in software development. The ever-evolving tech landscape presents endless opportunities for growth and innovation, and I am excited to be part of this journey of discovery and creation.' : 'Saya selalu bersemangat untuk mempelajari teknologi baru dan meningkatkan keterampilan saya dalam pengembangan perangkat lunak. Lanskap teknologi yang terus berkembang menyajikan peluang tak terbatas untuk pertumbuhan dan inovasi, dan saya senang menjadi bagian dari perjalanan penemuan dan penciptaan ini.' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="side-buttons">
+      <ion-button routerLink="/privacypolicy" routerDirection="forward" fill="solid" class="privacy-button">
+        <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+        {{ isEnglish ? 'Privacy Policy' : 'Kebijakan Privasi' }} →
+      </ion-button>
+    </div>
+  </div>
+  
+  <!-- Mobile View -->
+  <div class="mobile-view">
+    <div class="container">
+      <h1 class="page-title">{{ isEnglish ? 'About Me' : 'Tentang Saya' }}</h1>
+      
+      <div class="profile-section">
+        <div class="profile-image">
+          <img src="/assets/raskece.jpg" alt="Profile Photo">
+        </div>
+        
+        <div class="profile-info">
+          <h2>{{ isEnglish ? 'Hello there!' : 'Halo!' }}</h2>
+          
+          <!-- First paragraph -->
+          <p>{{ isEnglish ? 'My name is Maulana Farras. I am a 6th semester college student majoring in Software Engineering with a passion for technology and innovation. My academic journey has been an exciting blend of theoretical learning and practical applications, where I continuously strive to expand my knowledge horizon.' : 'Namaku Maulana Farras. Saya adalah mahasiswa semester 6 dari jurusan Rekayasa Perangkat Lunak dengan hasrat untuk teknologi dan inovasi. Perjalanan akademik saya telah menjadi perpaduan menarik antara pembelajaran teoretis dan aplikasi praktis, di mana saya terus berusaha untuk memperluas cakrawala pengetahuan saya.' }}</p>
+          
+          <!-- Second paragraph -->
+          <p>{{ isEnglish ? 'As someone who spends hours browsing the internet and reading about technological advancements, I find joy in discovering new tools, frameworks, and development approaches. This curiosity has led me to explore various aspects of software development, from frontend design to backend architecture, always seeking to understand how systems work beneath the surface.' : 'Sebagai seseorang yang menghabiskan berjam-jam menjelajah internet dan membaca tentang kemajuan teknologi, saya menemukan kegembiraan dalam menemukan alat, kerangka kerja, dan pendekatan pengembangan baru. Keingintahuan ini telah membawa saya untuk mengeksplorasi berbagai aspek pengembangan perangkat lunak, dari desain frontend hingga arsitektur backend, selalu berusaha memahami bagaimana sistem bekerja di balik permukaan.' }}</p>
+          
+          <!-- Third paragraph - about projects -->
+          <p>{{ isEnglish ? 'Throughout my journey as a software enthusiast, I have developed several projects that showcase my skills and interests. Locana is a location tracking application I created that provides real-time updates and geofencing capabilities, helping users keep track of telephone number from loved ones and other for investigating cases. My Web Portfolio serves as a digital showcase of my professional growth, featuring interactive elements and responsive design principles. Permo was created as an answer to the challenges I see in the environment of farmers or the general public who want to grow plants but are constrained by recognizing the surrounding soil that is suitable for their plants, the temperature that is suitable for plants at that time which is updated in realtime and accurately and others related to plants. Finally, Aplikasir is a desktop application with the C# programming language designed in groups aimed at recording the income and expenditure of goods, managing selling prices, recording incoming debts, paying off payments and online storage for a buying and selling business.' : 'Sepanjang perjalanan saya sebagai penggemar perangkat lunak, saya telah mengembangkan beberapa proyek yang menunjukkan keterampilan dan minat saya. Locana adalah aplikasi pelacakan lokasi yang saya buat yang menyediakan pembaruan real-time dan kemampuan geofencing, membantu pengguna melacak nomor telepon dari orang tersayang dan lainnya untuk kasus investigasi. Web Portfolio saya berfungsi sebagai tampilan digital dari pertumbuhan profesional saya, menampilkan elemen interaktif dan prinsip desain responsif. Permo dibuat sebagai jawaban atas tantangan yang saya lihat di lingkungan petani atau masyarakat umum yang ingin menanam tumbuhan tapi terkendala dengan mengenali tanah di sekitar yang cocok dengan tanamannya, suhu yang cocok dengan tumbuhan pada saat itu yang diperbarui secara realtime dan akurat dan lainnya yang berhubungan dengan tumbuhan. Terakhir, Aplikasir adalah aplikasi desktop dengan bahasa pemograman C# yang dirancang secara berkelompok yang ditujukan untuk mencatat pemasukan dan pengeluaran barang, mengatur harga jual, mencatat hutang masuk, pelunasan pembayaran dan storage online untuk sebuah usaha jual beli.' }}</p>
+          
+          <!-- Fourth paragraph -->
+          <p>{{ isEnglish ? 'I am always eager to learn new technologies and improve my skills in software development. The ever-evolving tech landscape presents endless opportunities for growth and innovation, and I am excited to be part of this journey of discovery and creation.' : 'Saya selalu bersemangat untuk mempelajari teknologi baru dan meningkatkan keterampilan saya dalam pengembangan perangkat lunak. Lanskap teknologi yang terus berkembang menyajikan peluang tak terbatas untuk pertumbuhan dan inovasi, dan saya senang menjadi bagian dari perjalanan penemuan dan penciptaan ini.' }}</p>
+        </div>
+      </div>
+      
+      <ion-button routerLink="/privacypolicy" routerDirection="forward" expand="block" fill="solid" class="privacy-button-mobile">
+        <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+        {{ isEnglish ? 'Privacy Policy' : 'Kebijakan Privasi' }} →
+      </ion-button>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>Powered by Hostinger and Github</p>
+  </footer>
+  
+  <!-- Scroll to top button -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="showScrollButton">
+    <ion-fab-button (click)="scrollToTop()" color="light" size="small">
+      <ion-icon name="arrow-up"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
