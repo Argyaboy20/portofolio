@@ -13,7 +13,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="about-me-page">
+<ion-content [fullscreen]="true" class="about-me-page" (ionScroll)="onContentScroll($event)" [scrollEvents]="true">
   <!-- Desktop View -->
   <div class="desktop-view">
     <div class="main-content">
@@ -92,9 +92,14 @@
   </footer>
   
   <!-- Scroll to top button -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="showScrollButton">
-    <ion-fab-button (click)="scrollToTop()" color="light" size="small">
-      <ion-icon name="arrow-up"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-</ion-content>
+  <ion-fab 
+  vertical="bottom" 
+  horizontal="end" 
+  slot="fixed"
+  *ngIf="showScrollTop">
+  <ion-fab-button 
+    size="small"
+    (click)="scrollToTop()">
+    <ion-icon name="chevron-up-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

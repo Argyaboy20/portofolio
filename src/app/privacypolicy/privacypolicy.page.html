@@ -1,13 +1,217 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>privacypolicy</ion-title>
+<!-- Privacy Policy Page with Responsive Design -->
+<ion-header class="transparent-header">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-title class="blog-title" (click)="goToHome()">
+      Maulana Farras Blog's
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">privacypolicy</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="dark-content" (ionScroll)="onContentScroll($event)" [scrollEvents]="true">
+  <!-- Main Container with Responsive Layout -->
+  <div class="privacy-container">
+    <!-- Desktop Layout -->
+    <div class="desktop-layout" *ngIf="!isMobile">
+      <div class="content-wrapper">
+        <!-- Main Content -->
+        <div class="main-content">
+          <div class="privacy-header">
+            <h1>Privacy Policy</h1>
+            <p class="tldr"><strong>TLDR:</strong> rasfarras.my.id do not use cookies and we do not collect any personal data.</p>
+          </div>
+
+          <!-- Website Visitors Section -->
+          <div class="section">
+            <h2>Website visitors</h2>
+            <ul class="privacy-list">
+              <li>No personal information is collected.</li>
+              <li>No information is stored in the browser.</li>
+              <li>No information is shared with, sent to or sold to third-parties.</li>
+              <li>No information is shared with advertising companies.</li>
+              <li>No information is mined and harvested for personal and behavioral trends.</li>
+              <li>No information is monetized.</li>
+            </ul>
+          </div>
+
+          <!-- Information Collection Section -->
+          <div class="section">
+            <h2>Information we collect and what we use it for</h2>
+            <p>We run <span class="highlight">Vercel Analytics</span> analytics on rasfarras.my.id. The following information is collected:</p>
+            
+            <div class="info-item">
+              <h3>Page URL</h3>
+              <p>We track the page URL of each page view on this website. We use this to understand which pages have been viewed and how many times a particular page has been viewed. For example: <code>/privacy-policy</code>, <code>/about</code>, <code>/portfolio</code></p>
+            </div>
+
+            <div class="info-item">
+              <h3>HTTP Referrer</h3>
+              <p>We use the referrer string to understand the number of visitors referred to this website from links on other sites. For example: <code>https://vercel.com</code></p>
+            </div>
+
+            <div class="info-item">
+              <h3>Browser Information</h3>
+              <p>We use this to understand what browsers people use when visiting this website. This is derived from the User-Agent HTTP header. The full User-Agent is discarded. For example: <code>Chrome</code>, <code>Firefox</code>, <code>Safari</code></p>
+            </div>
+
+            <div class="info-item">
+              <h3>Operating System</h3>
+              <p>We use this to understand what operating systems people use when visiting this website. We only collect the brand of the operating system. For example: <code>macOS</code>, <code>Windows</code>, <code>Linux</code></p>
+            </div>
+
+            <div class="info-item">
+              <h3>Device Type</h3>
+              <p>We use this to understand what devices people use when visiting this website. For example: <code>Desktop</code>, <code>Mobile</code>, <code>Tablet</code></p>
+            </div>
+
+            <div class="info-item">
+              <h3>Country</h3>
+              <p>We look up the visitor's country using their IP address. We do not track anything more granular than the country of origin and the IP address of the visitor is discarded. We never store IP addresses in our database or logs. For example: <code>Indonesia</code>, <code>United States</code>, <code>United Kingdom</code></p>
+            </div>
+          </div>
+
+          <!-- Contact Section -->
+          <div class="section">
+            <h2>Contact me about this policy</h2>
+            <p>If you have any questions or concerns about this privacy policy, please contact me at: <a href="mailto:maulanafarras030520@gmail.com" class="contact-link">maulanafarras030520&commat;gmail.com</a></p>
+          </div>
+
+          <!-- Last Updated -->
+          <div class="section">
+            <p class="last-updated">Last updated: June 2025</p>
+          </div>
+        </div>
+
+        <!-- Desktop Sidebar -->
+        <div class="sidebar">
+          <div class="sidebar-buttons">
+            <ion-button 
+              expand="block" 
+              fill="outline" 
+              class="sidebar-btn about-btn"
+              (click)="goToAbout()">
+              <ion-icon name="person-outline" slot="start"></ion-icon>
+              About Me
+            </ion-button>
+            <ion-button 
+              expand="block" 
+              fill="solid" 
+              class="sidebar-btn home-btn"
+              (click)="goToHome()">
+              <ion-icon name="home-outline" slot="start"></ion-icon>
+              Beranda Utama
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Layout -->
+    <div class="mobile-layout" *ngIf="isMobile">
+      <div class="mobile-content">
+        <!-- Main Content for Mobile -->
+        <div class="privacy-header">
+          <h1>Privacy Policy</h1>
+          <p class="tldr"><strong>TLDR:</strong> rasfarras.my.id do not use cookies and we do not collect any personal data.</p>
+        </div>
+
+        <!-- Website Visitors Section -->
+        <div class="section">
+          <h2>Website visitors</h2>
+          <ul class="privacy-list">
+            <li>No personal information is collected.</li>
+            <li>No information is stored in the browser.</li>
+            <li>No information is shared with, sent to or sold to third-parties.</li>
+            <li>No information is shared with advertising companies.</li>
+            <li>No information is mined and harvested for personal and behavioral trends.</li>
+            <li>No information is monetized.</li>
+          </ul>
+        </div>
+
+        <!-- Information Collection Section -->
+        <div class="section">
+          <h2>Information we collect and what we use it for</h2>
+          <p>We run <span class="highlight">Vercel Analytics</span> analytics on rasfarras.my.id. The following information is collected:</p>
+          
+          <div class="info-item">
+            <h3>Page URL</h3>
+            <p>We track the page URL of each page view on this website. We use this to understand which pages have been viewed and how many times a particular page has been viewed.</p>
+          </div>
+
+          <div class="info-item">
+            <h3>HTTP Referrer</h3>
+            <p>We use the referrer string to understand the number of visitors referred to this website from links on other sites.</p>
+          </div>
+
+          <div class="info-item">
+            <h3>Browser Information</h3>
+            <p>We use this to understand what browsers people use when visiting this website. This is derived from the User-Agent HTTP header. The full User-Agent is discarded. For example:<code>Chrome</code>, <code>Firefox</code>, <code>Safari</code> </p>
+          </div>
+
+          <div class="info-item">
+            <h3>Operating System</h3>
+            <p>We use this to understand what operating systems people use when visiting this website. We only collect the brand of the operating system. For example: <code>macOS</code>, <code>Windows</code>, <code>Linux</code></p>
+          </div>
+
+          <div class="info-item">
+            <h3>Device Type</h3>
+            <p>We use this to understand what devices people use when visiting this website. For example: <code>Desktop</code>, <code>Mobile</code>, <code>Tablet</code></p>
+          </div>
+
+          <div class="info-item">
+            <h3>Country</h3>
+            <p>We look up the visitor's country using their IP address. We do not track anything more granular than the country of origin and the IP address of the visitor is discarded. We never store IP addresses in our database or logs. For example: <code>Indonesia</code>, <code>United States</code>, <code>United Kingdom</code> </p>
+          </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="section">
+          <h2>Contact me about this policy</h2>
+          <p>Questions or concerns? Contact me at: <a href="mailto:maulanafarras030520@gmail.com" class="contact-link">maulanafarras030520&commat;gmail.com</a></p>
+        </div>
+
+        <!-- Last Updated -->
+        <div class="section">
+          <p class="last-updated">Last updated: June 2025</p>
+        </div>
+
+        <!-- Mobile Bottom Buttons -->
+        <div class="mobile-buttons">
+          <ion-button 
+            expand="block" 
+            fill="outline" 
+            class="mobile-btn about-btn"
+            (click)="goToAbout()">
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+            About Me
+          </ion-button>
+          <ion-button 
+            expand="block" 
+            fill="solid" 
+            class="mobile-btn home-btn"
+            (click)="goToHome()">
+            <ion-icon name="home-outline" slot="start"></ion-icon>
+            Beranda Utama
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Powered by Hostinger and Github</p>
+  </div>
 </ion-content>
+
+<!-- Scroll to Top Button -->
+<ion-fab 
+  vertical="bottom" 
+  horizontal="end" 
+  slot="fixed"
+  *ngIf="showScrollTop">
+  <ion-fab-button 
+    size="small"
+    (click)="scrollToTop()">
+    <ion-icon name="chevron-up-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

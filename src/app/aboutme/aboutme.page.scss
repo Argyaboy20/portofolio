@@ -15,6 +15,7 @@ ion-toolbar {
 
 ion-title {
   cursor: pointer;
+  font-size: 16px;
 }
 
 .about-me-page {
@@ -97,7 +98,7 @@ ion-title {
   background-color: var(--toolbar-color);
   color: var(--text-color);
   text-align: center;
-  padding: 12px;
+  padding: 2px;
   font-size: 14px;
   position: relative; // Changed from sticky
   width: 100%;
@@ -105,6 +106,16 @@ ion-title {
 }
 
 /* Scroll to top button styles - handled by ion-fab */
+ion-fab {
+  --background: #3880ff;
+  --color: white;
+  bottom: 50px !important;
+  right: 20px !important;
+  
+  ion-fab-button {
+    --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+}
 
 /* Desktop View Specific Styles */
 .desktop-view {
