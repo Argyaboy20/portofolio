@@ -129,6 +129,15 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   projects: Project[] = [
     {
+      title: 'Duplikat Upscale',
+      duration: 'Mei 2025 - sekarang',
+      description: 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya',
+      image: '/assets/upscale.jpg',
+      demoLink: '/upscale',
+      sourceLink: 'https://github.com/Argyaboy20/belajar-laravel.git',
+      startDate: new Date(2025, 5, 19)  // Mei 19, 2025
+    },
+    {
       title: 'Locana App',
       duration: 'Mei 2025 - sekarang',
       description: 'Project ini bertujuan sebagai project akhir di Skripsi saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP',
@@ -153,7 +162,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       image: '/assets/permo_logo.jpg',
       demoLink: '/pertanianmobile',
       sourceLink: 'https://github.com/Argyaboy20/PertanianMobile.git',
-      startDate: new Date(2024, 10, 1)  // November 1, 2024
+      startDate: new Date(2024, 11, 1)  // November 1, 2024
     },
     {
       title: 'ApliKasir',

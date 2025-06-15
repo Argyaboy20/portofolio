@@ -228,7 +228,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   };
 
   rotatingPhotos = [
-    { src: '/assets/foto.JPG', caption: 'Picture of me' },
+    { src: '/assets/raskece.jpg', caption: 'Picture of me' },
     { src: '/assets/tempat.JPG', caption: 'Exploring new places' },
     { src: '/assets/team.jpg', caption: 'Team building activities' },
     { src: '/assets/belajar.jpg', caption: 'Learning new technologies' }

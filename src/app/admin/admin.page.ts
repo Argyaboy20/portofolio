@@ -69,7 +69,7 @@ export class AdminPage implements OnInit {
   <li>Support all administrative matters and other file requirements during the period.</li>
   <li>Promote activities organized by Bakti Milenial with WBSPro</li>
 </ul>`,
-      images: ['/assets/bakti1.png', '/assets/bakti2.jpg', '/assets/bakti3.png'],
+      images: ['/assets/bm8-1.png', '/assets/bm8-2.png', '/assets/bm8-3.png'],
       technologies: ['Google Sheets', 'Google Docs', 'Google Form', 'WBSPro']
     },
 
