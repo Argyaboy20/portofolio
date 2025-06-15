@@ -152,7 +152,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       description: 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql',
       image: '/assets/permo_logo.jpg',
       demoLink: '/pertanianmobile',
-      sourceLink: 'https://github.com/Argyaboy20/Permo.git',
+      sourceLink: 'https://github.com/Argyaboy20/PertanianMobile.git',
       startDate: new Date(2024, 10, 1)  // November 1, 2024
     },
     {
