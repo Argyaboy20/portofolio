@@ -454,7 +454,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       }
 
       // Second paragraph - simple text replacement
-      const p2 = aboutSection.querySelector('p:nth-child(3)');
+      const p2 = aboutSection.querySelector('p:nth-child(2)');
       if (p2) {
         const contactLink = p2.querySelector('.clickable-text');
         if (contactLink) {
