@@ -49,6 +49,10 @@ const routes: Routes = [
     path: 'privacypolicy',
     loadChildren: () => import('./privacypolicy/privacypolicy.module').then( m => m.PrivacypolicyPageModule)
   },
+  {
+    path: 'upscale',
+    loadChildren: () => import('./upscale/upscale.module').then( m => m.UpscalePageModule)
+  },
 
 
 ];

@@ -246,7 +246,7 @@ export class Tab2Page implements OnInit, OnDestroy {
           (this.currentLanguage === 'id' ? 'Interaktivitas dan dinamisme' : 'Interactivity and dynamics') :
           tool.name === 'UI/UX Design' ?
             (this.currentLanguage === 'id' ? 'Desain antarmuka pengguna' : 'User interface design') :
-            tool.name === 'MySQL' ?
+            tool.name === 'MariaDB' ?
               (this.currentLanguage === 'id' ? 'Database untuk penyimpanan data' : 'Database for data storage') :
               tool.name === 'Ionic Framework' ?
                 (this.currentLanguage === 'id' ? 'Framework pengembangan aplikasi hybrid' : 'Hybrid app development framework') :

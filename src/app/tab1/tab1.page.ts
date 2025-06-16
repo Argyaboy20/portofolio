@@ -26,7 +26,6 @@ interface Translations {
   profilSingkat: string;
   aboutContent: string;
   aboutContent2: string;
-  aboutContent3: string;
   keahlian: string;
   projectTerbaru: string;
   terbaru: string;
@@ -78,8 +77,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     id: {
       profilSingkat: 'Profil Singkat',
       aboutContent: 'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan Ionic Framework yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.79 yang saya raih selama masa perkuliahan di Institut Teknologi dan Bisnis Indonesia, saya membuktikan komitmen dan dedikasi yang kuat dalam bidang akademik.',
-      aboutContent2: 'Pengalaman saya mencakup berbagai proyek pengembangan aplikasi, termasuk pembuatan Todolist APK menggunakan JavaScript dan ApliKasir dengan C#. Dalam proyek-proyek tersebut, saya berkontribusi sebagai backend developer dan berhasil mengimplementasikan fitur-fitur seperti TaskController dan UIEdit. Pengetahuan teknis saya diperkuat melalui program student exchange di Telkom University, di mana saya memperdalam pemahaman tentang pengembangan perangkat lunak, keamanan sistem, dan manajemen database.',
-      aboutContent3: 'Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak',
+      aboutContent2: 'Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak',
       keahlian: 'Keahlian',
       tools: 'Alat dan Teknologi',
       projectTerbaru: 'Project Terbaru',
@@ -103,8 +101,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     en: {
       profilSingkat: 'Brief Profile',
       aboutContent: 'A Software Engineer with a focus on hybrid mobile application development who is passionate about creating innovative solutions. My main expertise lies in using Ionic Framework combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.79 achieved during my studies at the Indonesian Institute of Technology and Business, I proved my strong commitment and dedication in academics.',
-      aboutContent2: 'My experience spans various app development projects, including the creation of Todolist APK using JavaScript and ApliKasir with C#. In these projects, I contributed as a backend developer and successfully implemented features such as TaskController and UIEdit. My technical knowledge was strengthened through a student exchange program at Telkom University, where I deepened my understanding of software development, system security, and database management.',
-      aboutContent3: 'My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. Contact me if you are interested in further collaboration on software development.',
+      aboutContent2: 'My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. Contact me if you are interested in further collaboration on software development.',
       keahlian: 'Skills',
       tools: 'Tools and Technologies',
       projectTerbaru: 'Latest Projects',
@@ -131,7 +128,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     {
       title: 'Duplikat Upscale',
       duration: 'Mei 2025 - sekarang',
-      description: 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya',
+      description: 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya.',
       image: '/assets/upscale.jpg',
       demoLink: '/upscale',
       sourceLink: 'https://github.com/Argyaboy20/belajar-laravel.git',
@@ -140,7 +137,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     {
       title: 'Locana App',
       duration: 'Mei 2025 - sekarang',
-      description: 'Project ini bertujuan sebagai project akhir di Skripsi saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP',
+      description: 'Project ini bertujuan sebagai project akhir di Skripsi saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.',
       image: '/assets/logolocana.jpg',
       demoLink: '/locana',
       sourceLink: 'https://github.com/Argyaboy20/locana.git',
@@ -149,7 +146,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     {
       title: 'Web Portofolio',
       duration: 'Februari 2025 - sekarang',
-      description: 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework berbasis HTML dan Javascript',
+      description: 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework berbasis HTML dan Javascript.',
       image: '/assets/portofolio.png',
       demoLink: '/portofolio',
       sourceLink: 'https://github.com/Argyaboy20/portofolio.git',
@@ -158,7 +155,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     {
       title: 'Pertanian Mobile App',
       duration: 'November 2024 - Februari 2025',
-      description: 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql',
+      description: 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql.',
       image: '/assets/permo_logo.jpg',
       demoLink: '/pertanianmobile',
       sourceLink: 'https://github.com/Argyaboy20/PertanianMobile.git',
@@ -167,7 +164,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     {
       title: 'ApliKasir',
       duration: 'April - Mei 2024',
-      description: 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#. ',
+      description: 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.',
       image: '/assets/apliKasir.png',
       demoLink: '/aplikasir',
       sourceLink: 'https://github.com/hshinosa/ApliKasir-UI.git',
@@ -456,32 +453,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         }
       }
 
-      // Second paragraph - preserve ApliKasir link
-      const p2 = aboutSection.querySelector('p:nth-child(2)');
+      // Second paragraph - simple text replacement
+      const p2 = aboutSection.querySelector('p:nth-child(3)');
       if (p2) {
-        const aplikasirLink = p2.querySelector('.clickable-text');
-        if (aplikasirLink) {
-          // Create text nodes for before and after the link
-          const beforeText = this.currentLanguage === 'en' ?
-            'My experience includes various application development projects, including creating a Todolist APK using JavaScript and ' :
-            'Pengalaman saya mencakup berbagai proyek pengembangan aplikasi, termasuk pembuatan Todolist APK menggunakan JavaScript dan ';
-
-          const afterText = this.currentLanguage === 'en' ?
-            ' with C#. In these projects, I contributed as a backend developer and successfully implemented features such as TaskController and UIEdit. My technical knowledge was strengthened through a student exchange program at Telkom University, where I deepened my understanding of software development, system security, and database management.' :
-            ' dengan C#. Dalam proyek-proyek tersebut, saya berkontribusi sebagai backend developer dan berhasil mengimplementasikan fitur-fitur seperti TaskController dan UIEdit. Pengetahuan teknis saya diperkuat melalui program student exchange di Telkom University, di mana saya memperdalam pemahaman tentang pengembangan perangkat lunak, keamanan sistem, dan manajemen database.';
-
-          // Clear the paragraph and rebuild it
-          p2.innerHTML = '';
-          p2.appendChild(document.createTextNode(beforeText));
-          p2.appendChild(aplikasirLink.cloneNode(true));
-          p2.appendChild(document.createTextNode(afterText));
-        }
-      }
-
-      // Third paragraph - simple text replacement
-      const p3 = aboutSection.querySelector('p:nth-child(3)');
-      if (p3) {
-        const contactLink = p3.querySelector('.clickable-text');
+        const contactLink = p2.querySelector('.clickable-text');
         if (contactLink) {
           // Create text nodes for before and after the link
           const beforeText = this.currentLanguage === 'en' ?
@@ -490,7 +465,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
           const afterText = this.currentLanguage === 'en' ?
             ' if you are interested in further collaboration on software development.' :
-            ' jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak';
+            ' jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak.';
 
           // Update the contact text based on language
           const contactStrong = contactLink.querySelector('strong');
@@ -499,13 +474,13 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           }
 
           // Clear the paragraph and rebuild it
-          p3.innerHTML = '';
-          p3.appendChild(document.createTextNode(beforeText));
-          p3.appendChild(contactLink.cloneNode(true));
-          p3.appendChild(document.createTextNode(afterText));
+          p2.innerHTML = '';
+          p2.appendChild(document.createTextNode(beforeText));
+          p2.appendChild(contactLink.cloneNode(true));
+          p2.appendChild(document.createTextNode(afterText));
 
           // Re-attach click event to the new element
-          const newContactLink = p3.querySelector('.clickable-text');
+          const newContactLink = p2.querySelector('.clickable-text');
           if (newContactLink) {
             newContactLink.addEventListener('click', () => {
               this.navigateToBiodataContact();
@@ -524,7 +499,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             ' jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak';
 
           // Create the paragraph with the clickable span
-          p3.innerHTML = fullText;
+          p2.innerHTML = fullText;
 
           // Create clickable span
           const span = document.createElement('span');
@@ -540,8 +515,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           span.appendChild(strong);
 
           // Append the span and after text
-          p3.appendChild(span);
-          p3.appendChild(document.createTextNode(afterText));
+          p2.appendChild(span);
+          p2.appendChild(document.createTextNode(afterText));
         }
       }
     }
@@ -610,30 +585,36 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     // Update project descriptions based on language
     if (this.currentLanguage === 'en') {
       // Translate project descriptions to English
-      this.projects[0].description = 'This project aims to be the final project in my thesis developed with Ionic Framework based on HTML, Node.js, and PHP.';
+      this.projects[0].description = 'This project was created as an output of an internship at Eduwork as a Programmer for 3 months. Using the Laravel framework with PHP and other languages.';
       this.projects[0].duration = 'May 2025 - present';
+      
+      this.projects[1].description = 'This project aims to be the final project in my thesis developed with Ionic Framework based on HTML, Node.js, and PHP.';
+      this.projects[1].duration = 'May 2025 - present';
 
-      this.projects[1].description = 'This project aims to create a personal website as my portfolio in Software Engineering, developed with Ionic Framework and MySQL backend';
-      this.projects[1].duration = 'February 2025 - present';
+      this.projects[2].description = 'This project aims to create a personal website as my portfolio in Software Engineering, developed with Ionic Framework and MySQL backend.';
+      this.projects[2].duration = 'February 2025 - present';
 
-      this.projects[2].description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend';
-      this.projects[2].duration = 'November 2024 - February 2025';
+      this.projects[3].description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend.';
+      this.projects[3].duration = 'November 2024 - February 2025';
 
-      this.projects[3].description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
-      this.projects[3].duration = 'April - May 2024';
+      this.projects[4].description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
+      this.projects[4].duration = 'April - May 2024';
     } else {
       // Reset to original Indonesian descriptions
-      this.projects[0].description = 'Project ini bertujuan sebagai project akhir di Skripsi saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP';
+      this.projects[0].description = 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya.';
       this.projects[0].duration = 'Mei 2025 - sekarang';
 
-      this.projects[1].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework dan backend berupa MySql';
-      this.projects[1].duration = 'Februari 2025 - sekarang';
+      this.projects[1].description = 'Project ini bertujuan sebagai project akhir di Skripsi saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.';
+      this.projects[1].duration = 'Mei 2025 - sekarang';
 
-      this.projects[2].description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql';
-      this.projects[2].duration = 'November 2024 - Februari 2025';
+      this.projects[2].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework dan backend berupa MySql.';
+      this.projects[2].duration = 'Februari 2025 - sekarang';
 
-      this.projects[3].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
-      this.projects[3].duration = 'April - Mei 2024';
+      this.projects[3].description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql.';
+      this.projects[3].duration = 'November 2024 - Februari 2025';
+
+      this.projects[4].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
+      this.projects[4].duration = 'April - Mei 2024';
     }
   }
 
@@ -780,8 +761,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     const alert = await this.alertController.create({
       header: this.currentLanguage === 'id' ? 'Unduh Dibatasi' : 'Download Restricted',
       message: this.currentLanguage === 'id'
-        ? 'Mengunduh atau screenshot foto profil tidak diizinkan!'
-        : 'Downloading or screenshots of profile photo are not allowed!',
+        ? 'Mengunduh foto profil tidak diizinkan!'
+        : 'Downloading profile photo is not allowed!',
       buttons: ['OK']
     });
 
