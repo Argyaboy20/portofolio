@@ -142,7 +142,7 @@
         <div class="fact-label">{{ getText('yearsCoding') }}</div>
       </div>
       <div class="fact-item animate-on-scroll" data-delay="3">
-        <div class="fact-number">2+</div>
+        <div class="fact-number">5+</div>
         <div class="fact-label">{{ getText('techStacks') }}</div>
       </div>
       <div class="fact-item animate-on-scroll" data-delay="4">
@@ -238,8 +238,7 @@
         </div>
         <div class="contact-item">
           <div class="quora-icon">Q</div>
-          <a href="https://id.quora.com/profile/Argya"
-            target="_blank">
+          <a href="https://id.quora.com/profile/Argya" target="_blank">
             <span class="bold-text">{{ getText('quoraProfile') }}</span>
           </a>
         </div>
@@ -285,12 +284,34 @@
 
   <!-- Gallery Modal -->
   <ion-modal [isOpen]="isGalleryModalOpen" (didDismiss)="closeGalleryModal()" class="gallery-modal"
-    [backdropDismiss]="true">
+    [backdropDismiss]="false">
     <ng-template>
       <ion-content class="modal-content">
-        <div class="modal-image-container" (click)="toggleImageZoom($event)">
+        <!-- Header dengan tombol close -->
+        <div class="modal-header">
+          <ion-button fill="clear" (click)="closeGalleryModal()" class="close-btn">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </div>
+
+        <!-- Container gambar dengan zoom -->
+        <div class="modal-image-container" (click)="handleContainerClick($event)" #imageContainer>
           <img [src]="currentGalleryImage" alt="Gallery image" class="full-size-image"
-            [ngClass]="{'zoomed': isImageZoomed}">
+            [ngClass]="{'zoomed': isImageZoomed}" #zoomableImage>
+        </div>
+
+        <!-- Zoom controls (optional) -->
+        <div class="zoom-controls" *ngIf="isImageZoomed">
+          <ion-button fill="clear" (click)="zoomIn()" class="zoom-btn">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+          <span class="zoom-level">{{ (currentScale * 100).toFixed(0) }}%</span>
+          <ion-button fill="clear" (click)="zoomOut()" class="zoom-btn">
+            <ion-icon name="remove"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" (click)="resetZoom()" class="zoom-btn">
+            <ion-icon name="refresh"></ion-icon>
+          </ion-button>
         </div>
       </ion-content>
     </ng-template>

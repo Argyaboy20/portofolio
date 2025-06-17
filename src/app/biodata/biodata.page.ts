@@ -67,21 +67,24 @@ interface CachedImage {
 })
 
 export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('zoomableImage') zoomableImage!: ElementRef;
+  @ViewChild('zoomableImage', { static: false }) zoomableImage?: ElementRef<HTMLImageElement>;
+  @ViewChild('imageContainer', { static: false }) imageContainer?: ElementRef<HTMLDivElement>;
   
   private backButtonSubscription!: Subscription;
+  private eventListeners: Array<() => void> = [];
   isAwardsModalOpen = false;
-  isImageZoomed = false;
   
   // Zoom properties
-  private currentScale = 1;
-  private lastPosX = 0;
-  private lastPosY = 0;
-  private isDragging = false;
-  private startX = 0;
-  private startY = 0;
-  private translateX = 0;
-  private translateY = 0;
+  isImageZoomed = false;
+  currentScale = 1;
+  translateX = 0;
+  translateY = 0;
+  
+  // Properties untuk dragging
+  isDragging = false;
+  startX = 0;
+  startY = 0;
+  lastTouchDistance = 0;
   
   // Image cache properties
   private imageCache: Map<string, CachedImage> = new Map();
@@ -163,7 +166,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       heroTitle: "Halo, Saya",
       heroSubtitle: "Pengembang yang Berdedikasi & Penggemar Teknologi",
       journey: "Perjalananku",
-      currentRole: "Mobile App Developer",
+      currentRole: "Hybrid Developer",
       currentDesc: "Mengembangkan aplikasi hybrid dengan Ionic Framework, membangun UI/UX yang menarik dan responsif untuk berbagai klien. Mengoptimalkan performa aplikasi dan implementasi fitur-fitur inovatif.",
       webRole: "Web Developer",
       webDesc: "Memulai karir sebagai front-end developer dengan fokus pada framework Angular. Bekerja dalam tim untuk membangun aplikasi web yang interaktif dan modern.",
@@ -196,7 +199,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       heroTitle: "Hello, I'm",
       heroSubtitle: "Passion-driven Developer & Tech Enthusiast",
       journey: "My Journey",
-      currentRole: "Mobile App Developer",
+      currentRole: "Hybrid Developer",
       currentDesc: "Developing hybrid applications with Ionic Framework, building attractive and responsive UI/UX for various clients. Optimizing application performance and implementing innovative features.",
       webRole: "Web Developer",
       webDesc: "Started career as a front-end developer focusing on Angular framework. Working in teams to build interactive and modern web applications.",
@@ -322,6 +325,8 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     
     // Clean up image cache
     this.clearImageCache();
+
+    this.cleanupEventListeners();
   }
 
   // Metode untuk preload dan caching gambar
@@ -469,37 +474,91 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
   }
 
-  // Diganti dengan implementasi zoom yang lebih canggih
-  toggleImageZoom(event: MouseEvent): void {
-    // Periksa apakah ini adalah klik langsung di gambar
-    if ((event.target as HTMLElement).tagName === 'IMG') {
-      this.isImageZoomed = !this.isImageZoomed;
-      event.stopPropagation();
-      
-      if (this.isImageZoomed) {
-        // Setup zoom controls
-        this.setupZoomControls();
-      } else {
-        // Reset zoom
-        this.resetZoom();
-      }
+  // Handle klik pada container
+  handleContainerClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    
+    // Jika klik langsung pada gambar
+    if (target.tagName === 'IMG') {
+      this.toggleImageZoom(event);
     } else {
-      // Jika mengklik di luar gambar ketika zoom aktif, reset zoom
+      // Jika klik di luar gambar saat zoom aktif, reset zoom
       if (this.isImageZoomed) {
-        this.isImageZoomed = false;
-        this.resetZoom();
-      } else {
-        // Tutup modal (existing behavior)
-        this.closeGalleryModal();
+        this.exitZoomMode();
       }
     }
   }
 
-  // Setup zoom controls
-  private setupZoomControls(): void {
+  // Toggle zoom mode
+  toggleImageZoom(event: MouseEvent): void {
+    event.stopPropagation();
+    
+    if (!this.isImageZoomed) {
+      this.enterZoomMode(event);
+    } else {
+      // Jika sudah dalam mode zoom, zoom in di titik klik
+      this.zoomAtClickPoint(event);
+    }
+  }
+
+  // Masuk ke mode zoom
+  private enterZoomMode(event: MouseEvent): void {
+    this.isImageZoomed = true;
+    this.setupZoomControls();
+    
+    // Zoom in di titik klik
+    setTimeout(() => {
+      this.zoomAtClickPoint(event);
+    }, 50); // Delay kecil untuk memastikan setup selesai
+  }
+
+  // Keluar dari mode zoom
+  private exitZoomMode(): void {
+    this.isImageZoomed = false;
+    this.resetZoom();
+    this.cleanupEventListeners();
+  }
+
+  // Zoom in di titik klik
+   private zoomAtClickPoint(event: MouseEvent): void {
     if (!this.zoomableImage) return;
+
+    const imgElement = this.zoomableImage.nativeElement;
+    const rect = imgElement.getBoundingClientRect();
+    
+    // Koordinat relatif terhadap gambar
+    const clickX = event.clientX - rect.left;
+    const clickY = event.clientY - rect.top;
+    
+    // Tentukan level zoom berdasarkan scale saat ini
+    let newScale: number;
+    if (this.currentScale < 1.5) {
+      newScale = 2;
+    } else if (this.currentScale < 2.5) {
+      newScale = 3;
+    } else if (this.currentScale < 3.5) {
+      newScale = 4;
+    } else {
+      // Reset jika sudah terlalu besar
+      newScale = 1;
+      this.translateX = 0;
+      this.translateY = 0;
+    }
+    
+    if (newScale > 1) {
+      this.zoomAtPoint(clickX, clickY, newScale);
+    } else {
+      this.currentScale = 1;
+      this.applyTransform();
+    }
+  }
+
+  // Setup zoom controls dan event listeners
+  private setupZoomControls(): void {
+    if (!this.zoomableImage || !this.imageContainer) return;
     
     const imgElement = this.zoomableImage.nativeElement;
+    const containerElement = this.imageContainer.nativeElement;
     
     // Reset posisi dan scale
     this.currentScale = 1;
@@ -507,187 +566,278 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.translateY = 0;
     this.applyTransform();
     
-    // Setup event listeners for mouse/touch
-    this.setupMouseEvents(imgElement);
-    this.setupTouchEvents(imgElement);
+    // Setup event listeners
+    this.setupMouseEvents(imgElement, containerElement);
+    this.setupTouchEvents(imgElement, containerElement);
     this.setupWheelEvent(imgElement);
     
-    // Tambahkan class untuk styling
+    // Tambahkan styling
     this.renderer.addClass(imgElement, 'zoomable-active');
+    this.renderer.addClass(containerElement, 'zoom-mode');
   }
   
-  // Setup mouse events
-  private setupMouseEvents(element: HTMLElement): void {
-    // Mouse down
-    element.addEventListener('mousedown', (e: MouseEvent) => {
-      if (!this.isImageZoomed) return;
+   // Setup mouse events
+  private setupMouseEvents(imgElement: HTMLElement, containerElement: HTMLElement): void {
+    // Mouse down - start dragging
+    const onMouseDown = (e: MouseEvent) => {
+      if (!this.isImageZoomed || this.currentScale <= 1) return;
+      
       this.isDragging = true;
       this.startX = e.clientX - this.translateX;
       this.startY = e.clientY - this.translateY;
+      
+      this.renderer.addClass(imgElement, 'dragging');
       e.preventDefault();
-    });
+    };
     
-    // Mouse move
-    document.addEventListener('mousemove', (e: MouseEvent) => {
-      if (!this.isDragging) return;
-      this.translateX = e.clientX - this.startX;
-      this.translateY = e.clientY - this.startY;
+    // Mouse move - drag image
+    const onMouseMove = (e: MouseEvent) => {
+      if (!this.isDragging || !this.isImageZoomed) return;
+      
+      const newTranslateX = e.clientX - this.startX;
+      const newTranslateY = e.clientY - this.startY;
+      
+      // Apply boundaries to prevent dragging too far
+      const boundedTranslate = this.applyBoundaries(newTranslateX, newTranslateY);
+      this.translateX = boundedTranslate.x;
+      this.translateY = boundedTranslate.y;
+      
       this.applyTransform();
       e.preventDefault();
-    });
+    };
     
-    // Mouse up
-    document.addEventListener('mouseup', () => {
-      this.isDragging = false;
-    });
-    
-    // Double click untuk zoom in/out
-    element.addEventListener('dblclick', (e: MouseEvent) => {
-      if (!this.isImageZoomed) return;
-      
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      // Zoom in pada titik klik
-      if (this.currentScale < 3) {
-        this.zoomAtPoint(x, y, this.currentScale * 2);
-      } else {
-        this.resetZoom();
+    // Mouse up - stop dragging
+    const onMouseUp = () => {
+      if (this.isDragging) {
+        this.isDragging = false;
+        this.renderer.removeClass(imgElement, 'dragging');
       }
-      
-      e.preventDefault();
-    });
+    };
+
+    // Add event listeners dan simpan referensi untuk cleanup
+    imgElement.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    
+    this.eventListeners.push(
+      () => imgElement.removeEventListener('mousedown', onMouseDown),
+      () => document.removeEventListener('mousemove', onMouseMove),
+      () => document.removeEventListener('mouseup', onMouseUp)
+    );
   }
   
   // Setup touch events
-  private setupTouchEvents(element: HTMLElement): void {
+  private setupTouchEvents(imgElement: HTMLElement, containerElement: HTMLElement): void {
     let lastTouchX = 0;
     let lastTouchY = 0;
-    let initialDistance = 0;
-    
-    // Touch start
-    element.addEventListener('touchstart', (e: TouchEvent) => {
+    let initialPinchDistance = 0;
+    let initialScale = 1;
+
+    const onTouchStart = (e: TouchEvent) => {
       if (!this.isImageZoomed) return;
       
       if (e.touches.length === 1) {
-        // Single touch for pan
+        // Single touch - start pan
         this.isDragging = true;
         this.startX = e.touches[0].clientX - this.translateX;
         this.startY = e.touches[0].clientY - this.translateY;
         lastTouchX = e.touches[0].clientX;
         lastTouchY = e.touches[0].clientY;
       } else if (e.touches.length === 2) {
-        // Double touch for pinch zoom
-        initialDistance = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
-        );
+        // Two fingers - start pinch
+        this.isDragging = false;
+        initialPinchDistance = this.getTouchDistance(e.touches);
+        initialScale = this.currentScale;
       }
+      
       e.preventDefault();
-    });
-    
-    // Touch move
-    element.addEventListener('touchmove', (e: TouchEvent) => {
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
       if (!this.isImageZoomed) return;
       
       if (e.touches.length === 1 && this.isDragging) {
-        // Pan
-        this.translateX = e.touches[0].clientX - this.startX;
-        this.translateY = e.touches[0].clientY - this.startY;
+        // Single touch - pan
+        const newTranslateX = e.touches[0].clientX - this.startX;
+        const newTranslateY = e.touches[0].clientY - this.startY;
+        
+        const boundedTranslate = this.applyBoundaries(newTranslateX, newTranslateY);
+        this.translateX = boundedTranslate.x;
+        this.translateY = boundedTranslate.y;
+        
         this.applyTransform();
+      } else if (e.touches.length === 2 && initialPinchDistance > 0) {
+        // Two fingers - pinch zoom
+        const currentDistance = this.getTouchDistance(e.touches);
+        const scaleChange = currentDistance / initialPinchDistance;
+        const newScale = Math.max(0.5, Math.min(5, initialScale * scaleChange));
         
-        lastTouchX = e.touches[0].clientX;
-        lastTouchY = e.touches[0].clientY;
-      } else if (e.touches.length === 2 && initialDistance > 0) {
-        // Pinch zoom
-        const currentDistance = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
-        );
-        
-        const pinchScale = currentDistance / initialDistance;
-        const newScale = Math.max(0.5, Math.min(5, this.currentScale * pinchScale));
-        
-        // Zoom at midpoint of touches
+        // Get midpoint of touches
         const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
         const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-        const rect = element.getBoundingClientRect();
-        this.zoomAtPoint(midX - rect.left, midY - rect.top, newScale);
+        const rect = imgElement.getBoundingClientRect();
         
-        initialDistance = currentDistance;
+        this.zoomAtPoint(midX - rect.left, midY - rect.top, newScale);
       }
+      
       e.preventDefault();
-    });
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.touches.length === 0) {
+        this.isDragging = false;
+        initialPinchDistance = 0;
+      }
+    };
+
+    // Add event listeners
+    imgElement.addEventListener('touchstart', onTouchStart, { passive: false });
+    imgElement.addEventListener('touchmove', onTouchMove, { passive: false });
+    imgElement.addEventListener('touchend', onTouchEnd);
     
-    // Touch end
-    element.addEventListener('touchend', () => {
-      this.isDragging = false;
-      initialDistance = 0;
-    });
+    this.eventListeners.push(
+      () => imgElement.removeEventListener('touchstart', onTouchStart),
+      () => imgElement.removeEventListener('touchmove', onTouchMove),
+      () => imgElement.removeEventListener('touchend', onTouchEnd)
+    );
   }
   
-  // Setup wheel event for zooming
-  private setupWheelEvent(element: HTMLElement): void {
-    element.addEventListener('wheel', (e: WheelEvent) => {
+  // Setup wheel event for zoom
+  private setupWheelEvent(imgElement: HTMLElement): void {
+    const onWheel = (e: WheelEvent) => {
       if (!this.isImageZoomed) return;
       
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const rect = imgElement.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
       
-      // Zoom in/out at mouse position
-      const delta = e.deltaY > 0 ? 0.9 : 1.1;
-      const newScale = Math.max(0.5, Math.min(5, this.currentScale * delta));
-      this.zoomAtPoint(x, y, newScale);
+      // Zoom in/out dengan wheel
+      const zoomIntensity = 0.1;
+      const wheel = e.deltaY < 0 ? 1 : -1;
+      const zoom = Math.exp(wheel * zoomIntensity);
+      const newScale = Math.max(0.5, Math.min(5, this.currentScale * zoom));
       
+      this.zoomAtPoint(mouseX, mouseY, newScale);
       e.preventDefault();
-    });
+    };
+
+    imgElement.addEventListener('wheel', onWheel, { passive: false });
+    this.eventListeners.push(() => imgElement.removeEventListener('wheel', onWheel));
+  }
+
+  // Helper: Get distance between two touches
+  private getTouchDistance(touches: TouchList): number {
+    return Math.hypot(
+      touches[0].clientX - touches[1].clientX,
+      touches[0].clientY - touches[1].clientY
+    );
   }
   
-  // Zoom in/out at a specific point
+ // Zoom at specific point
   private zoomAtPoint(x: number, y: number, newScale: number): void {
     if (!this.zoomableImage) return;
     
-    const imgElement = this.zoomableImage.nativeElement;
-    const rect = imgElement.getBoundingClientRect();
-    
-    // Calculate new position to keep the point under cursor
+    // Calculate new translation to keep the point under cursor/finger
     const scaleRatio = newScale / this.currentScale;
     const newTranslateX = x - (x - this.translateX) * scaleRatio;
     const newTranslateY = y - (y - this.translateY) * scaleRatio;
     
     this.currentScale = newScale;
-    this.translateX = newTranslateX;
-    this.translateY = newTranslateY;
+    
+    // Apply boundaries
+    const boundedTranslate = this.applyBoundaries(newTranslateX, newTranslateY);
+    this.translateX = boundedTranslate.x;
+    this.translateY = boundedTranslate.y;
     
     this.applyTransform();
   }
+
+  // Apply boundaries to prevent over-panning
+  private applyBoundaries(translateX: number, translateY: number): { x: number, y: number } {
+    if (!this.zoomableImage || !this.imageContainer) {
+      return { x: translateX, y: translateY };
+    }
+    
+    const imgElement = this.zoomableImage.nativeElement;
+    const containerElement = this.imageContainer.nativeElement;
+    
+    const imgRect = imgElement.getBoundingClientRect();
+    const containerRect = containerElement.getBoundingClientRect();
+    
+    // Calculate scaled dimensions
+    const scaledWidth = imgElement.naturalWidth * this.currentScale;
+    const scaledHeight = imgElement.naturalHeight * this.currentScale;
+    
+    // Calculate boundaries
+    const maxTranslateX = Math.max(0, (scaledWidth - containerRect.width) / 2);
+    const maxTranslateY = Math.max(0, (scaledHeight - containerRect.height) / 2);
+    
+    // Apply boundaries
+    const boundedX = Math.max(-maxTranslateX, Math.min(maxTranslateX, translateX));
+    const boundedY = Math.max(-maxTranslateY, Math.min(maxTranslateY, translateY));
+    
+    return { x: boundedX, y: boundedY };
+  }
   
-  // Apply transform to the image
+  // Apply transform to image
   private applyTransform(): void {
     if (!this.zoomableImage) return;
     
     const imgElement = this.zoomableImage.nativeElement;
-    this.renderer.setStyle(
-      imgElement,
-      'transform',
-      `translate(${this.translateX}px, ${this.translateY}px) scale(${this.currentScale})`
+    const transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.currentScale})`;
+    
+    this.renderer.setStyle(imgElement, 'transform', transform);
+    this.renderer.setStyle(imgElement, 'transform-origin', 'center center');
+  }
+
+   // Manual zoom controls
+  zoomIn(): void {
+    if (!this.isImageZoomed) return;
+    
+    const newScale = Math.min(5, this.currentScale * 1.5);
+    this.zoomAtPoint(
+      this.zoomableImage!.nativeElement.offsetWidth / 2,
+      this.zoomableImage!.nativeElement.offsetHeight / 2,
+      newScale
     );
+  }
+
+  zoomOut(): void {
+    if (!this.isImageZoomed) return;
+    
+    const newScale = Math.max(0.5, this.currentScale / 1.5);
+    if (newScale <= 1) {
+      this.resetZoom();
+    } else {
+      this.zoomAtPoint(
+        this.zoomableImage!.nativeElement.offsetWidth / 2,
+        this.zoomableImage!.nativeElement.offsetHeight / 2,
+        newScale
+      );
+    }
   }
   
   // Reset zoom
-  private resetZoom(): void {
-    if (!this.zoomableImage) return;
-    
-    const imgElement = this.zoomableImage.nativeElement;
+  resetZoom(): void {
     this.currentScale = 1;
     this.translateX = 0;
     this.translateY = 0;
     this.applyTransform();
     
-    // Remove event listeners
-    this.renderer.removeClass(imgElement, 'zoomable-active');
+    if (this.zoomableImage) {
+      this.renderer.removeClass(this.zoomableImage.nativeElement, 'zoomable-active');
+      this.renderer.removeClass(this.zoomableImage.nativeElement, 'dragging');
+    }
+    
+    if (this.imageContainer) {
+      this.renderer.removeClass(this.imageContainer.nativeElement, 'zoom-mode');
+    }
+  }
+
+  // Cleanup event listeners
+  private cleanupEventListeners(): void {
+    this.eventListeners.forEach(cleanup => cleanup());
+    this.eventListeners = [];
   }
 
   getText(key: keyof TranslationKeys): string {
@@ -703,13 +853,9 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.isGalleryModalOpen = true;
   }
 
-  closeGalleryModal() {
+  closeGalleryModal(): void {
     this.isGalleryModalOpen = false;
-    this.isImageZoomed = false;
-    this.resetZoom();
-
-    // Navigate back to the biodata page
-    this.router.navigateByUrl('/biodata');
+    this.exitZoomMode();
   }
 
   //Gallery Rotates
