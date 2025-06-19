@@ -161,13 +161,38 @@ ion-content {
     height: 20px;
 }
 
+/* Mencegah scroll reset saat menu dibuka */
+ion-content[main] {
+  --overflow: hidden;
+}
+
+/* Pastikan body dan html tidak terpengaruh saat menu dibuka */
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* Mencegah scroll jump dengan mempertahankan scroll position */
+ion-router-outlet {
+  position: relative;
+}
+
+/* Pastikan konten utama tidak terpengaruh */
+ion-content#main-content {
+  --overflow: auto;
+  position: relative;
+}
+
 ion-menu.mobile-only {
     --background: #2c3e50;
     --width: 250px;
-    z-index: 1000;
-    /* Tetap tinggi untuk menu */
-    pointer-events: none;
-    /* Defaultnya tidak menghalangi interaksi */
+    z-index: 1000; /* Tetap tinggi untuk menu */
+    pointer-events: none; /* Defaultnya tidak menghalangi interaksi */
+    position: fixed; /* Tambahkan ini */
+    top: 0;
+    left: 0;
+    height: 100vh;
 }
 
 /* Hanya aktifkan pointer-events saat menu aktif */
@@ -179,8 +204,7 @@ ion-menu.mobile-only.show-menu {
 ion-menu.mobile-only ion-content {
     --background: #2c3e50;
     --color: white;
-    pointer-events: auto;
-    /* Content menu selalu bisa interaksi */
+    pointer-events: auto; /* Content menu selalu bisa interaksi */
 }
 
 /* Item-item di menu */
@@ -190,8 +214,7 @@ ion-menu.mobile-only ion-item {
     --background-hover: rgba(255, 255, 255, 0.1);
     --ripple-color: rgba(255, 255, 255, 0.1);
     cursor: pointer;
-    pointer-events: auto;
-    /* Pastikan item menu bisa diklik */
+    pointer-events: auto; /* Pastikan item menu bisa diklik */
 }
 
 /* Gaya untuk icon di menu */
@@ -203,8 +226,7 @@ ion-menu.mobile-only ion-icon {
 .menu-content-backdrop {
     background: rgba(0, 0, 0, 0.4) !important;
     opacity: 1 !important;
-    z-index: 999 !important;
-    /* Di bawah menu tapi di atas konten */
+    z-index: 999 !important; /* Di bawah menu tapi di atas konten */
 }
 
 /* Pastikan item menu terlihat seperti bisa diklik */

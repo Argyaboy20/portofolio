@@ -65,7 +65,15 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   private screenshotPrevention: (() => void) | null = null;
   private scrollHandler: (() => void) | null = null;
 
-  @ViewChild(IonMenu) menu!: IonMenu;
+  @ViewChild('mainMenu', { static: false }) mainMenu!: IonMenu;
+  @ViewChildren('sectionElement') sectionElements!: QueryList<ElementRef>;
+  // Add new properties for responsive layout
+  @ViewChild('leftPanel', { static: true }) leftPanel!: ElementRef;
+  @ViewChild('rightPanel', { static: true }) rightPanel!: ElementRef;
+  @ViewChildren('skillBar') skillBars!: QueryList<ElementRef>;
+
+  private savedScrollPosition = 0;
+  private mainContent: any;
 
   isMerdekaProgramModalOpen = false;
   isMSIBModalOpen = false;
@@ -77,7 +85,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     id: {
       profilSingkat: 'Profil Singkat',
       aboutContent: 'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan Ionic Framework yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.79 yang saya raih selama masa perkuliahan di Institut Teknologi dan Bisnis Indonesia, saya membuktikan komitmen dan dedikasi yang kuat dalam bidang akademik.',
-      aboutContent2: 'Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak',
+      aboutContent2: 'Kemampuan bahasa Inggris saya yang berada di level intermediate (EF SET: 67) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak',
       keahlian: 'Keahlian',
       tools: 'Alat dan Teknologi',
       projectTerbaru: 'Project Terbaru',
@@ -101,7 +109,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     en: {
       profilSingkat: 'Brief Profile',
       aboutContent: 'A Software Engineer with a focus on hybrid mobile application development who is passionate about creating innovative solutions. My main expertise lies in using Ionic Framework combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.79 achieved during my studies at the Indonesian Institute of Technology and Business, I proved my strong commitment and dedication in academics.',
-      aboutContent2: 'My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. Contact me if you are interested in further collaboration on software development.',
+      aboutContent2: 'My English skills at the intermediate level (EF SET: 67) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. Contact me if you are interested in further collaboration on software development.',
       keahlian: 'Skills',
       tools: 'Tools and Technologies',
       projectTerbaru: 'Latest Projects',
@@ -172,13 +180,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }
   ];
 
-  @ViewChildren('sectionElement') sectionElements!: QueryList<ElementRef>;
-  // Add new properties for responsive layout
-  @ViewChild('leftPanel', { static: true }) leftPanel!: ElementRef;
-  @ViewChild('rightPanel', { static: true }) rightPanel!: ElementRef;
-  @ViewChildren('skillBar') skillBars!: QueryList<ElementRef>;
-
-
   constructor(
     private navCtrl: NavController,
     private platform: Platform,
@@ -209,15 +210,28 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
     this.setupScrollAnimations();
 
-    if (this.menu) {
-      this.menu.ionDidOpen.subscribe(() => {
-        // Tambahkan class untuk mengaktifkan pointer-events pada menu
-        document.querySelector('ion-menu.mobile-only')?.classList.add('show-menu');
+    if (this.mainMenu) {
+      this.mainMenu.ionDidOpen.subscribe(() => {
+        const menuElement = document.querySelector('ion-menu.mobile-only') as HTMLElement;
+        menuElement?.classList.add('show-menu');
+
+        // Simpan scroll position
+        this.mainContent = this.mainContent || document.getElementById('main-content');
+        if (this.mainContent) {
+          this.savedScrollPosition = this.mainContent.scrollTop;
+        }
       });
 
-      this.menu.ionDidClose.subscribe(() => {
-        // Hapus class saat menu tertutup
-        document.querySelector('ion-menu.mobile-only')?.classList.remove('show-menu');
+      this.mainMenu.ionDidClose.subscribe(() => {
+        const menuElement = document.querySelector('ion-menu.mobile-only') as HTMLElement;
+        menuElement?.classList.remove('show-menu');
+
+        // Restore scroll position
+        setTimeout(() => {
+          if (this.mainContent) {
+            this.mainContent.scrollTop = this.savedScrollPosition;
+          }
+        }, 50);
       });
     }
 
@@ -460,8 +474,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         if (contactLink) {
           // Create text nodes for before and after the link
           const beforeText = this.currentLanguage === 'en' ?
-            'My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. ' :
-            'Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. ';
+            'My English skills at the intermediate level (EF SET: 67) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. ' :
+            'Kemampuan bahasa Inggris saya yang berada di level intermediate (EF SET: 67) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. ';
 
           const afterText = this.currentLanguage === 'en' ?
             ' if you are interested in further collaboration on software development.' :
@@ -489,8 +503,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         } else {
           // If the contact link doesn't exist yet, create the full paragraph with the clickable element
           const fullText = this.currentLanguage === 'en' ?
-            'My English skills at the upper intermediate level (EF SET: 70) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. ' :
-            'Kemampuan bahasa Inggris saya yang berada di level upper intermediate (EF SET: 70) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. ';
+            'My English skills at the intermediate level (EF SET: 67) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. ' :
+            'Kemampuan bahasa Inggris saya yang berada di level intermediate (EF SET: 67) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. ';
 
           const contactText = this.currentLanguage === 'en' ? 'Contact me' : 'Hubungi saya';
 
@@ -587,7 +601,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       // Translate project descriptions to English
       this.projects[0].description = 'This project was created as an output of an internship at Eduwork as a Programmer for 3 months. Using the Laravel framework with PHP and other languages.';
       this.projects[0].duration = 'May 2025 - present';
-      
+
       this.projects[1].description = 'This project aims to be the final project in my thesis developed with Ionic Framework based on HTML, Node.js, and PHP.';
       this.projects[1].duration = 'May 2025 - present';
 
