@@ -145,7 +145,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     {
       title: 'Locana App',
       duration: 'Mei 2025 - sekarang',
-      description: 'Project ini bertujuan sebagai project akhir di Skripsi saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.',
+      description: 'Project ini bertujuan sebagai project iseng-iseng saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.',
       image: '/assets/logolocana.jpg',
       demoLink: '/locana',
       sourceLink: 'https://github.com/Argyaboy20/locana.git',
@@ -154,7 +154,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     {
       title: 'Web Portofolio',
       duration: 'Februari 2025 - sekarang',
-      description: 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework berbasis HTML dan Javascript.',
+      description: 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Fullstack Developer yang dikembangkan dengan Framework Ionic, Node.js, Angular dan Javascript.',
       image: '/assets/portofolio.png',
       demoLink: '/portofolio',
       sourceLink: 'https://github.com/Argyaboy20/portofolio.git',
@@ -602,10 +602,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.projects[0].description = 'This project was created as an output of an internship at Eduwork as a Programmer for 3 months. Using the Laravel framework with PHP and other languages.';
       this.projects[0].duration = 'May 2025 - present';
 
-      this.projects[1].description = 'This project aims to be the final project in my thesis developed with Ionic Framework based on HTML, Node.js, and PHP.';
+      this.projects[1].description = 'This project aims to be my passion project developed with Ionic Framework based on HTML, Node.js, and PHP.';
       this.projects[1].duration = 'May 2025 - present';
 
-      this.projects[2].description = 'This project aims to create a personal website as my portfolio in Software Engineering, developed with Ionic Framework and MySQL backend.';
+      this.projects[2].description = 'This project aims to create a personal website as my portfolio in Fullstack Developer, developed with Ionic Framework, Node.js, Angular and Javascript.';
       this.projects[2].duration = 'February 2025 - present';
 
       this.projects[3].description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend.';
@@ -618,10 +618,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.projects[0].description = 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya.';
       this.projects[0].duration = 'Mei 2025 - sekarang';
 
-      this.projects[1].description = 'Project ini bertujuan sebagai project akhir di Skripsi saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.';
+      this.projects[1].description = 'Project ini bertujuan sebagai project iseng-iseng saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.';
       this.projects[1].duration = 'Mei 2025 - sekarang';
 
-      this.projects[2].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Software Engineering yang dikembangkan dengan Ionic Framework dan backend berupa MySql.';
+      this.projects[2].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Fullstack Developer yang dikembangkan dengan Framework Ionic, Node.js, Angular dan Javascript.';
       this.projects[2].duration = 'Februari 2025 - sekarang';
 
       this.projects[3].description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql.';
