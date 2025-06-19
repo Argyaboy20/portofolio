@@ -15,7 +15,7 @@ export class LocanaPage implements OnInit {
   selectedImage: any = null;
 
   /* Project URLs */
-  projectUrl: string = 'https://locana.example.com'; // Replace with actual URL
+  projectUrl: string = 'https://locana-74f96.web.app/';
   androidUrl: string = 'https://play.google.com/store/apps/details?id=com.example.locana'; // Replace with actual URL
 
   /* Translations for multilingual support */
@@ -49,20 +49,8 @@ export class LocanaPage implements OnInit {
   /* Gallery images with descriptions */
   locanaImages = [
     {
-      url: 'assets/images/locana/dashboard.jpg', // Replace with actual image path
-      title: 'Dashboard Realtime',
-      brief: 'Antarmuka utama dengan peta interaktif',
-      caption: 'Dashboard Locana',
-      description: 'Dashboard utama Locana dirancang dengan fokus pada tampilan peta realtime. Menampilkan lokasi perangkat yang dilacak, histori pergerakan, dan status koneksi sinyal.',
-      features: [
-        'Pemantauan lokasi realtime',
-        'Histori pergerakan 30 hari terakhir',
-        'Filter tampilan berdasarkan waktu'
-      ]
-    },
-    {
-      url: 'assets/images/locana/tracker.jpg', // Replace with actual image path
-      title: 'Pelacak Nomor',
+      url: 'assets/pelacaknomor.jpg', // Replace with actual image path
+      title: 'Dashboard Pelacak Nomor',
       brief: 'Sistem pencarian dan pelacakan nomor',
       caption: 'Pelacak Nomor Locana',
       description: 'Sistem pelacakan nomor telepon dengan teknologi triangulasi sinyal seluler tingkat lanjut. Mendukung pelacakan multi-provider dengan presisi lokasi hingga 5 meter.',
