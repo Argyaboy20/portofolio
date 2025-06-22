@@ -16,7 +16,7 @@ export class LocanaPage implements OnInit {
 
   /* Project URLs */
   projectUrl: string = 'https://locana-74f96.web.app/';
-  androidUrl: string = 'https://play.google.com/store/apps/details?id=com.example.locana'; // Replace with actual URL
+  androidUrl: string = 'https://play.google.com/store/apps/details?id=com.example.locana';
 
   /* Translations for multilingual support */
   translations = {
@@ -49,7 +49,7 @@ export class LocanaPage implements OnInit {
   /* Gallery images with descriptions */
   locanaImages = [
     {
-      url: 'assets/pelacaknomor.jpg', // Replace with actual image path
+      url: 'assets/pelacaknomor.jpg', 
       title: 'Dashboard Pelacak Nomor',
       brief: 'Sistem pencarian dan pelacakan nomor',
       caption: 'Pelacak Nomor Locana',
@@ -61,8 +61,7 @@ export class LocanaPage implements OnInit {
       ]
     },
     {
-      url: 'assets/images/locana/map-view.jpg', // Replace with actual image path
-      title: 'Tampilan Peta Interaktif',
+      url: 'assets/images/locana/locana2.jpg', 
       brief: 'Visualisasi lokasi dengan detail',
       caption: 'Peta Interaktif Locana',
       description: 'Tampilan peta interaktif dengan dukungan berbagai jenis peta (satelit, terrain, street view). Dilengkapi dengan kemampuan zoom hingga level jalan dan landmark penting di sekitar target.',
@@ -73,7 +72,7 @@ export class LocanaPage implements OnInit {
       ]
     },
     {
-      url: 'assets/images/locana/geofence.jpg', // Replace with actual image path
+      url: 'assets/images/locana/locana2.jpg', 
       title: 'Sistem Geofence',
       brief: 'Notifikasi otomatis batas wilayah',
       caption: 'Sistem Geofence Locana',
@@ -85,19 +84,18 @@ export class LocanaPage implements OnInit {
       ]
     },
     {
-      url: 'assets/images/locana/history.jpg', // Replace with actual image path
+      url: 'assets/images/locana/history.jpg', 
       title: 'Histori Pelacakan',
       brief: 'Riwayat lokasi dengan timeline',
       caption: 'Histori Pelacakan Locana',
       description: 'Sistem histori pelacakan dengan timeline interaktif yang menampilkan riwayat pergerakan. Pengguna dapat memutar ulang pergerakan target dengan visualisasi animasi pada peta.',
       features: [
         'Timeline interaktif pergerakan',
-        'Data kecepatan pergerakan',
-        'Export data dalam format CSV/PDF'
+        'Riwayat Pelacakan yang dilakukan User'
       ]
     },
     {
-      url: 'assets/images/locana/settings.jpg', // Replace with actual image path
+      url: 'assets/images/locana/settings.jpg', 
       title: 'Pengaturan Privasi',
       brief: 'Kontrol keamanan data pelacakan',
       caption: 'Pengaturan Privasi Locana',
