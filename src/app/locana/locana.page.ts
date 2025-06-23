@@ -96,7 +96,7 @@ export class LocanaPage implements OnInit {
       ]
     },
     {
-      url: 'assets/images/locana/settings.jpg', 
+      url: 'assets/izin akses.jpg', 
       title: 'Pengaturan Privasi',
       brief: 'Kontrol keamanan data pelacakan',
       caption: 'Pengaturan Privasi Locana',
