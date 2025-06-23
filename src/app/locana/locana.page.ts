@@ -62,6 +62,7 @@ export class LocanaPage implements OnInit {
     },
     {
       url: 'assets/locana2.jpg', 
+      title: 'Peta Interaktif',
       brief: 'Visualisasi lokasi dengan detail',
       caption: 'Peta Interaktif Locana',
       description: 'Tampilan peta interaktif dengan dukungan berbagai jenis peta (satelit, terrain, street view). Dilengkapi dengan kemampuan zoom hingga level jalan dan landmark penting di sekitar target.',
