@@ -85,7 +85,7 @@ export class LocanaPage implements OnInit {
       ]
     },
     {
-      url: 'assets/images/locana/history.jpg', 
+      url: 'assets/riwayat.jpg', 
       title: 'Histori Pelacakan',
       brief: 'Riwayat lokasi dengan timeline',
       caption: 'Histori Pelacakan Locana',
