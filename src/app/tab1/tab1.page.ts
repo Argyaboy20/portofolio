@@ -21,7 +21,7 @@ interface Project {
   startDate: Date;  /* For sorting purposes */
 }
 
-// interface penerjemahan
+/* interface penerjemahan */
 interface Translations {
   profilSingkat: string;
   aboutContent: string;
@@ -77,10 +77,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   isMerdekaProgramModalOpen = false;
   isMSIBModalOpen = false;
-  // Profile image modal state
+  /* Profile image modal state */
   isProfileImageModalOpen = false;
 
-  currentLanguage: 'id' | 'en' = 'id'; // default to Indonesian
+  currentLanguage: 'id' | 'en' = 'id'; /* default to Indonesian */
   translations: TranslationDict = {
     id: {
       profilSingkat: 'Profil Singkat',
@@ -140,7 +140,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       image: '/assets/upscale.jpg',
       demoLink: '/upscale',
       sourceLink: 'https://github.com/Argyaboy20/belajar-laravel.git',
-      startDate: new Date(2025, 5, 19)  // Mei 19, 2025
+      startDate: new Date(2025, 5, 19)  /* Mei 19, 2025 */
     },
     {
       title: 'Locana App',
@@ -149,7 +149,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       image: '/assets/logolocana.jpg',
       demoLink: '/locana',
       sourceLink: 'https://github.com/Argyaboy20/locana.git',
-      startDate: new Date(2025, 5, 2)  // Mei 2, 2025
+      startDate: new Date(2025, 5, 2)  /* Mei 2, 2025 */
     },
     {
       title: 'Web Portofolio',
@@ -158,7 +158,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       image: '/assets/portofolio.png',
       demoLink: '/portofolio',
       sourceLink: 'https://github.com/Argyaboy20/portofolio.git',
-      startDate: new Date(2025, 1, 1)  // February 1, 2025
+      startDate: new Date(2025, 1, 1)  /* February 1, 2025 */
     },
     {
       title: 'Pertanian Mobile App',
@@ -167,7 +167,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       image: '/assets/permo_logo.jpg',
       demoLink: '/pertanianmobile',
       sourceLink: 'https://github.com/Argyaboy20/PertanianMobile.git',
-      startDate: new Date(2024, 11, 1)  // November 1, 2024
+      startDate: new Date(2024, 11, 1)  /* November 1, 2024 */
     },
     {
       title: 'ApliKasir',
@@ -176,7 +176,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       image: '/assets/apliKasir.png',
       demoLink: '/aplikasir',
       sourceLink: 'https://github.com/hshinosa/ApliKasir-UI.git',
-      startDate: new Date(2024, 3, 1)  // April 1, 2024
+      startDate: new Date(2024, 3, 1)  /* April 1, 2024 */
     }
   ];
 
@@ -190,18 +190,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    // Sort projects by newest first by default
+    /* Sort projects by newest first by default */
     this.sortProjects('newest');
 
     this.setupBackButtonHandler();
   }
 
   ngAfterViewInit() {
-    // Initialize responsive layout handlers
+    /* Initialize responsive layout handlers */
     this.initializeResponsiveLayout();
     this.initSkillBarAnimations();
 
-    // Handle window resize
+    /* Handle window resize */
     window.addEventListener('resize', () => {
       this.handleResponsiveLayout();
     });
@@ -215,7 +215,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         const menuElement = document.querySelector('ion-menu.mobile-only') as HTMLElement;
         menuElement?.classList.add('show-menu');
 
-        // Simpan scroll position
+        /* Simpan scroll position */
         this.mainContent = this.mainContent || document.getElementById('main-content');
         if (this.mainContent) {
           this.savedScrollPosition = this.mainContent.scrollTop;
@@ -226,7 +226,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         const menuElement = document.querySelector('ion-menu.mobile-only') as HTMLElement;
         menuElement?.classList.remove('show-menu');
 
-        // Restore scroll position
+        /* Restore scroll position */
         setTimeout(() => {
           if (this.mainContent) {
             this.mainContent.scrollTop = this.savedScrollPosition;
@@ -239,18 +239,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Clean up event listeners
+    /* Clean up event listeners */
     this.removeResponsiveHandlers();
     window.removeEventListener('resize', () => {
       this.handleResponsiveLayout();
     });
 
-    // Unsubscribe dari backButton subscription
+    /* Unsubscribe dari backButton subscription */
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
 
-    // Remove event listeners to prevent memory leaks
+    /* Remove event listeners to prevent memory leaks */
     document.removeEventListener('contextmenu', this.preventAction);
     document.removeEventListener('dragstart', this.preventAction);
     document.removeEventListener('selectstart', this.preventAction);
@@ -260,7 +260,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   /* Method baru untuk memperbaiki interaksi profil */
   private fixProfileInteraction() {
-    // Pastikan social links bisa diinteraksi
+    /* Pastikan social links bisa diinteraksi */
     const socialLinks = document.querySelectorAll('.social-links a');
     socialLinks.forEach(link => {
       (link as HTMLElement).style.pointerEvents = 'auto';
@@ -268,7 +268,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       (link as HTMLElement).style.zIndex = '15';
     });
 
-    // Pastikan profile image bisa diklik
+    /* Pastikan profile image bisa diklik */
     const profileImage = document.querySelector('.profile-image');
     if (profileImage) {
       (profileImage as HTMLElement).style.pointerEvents = 'auto';
@@ -278,18 +278,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setupScrollAnimations() {
-    // Get all section elements
+    /* Get all section elements */
     const sections = document.querySelectorAll('.section');
 
-    // Create an Intersection Observer
+    /* Create an Intersection Observer */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        // Add class when element is entering viewport while scrolling down
+        /* Add class when element is entering viewport while scrolling down */
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-in');
           entry.target.classList.remove('animate-out');
         } else {
-          // When scrolling up and element leaves viewport
+          /* When scrolling up and element leaves viewport */
           if (entry.boundingClientRect.top > 0) {
             entry.target.classList.add('animate-out');
             entry.target.classList.remove('animate-in');
@@ -297,72 +297,72 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         }
       });
     }, {
-      threshold: 0.1 // Trigger when at least 10% of the element is visible
+      threshold: 0.1 /* Trigger when at least 10% of the element is visible */
     });
 
-    // Observe all section elements
+    /* Observe all section elements */
     sections.forEach(section => {
       observer.observe(section);
     });
   }
 
-  // Add this method to your class
+  /* Add this method to your class */
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
     this.updateContent();
 
-    // Add this to ensure responsive layout remains intact after language switch
+    /* Add this to ensure responsive layout remains intact after language switch */
     setTimeout(() => {
       this.handleResponsiveLayout();
     }, 0);
   }
 
-  //refreh ulang halaman
+  /* refreh ulang halaman */
   doRefresh(event: any) {
     console.log('Memulai refresh halaman');
 
     try {
-      // Set language back to default (Indonesian)
+      /* Set language back to default (Indonesian) */
       this.currentLanguage = 'id';
 
-      // Sort projects by newest
+      /* Sort projects by newest */
       this.sortProjects('newest');
 
-      // Simple timeout to simulate loading
+      /* Simple timeout to simulate loading */
       setTimeout(() => {
-        // Apply all updates
+        /* Apply all updates */
         this.updateContent();
         this.initSkillBarAnimations();
         this.handleResponsiveLayout();
 
         console.log('Refresh selesai dengan bahasa:', this.currentLanguage);
 
-        // Show success message
+        /* Show success message */
         this.presentToast({
-          message: 'Refresh berhasil!', // Always in Indonesian since we reset to default
+          message: 'Refresh berhasil!', /* Always in Indonesian since we reset to default */
           color: 'success',
           duration: 2000
         });
 
-        // Complete the refresh
+        /* Complete the refresh */
         event.target.complete();
       }, 1000);
     } catch (error) {
       console.error('Error during refresh:', error);
 
-      // Show error message
+      /* Show error message */
       this.presentToast({
         message: 'Refresh gagal! Silakan coba lagi.',
         color: 'danger',
         duration: 3000
       });
 
-      // Complete the refresh even if there's an error
+      /* Complete the refresh even if there's an error */
       event.target.complete();
     }
   }
 
-  // Metode untuk menampilkan toast
+  /* Metode untuk menampilkan toast */
   async presentToast(options: { message: string, color: string, duration: number }) {
     const toast = await this.toastController.create({
       message: options.message,
@@ -376,54 +376,54 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  // Method to open external links
+  /* Method to open external links */
   openExternalLink(url: string) {
     window.open(url, '_blank');
   }
 
-  // Method to open social media links
+  /* Method to open social media links */
   openSocialMediaLink(platform: string, username: string) {
     let url = '';
     switch (platform) {
       case 'instagram':
         url = `https://www.instagram.com/${username}`;
         break;
-      // You can add more platforms if needed
+  
       default:
         return;
     }
     window.open(url, '_blank');
   }
 
-  // Method to navigate to a specific project
+  /* Method to navigate to a specific project */
   navigateToProject(projectTitle: string) {
-    // Find the project in the projects array
+    /* Find the project in the projects array */
     const project = this.projects.find(p => p.title === projectTitle);
 
     if (project) {
-      // Use the existing navigateWithAnimation method with the project's demo link
+      /* Use the existing navigateWithAnimation method with the project's demo link */
       this.navigateWithAnimation(project.demoLink);
     }
   }
 
 
-  //update Content untuk tombol translate
+  /* update Content untuk tombol translate */
   updateContent() {
     const t = this.translations[this.currentLanguage];
 
-    // Update all text content with null checks
+    /* Update all text content with null checks */
     const aboutTitle = document.querySelector('#about .section-title');
     if (aboutTitle) aboutTitle.textContent = t.profilSingkat;
 
-    // Update about section while preserving clickable elements
+    /* Update about section while preserving clickable elements */
     const aboutSection = document.querySelector('#about .section-content');
     if (aboutSection) {
-      // First paragraph - preserve Ionic Framework link
+      /* First paragraph - preserve Ionic Framework link */
       const p1 = aboutSection.querySelector('p:nth-child(1)');
       if (p1) {
         const ionicLink = p1.querySelector('.clickable-text');
         if (ionicLink) {
-          // Create text nodes for before and after the link
+          /* Create text nodes for before and after the link */
           const beforeText = this.currentLanguage === 'en' ?
             'A Software Engineer focused on hybrid mobile application development with a passion for creating innovative solutions. My core expertise lies in using ' :
             'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan ';
@@ -432,33 +432,33 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             ' combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.79 achieved during my college years at ' :
             ' yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.79 yang saya raih selama masa perkuliahan di ';
 
-          // Clear the paragraph and rebuild it
+          /* Clear the paragraph and rebuild it */
           p1.innerHTML = '';
           p1.appendChild(document.createTextNode(beforeText));
           p1.appendChild(ionicLink.cloneNode(true));
           p1.appendChild(document.createTextNode(afterText));
 
-          // Add the institute name with proper translation
+          /* Add the institute name with proper translation */
           const institute = document.createElement('span');
           institute.className = 'clickable-text';
           institute.style.color = '#4a90e2';
 
-          // Create the strong element inside
+          /* Create the strong element inside */
           const strong = document.createElement('strong');
           strong.textContent = this.currentLanguage === 'en' ?
             'Indonesian Institute of Technology and Business' :
             'Institut Teknologi dan Bisnis Indonesia';
 
-          // Set the click handler
+          /* Set the click handler */
           institute.onclick = (event) => {
-            // Using arrow function to preserve 'this' context
+            /* Using arrow function to preserve 'this' context */
             this.openExternalLink('https://www.instagram.com/itb_indonesia');
           };
 
           institute.appendChild(strong);
           p1.appendChild(institute);
 
-          // Add the final part of the paragraph
+          /* Add the final part of the paragraph */
           const finalText = this.currentLanguage === 'en' ?
             ', I have demonstrated strong commitment and dedication in academic field.' :
             ', saya membuktikan komitmen dan dedikasi yang kuat dalam bidang akademik.';
@@ -467,12 +467,12 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         }
       }
 
-      // Second paragraph - simple text replacement
+      /* Second paragraph - simple text replacement */
       const p2 = aboutSection.querySelector('p:nth-child(2)');
       if (p2) {
         const contactLink = p2.querySelector('.clickable-text');
         if (contactLink) {
-          // Create text nodes for before and after the link
+          /* Create text nodes for before and after the link */
           const beforeText = this.currentLanguage === 'en' ?
             'My English skills at the intermediate level (EF SET: 67) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. ' :
             'Kemampuan bahasa Inggris saya yang berada di level intermediate (EF SET: 67) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. ';
@@ -481,19 +481,19 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             ' if you are interested in further collaboration on software development.' :
             ' jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak.';
 
-          // Update the contact text based on language
+          /* Update the contact text based on language */
           const contactStrong = contactLink.querySelector('strong');
           if (contactStrong) {
             contactStrong.textContent = this.currentLanguage === 'en' ? 'Contact me' : 'Hubungi saya';
           }
 
-          // Clear the paragraph and rebuild it
+          /* Clear the paragraph and rebuild it */
           p2.innerHTML = '';
           p2.appendChild(document.createTextNode(beforeText));
           p2.appendChild(contactLink.cloneNode(true));
           p2.appendChild(document.createTextNode(afterText));
 
-          // Re-attach click event to the new element
+          /* Re-attach click event to the new element */
           const newContactLink = p2.querySelector('.clickable-text');
           if (newContactLink) {
             newContactLink.addEventListener('click', () => {
@@ -501,7 +501,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             });
           }
         } else {
-          // If the contact link doesn't exist yet, create the full paragraph with the clickable element
+          /* If the contact link doesn't exist yet, create the full paragraph with the clickable element */
           const fullText = this.currentLanguage === 'en' ?
             'My English skills at the intermediate level (EF SET: 67) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. ' :
             'Kemampuan bahasa Inggris saya yang berada di level intermediate (EF SET: 67) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. ';
@@ -512,10 +512,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             ' if you are interested in further collaboration on software development.' :
             ' jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak';
 
-          // Create the paragraph with the clickable span
+          /* Create the paragraph with the clickable span */
           p2.innerHTML = fullText;
 
-          // Create clickable span
+          /* Create clickable span */
           const span = document.createElement('span');
           span.className = 'clickable-text';
           span.style.color = '#4a90e2';
@@ -523,12 +523,12 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             this.navigateToBiodataContact();
           });
 
-          // Create strong element inside span
+          /* Create strong element inside span */
           const strong = document.createElement('strong');
           strong.textContent = contactText;
           span.appendChild(strong);
 
-          // Append the span and after text
+          /* Append the span and after text */
           p2.appendChild(span);
           p2.appendChild(document.createTextNode(afterText));
         }
@@ -544,11 +544,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     const contactInfo = document.querySelector('.contact-info h3');
     if (contactInfo) contactInfo.textContent = t.contactPerson;
 
-    // Update education section
+    /* Update education section */
     const educationTitle = document.querySelector('#education .section-title');
     if (educationTitle) educationTitle.textContent = t.pendidikan;
 
-    // Update Tools section
+    /* Update Tools section */
     const toolsTitle = document.querySelector('#tools .section-title');
     if (toolsTitle) toolsTitle.textContent = t.tools;
 
@@ -557,14 +557,14 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       degree.textContent = t.sarjanaTI;
     }
 
-    // Update buttons text
+    /* Update buttons text */
     const sortButtons = document.querySelectorAll('.sort-buttons ion-button');
     if (sortButtons.length >= 2) {
       sortButtons[0].textContent = t.terbaru;
       sortButtons[1].textContent = t.terlama;
     }
 
-    // Update project cards
+    /* Update project cards */
     this.projects.forEach((project, index) => {
       const projectCards = document.querySelectorAll('.project-card');
       if (index < projectCards.length) {
@@ -580,7 +580,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    // Update career section
+    /* Update career section */
     const careerTitle = document.querySelector('#career .section-title');
     if (careerTitle) careerTitle.textContent = t.karirKedua;
 
@@ -590,13 +590,13 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     const careerDescription = document.querySelector('.career-description');
     if (careerDescription) careerDescription.textContent = t.klikUntukDetail;
 
-    // Update footer
+    /* Update footer */
     const footer = document.querySelector('footer p');
     if (footer) {
       footer.textContent = t.copyright;
     }
 
-    // Update project descriptions based on language
+    /* Update project descriptions based on language  */
     if (this.currentLanguage === 'en') {
       // Translate project descriptions to English
       this.projects[0].description = 'This project was created as an output of an internship at Eduwork as a Programmer for 3 months. Using the Laravel framework with PHP and other languages.';
@@ -614,7 +614,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.projects[4].description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
       this.projects[4].duration = 'April - May 2024';
     } else {
-      // Reset to original Indonesian descriptions
+      /* Reset to original Indonesian descriptions */
       this.projects[0].description = 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya.';
       this.projects[0].duration = 'Mei 2025 - sekarang';
 
@@ -632,17 +632,17 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Add this method to navigate to biodata page contact section for third paragraph
+  /* Add this method to navigate to biodata page contact section for third paragraph */
   navigateToBiodataContact() {
-    // Use standard navigation for mobile browsers
+    /* Use standard navigation for mobile browsers */
     if (this.platform.is('mobile') || window.innerWidth <= 768) {
-      // For mobile, navigate first, then scroll to the contact section after the page loads
+      /* For mobile, navigate first, then scroll to the contact section after the page loads */
       window.location.href = window.location.origin + '/biodata';
 
-      // Set a flag in localStorage to indicate we should scroll to contact section after page loads
+      /* Set a flag in localStorage to indicate we should scroll to contact section after page loads */
       localStorage.setItem('scrollToContact', 'true');
     } else {
-      // For desktop, use animated navigation
+      /* For desktop, use animated navigation */
       const animation = (baseEl: HTMLElement, opts?: any): Animation => {
         const enteringAnimation = createAnimation()
           .addElement(opts.enteringEl)
@@ -661,58 +661,58 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           .addAnimation(leavingAnimation);
       };
 
-      // Navigate to biodata page
+      /* Navigate to biodata page */
       this.navCtrl.navigateForward('/biodata', {
         animated: true,
         animation
       }).then(() => {
-        // After navigation, set a timeout to scroll to the contact section
+        /* After navigation, set a timeout to scroll to the contact section */
         setTimeout(() => {
           const contactSection = document.querySelector('.contact-section');
           if (contactSection) {
             contactSection.scrollIntoView({ behavior: 'smooth' });
 
-            // Add a delayed toast notification after scrolling
+            /* Add a delayed toast notification after scrolling */
             setTimeout(() => {
               this.toastController.create({
                 message: this.currentLanguage === 'id'
                   ? 'Scroll lagi ke bawah untuk kontak yang bisa dihubungi'
                   : 'Scroll down further to see contact information',
                 duration: 3000,
-                position: 'bottom', // Position at bottom
-                color: 'primary', // Using primary color for better visibility
-                cssClass: 'custom-toast', // Adding a CSS class for additional styling
+                position: 'bottom', /* Position at bottom */
+                color: 'primary', /* Using primary color for better visibility */
+                cssClass: 'custom-toast', /* Adding a CSS class for additional styling */
                 buttons: [{ text: 'OK', role: 'cancel' }]
               }).then(toast => toast.present());
             }, 1000);
           }
-        }, 500); // Give the page some time to load
+        }, 500); /* Give the page some time to load */
       });
     }
   }
 
   preventScreenshot(event?: Event) {
-    // Prevent default actions
+    /* Prevent default actions */
     if (event) {
       event.preventDefault();
       event.stopPropagation();
     }
 
-    // Disable right-click, drag, selection, and screenshot attempts
+    /* Disable right-click, drag, selection, and screenshot attempts */
     document.addEventListener('contextmenu', this.preventAction);
     document.addEventListener('dragstart', this.preventAction);
     document.addEventListener('selectstart', this.preventAction);
 
-    // Prevent Print Screen / Screenshot keyboard shortcuts
+    /* Prevent Print Screen / Screenshot keyboard shortcuts */
     document.addEventListener('keydown', this.preventScreenshotShortcuts);
 
-    // Prevent screenshots via browser developer tools
+    /* Prevent screenshots via browser developer tools */
     document.addEventListener('keydown', this.preventDevToolsScreenshot, true);
 
-    // Platform-specific screenshot prevention
+    /* Platform-specific screenshot prevention */
     if (Capacitor.getPlatform() === 'android' || Capacitor.getPlatform() === 'ios') {
       try {
-        // Android-specific secure flag
+        /* Android-specific secure flag */
         if (Capacitor.getPlatform() === 'android') {
           try {
             ScreenOrientation.lock({
@@ -723,9 +723,9 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           }
         }
 
-        // Additional prevention method
+        /* Additional prevention method */
         if (this.platform.is('android') || this.platform.is('ios')) {
-          // Programmatically prevent screenshots by adding a secure flag
+          /* Programmatically prevent screenshots by adding a secure flag */
           const windowRef = window as any;
           if (windowRef.plugins && windowRef.plugins.preventScreenshot) {
             windowRef.plugins.preventScreenshot.prevent();
@@ -742,7 +742,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private preventScreenshotShortcuts = (event: KeyboardEvent) => {
-    // Prevent Print Screen, F12 (DevTools), Ctrl+P (Print), Ctrl+Shift+I (DevTools)
+    /* Prevent Print Screen, F12 (DevTools), Ctrl+P (Print), Ctrl+Shift+I (DevTools) */
     const preventKeys = [
       'PrintScreen',
       'F12',
@@ -760,7 +760,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private preventDevToolsScreenshot = (event: KeyboardEvent) => {
-    // Additional screenshot prevention for browser dev tools
+    /* Additional screenshot prevention for browser dev tools */
     if (
       event.ctrlKey &&
       (event.shiftKey || event.altKey) &&
@@ -783,25 +783,25 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     await alert.present();
   }
 
-  // Tambahkan metode baru untuk menangani tombol back
+  /* Tambahkan metode baru untuk menangani tombol back */
   private setupBackButtonHandler() {
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
-      // Karena ini adalah halaman utama, kita perlu konfirmasi sebelum keluar
+      /* Karena ini adalah halaman utama, kita perlu konfirmasi sebelum keluar */
       if (this.isProfileImageModalOpen) {
-        // Jika modal terbuka, tutup modal saja
+        /* Jika modal terbuka, tutup modal saja */
         this.closeProfileImageModal();
       } else if (this.isFlipCardVisible) {
-        // Jika flip card sedang ditampilkan, tutup saja
+        /* Jika flip card sedang ditampilkan, tutup saja */
         this.isFlipCardVisible = false;
         this.isCardFlipped = false;
       } else {
-        // Ini adalah halaman utama, konfirmasi keluar dari aplikasi
+        /* Ini adalah halaman utama, konfirmasi keluar dari aplikasi */
         this.confirmExitApp();
       }
     });
   }
 
-  // Metode untuk konfirmasi keluar
+  //*Metode untuk konfirmasi keluar */
   async confirmExitApp() {
     const alert = await this.alertController.create({
       header: this.currentLanguage === 'id' ? 'Konfirmasi' : 'Confirmation',
@@ -814,7 +814,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         {
           text: this.currentLanguage === 'id' ? 'Keluar' : 'Exit',
           handler: () => {
-            // Gunakan Capacitor App plugin untuk keluar
+            /* Gunakan Capacitor App plugin untuk keluar */
             App.exitApp();
           }
         }
@@ -824,7 +824,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     await alert.present();
   }
 
-  // Add this method to your class
+  /* Add this method to your class */
   initSkillBarAnimations() {
     if (this.skillBars) {
       setTimeout(() => {
@@ -843,12 +843,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   private initializeResponsiveLayout() {
     this.handleResponsiveLayout();
-    // Tidak perlu setup scroll handler di sini lagi, karena sudah ditangani di handleResponsiveLayout()
   }
 
-  // Method baru untuk setup scroll handler saja
+  /* Method baru untuk setup scroll handler saja */
   private setupScrollHandler() {
-    // Define scroll handler
+    /* Define scroll handler */
     this.scrollHandler = () => {
       if (window.innerWidth <= 768) {
         const scrollPosition = window.scrollY;
@@ -864,19 +863,19 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       }
     };
 
-    // Add scroll event listener
+    /* Add scroll event listener */
     window.addEventListener('scroll', this.scrollHandler);
   }
 
   private handleResponsiveLayout() {
     if (window.innerWidth <= 768) {
-      // Mobile layout
+      /* Mobile layout */
       if (!this.scrollHandler) {
-        // Cukup setup scroll handler langsung
+        /* Cukup setup scroll handler langsung */
         this.setupScrollHandler();
       }
     } else {
-      // Desktop layout
+      /* Desktop layout*/
       this.removeResponsiveHandlers();
     }
   }
@@ -890,7 +889,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Method to sort projects
+  /* Method to sort projects */
   sortProjects(order: 'newest' | 'oldest') {
     if (order === 'newest') {
       this.projects.sort((a, b) => b.startDate.getTime() - a.startDate.getTime());
@@ -899,19 +898,19 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Metode untuk membuka link sosial media
+  /* Metode untuk membuka link sosial media */
   openLink(url: string) {
     window.open(url, '_blank');
   }
 
-  // Metode untuk navigasi dengan animasi
+  /* Metode untuk navigasi dengan animasi */
   navigateWithAnimation(path: string) {
-    // Make sure path starts with /
+    /* Make sure path starts with */
     if (!path.startsWith('/')) {
       path = '/' + path;
     }
 
-    // Create your custom animation
+    /* Create your custom animation */
     const animation = (baseEl: HTMLElement, opts?: any): Animation => {
       const enteringAnimation = createAnimation()
         .addElement(opts.enteringEl)
@@ -930,14 +929,14 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         .addAnimation(leavingAnimation);
     };
 
-    // Use absolute URL navigation - this is the key change
+    /* Use absolute URL navigation - this is the key change */
     const url = window.location.origin + path;
 
-    // Use standard navigation for mobile browsers
+    /* Use standard navigation for mobile browsers */
     if (this.platform.is('mobile') || window.innerWidth <= 768) {
       window.location.href = url;
     } else {
-      // Use animated navigation for desktop
+      /* Use animated navigation for desktop */
       this.navCtrl.navigateForward(path, {
         animated: true,
         animation
@@ -967,16 +966,16 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // Helper method to open menu before navigation
+  /* Helper method to open menu before navigation */
   openMenu() {
     this.menuCtrl.enable(true, 'mainMenu');
     this.menuCtrl.open('mainMenu');
   }
 
-  // Metode untuk menutup menu
+  /* Metode untuk menutup menu */
   closeMenu() {
     this.menuCtrl.close('mainMenu');
-    // Tambahkan timeout kecil untuk memastikan classList.remove dijalankan setelah animasi menu
+    /* Timeout kecil untuk memastikan classList.remove dijalankan setelah animasi menu */
     setTimeout(() => {
       document.querySelector('ion-menu')?.classList.remove('menu-opened');
     }, 300);
@@ -985,18 +984,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   navigateToBiodata() {
     this.isFlipCardVisible = true;
 
-    // Start the flip animation after a short delay
+    /* Start the flip animation after a short delay */
     setTimeout(() => {
       this.isCardFlipped = true;
 
-      // Wait for the flip animation to complete before navigating
+      /* Wait for the flip animation to complete before navigating */
       setTimeout(() => {
-        // Use standard navigation for mobile browsers
+        /* Use standard navigation for mobile browsers */
         if (this.platform.is('mobile') || window.innerWidth <= 768) {
-          // For mobile, use direct URL navigation
+          /* For mobile, use direct URL navigation */
           window.location.href = window.location.origin + '/biodata';
         } else {
-          // For desktop, use animated navigation
+          /* For desktop, use animated navigation */
           const animation = (baseEl: HTMLElement, opts?: any): Animation => {
             const enteringAnimation = createAnimation()
               .addElement(opts.enteringEl)
@@ -1015,19 +1014,19 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
               .addAnimation(leavingAnimation);
           };
 
-          // Navigate to biodata page
+          /* Navigate to biodata page */
           this.navCtrl.navigateForward('/biodata', {
             animated: true,
             animation
           });
         }
 
-        // Reset the flip card state after navigation
+        /* Reset the flip card state after navigation */
         setTimeout(() => {
           this.isFlipCardVisible = false;
           this.isCardFlipped = false;
         }, 300);
-      }, 900); // Match this with the flip animation duration
+      }, 900); /* Match this with the flip animation duration */
     }, 100);
   }
 
@@ -1051,12 +1050,12 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     event.stopPropagation();
   }
 
-  // Open profile image modal
+  /* Open profile image modal */
   openProfileImageModal() {
     this.isProfileImageModalOpen = true;
   }
 
-  // Close profile image modal
+  /* Close profile image modal */
   closeProfileImageModal() {
     this.isProfileImageModalOpen = false;
   }

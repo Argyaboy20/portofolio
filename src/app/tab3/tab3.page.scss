@@ -1,11 +1,11 @@
-// Variables - Warna yang lebih gelap namun tetap futuristik
-$primary-color: #4d6aff;      // Biru yang lebih cerah
-$secondary-color: #00e5ff;    // Cyan
-$accent-color: #9c4dff;       // Ungu yang lebih cerah
-$bg-color-dark: #1a1a2e;      // Background gelap kebiruan
-$card-bg: rgba(26, 27, 54, 0.85); // Card background gelap
-$text-color-light: #f0f0f0;   // Text terang
-$text-color-muted: #b8b8d4;   // Text muted yang sesuai
+/* Variables - Warna yang lebih gelap namun tetap futuristik */
+$primary-color: #4d6aff;      /* Biru yang lebih cerah */
+$secondary-color: #00e5ff;    /* Cyan */
+$accent-color: #9c4dff;       /* Ungu yang lebih cerah */
+$bg-color-dark: #1a1a2e;      /* Background gelap kebiruan */
+$card-bg: rgba(26, 27, 54, 0.85); /* Card background gelap */
+$text-color-light: #f0f0f0;   /* Text terang */
+$text-color-muted: #b8b8d4;   /* Text muted yang sesuai */
 $gradient-start: #4d6aff;
 $gradient-end: #00e5ff;
 
@@ -50,7 +50,7 @@ ion-toolbar {
             transition: all 0.3s ease;
             animation: buttonSlideIn 0.5s ease forwards;
 
-            // Add pseudo-element for hover effect
+            /* Add pseudo-element for hover effect */
             &::before {
                 content: '';
                 position: absolute;
@@ -95,7 +95,7 @@ ion-toolbar {
     }
 }
 
-// Keyframes for button hover effect
+/* Keyframes for button hover effect */
 @keyframes buttonSlideIn {
     0% {
         opacity: 0;
@@ -170,7 +170,7 @@ ion-content {
     position: relative;
     overflow: hidden;
     
-    // Decoration elements
+    /* Decoration elements */
     &::before, &::after {
         content: '';
         position: absolute;
@@ -343,7 +343,7 @@ ion-content {
     position: relative;
     overflow: hidden;
     
-    // Decoration element
+    /* Decoration element */
     &::before {
         content: '';
         position: absolute;

@@ -9,7 +9,7 @@ inject();
 
 interface ProjectImage {
   url: string;
-  originalCaption: string; // Menambahkan properti untuk menyimpan caption asli
+  originalCaption: string; /* Menambahkan properti untuk menyimpan caption asli */
   caption: string;
 }
 
@@ -171,24 +171,24 @@ export class Tab2Page implements OnInit, OnDestroy {
     private platform: Platform,
     private router: Router
   ) {
-    // Inisialisasi caption pertama kali
+    /* Inisialisasi caption pertama kali */
     this.updateImageCaptions();
   }
 
   ngOnInit() {
     this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-      // Check if image modal is open
+      /* Check if image modal is open */
       if (this.isImageModalOpen) {
         this.closeImageModal();
       } else {
-        // Navigate back to tab1
-        this.router.navigate(['/tabs/tab1']);
+        /* Navigate back to tab1 */
+        this.router.navigate(['/']);
       }
     });
   }
 
   ngOnDestroy() {
-    // Clean up the subscription when the component is destroyed
+    /* Clean up the subscription when the component is destroyed */
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
@@ -200,7 +200,7 @@ export class Tab2Page implements OnInit, OnDestroy {
   }
 
   updateImageCaptions() {
-    // Membuat array baru dengan caption yang diperbarui
+    /* Membuat array baru dengan caption yang diperbarui */
     this.projectImages = this.projectImages.map(image => ({
       ...image,
       caption: this.translations[this.currentLanguage].imageCaptions[image.originalCaption] || image.originalCaption
@@ -210,10 +210,10 @@ export class Tab2Page implements OnInit, OnDestroy {
   updateContent() {
     const t = this.translations[this.currentLanguage];
 
-    // Update section title
+    /* Update section title */
     document.querySelector('.section-title')!.textContent = t.title;
 
-    // Update CTA section
+    /* Update CTA section */
     document.querySelector('.cta-content h3')!.textContent = t.readyToExperience;
     document.querySelector('.cta-content p')!.textContent = t.tryOutMessage;
 
@@ -227,10 +227,10 @@ export class Tab2Page implements OnInit, OnDestroy {
       androidButton.textContent = t.launchAndroid;
     }
 
-    // Update image captions
+    /* Update image captions */
     this.updateImageCaptions();
 
-    // Update modal caption if modal is open
+    /* Update modal caption if modal is open */
     if (this.selectedImage) {
       this.selectedImage = {
         ...this.selectedImage,
@@ -238,7 +238,7 @@ export class Tab2Page implements OnInit, OnDestroy {
       };
     }
 
-    // Update tool descriptions when language changes
+    /* Update tool descriptions when language changes */
     this.developmentTools = this.developmentTools.map(tool => {
       const updatedDescription = tool.name === 'HTML' ?
         (this.currentLanguage === 'id' ? 'Struktur dasar aplikasi' : 'Basic structure of the application') :
@@ -269,7 +269,7 @@ export class Tab2Page implements OnInit, OnDestroy {
     this.isImageModalOpen = false;
     this.selectedImage = null;
 
-    // Navigate back to the tab2 page
-    this.router.navigateByUrl('/tabs/tab2');
+    /* Navigate back to the tab2 page */
+    this.router.navigateByUrl('/pertanianmobile');
   }
 }

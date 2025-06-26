@@ -127,18 +127,18 @@ export class Tab3Page implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-      // Check if modal is open
+      /* Check if modal is open */
       if (this.isModalOpen) {
         this.closeModal();
       } else {
-        // Navigate back to tab1
-        this.router.navigate(['/tabs/tab1']);
+        /* Navigate back to tab1 */
+        this.router.navigate(['/']);
       }
     });
   }
 
   ngOnDestroy() {
-    // Clean up the subscription when the component is destroyed
+    /* Clean up the subscription when the component is destroyed */
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
@@ -156,7 +156,7 @@ export class Tab3Page implements OnInit, OnDestroy {
   closeModal() {
     this.isModalOpen = false;
 
-    // Navigate back to the tab3 page
-    this.router.navigateByUrl('/tabs/tab3');
+    /* Navigate back to the tab3 page */
+    this.router.navigateByUrl('/portofolio');
   }
 }

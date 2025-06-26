@@ -14,7 +14,7 @@
     --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-// Base Styles
+/* Base Styles */
 ion-content {
     --background: #141e30;
     background-image:
@@ -25,7 +25,7 @@ ion-content {
     position: relative;
     overflow: hidden;
 
-    // 3D floating admin elements
+    /* 3D floating admin elements */
     &::before,
     &::after {
         content: "";
@@ -67,7 +67,7 @@ ion-content {
     }
 }
 
-// Add this animation for the floating effect
+/* Add this animation for the floating effect */
 @keyframes float {
     0% {
         transform: translateY(0) rotate(0deg);
@@ -90,7 +90,7 @@ ion-content {
     }
 }
 
-// 3D admin background elements
+/* 3D admin background elements */
 .admin-3d-background {
     position: absolute;
     top: 0;
@@ -102,13 +102,13 @@ ion-content {
     z-index: -1;
 }
 
-// Add perspective for subtle 3D effect
+/* Add perspective for subtle 3D effect */
 .admin-perspective {
     perspective: 1000px;
     transform-style: preserve-3d;
 }
 
-// Enhance cards with subtle 3D effects
+/* Enhance cards with subtle 3D effects */
 .profile-card,
 .experience-card,
 .skills-card,
@@ -139,7 +139,7 @@ ion-content {
     }
 }
 
-// Add different icons for each card type
+/* Add different icons for each card type */
 .experience-card::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='rgba(0,198,255,0.2)' stroke-width='1'%3E%3Crect x='2' y='7' width='20' height='14' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16'%3E%3C/path%3E%3C/svg%3E") !important;
 }
@@ -152,7 +152,7 @@ ion-content {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24' fill='none' stroke='rgba(0,198,255,0.2)' stroke-width='1'%3E%3Cpath d='M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z'%3E%3C/path%3E%3C/svg%3E") !important;
 }
 
-// Enhancement for hover effects on card headers
+/* Enhancement for hover effects on card headers */
 ion-card-header {
     position: relative;
     overflow: hidden;
@@ -181,7 +181,7 @@ ion-card-header {
     width: 100%;
 }
 
-// Header & Translation Button
+/* Header & Translation Button */
 ion-toolbar {
     --background: linear-gradient(135deg, #141e30, #243b55);
 
@@ -201,7 +201,7 @@ ion-toolbar {
     backdrop-filter: blur(5px);
 }
 
-// Profile Card
+/* Profile Card */
 .profile-card {
     --background: linear-gradient(135deg, rgba(39, 60, 117, 0.7), rgba(25, 42, 86, 0.7));
     border-radius: var(--card-radius);
@@ -232,7 +232,7 @@ ion-toolbar {
     }
 }
 
-// Experience Card
+/* Experience Card */
 .experience-card {
     --background: linear-gradient(135deg, rgba(30, 55, 153, 0.7), rgba(37, 67, 117, 0.7));
     border-radius: var(--card-radius);
@@ -309,7 +309,7 @@ ion-toolbar {
     }
 }
 
-// Job item hover effect for Modal Effect Experience Card
+/* Job item hover effect for Modal Effect Experience Card */
 .job-item {
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -319,7 +319,7 @@ ion-toolbar {
     }
 }
 
-// Project Modal Styles
+/* Project Modal Styles */
 .project-modal {
     --background: #141e30;
     --height: 90%;
@@ -378,7 +378,7 @@ ion-toolbar {
     }
 }
 
-// Make sure swiper navigation and pagination are visible on dark background
+/* Make sure swiper navigation and pagination are visible on dark background */
 ::ng-deep .swiper-button-next,
 ::ng-deep .swiper-button-prev {
     color: white !important;
@@ -393,7 +393,7 @@ ion-toolbar {
     opacity: 1;
 }
 
-// Skills Card
+/* Skills Card */
 .skills-card {
     --background: linear-gradient(135deg, rgba(28, 58, 148, 0.7), rgba(20, 46, 123, 0.7));
     border-radius: var(--card-radius);
@@ -452,7 +452,7 @@ ion-toolbar {
     }
 }
 
-// TypingSpeed Card
+/* TypingSpeed Card */
 .typing-speed-card {
     --background: linear-gradient(135deg, rgba(25, 50, 140, 0.7), rgba(18, 40, 113, 0.7));
     border-radius: var(--card-radius);
@@ -494,7 +494,7 @@ ion-toolbar {
     }
 }
 
-// Recommendations Card
+/* Recommendations Card */
 .recommendations-card {
     --background: linear-gradient(135deg, rgba(25, 50, 140, 0.7), rgba(18, 40, 113, 0.7));
     border-radius: var(--card-radius);
@@ -504,12 +504,12 @@ ion-toolbar {
     padding: 20px;
 
     .recommendation-link {
-        text-decoration: none; // Removes the default underline
-        color: inherit; // Maintains the existing text color
-        display: block; // Ensures the entire slide is clickable
+        text-decoration: none; /* Removes the default underline */
+        color: inherit; /* Maintains the existing text color */
+        display: block; /* Ensures the entire slide is clickable */
 
         &:hover {
-            text-decoration: none; // Ensures no underline on hover
+            text-decoration: none; /* Ensures no underline on hover */
         }
     }
 
@@ -582,7 +582,7 @@ ion-toolbar {
     }
 }
 
-// Animation Effects
+/* Animation Effects */
 @keyframes glow {
     0% {
         box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
@@ -829,7 +829,7 @@ ion-toolbar {
         }
     }
 
-    // Reduce intensity of animations for better performance on mobile
+    /* Reduce intensity of animations for better performance on mobile */
     @keyframes float {
         0% {
             transform: translateY(0) rotate(0deg);
@@ -1165,7 +1165,7 @@ ion-toolbar {
         margin-bottom: 5px;
     }
 
-    // Simplify animations for better performance on small devices
+    /* Simplify animations for better performance on small devices */
     @keyframes float {
         0% {
             transform: translateY(0);

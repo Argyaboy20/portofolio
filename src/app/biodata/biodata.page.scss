@@ -1370,20 +1370,16 @@ section {
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 100vh;
-        /* Force it to use the full viewport height */
-        padding: -5px;
-        /* Add some padding around the image */
+        height: 100vh; /* Force it to use the full viewport height */
+        padding: -5px; /* Add some padding around the image */
         box-sizing: border-box;
 
         .full-size-image {
             max-width: 95%;
             max-height: 80vh;
             object-fit: contain;
-            margin: auto;
-            /* Center in the available space */
-            position: static;
-            /* Remove any absolute positioning */
+            margin: auto; /* Center in the available space */
+            position: static; /* Remove any absolute positioning */
             transform-origin: center;
 
             &.zoomed {

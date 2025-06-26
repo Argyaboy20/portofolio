@@ -15,7 +15,7 @@ export class RelawanPage implements OnInit {
   renderer: any;
   shapes: any[] = [];
   
-  // Gallery modal properties
+  /* Gallery modal properties */
   isGalleryOpen = false;
   currentGalleryPhotos: any[] = [];
   
@@ -120,12 +120,12 @@ export class RelawanPage implements OnInit {
   ];
 
   constructor() {
-    // Register Swiper custom elements
+    /* Register Swiper custom elements */
     register();
   }
 
   ngOnInit() {
-    // Initialize 3D background after component loads
+    /* Initialize 3D background after component loads */
     setTimeout(() => {
       this.init3DBackground();
     }, 100);
@@ -135,7 +135,7 @@ export class RelawanPage implements OnInit {
     this.currentLang = this.currentLang === 'id' ? 'en' : 'id';
   }
 
-  // Gallery modal functions
+  /* Gallery modal functions */
   openGallery(experience: any) {
     this.currentGalleryPhotos = experience.photos;
     this.isGalleryOpen = true;
@@ -146,39 +146,39 @@ export class RelawanPage implements OnInit {
   }
 
   init3DBackground() {
-    // Create scene
+    /* Create scene */
     this.scene = new THREE.Scene();
     
-    // Setup camera
+    /* Setup camera */
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.z = 20;
     
-    // Setup renderer
+    /* Setup renderer */
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setClearColor(0x000000, 0);
     
-    // Append renderer to container
+    /* Append renderer to container */
     const container = document.getElementById('canvas-container');
     if (container) {
       container.appendChild(this.renderer.domElement);
     }
     
-    // Create volunteer-themed 3D objects
+    /* Create volunteer-themed 3D objects */
     this.createVolunteerObjects();
     
-    // Handle window resize
+    /* Handle window resize */
     window.addEventListener('resize', this.onWindowResize.bind(this), false);
     
-    // Start animation
+    /* Start animation */
     this.animate();
   }
   
   createVolunteerObjects() {
-    // Colors from our theme
+    /* Colors from our theme */
     const colors = [0x6da0e1, 0xede2e0, 0xff7e67];
     
-    // Heart shape (symbolizing care and compassion)
+    /* Heart shape (symbolizing care and compassion) */
     const heartShape = new THREE.Shape();
     heartShape.moveTo(0, 2);
     heartShape.bezierCurveTo(2, 2, 2, -1, 0, -2);
@@ -193,7 +193,7 @@ export class RelawanPage implements OnInit {
       bevelThickness: 0.1
     });
     
-    // Create 5 hearts
+    /* Create 5 hearts */
     for (let i = 0; i < 5; i++) {
       const heart = new THREE.Mesh(
         heartGeometry,
@@ -228,10 +228,10 @@ export class RelawanPage implements OnInit {
       });
     }
     
-    // Hands shape (symbolizing help)
+    /* Hands shape (symbolizing help) */
     const handGeometry = new THREE.SphereGeometry(1, 32, 32);
     
-    // Create 5 hands
+    /* Create 5 hands */
     for (let i = 0; i < 5; i++) {
       const hand = new THREE.Mesh(
         handGeometry,
@@ -262,10 +262,10 @@ export class RelawanPage implements OnInit {
       });
     }
     
-    // Book shape (symbolizing education and knowledge)
+    /* Book shape (symbolizing education and knowledge) */
     const bookGeometry = new THREE.BoxGeometry(2, 3, 0.3);
     
-    // Create 5 books
+    /* Create 5 books */
     for (let i = 0; i < 5; i++) {
       const book = new THREE.Mesh(
         bookGeometry,
@@ -301,19 +301,19 @@ export class RelawanPage implements OnInit {
   animate() {
     requestAnimationFrame(this.animate.bind(this));
     
-    // Animate each shape
+    /* Animate each shape */
     this.shapes.forEach(shape => {
-      // Rotate shapes
+      /* Rotate shapes */
       shape.mesh.rotation.x += shape.rotationSpeed.x;
       shape.mesh.rotation.y += shape.rotationSpeed.y;
       shape.mesh.rotation.z += shape.rotationSpeed.z;
       
-      // Move shapes
+      /* Move shapes */
       shape.mesh.position.x += shape.movementSpeed.x;
       shape.mesh.position.y += shape.movementSpeed.y;
       shape.mesh.position.z += shape.movementSpeed.z;
       
-      // Boundary check and reverse direction if needed
+      /* Boundary check and reverse direction if needed */
       if (Math.abs(shape.mesh.position.x) > 20) {
         shape.movementSpeed.x *= -1;
       }

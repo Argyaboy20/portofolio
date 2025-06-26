@@ -150,9 +150,7 @@ export class LocanaPage implements OnInit {
     this.detectPreferredLanguage();
   }
 
-  /**
-   * Detect user's preferred language based on browser settings
-   */
+  /* Detect user's preferred language based on browser settings */
   detectPreferredLanguage() {
     /* Get browser language preference if available */
     const browserLang = navigator.language;
@@ -163,29 +161,23 @@ export class LocanaPage implements OnInit {
     }
   }
 
-  /**
-   * Toggle between Indonesian and English languages
-   */
+  /* Toggle between Indonesian and English languages */
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
   }
 
-  /**
-   * Open image modal with selected image details
-   * @param image - The image object to display in modal
-   */
+  /** Open image modal with selected image details
+   @param image - The image object to display in modal */
   openImageModal(image: any) {
     this.selectedImage = image;
     this.isImageModalOpen = true;
   }
 
-  /**
-   * Close the image modal
-   */
+  /* Close the image modal */
   closeImageModal() {
     this.isImageModalOpen = false;
     setTimeout(() => {
       this.selectedImage = null;
-    }, 300); // Reset after animation completes
+    }, 300); /* Reset after animation completes */
   }
 }

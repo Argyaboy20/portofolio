@@ -33,7 +33,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
   isPlaying: boolean = false;
   filteredPhotos: PhotoItem[] = [];
 
-  // Cache system
+  /* Cache system */
   private imageCache: Map<string, string> = new Map();
   private loadingImages: Map<string, boolean> = new Map();
   private observerAttached: boolean = false;
@@ -144,34 +144,34 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
   constructor(
     private platform: Platform,
     private zone: NgZone,
-    private router: Router // Tambahkan Router ke constructor
+    private router: Router
   ) {
     this.audio = new Audio('assets/audio/photograph.mp3');
     this.audio.loop = true;
 
-    // Preload audio
+    /* Preload audio */
     this.audio.preload = 'metadata';
 
-    // Inisialisasi cache dari localStorage jika ada
+    /* Inisialisasi cache dari localStorage jika ada */
     this.initializeCache();
   }
 
   ngOnInit() {
-    // Initialize filtered photos immediately
+    /* Initialize filtered photos immediately */
     this.updateFilteredPhotos();
 
-    // Defer image loading for better initial performance
+    /* Defer image loading for better initial performance */
     setTimeout(() => {
       this.preloadImages();
     }, 100);
 
-     // Tambahkan subscription untuk backbutton
+     /* Tambahkan subscription untuk backbutton */
      this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-      // Navigasi kembali ke halaman biodata
+      /* Navigasi kembali ke halaman biodata */
       this.router.navigate(['/biodata']);
     });
 
-     // Setup Intersection Observer for lazy loading
+     /* Setup Intersection Observer for lazy loading */
      this.setupIntersectionObserver();
   }
 
@@ -181,12 +181,12 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       this.audio.currentTime = 0;
     }
 
-    // Bersihkan subscription saat komponen dihancurkan
+    /* Bersihkan subscription saat komponen dihancurkan */
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
 
-    // Clean up observer
+    /* Clean up observer */
     if (this.imageObserver) {
       this.imageObserver.disconnect();
     }
@@ -196,7 +196,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     if (this.isPlaying) {
       this.audio.pause();
     } else {
-      // Use promise to handle play() properly
+      /* Use promise to handle play() properly */
       const playPromise = this.audio.play();
       if (playPromise !== undefined) {
         playPromise.catch(error => {
@@ -208,27 +208,27 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
   }
 
   updateFilteredPhotos() {
-    // Dapatkan elemen grid foto
+    /* Dapatkan elemen grid foto */
     const photoGrid = document.querySelector('.photo-grid');
     
-    // Tambahkan kelas untuk animasi fade out
+    /* Tambahkan kelas untuk animasi fade out */
     if (photoGrid) {
       photoGrid.classList.add('grid-fade-out');
     }
     
-    // Tunggu animasi fade out selesai sebelum mengubah data
+    /* Tunggu animasi fade out selesai sebelum mengubah data */
     setTimeout(() => {
-      // Use NgZone to ensure UI updates properly
+      /* Use NgZone to ensure UI updates properly */
       this.zone.run(() => {
         this.filteredPhotos = this.photos.filter(photo => photo.category === this.selectedCategory);
         
-        // Setelah data diperbarui, tambahkan animasi fade in
+        /* Setelah data diperbarui, tambahkan animasi fade in */
         setTimeout(() => {
           if (photoGrid) {
             photoGrid.classList.remove('grid-fade-out');
             photoGrid.classList.add('grid-fade-in');
             
-            // Reset kelas animasi setelah transisi selesai
+            /* Reset kelas animasi setelah transisi selesai */
             setTimeout(() => {
               if (photoGrid) {
                 photoGrid.classList.remove('grid-fade-in');
@@ -237,21 +237,21 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
           }
         }, 50);
       });
-    }, 200); // Waktu untuk animasi fade out
+    }, 200); /* Waktu untuk animasi fade out */
   }
 
   selectPhoto(photo: PhotoItem) {
-    // Ensure the full resolution image is loaded before showing
+    /* Ensure the full resolution image is loaded before showing */
     this.loadFullImage(photo).then(() => {
       this.selectedPhoto = photo;
-      // Navigate back to the galeri page
+      /* Navigate back to the galeri page */
       this.router.navigateByUrl('/galeri-kehidupan');
     });
   }
 
-  // Preload images in background for smoother experience
+  /* Preload images in background for smoother experience */
   private preloadImages() {
-    // Only preload visible category images first
+    /* Only preload visible category images first */
     const initialPhotos = this.filteredPhotos.slice(0, 4);
 
     initialPhotos.forEach(photo => {
@@ -259,14 +259,14 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     });
   }
   
-   // Initialize cache from localStorage
+   /* Initialize cache from localStorage */
    private initializeCache() {
     try {
       const cachedImages = localStorage.getItem('galeriImageCache');
       if (cachedImages) {
         this.imageCache = new Map(JSON.parse(cachedImages));
         
-        // Mark cached photos
+        /* Mark cached photos */
         this.photos.forEach(photo => {
           if (this.imageCache.has(photo.imageUrl)) {
             photo.cached = true;
@@ -275,20 +275,20 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       }
     } catch (error) {
       console.error('Error loading image cache:', error);
-      // Reset cache if corrupted
+      /* Reset cache if corrupted */
       this.imageCache = new Map();
       localStorage.removeItem('galeriImageCache');
     }
   }
   
-  // Save cache to localStorage
+  /* Save cache to localStorage */
   private saveCache() {
     try {
       localStorage.setItem('galeriImageCache', 
         JSON.stringify(Array.from(this.imageCache.entries())));
-    } catch (error: any) { // Type assertion untuk error
+    } catch (error: any) { /* Type assertion untuk error */
       console.error('Error saving image cache:', error);
-      // If storage is full, clear it and try again
+      /* If storage is full, clear it and try again */
       if (error.name === 'QuotaExceededError') {
         localStorage.clear();
         try {
@@ -301,7 +301,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     }
   }
   
-  // Create and setup intersection observer for lazy loading
+  /* Create and setup intersection observer for lazy loading */
   private setupIntersectionObserver() {
     if ('IntersectionObserver' in window) {
       this.imageObserver = new IntersectionObserver((entries, observer) => {
@@ -330,7 +330,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     }
   }
   
-  // Setup lazy loading for all images in the current view
+  /* Setup lazy loading for all images in the current view */
   private setupLazyLoading() {
     if (!this.imageObserver) return;
     
@@ -342,19 +342,19 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     }, 100);
   }
   
-  // Load full image with caching
+  /* Load full image with caching */
   private loadFullImage(photo: PhotoItem): Promise<void> {
     return new Promise((resolve) => {
-      // Skip if already loaded or being loaded
+      /* Skip if already loaded or being loaded */
       if (photo.loaded || this.loadingImages.get(photo.imageUrl)) {
         resolve();
         return;
       }
       
-      // Mark as loading
+      /* Mark as loading */
       this.loadingImages.set(photo.imageUrl, true);
       
-      // Check if image is in cache
+      /* Check if image is in cache */
       if (this.imageCache.has(photo.imageUrl)) {
         photo.loaded = true;
         photo.cached = true;
@@ -363,14 +363,14 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
         return;
       }
       
-      // Load the image
+      /* Load the image */
       const img = new Image();
       
       img.onload = () => {
         photo.loaded = true;
         photo.cached = true;
         
-        // Add to cache
+        /* Add to cache */
         this.cacheImage(photo.imageUrl);
         
         this.loadingImages.set(photo.imageUrl, false);
@@ -386,30 +386,30 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     });
   }
   
-  // Cache image URL in memory and localStorage
+  /* Cache image URL in memory and localStorage */
   private cacheImage(imageUrl: string): void {
-    // Add to memory cache
+    /* Add to memory cache */
     this.imageCache.set(imageUrl, imageUrl);
     
-    // Maintain cache size (max 30 images)
+    /* Maintain cache size (max 30 images) */
     if (this.imageCache.size > 30) {
       const oldestKey = Array.from(this.imageCache.keys())[0];
       this.imageCache.delete(oldestKey);
     }
     
-    // Update localStorage periodically instead of on every image
-    // to reduce performance impact
+    /* Update localStorage periodically instead of on every image */
+    /* to reduce performance impact* */
     if (this.imageCache.size % 5 === 0) {
       this.saveCache();
     }
   }
   
-  // Public method to clear the cache (can be called from template if needed)
+  /* Public method to clear the cache (can be called from template if needed) */
   clearImageCache() {
     this.imageCache = new Map();
     localStorage.removeItem('galeriImageCache');
     
-    // Reset loaded status
+    /* Reset loaded status */
     this.photos.forEach(photo => {
       photo.loaded = false;
       photo.cached = false;

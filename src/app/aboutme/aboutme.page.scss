@@ -1,11 +1,11 @@
 // Common variables
 :host {
   --toolbar-color: #2c3e50;
-  --background-color: #000; // Changed from #333 to black
+  --background-color: #000; /* Changed from #333 to black */
   --text-color: #fff;
   --accent-color: #3498db;
-  --container-background: transparent; // Changed from #fff to transparent
-  --text-dark: #fff; // Changed from #333 to white
+  --container-background: transparent; /* Changed from #fff to transparent */
+  --text-dark: #fff; /* Changed from #333 to white */
 }
 
 ion-toolbar {
@@ -31,7 +31,7 @@ ion-title {
   padding: 20px;
   background-color: var(--container-background);
   border-radius: 8px;
-  box-shadow: none; // Removed shadow
+  box-shadow: none; /* Removed shadow */
   color: var(--text-color);
   margin: 20px;
 }
@@ -40,7 +40,7 @@ ion-title {
   font-size: 32px;
   font-weight: 600;
   margin-bottom: 20px;
-  color: var(--text-color); // Changed to white
+  color: var(--text-color); /* Changed to white  */
   border-bottom: 2px solid var(--accent-color);
   padding-bottom: 10px;
 }
@@ -63,19 +63,19 @@ ion-title {
   h2 {
     font-size: 24px;
     margin-bottom: 10px;
-    color: var(--text-color); // Changed to white
+    color: var(--text-color); /* Changed to white */
   }
   
   p {
     line-height: 1.6;
-    margin-bottom: 20px; // Increased spacing between paragraphs
+    margin-bottom: 20px; /* Increased spacing between paragraphs */
     color: var(--text-color);
   }
   
   h3 {
     font-size: 20px;
     margin: 20px 0 10px;
-    color: var(--text-color); // Changed to white
+    color: var(--text-color); /* Changed to white */
   }
 }
 
@@ -100,9 +100,9 @@ ion-title {
   text-align: center;
   padding: 2px;
   font-size: 14px;
-  position: relative; // Changed from sticky
+  position: relative; /* Changed from sticky */
   width: 100%;
-  margin-top: 40px; // Added margin to push it down
+  margin-top: 40px; /* Added margin to push it down */
 }
 
 /* Scroll to top button styles - handled by ion-fab */

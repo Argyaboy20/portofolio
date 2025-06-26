@@ -13,7 +13,7 @@ inject();
   standalone: false,
 })
 export class AdminPage implements OnInit {
-  // Language toggle (ID/EN)
+  /* Language toggle (ID/EN) */
   language: 'id' | 'en' = 'id';
 
   // Modal properties
@@ -24,12 +24,12 @@ export class AdminPage implements OnInit {
     private modalController: ModalController,
     private router: Router
   ) {
-    // Register Swiper elements
+    /* Register Swiper elements */
     register();
   }
 
   ngOnInit() {
-    // Initialize with default language or user preference
+    /* Initialize with default language or user preference */
     this.checkUserLanguagePreference();
   }
 
@@ -50,7 +50,7 @@ export class AdminPage implements OnInit {
 • Creating a Draft Budget for later activities
 • Recording all incoming and outgoing transactions for the BM#8 program 
 • Coordinating fully, partially and self funded participants for briefing`,
-      // Project details for modal
+      /* Project details for modal */
       projectNameId: 'Administrasi Terpadu dan Optimal',
       projectNameEn: 'Integrated and Optimal Administration',
       projectDescId: `<p>Dalam pekerjaa ini menjabat sebagai sekretaris dan bendahara di Bakti Milenial#8 Labuan Bajo.</p>
@@ -82,7 +82,7 @@ export class AdminPage implements OnInit {
 • Memenuhi kebutuhan administrasi di divisi Kaptenusa Cloth, Jalan.in Trip, Inspiratrip, dan EduAction`,
       descriptionEn: `• Responsible for supporting the daily operations of Bakti Milenial in terms of general administration
 • Fulfill administrative needs in the Captainusa Cloth, Jalan.in Trip division, Inspiratrip, and EduAction`,
-      // Project details for modal
+      /* Project details for modal */
       projectNameId: 'Sistem Administrasi Terpadu',
       projectNameEn: 'Integrated Administrative System',
       projectDescId: `<p>Proyek ini melibatkan pengembangan dan implementasi sistem administrasi terpadu untuk mengelola operasional harian dari empat divisi Bakti Milenial: Kaptenusa Cloth, Jalan.in Trip, Inspiratrip, dan EduAction.</p>
@@ -117,7 +117,7 @@ export class AdminPage implements OnInit {
 • Ensure that always send job application's bootcamp students to various job portals per day by meeting the specified targets
 • Ask bootcamp students if there is any progress regarding job interview calls from applications that have been distributed every day
 • Train bootcamp students in job interviews through FGDs for material and mental preparation`,
-      // Project details for modal
+      /* Project details for modal */
       projectNameId: 'Sistem Pelacakan Karir Lulusan Bootcamp',
       projectNameEn: 'Bootcamp Graduate Career Tracking System',
       projectDescId: `<p>Proyek ini melibatkan pengembangan dan pengelolaan sistem komprehensif untuk melacak perkembangan karir lulusan bootcamp Eduwork. Fokus utama adalah memaksimalkan peluang penempatan kerja melalui aplikasi yang terorganisir dan pelatihan wawancara yang efektif.</p>
@@ -150,7 +150,7 @@ export class AdminPage implements OnInit {
       descriptionEn: `• Successfully managed and updated school data online to the Langkat Education Department
 • Managed and organized all school files and reports, resulting in a 10% efficiency improvement
 • Managed and implemented school financial reports, achieving 0% error rate`,
-      // Project details for modal
+      /* Project details for modal */
       projectNameId: 'Sistem Informasi Manajemen Sekolah',
       projectNameEn: 'School Management Information System',
       projectDescId: `<p>Proyek ini berfokus pada modernisasi sistem administrasi sekolah dan pengembangan sistem informasi manajemen yang efisien untuk SMP Swasta Yayasan Pendidikan Pangkalan Susu.</p>
@@ -176,7 +176,7 @@ export class AdminPage implements OnInit {
     }
   ];
 
-  // Administrative Skills
+  /* Administrative Skills */
   adminTools = [
     {
       nameId: 'Google Docs',
@@ -216,8 +216,8 @@ export class AdminPage implements OnInit {
       nameId: 'Trello',
       nameEn: 'Trello',
       icon: 'albums-outline',
-      isCustomIcon: true, // tambahkan flag untuk mengidentifikasi icon kustom
-      customIconPath: 'assets/icon/Trello.png', // path ke icon kustom
+      isCustomIcon: true, /* tambahkan flag untuk mengidentifikasi icon kustom */
+      customIconPath: 'assets/icon/Trello.png', 
       color: 'dark'
     },
     {
@@ -236,13 +236,13 @@ export class AdminPage implements OnInit {
       nameId: 'WBSPro',
       nameEn: 'WBSPro',
       icon: 'albums-outline',
-      isCustomIcon: true, // tambahkan flag untuk mengidentifikasi icon kustom
-      customIconPath: 'assets/icon/wbspro.png', // path ke icon kustom
+      isCustomIcon: true, /* tambahkan flag untuk mengidentifikasi icon kustom */
+      customIconPath: 'assets/icon/wbspro.png',
       color: 'light'
     }
   ];
 
-  // Recommendations
+  /* Recommendations */
   recommendations = [
     {
       name: 'Qhoifa Fawziah Aulia Keysha',
@@ -262,14 +262,14 @@ export class AdminPage implements OnInit {
     },
   ];
 
-  // Toggle between Indonesian and English
+  /* Toggle between Indonesian and English */
   toggleLanguage() {
     this.language = this.language === 'id' ? 'en' : 'id';
-    // Save language preference
+    /* Save language preference */
     localStorage.setItem('preferredLanguage', this.language);
   }
 
-  // Check user's previously saved language preference
+  /* Check user's previously saved language preference */
   checkUserLanguagePreference() {
     const savedLanguage = localStorage.getItem('preferredLanguage');
     if (savedLanguage === 'id' || savedLanguage === 'en') {
@@ -277,17 +277,17 @@ export class AdminPage implements OnInit {
     }
   }
 
-  // Open project modal
+  /* Open project modal */
   openProjectModal(index: number) {
     this.currentProject = this.workExperience[index];
     this.showProjectModal = true;
   }
   
-  // Close project modal
+  /* Close project modal */
   closeProjectModal() {
     this.showProjectModal = false;
     this.currentProject = null;
-    // Navigate back to the admin page
+    /* Navigate back to the admin page */
     this.router.navigateByUrl('/admin');
   }
 }

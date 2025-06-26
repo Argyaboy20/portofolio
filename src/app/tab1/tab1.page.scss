@@ -66,7 +66,7 @@ ion-toolbar {
             transition: all 0.3s ease;
             animation: buttonSlideIn 0.5s ease forwards;
 
-            // Add pseudo-element for hover effect
+            /* Add pseudo-element for hover effect */
             &::before {
                 content: '';
                 position: absolute;
@@ -111,7 +111,7 @@ ion-toolbar {
     }
 }
 
-// Keyframes for button hover effect
+/* Keyframes for button hover effect */
 @keyframes buttonSlideIn {
     0% {
         opacity: 0;
@@ -290,7 +290,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-// Animated background elements
+/* Animated background elements */
 .bg-elements {
     position: absolute;
     top: 0;
@@ -753,7 +753,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     text-decoration: none;
 }
 
-// Education section styling
+/* Education section styling */
 .education-timeline {
     position: relative;
     padding: 1rem 0;
@@ -905,7 +905,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         position: relative;
 
-        // Stop propagation to prevent immediate closing when clicking inside
+        /* Stop propagation to prevent immediate closing when clicking inside */
         &:click {
             pointer-events: none;
         }
@@ -964,7 +964,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-// Add animation for modal entrance
+/* Add animation for modal entrance */
 @keyframes modalFadeIn {
     from {
         opacity: 0;
@@ -1007,7 +1007,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         position: relative;
 
-        // Stop propagation to prevent immediate closing when clicking inside
+        /* Stop propagation to prevent immediate closing when clicking inside */
         &:click {
             pointer-events: none;
         }
@@ -1099,7 +1099,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-// Add animation for modal entrance
+/* Add animation for modal entrance */
 @keyframes modalFadeIn {
     from {
         opacity: 0;
@@ -1112,7 +1112,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-// Pulse animation for hourglass icon
+/* Pulse animation for hourglass icon */
 @keyframes pulse {
     0% {
         opacity: 0.6;
@@ -1424,7 +1424,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-// Career Section Styling
+/* Career Section Styling */
 #career {
     margin-top: 40px;
 
@@ -1542,7 +1542,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-// Volunteer Section Styles
+/* Volunteer Section Styles */
 #volunteer {
     margin-top: 35px;
     padding-top: 35px;
@@ -1824,8 +1824,7 @@ footer {
     .blog-title {
         &.mobile {
             font-size: 0.7rem;
-            transform: translateX(20px);
-            /* Increase right shift for Galaxy Fold */
+            transform: translateX(20px); /* Increase right shift for Galaxy Fold */
         }
     }
 
@@ -1971,7 +1970,7 @@ footer {
     }
 
     .left-panel {
-        width: 40%; // Slightly wider on very small screens
+        width: 40%; /* Slightly wider on very small screens */
     }
 
     .right-panel {
@@ -1982,22 +1981,18 @@ footer {
     #career {
         .career-container {
             .career-item {
-                padding: 18px;
-                /* Keep this padding */
+                padding: 18px; /* Keep this padding */
 
                 .career-icon {
                     width: 60px;
                     height: 60px;
-                    margin-right: 0;
-                    /* Change to 0 for column layout */
-                    margin-bottom: 16px;
-                    /* Add margin bottom instead */
+                    margin-right: 0; /* Change to 0 for column layout */
+                    margin-bottom: 16px; /* Add margin bottom instead */
                 }
 
                 /* Add appropriate size adjustments but don't change the core behavior */
                 .career-details {
-                    width: 100%;
-                    /* Ensure details take full width */
+                    width: 100%; /* Ensure details take full width */
                 }
             }
         }
@@ -2085,10 +2080,8 @@ footer {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-right: 0;
-                /* Change to 0 for column layout */
-                margin-bottom: 16px;
-                /* Add margin bottom instead */
+                margin-right: 0; /* Change to 0 for column layout */
+                margin-bottom: 16px; /* Add margin bottom instead */
 
                 ion-icon {
                     font-size: 1.7rem;
@@ -2161,7 +2154,7 @@ footer {
             top: 0;
             left: 0;
             z-index: 100;
-            height: 25vh; // 1/4 of viewport height
+            height: 25vh; /* 1/4 of viewport height */
             padding: 1rem;
             background-color: $bg-color-dark;
 
@@ -2218,11 +2211,11 @@ footer {
         padding: 2rem 1.5rem;
 
         &.panel-with-sticky {
-            margin-top: 25vh; // Match the sticky panel height
+            margin-top: 25vh; /* Match the sticky panel height */
         }
     }
 
-    // Ensure content remains visible when panel is sticky
+    /* Ensure content remains visible when panel is sticky */
     .section {
         margin-bottom: 2rem;
     }
@@ -2236,7 +2229,7 @@ footer {
     }
 
     .education-item {
-        flex-direction: row; // Keep it horizontal on mobile
+        flex-direction: row; /* Keep it horizontal on mobile */
         align-items: flex-start;
         padding: 1rem;
 
@@ -2468,7 +2461,7 @@ footer {
 }
 
 
-// Add scroll detection styles
+/* Add scroll detection styles */
 .scroll-detection {
     position: absolute;
     top: 0;
@@ -2717,10 +2710,8 @@ footer {
                 .career-icon {
                     width: 50px;
                     height: 50px;
-                    margin-right: 0;
-                    /* Change to 0 for column layout */
-                    margin-bottom: 15px;
-                    /* Add margin bottom instead */
+                    margin-right: 0; /* Change to 0 for column layout */
+                    margin-bottom: 15px; /* Add margin bottom instead */
                 }
             }
         }

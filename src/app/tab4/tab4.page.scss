@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
 
-// Modern color palette
+/* Modern color palette */
 $neon-blue: #00fff5;
 $neon-purple: #b537f2;
 $deep-space: #0a0a2a;
 $cosmic-grey: #1a1a3a;
 $star-white: #ffffff;
 
-// Global styles
+/* Global styles */
 ion-content {
     --background: #{$deep-space};
     font-family: 'Space Grotesk', sans-serif;
@@ -30,7 +30,7 @@ ion-toolbar {
     }
 }
 
-// Title styles
+/* Title styles */
 .title-container {
     position: relative;
     display: inline-flex;
@@ -58,7 +58,7 @@ ion-toolbar {
     text-shadow: 0 0 10px rgba($neon-purple, 0.5);
 }
 
-// 3D Floating cube animation
+/* 3D Floating cube animation */
 .floating-cube {
     position: absolute;
     right: -30px;
@@ -88,7 +88,7 @@ ion-toolbar {
     }
 }
 
-// Button styles
+/* Button styles */
 .nav-buttons {
 
     .lang-btn,
@@ -141,7 +141,7 @@ ion-toolbar {
     }
 }
 
-// Welcome text animation
+/* Welcome text animation */
 .welcome-text {
     padding: 2rem;
     text-align: center;
@@ -165,7 +165,7 @@ ion-toolbar {
     }
 }
 
-// Animations
+/* Animations */
 @keyframes floatCube {
 
     0%,
@@ -276,7 +276,7 @@ ion-toolbar {
     }
 }
 
-// Dev Tools Section
+/* Dev Tools Section */
 .dev-tools-section {
     padding: 2rem;
     text-align: center;
@@ -362,7 +362,7 @@ ion-toolbar {
     }
 }
 
-// Modal Styles
+/* Modal Styles */
 .project-modal {
     --width: 90%;
     --height: 90%;

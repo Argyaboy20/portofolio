@@ -38,11 +38,11 @@
     .header-icon {
         width: 24px;
         height: 24px;
-        // Added 3D effects
+        /* Added 3D effects */
         filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.3));
         transform-style: preserve-3d;
         perspective: 500px;
-        // Kept the original animation
+        /* Kept the original animation */
         animation: pulse 3s ease-in-out infinite;
     }
 
@@ -102,10 +102,8 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
-        
         /* Memperkecil ukuran font */
         font-size: 0.75rem; 
-        
         /* Menambah ketajaman teks */
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
@@ -228,7 +226,7 @@ ion-segment-button.segment-activated::before {
 
 .photo-card {
     perspective: 1000px;
-    aspect-ratio: 1; // Make it square
+    aspect-ratio: 1; /* Make it square */
     cursor: pointer;
     contain: layout style;
     animation: fadeIn 0.5s ease-out;
@@ -356,7 +354,7 @@ ion-segment-button.segment-activated::before {
     }
 }
 
-// Animasi untuk modal
+/* Animasi untuk modal */
 ion-modal {
     --height: 80%;
     --border-radius: 20px;

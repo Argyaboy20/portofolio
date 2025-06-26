@@ -11,7 +11,7 @@ import { Platform, IonContent } from '@ionic/angular';
 export class AboutmePage implements OnInit, OnDestroy {
 
    /* Language toggle properties */
-  isEnglish = false; // Default is Indonesian
+  isEnglish = false; /* Default is Indonesian */
 
   toggleLanguage() {
     this.isEnglish = !this.isEnglish;
@@ -31,7 +31,7 @@ export class AboutmePage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.detectMobileDevice();
-    // Reset scroll state saat masuk halaman
+    /* Reset scroll state saat masuk halaman */
     this.showScrollTop = false;
     
     this.platform.ready().then(() => {
@@ -40,7 +40,7 @@ export class AboutmePage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Reset state saat keluar halaman
+    /* Reset state saat keluar halaman */
     this.showScrollTop = false;
   }
 
@@ -73,7 +73,7 @@ export class AboutmePage implements OnInit, OnDestroy {
     const content = document.querySelector('ion-content');
     if (content && typeof (content as any).scrollToTop === 'function') {
       (content as any).scrollToTop(300);
-      // Delay hide button setelah animasi selesai
+      /* Delay hide button setelah animasi selesai */
       setTimeout(() => {
         this.showScrollTop = false;
       }, 350);
@@ -91,7 +91,7 @@ export class AboutmePage implements OnInit, OnDestroy {
         top: 0,
         behavior: 'smooth'
       });
-      // Delay hide button setelah animasi selesai
+      /* Delay hide button setelah animasi selesai */
       setTimeout(() => {
         this.showScrollTop = false;
       }, 350);

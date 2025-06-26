@@ -24,7 +24,7 @@ export class PrivacypolicyPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.detectMobileDevice();
-    // Reset scroll state saat masuk halaman
+    /* Reset scroll state saat masuk halaman */
     this.showScrollTop = false;
     
     this.platform.ready().then(() => {
@@ -33,7 +33,7 @@ export class PrivacypolicyPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Reset state saat keluar halaman
+    /* Reset state saat keluar halaman */
     this.showScrollTop = false;
   }
 
@@ -74,7 +74,7 @@ export class PrivacypolicyPage implements OnInit, OnDestroy {
     const content = document.querySelector('ion-content');
     if (content && typeof (content as any).scrollToTop === 'function') {
       (content as any).scrollToTop(300);
-      // Delay hide button setelah animasi selesai
+      /* Delay hide button setelah animasi selesai */
       setTimeout(() => {
         this.showScrollTop = false;
       }, 350);
@@ -92,7 +92,7 @@ export class PrivacypolicyPage implements OnInit, OnDestroy {
         top: 0,
         behavior: 'smooth'
       });
-      // Delay hide button setelah animasi selesai
+      /* Delay hide button setelah animasi selesai */
       setTimeout(() => {
         this.showScrollTop = false;
       }, 350);

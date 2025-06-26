@@ -50,7 +50,7 @@ interface Translations {
   en: TranslationKeys;
 }
 
-// Interface untuk image cache
+/* Interface untuk image cache */
 interface CachedImage {
   src: string;
   blob?: Blob;
@@ -74,22 +74,22 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   private eventListeners: Array<() => void> = [];
   isAwardsModalOpen = false;
   
-  // Zoom properties
+  /* Zoom properties */
   isImageZoomed = false;
   currentScale = 1;
   translateX = 0;
   translateY = 0;
   
-  // Properties untuk dragging
+  /* Properties untuk dragging */
   isDragging = false;
   startX = 0;
   startY = 0;
   lastTouchDistance = 0;
   
-  // Image cache properties
+  /* Image cache properties */
   private imageCache: Map<string, CachedImage> = new Map();
   private cachePriorityQueue: string[] = [];
-  private maxCacheSize = 15; // Maximum number of images to cache
+  private maxCacheSize = 15; /* Maximum number of images to cache */
   
   awards = [
     {
@@ -138,17 +138,17 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
-  // Tambahkan getter untuk menghitung jumlah awards
+  /* Tambahkan getter untuk menghitung jumlah awards */
   get awardsCount(): string {
     return `+${this.awards.length}`;
   }
 
-  // Add this helper method to get the text in the current language
+  /* Add this helper method to get the text in the current language */
   getAwardText(award: any, field: 'title' | 'description'): string {
     return award[field][this.currentLanguage];
   }
 
-  // Add these methods
+  /* Open Award Modal methods */
   openAwardsModal() {
     this.isAwardsModalOpen = true;
   }
@@ -156,11 +156,11 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   closeAwardsModal() {
     this.isAwardsModalOpen = false;
 
-    // Navigate back to the biodata page
+    /* Navigate back to the biodata page */
     this.router.navigateByUrl('/biodata');
   }
 
-  // Translation objects
+  /* Translation objects */
   translations: Translations = {
     id: {
       heroTitle: "Halo, Saya",
@@ -245,7 +245,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
 
   isGalleryModalOpen = false;
   currentGalleryImage = '';
-  currentLanguage: Language = 'id'; // Default language is Indonesian
+  currentLanguage: Language = 'id'; /* Default language is Indonesian */
 
   constructor(
     private postProvider: PostProvider,
@@ -257,23 +257,23 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-      // Check if any modal is open
+      /* Check if any modal is open */
       if (this.isAwardsModalOpen) {
         this.closeAwardsModal();
       } else if (this.isGalleryModalOpen) {
         this.closeGalleryModal();
       } else {
-        // Navigate back to tab1
-        this.router.navigate(['/tabs/tab1']);
+        /* Navigate back to tab1 */
+        this.router.navigate(['/']);
       }
     });
 
-    // Precache rotating photos
+    /* Precache rotating photos */
     this.rotatingPhotos.forEach(photo => {
       this.preloadImage(photo.src);
     });
 
-    // Precache award images
+    /* Precache award images */
     this.awards.forEach(award => {
       this.preloadImage(award.image);
     });
@@ -282,17 +282,16 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
 
     const scrollToContact = localStorage.getItem('scrollToContact');
     if (scrollToContact === 'true') {
-      // Clear the flag
+      /* Clear the flag */
       localStorage.removeItem('scrollToContact');
 
-      // Give the page time to render
+      /* Give the page time to render */
       setTimeout(() => {
         const contactSection = document.querySelector('.contact-section');
         if (contactSection) {
           contactSection.scrollIntoView({ behavior: 'smooth' });
 
-          // Show toast notification - using a simple check to determine language
-          // If you have currentLanguage in your BiodataPage, use it directly
+          /* Show toast notification - using a simple check to determine language */ 
           const isIndonesian = document.documentElement.lang === 'id' ||
             localStorage.getItem('currentLanguage') === 'id';
 
@@ -316,31 +315,31 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Clean up the subscription when the component is destroyed
+    /* Clean up the subscription when the component is destroyed */
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
 
     this.stopPhotoRotation();
     
-    // Clean up image cache
+    /* Clean up image cache */
     this.clearImageCache();
 
     this.cleanupEventListeners();
   }
 
-  // Metode untuk preload dan caching gambar
+  /* Metode untuk preload dan caching gambar */
   preloadImage(src: string): void {
-    // Jika gambar sudah dalam cache, prioritaskan
+    /* Jika gambar sudah dalam cache, prioritaskan */
     if (this.imageCache.has(src)) {
       const cachedImage = this.imageCache.get(src);
-      // Memindahkan ke depan dalam priority queue
+      /* Memindahkan ke depan dalam priority queue */
       this.cachePriorityQueue = this.cachePriorityQueue.filter(url => url !== src);
       this.cachePriorityQueue.unshift(src);
       return;
     }
 
-    // Buat entri cache baru
+    /* Buat entri cache baru */
     const cacheEntry: CachedImage = {
       src,
       isLoaded: false,
@@ -350,7 +349,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.imageCache.set(src, cacheEntry);
     this.cachePriorityQueue.push(src);
 
-    // Cek apakah cache melebihi kapasitas maksimum
+    /* Cek apakah cache melebihi kapasitas maksimum */
     if (this.cachePriorityQueue.length > this.maxCacheSize) {
       const oldestSrc = this.cachePriorityQueue.pop();
       if (oldestSrc) {
@@ -362,7 +361,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-    // Fetch gambar dan simpan sebagai blob
+    /* Fetch gambar dan simpan sebagai blob */
     fetch(src)
       .then(response => response.blob())
       .then(blob => {
@@ -384,7 +383,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  // Mendapatkan URL gambar (dari cache jika tersedia)
+  /* Mendapatkan URL gambar (dari cache jika tersedia) */
   getImageUrl(src: string): string {
     const cachedImage = this.imageCache.get(src);
     if (cachedImage && cachedImage.isLoaded && cachedImage.objectUrl) {
@@ -394,16 +393,16 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       return cachedImage.objectUrl;
     }
     
-    // Jika tidak ada dalam cache, preload dan gunakan URL asli
+    /* Jika tidak ada dalam cache, preload dan gunakan URL asli */
     if (!cachedImage) {
       this.preloadImage(src);
     }
     return src;
   }
 
-  // Membersihkan cache gambar
+  /* Membersihkan cache gambar */
   clearImageCache(): void {
-    // Revoke semua objectURL untuk mencegah memory leak
+    /* Revoke semua objectURL untuk mencegah memory leak */
     this.imageCache.forEach(entry => {
       if (entry.objectUrl) {
         URL.revokeObjectURL(entry.objectUrl);
@@ -417,7 +416,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     const sections = document.querySelectorAll('.animate-on-scroll');
     let lastScrollY = window.scrollY;
   
-    // Create a function to determine scroll direction
+    /* Create a function to determine scroll direction */
     const getScrollDirection = () => {
       const scrollY = window.scrollY;
       const direction = scrollY > lastScrollY ? 'down' : 'up';
@@ -435,7 +434,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       const scrollDirection = getScrollDirection();
       
       entries.forEach(entry => {
-        // Add a data attribute to track animation state
+        /* Add a data attribute to track animation state */
         if (!entry.target.hasAttribute('data-animated')) {
           entry.target.setAttribute('data-animated', 'false');
         }
@@ -443,18 +442,18 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
         const wasAnimated = entry.target.getAttribute('data-animated') === 'true';
         
         if (entry.isIntersecting) {
-          // Element is visible
+          /* Element is visible */
           entry.target.classList.add('animate');
           entry.target.classList.remove('animate-out');
           entry.target.setAttribute('data-animated', 'true');
         } else {
-          // Element is not visible
+          /* Element is not visible */
           if (scrollDirection === 'up' && wasAnimated) {
-            // Only apply fade-out when scrolling up and element was previously animated
+            /* Only apply fade-out when scrolling up and element was previously animated */
             entry.target.classList.add('animate-out');
             entry.target.classList.remove('animate');
           } else if (scrollDirection === 'down') {
-            // When scrolling down past an element, just remove animation classes
+            /* When scrolling down past an element, just remove animation classes */
             entry.target.classList.remove('animate');
             entry.target.classList.remove('animate-out');
           }
@@ -466,7 +465,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       sectionObserver.observe(section);
     });
   
-    // Also track scroll events for better direction detection
+    /* Also track scroll events for better direction detection */
     window.addEventListener('scroll', getScrollDirection);
   }
   
@@ -474,63 +473,63 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
   }
 
-  // Handle klik pada container
+  /* Handle klik pada container */
   handleContainerClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
     
-    // Jika klik langsung pada gambar
+    /* Jika klik langsung pada gambar */
     if (target.tagName === 'IMG') {
       this.toggleImageZoom(event);
     } else {
-      // Jika klik di luar gambar saat zoom aktif, reset zoom
+      /* Jika klik di luar gambar saat zoom aktif, reset zoom */
       if (this.isImageZoomed) {
         this.exitZoomMode();
       }
     }
   }
 
-  // Toggle zoom mode
+  /* Toggle zoom mode */
   toggleImageZoom(event: MouseEvent): void {
     event.stopPropagation();
     
     if (!this.isImageZoomed) {
       this.enterZoomMode(event);
     } else {
-      // Jika sudah dalam mode zoom, zoom in di titik klik
+      /* Jika sudah dalam mode zoom, zoom in di titik klik */
       this.zoomAtClickPoint(event);
     }
   }
 
-  // Masuk ke mode zoom
+  /* Masuk ke mode zoom */
   private enterZoomMode(event: MouseEvent): void {
     this.isImageZoomed = true;
     this.setupZoomControls();
     
-    // Zoom in di titik klik
+    /* Zoom in di titik klik */
     setTimeout(() => {
       this.zoomAtClickPoint(event);
-    }, 50); // Delay kecil untuk memastikan setup selesai
+    }, 50); /* Delay kecil untuk memastikan setup selesai */
   }
 
-  // Keluar dari mode zoom
+  /* Keluar dari mode zoom */
   private exitZoomMode(): void {
     this.isImageZoomed = false;
     this.resetZoom();
     this.cleanupEventListeners();
   }
 
-  // Zoom in di titik klik
+  /* Zoom in di titik klik */
    private zoomAtClickPoint(event: MouseEvent): void {
     if (!this.zoomableImage) return;
 
     const imgElement = this.zoomableImage.nativeElement;
     const rect = imgElement.getBoundingClientRect();
     
-    // Koordinat relatif terhadap gambar
+    /* Koordinat relatif terhadap gambar */
     const clickX = event.clientX - rect.left;
     const clickY = event.clientY - rect.top;
     
-    // Tentukan level zoom berdasarkan scale saat ini
+    /* Tentukan level zoom berdasarkan scale saat ini */
     let newScale: number;
     if (this.currentScale < 1.5) {
       newScale = 2;
@@ -539,7 +538,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     } else if (this.currentScale < 3.5) {
       newScale = 4;
     } else {
-      // Reset jika sudah terlalu besar
+      /* Reset jika sudah terlalu besar */
       newScale = 1;
       this.translateX = 0;
       this.translateY = 0;
@@ -553,32 +552,32 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Setup zoom controls dan event listeners
+  /* Setup zoom controls dan event listeners */
   private setupZoomControls(): void {
     if (!this.zoomableImage || !this.imageContainer) return;
     
     const imgElement = this.zoomableImage.nativeElement;
     const containerElement = this.imageContainer.nativeElement;
     
-    // Reset posisi dan scale
+    /* Reset posisi dan scale */
     this.currentScale = 1;
     this.translateX = 0;
     this.translateY = 0;
     this.applyTransform();
     
-    // Setup event listeners
+    /* Setup event listeners */
     this.setupMouseEvents(imgElement, containerElement);
     this.setupTouchEvents(imgElement, containerElement);
     this.setupWheelEvent(imgElement);
     
-    // Tambahkan styling
+    /* Tambahkan styling */
     this.renderer.addClass(imgElement, 'zoomable-active');
     this.renderer.addClass(containerElement, 'zoom-mode');
   }
   
-   // Setup mouse events
+   /* Setup mouse events */
   private setupMouseEvents(imgElement: HTMLElement, containerElement: HTMLElement): void {
-    // Mouse down - start dragging
+    /* Mouse down - start dragging */
     const onMouseDown = (e: MouseEvent) => {
       if (!this.isImageZoomed || this.currentScale <= 1) return;
       
@@ -590,14 +589,14 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       e.preventDefault();
     };
     
-    // Mouse move - drag image
+    /* Mouse move - drag image */
     const onMouseMove = (e: MouseEvent) => {
       if (!this.isDragging || !this.isImageZoomed) return;
       
       const newTranslateX = e.clientX - this.startX;
       const newTranslateY = e.clientY - this.startY;
       
-      // Apply boundaries to prevent dragging too far
+      /* Apply boundaries to prevent dragging too far */
       const boundedTranslate = this.applyBoundaries(newTranslateX, newTranslateY);
       this.translateX = boundedTranslate.x;
       this.translateY = boundedTranslate.y;
@@ -606,7 +605,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       e.preventDefault();
     };
     
-    // Mouse up - stop dragging
+    /* Mouse up - stop dragging */
     const onMouseUp = () => {
       if (this.isDragging) {
         this.isDragging = false;
@@ -614,7 +613,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       }
     };
 
-    // Add event listeners dan simpan referensi untuk cleanup
+    /* Add event listeners dan simpan referensi untuk cleanup */
     imgElement.addEventListener('mousedown', onMouseDown);
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
@@ -626,7 +625,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     );
   }
   
-  // Setup touch events
+  /* Setup touch events */
   private setupTouchEvents(imgElement: HTMLElement, containerElement: HTMLElement): void {
     let lastTouchX = 0;
     let lastTouchY = 0;
@@ -637,14 +636,14 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       if (!this.isImageZoomed) return;
       
       if (e.touches.length === 1) {
-        // Single touch - start pan
+        /* Single touch - start pan */
         this.isDragging = true;
         this.startX = e.touches[0].clientX - this.translateX;
         this.startY = e.touches[0].clientY - this.translateY;
         lastTouchX = e.touches[0].clientX;
         lastTouchY = e.touches[0].clientY;
       } else if (e.touches.length === 2) {
-        // Two fingers - start pinch
+        /* Two fingers - start pinch */
         this.isDragging = false;
         initialPinchDistance = this.getTouchDistance(e.touches);
         initialScale = this.currentScale;
@@ -657,7 +656,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       if (!this.isImageZoomed) return;
       
       if (e.touches.length === 1 && this.isDragging) {
-        // Single touch - pan
+        /* Single touch - pan */
         const newTranslateX = e.touches[0].clientX - this.startX;
         const newTranslateY = e.touches[0].clientY - this.startY;
         
@@ -667,12 +666,12 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
         
         this.applyTransform();
       } else if (e.touches.length === 2 && initialPinchDistance > 0) {
-        // Two fingers - pinch zoom
+        /* Two fingers - pinch zoom */
         const currentDistance = this.getTouchDistance(e.touches);
         const scaleChange = currentDistance / initialPinchDistance;
         const newScale = Math.max(0.5, Math.min(5, initialScale * scaleChange));
         
-        // Get midpoint of touches
+        /* Get midpoint of touches */
         const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
         const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
         const rect = imgElement.getBoundingClientRect();
@@ -690,7 +689,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       }
     };
 
-    // Add event listeners
+    /* Add event listeners */
     imgElement.addEventListener('touchstart', onTouchStart, { passive: false });
     imgElement.addEventListener('touchmove', onTouchMove, { passive: false });
     imgElement.addEventListener('touchend', onTouchEnd);
@@ -702,7 +701,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     );
   }
   
-  // Setup wheel event for zoom
+  /* Setup wheel event for zoom */
   private setupWheelEvent(imgElement: HTMLElement): void {
     const onWheel = (e: WheelEvent) => {
       if (!this.isImageZoomed) return;
@@ -711,7 +710,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       const mouseX = e.clientX - rect.left;
       const mouseY = e.clientY - rect.top;
       
-      // Zoom in/out dengan wheel
+      /* Zoom in/out dengan wheel */
       const zoomIntensity = 0.1;
       const wheel = e.deltaY < 0 ? 1 : -1;
       const zoom = Math.exp(wheel * zoomIntensity);
@@ -725,7 +724,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.eventListeners.push(() => imgElement.removeEventListener('wheel', onWheel));
   }
 
-  // Helper: Get distance between two touches
+  /* Helper: Get distance between two touches */
   private getTouchDistance(touches: TouchList): number {
     return Math.hypot(
       touches[0].clientX - touches[1].clientX,
@@ -733,18 +732,18 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     );
   }
   
- // Zoom at specific point
+ /* Zoom at specific point */
   private zoomAtPoint(x: number, y: number, newScale: number): void {
     if (!this.zoomableImage) return;
     
-    // Calculate new translation to keep the point under cursor/finger
+    /* Calculate new translation to keep the point under cursor/finger */
     const scaleRatio = newScale / this.currentScale;
     const newTranslateX = x - (x - this.translateX) * scaleRatio;
     const newTranslateY = y - (y - this.translateY) * scaleRatio;
     
     this.currentScale = newScale;
     
-    // Apply boundaries
+    /* Apply boundaries */
     const boundedTranslate = this.applyBoundaries(newTranslateX, newTranslateY);
     this.translateX = boundedTranslate.x;
     this.translateY = boundedTranslate.y;
@@ -752,7 +751,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.applyTransform();
   }
 
-  // Apply boundaries to prevent over-panning
+  /* Apply boundaries to prevent over-panning */
   private applyBoundaries(translateX: number, translateY: number): { x: number, y: number } {
     if (!this.zoomableImage || !this.imageContainer) {
       return { x: translateX, y: translateY };
@@ -764,22 +763,22 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     const imgRect = imgElement.getBoundingClientRect();
     const containerRect = containerElement.getBoundingClientRect();
     
-    // Calculate scaled dimensions
+    /* Calculate scaled dimensions */
     const scaledWidth = imgElement.naturalWidth * this.currentScale;
     const scaledHeight = imgElement.naturalHeight * this.currentScale;
     
-    // Calculate boundaries
+    /* Calculate boundaries */
     const maxTranslateX = Math.max(0, (scaledWidth - containerRect.width) / 2);
     const maxTranslateY = Math.max(0, (scaledHeight - containerRect.height) / 2);
     
-    // Apply boundaries
+    /* Apply boundaries */
     const boundedX = Math.max(-maxTranslateX, Math.min(maxTranslateX, translateX));
     const boundedY = Math.max(-maxTranslateY, Math.min(maxTranslateY, translateY));
     
     return { x: boundedX, y: boundedY };
   }
   
-  // Apply transform to image
+  /* Apply transform to image */
   private applyTransform(): void {
     if (!this.zoomableImage) return;
     
@@ -790,7 +789,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.renderer.setStyle(imgElement, 'transform-origin', 'center center');
   }
 
-   // Manual zoom controls
+   /* Manual zoom controls */
   zoomIn(): void {
     if (!this.isImageZoomed) return;
     
@@ -817,7 +816,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
   
-  // Reset zoom
+  /* Reset zoom */
   resetZoom(): void {
     this.currentScale = 1;
     this.translateX = 0;
@@ -834,7 +833,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Cleanup event listeners
+  /* Cleanup event listeners */
   private cleanupEventListeners(): void {
     this.eventListeners.forEach(cleanup => cleanup());
     this.eventListeners = [];
@@ -845,10 +844,10 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openGalleryModal(imageSrc: string) {
-    // Preload image when opening modal
+    /* Preload image when opening modal */
     this.preloadImage(imageSrc);
     
-    // Use cached image if available
+    /* Use cached image if available */
     this.currentGalleryImage = this.getImageUrl(imageSrc);
     this.isGalleryModalOpen = true;
   }
@@ -858,14 +857,14 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     this.exitZoomMode();
   }
 
-  //Gallery Rotates
+  /* Gallery Rotates */
   startPhotoRotation() {
-    // Set initial photo
+    /* Set initial photo */
     this.updateCurrentPhoto();
 
-    // Start progress animation
-    const rotationDuration = 5000; // 5 seconds per photo
-    const updateInterval = 50; // Update progress every 50ms
+    /* Start progress animation */
+    const rotationDuration = 5000; /* 5 seconds per photo */
+    const updateInterval = 50; /* Update progress every 50ms */
     let progress = 0;
 
     this.photoRotationInterval = setInterval(() => {
@@ -873,7 +872,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       this.photoProgressPercentage = (progress / rotationDuration) * 100;
 
       if (progress >= rotationDuration) {
-        // Move to next photo
+        /* Move to next photo */
         this.currentPhotoIndex = (this.currentPhotoIndex + 1) % this.rotatingPhotos.length;
         this.updateCurrentPhoto();
         progress = 0;
@@ -890,11 +889,11 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   updateCurrentPhoto() {
     const photo = this.rotatingPhotos[this.currentPhotoIndex];
     
-    // Preload next photo
+    /* Preload next photo */
     const nextIndex = (this.currentPhotoIndex + 1) % this.rotatingPhotos.length;
     this.preloadImage(this.rotatingPhotos[nextIndex].src);
     
-    // Use cached image if available
+    /* Use cached image if available */
     this.currentRotatingPhoto = this.getImageUrl(photo.src);
     this.currentPhotoCaption = photo.caption;
   }

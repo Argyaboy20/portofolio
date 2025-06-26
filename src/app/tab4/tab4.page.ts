@@ -61,7 +61,7 @@ export class Tab4Page implements OnInit, OnDestroy {
       details: 'Form untuk melakukan edit data transaksi atau hutang',
       techStack: ['General Libraries', 'Firebase Auth']
     },
-    // Add other project images similarly
+    /* Other project images similarly */
   ];
 
   developmentTools: DevTool[] = [
@@ -99,18 +99,18 @@ export class Tab4Page implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-      // Check if modal is open
+      /* Check if modal is open */
       if (this.isModalOpen) {
         this.closeModal();
       } else {
-        // Navigate back to tab1
-        this.router.navigate(['/tabs/tab1']);
+        /* Navigate back to tab1 */
+        this.router.navigate(['/']);
       }
     });
   }
 
   ngOnDestroy() {
-    // Clean up the subscription when the component is destroyed
+    /* Clean up the subscription when the component is destroyed */
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
@@ -129,7 +129,7 @@ export class Tab4Page implements OnInit, OnDestroy {
     this.isModalOpen = false;
     this.selectedProject = null;
 
-    // Navigate back to the tab4 page
-    this.router.navigateByUrl('/tabs/tab4');
+    /* Navigate back to the tab4 page */
+    this.router.navigateByUrl('/aplikasir');
   }
 }
