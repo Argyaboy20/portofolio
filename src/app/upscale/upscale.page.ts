@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { inject } from "@vercel/analytics"
+
+inject();
 
 @Component({
   selector: 'app-upscale',

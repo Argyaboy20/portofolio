@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as THREE from 'three';
 import { register } from 'swiper/element/bundle';
+import { inject } from "@vercel/analytics";
+
+inject();
 
 @Component({
   selector: 'app-relawan',

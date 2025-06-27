@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform, IonContent } from '@ionic/angular';
+import { inject } from "@vercel/analytics";
+
+inject();
 
 @Component({
   selector: 'app-privacypolicy',
