@@ -7,10 +7,6 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./tab1/tab1.module').then( m => m.Tab1PageModule)
-  },
-  {
     path: 'pertanianmobile',
     loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
   },
@@ -41,7 +37,8 @@ const routes: Routes = [
   {
     path: 'locana',
     loadChildren: () => import('./locana/locana.module').then( m => m.LocanaPageModule)
-  },  {
+  },
+  {
     path: 'aboutme',
     loadChildren: () => import('./aboutme/aboutme.module').then( m => m.AboutmePageModule)
   },

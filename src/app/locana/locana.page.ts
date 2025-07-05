@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { inject } from "@vercel/analytics"
+import { inject } from "@vercel/analytics";
 
 inject();
 
@@ -146,12 +146,14 @@ export class LocanaPage implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    /* Initialize component */
-    this.detectPreferredLanguage();
   }
+
+  ionViewWillEnter() {
+  this.detectPreferredLanguage();
+}
 
   /* Detect user's preferred language based on browser settings */
   detectPreferredLanguage() {
