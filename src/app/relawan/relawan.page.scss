@@ -149,7 +149,11 @@ ion-toolbar {
         cursor: pointer;
         font-size: 20px;
         text-align: center;
-        margin-left: 7.3rem;
+        width: 100%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 
@@ -220,19 +224,19 @@ swiper-slide {
         max-width: 90%;
         padding: 1.5rem;
     }
-    
+
     .title {
         font-size: 2.2rem;
     }
-    
+
     ion-card-title.position {
         font-size: 1.3rem;
     }
-    
+
     ion-card-subtitle.organization {
         font-size: 1.1rem;
     }
-    
+
     .gallery-image {
         max-height: 65vh;
     }
@@ -244,36 +248,36 @@ swiper-slide {
         max-width: 95%;
         padding: 1.2rem;
     }
-    
+
     .title {
         font-size: 2rem;
         margin-bottom: 1.5rem;
     }
-    
+
     ion-card.experience-card {
         margin-bottom: 1.5rem;
     }
-    
+
     ion-card-title.position {
         font-size: 1.2rem;
     }
-    
+
     ion-card-subtitle.organization {
         font-size: 1rem;
     }
-    
+
     .description li {
         margin-bottom: 0.6rem;
     }
-    
+
     .photo-container {
         padding: 15px;
     }
-    
+
     .gallery-image {
         max-height: 60vh;
     }
-    
+
     .photo-caption {
         font-size: 13px;
         padding: 6px 12px;
@@ -287,6 +291,17 @@ swiper-slide {
         max-width: 100%;
     }
 
+     ion-toolbar ion-title {
+        position: relative;
+        left: auto;
+        top: auto;
+        transform: none;
+        margin-left: 0;
+        padding: 0 1rem;
+        font-size: 16px;
+        width: 100%;
+    }
+
     .title {
         font-size: 1.8rem;
         margin-bottom: 1.2rem;
@@ -296,46 +311,46 @@ swiper-slide {
         margin: 1rem;
         margin-bottom: 1.2rem;
     }
-    
+
     ion-card-title.position {
         font-size: 1.1rem;
     }
-    
+
     ion-card-subtitle.organization {
         font-size: 0.95rem;
     }
-    
+
     .period {
         font-size: 0.8rem;
     }
-    
+
     .description ul {
         padding-left: 1.2rem;
     }
-    
+
     .description li {
         font-size: 0.9rem;
         margin-bottom: 0.5rem;
     }
-    
+
     .description p {
         font-size: 0.9rem;
         line-height: 1.6;
     }
-    
+
     .footer {
         margin-top: 2rem;
         font-size: 0.7rem;
     }
-    
+
     .gallery-container {
         padding: 12px;
     }
-    
+
     .photo-container {
         padding: 12px;
     }
-    
+
     .gallery-image {
         max-height: 55vh;
     }
@@ -346,76 +361,80 @@ swiper-slide {
         padding: 0.8rem;
     }
 
-    ion-title {
-        font-size: 17px;
+    ion-toolbar ion-title {
+        position: relative !important;
+        left: auto !important;
+        transform: none !important;
+        margin-left: 0 !important;
+        padding: 0 0.5rem;
     }
 
     .title {
         font-size: 1.6rem;
         margin-bottom: 1rem;
     }
-    
+
     ion-card.experience-card {
         margin: 0.8rem 0;
         border-radius: 12px;
     }
-    
+
     ion-card.experience-card::before {
         height: 4px;
     }
-    
+
     ion-card-title.position {
         font-size: 1rem;
     }
-    
+
     ion-card-subtitle.organization {
         font-size: 0.9rem;
     }
-    
+
     .period {
         font-size: 0.75rem;
         gap: 0.3rem;
     }
-    
+
     .period::before {
         font-size: 0.8rem;
     }
-    
+
     .description ul {
         padding-left: 1rem;
     }
-    
+
     .description li {
         font-size: 0.85rem;
         line-height: 1.5;
         margin-bottom: 0.4rem;
     }
-    
+
     .description li::before {
         left: -1.2rem;
     }
-    
+
     .description p {
         font-size: 0.85rem;
         line-height: 1.5;
     }
-    
+
     .gallery-button {
         margin-top: 12px;
     }
-    
+
     .gallery-container {
         padding: 10px;
     }
-    
+
     .photo-container {
         padding: 10px;
     }
-    
+
     .gallery-image {
         max-height: 50vh;
     }
-    
+
     .photo-caption {
         margin-top: 12px;
         padding: 6px 10px;
@@ -429,46 +448,50 @@ swiper-slide {
         padding: 0.7rem;
     }
 
-    ion-title {
-        font-size: 17px !important;
+    ion-toolbar ion-title {
+        position: relative !important;
+        left: auto !important;
+        transform: none !important;
+        margin-left: 0 !important;
+        padding: 0 0.5rem;
     }
 
     .title {
         font-size: 1.5rem;
         margin-bottom: 0.9rem;
     }
-    
+
     ion-card.experience-card {
         margin: 0.7rem 0;
         border-radius: 10px;
     }
-    
+
     ion-card-title.position {
         font-size: 0.95rem;
     }
-    
+
     ion-card-subtitle.organization {
         font-size: 0.85rem;
     }
-    
+
     .description li {
         font-size: 0.8rem;
     }
-    
+
     .description p {
         font-size: 0.8rem;
     }
-    
+
     .footer {
         margin-top: 1.8rem;
         padding: 0.8rem;
         font-size: 0.65rem;
     }
-    
+
     .gallery-image {
         max-height: 45vh;
     }
-    
+
     .photo-caption {
         font-size: 11px;
         max-width: 95%;
@@ -481,47 +504,51 @@ swiper-slide {
         padding: 0.6rem;
     }
 
-    ion-title {
-        font-size: 17px !important;
+    ion-toolbar ion-title {
+        position: relative !important;
+        left: auto !important;
+        transform: none !important;
+        margin-left: 0 !important;
+        padding: 0 0.5rem;
     }
 
     .title {
         font-size: 1.4rem;
         margin-bottom: 0.8rem;
     }
-    
+
     ion-card.experience-card {
         margin: 0.6rem 0;
     }
-    
+
     ion-card.experience-card::before {
         height: 3px;
     }
-    
+
     ion-card-title.position {
         font-size: 0.9rem;
     }
-    
+
     ion-card-subtitle.organization {
         font-size: 0.8rem;
     }
-    
+
     .period {
         font-size: 0.7rem;
     }
-    
+
     .description ul {
         padding-left: 0.9rem;
     }
-    
+
     .description li::before {
         left: -1.1rem;
     }
-    
+
     .photo-container {
         padding: 8px;
     }
-    
+
     .gallery-image {
         max-height: 40vh;
     }
@@ -533,42 +560,46 @@ swiper-slide {
         padding: 0.5rem;
     }
 
-    ion-title {
-        font-size: 17px !important;
+    ion-toolbar ion-title {
+        position: relative !important;
+        left: auto !important;
+        transform: none !important;
+        margin-left: 0 !important;
+        padding: 0 0.5rem;
     }
 
     .title {
         font-size: 1.3rem;
         margin-bottom: 0.7rem;
     }
-    
+
     ion-card.experience-card {
         margin: 0.5rem 0;
         border-radius: 8px;
     }
-    
+
     ion-card-title.position {
         font-size: 0.85rem;
     }
-    
+
     ion-card-subtitle.organization {
         font-size: 0.75rem;
     }
-    
+
     .description li {
         font-size: 0.75rem;
         margin-bottom: 0.3rem;
     }
-    
+
     .description p {
         font-size: 0.75rem;
         line-height: 1.4;
     }
-    
+
     .gallery-container {
         padding: 8px;
     }
-    
+
     .photo-caption {
         margin-top: 10px;
         padding: 5px 8px;
@@ -582,83 +613,87 @@ swiper-slide {
         padding: 0.4rem;
     }
 
-    ion-title {
-        font-size: 15px;
+    ion-toolbar ion-title {
+        position: relative !important;
+        left: auto !important;
+        transform: none !important;
+        margin-left: 0 !important;
+        padding: 0 0.5rem;
     }
 
     .title {
         font-size: 1.1rem;
         margin-bottom: 0.6rem;
     }
-    
+
     ion-card.experience-card {
         margin: 0.4rem 0;
         border-radius: 6px;
     }
-    
+
     ion-card.experience-card::before {
         height: 2px;
     }
-    
+
     ion-card-title.position {
         font-size: 0.8rem;
     }
-    
+
     ion-card-subtitle.organization {
         font-size: 0.7rem;
     }
-    
+
     .period {
         font-size: 0.65rem;
         gap: 0.2rem;
     }
-    
+
     .period::before {
         font-size: 0.7rem;
     }
-    
+
     .description ul {
         padding-left: 0.8rem;
     }
-    
+
     .description li {
         font-size: 0.7rem;
         line-height: 1.3;
         margin-bottom: 0.25rem;
     }
-    
+
     .description li::before {
         left: -0.9rem;
         font-size: 0.8rem;
     }
-    
+
     .description p {
         font-size: 0.7rem;
         line-height: 1.3;
     }
-    
+
     .footer {
         margin-top: 1.5rem;
         padding: 0.6rem;
         font-size: 0.6rem;
     }
-    
+
     .gallery-button {
         margin-top: 8px;
     }
-    
+
     .gallery-container {
         padding: 6px;
     }
-    
+
     .photo-container {
         padding: 6px;
     }
-    
+
     .gallery-image {
         max-height: 35vh;
     }
-    
+
     .photo-caption {
         margin-top: 8px;
         padding: 4px 6px;
