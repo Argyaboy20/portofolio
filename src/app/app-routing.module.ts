@@ -49,7 +49,11 @@ const routes: Routes = [
   {
     path: 'upscale',
     loadChildren: () => import('./upscale/upscale.module').then( m => m.UpscalePageModule)
+  },  {
+    path: 'socialvit',
+    loadChildren: () => import('./socialvit/socialvit.module').then( m => m.SocialvitPageModule)
   },
+
 
 
 ];
