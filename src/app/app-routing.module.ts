@@ -53,6 +53,10 @@ const routes: Routes = [
     path: 'socialvit',
     loadChildren: () => import('./socialvit/socialvit.module').then( m => m.SocialvitPageModule)
   },
+  {
+    path: 'itsupport',
+    loadChildren: () => import('./itsupport/itsupport.module').then( m => m.ItsupportPageModule)
+  },
 
 
 

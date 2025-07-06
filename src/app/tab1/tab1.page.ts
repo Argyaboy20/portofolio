@@ -1030,6 +1030,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }, 100);
   }
 
+  navigateToITSupport() {
+    this.router.navigate(['/itsupport']);
+}
+
   openMerdekaProgramModal() {
     this.isMerdekaProgramModalOpen = true;
   }

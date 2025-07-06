@@ -418,6 +418,13 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     font-size: 1rem;
     margin-bottom: 2rem;
     color: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    
+    &:hover {
+        color: rgba(255, 255, 255, 1);
+    }
 }
 
 .contact-info {
