@@ -111,6 +111,18 @@ export class Tab3Page implements OnInit, OnDestroy {
       src: '/assets/menuAplikasir.png',
       title: 'Menu Project ApliKasir',
       description: 'Tampilan menu dari project ApliKasir saya yang berkolaborasi dengan tim'
+    },
+    {
+      id: 7,
+      src: '/assets/sosial.png',
+      title: 'Halaman Pengalaman Relawan',
+      description: 'Tampilan menu dari pengalaman pribadi di kerelawanan'
+    },
+    {
+      id: 8,
+      src: '/assets/it.png',
+      title: 'Halaman Pengalaman IT Support',
+      description: 'Tampilan menu dari pengalaman pribadi sebagai IT Support'
     }
   ];
 

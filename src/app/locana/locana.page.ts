@@ -18,7 +18,7 @@ export class LocanaPage implements OnInit {
   selectedImage: any = null;
 
   /* Project URLs */
-  projectUrl: string = 'https://locana-74f96.web.app/';
+  projectUrl: string = 'https://locana.vercel.app/';
   androidUrl: string = 'https://play.google.com/store/apps/details?id=com.example.locana';
 
   /* Translations for multilingual support */

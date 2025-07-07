@@ -1,13 +1,205 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>itsupport</ion-title>
+  <ion-toolbar class="custom-toolbar">
+    <ion-title class="toolbar-title">
+      <span class="title-text" (click)="navigateToHome()">{{ currentLanguage === 'id' ? 'Maulana Farras Blog\'s' : 'Maulana Farras Blog\'s' }}</span>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button 
+        fill="clear" 
+        class="translate-btn"
+        (click)="toggleLanguage()"
+        [title]="currentLanguage === 'id' ? 'Translate to English' : 'Terjemahkan ke Indonesia'">
+        <ion-icon 
+          [name]="currentLanguage === 'id' ? 'language-outline' : 'globe-outline'" 
+          class="translate-icon">
+        </ion-icon>
+        <span class="translate-text">{{ currentLanguage === 'id' ? 'EN' : 'ID' }}</span>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content class="main-content">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">itsupport</ion-title>
+    <ion-toolbar class="custom-toolbar">
+      <ion-title size="large" class="toolbar-title-large">
+        {{ currentLanguage === 'id' ? 'IT Support' : 'IT Support' }}
+      </ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <div class="hero-image-container">
+        <img 
+          src="/assets/itsupport.jpeg" 
+          alt="IT Support Experience" 
+          class="hero-image"
+          [attr.alt]="currentLanguage === 'id' ? 'Pengalaman IT Support' : 'IT Support Experience'">
+      </div>
+      
+      <div class="hero-text">
+        <h1 class="hero-title">
+          {{ currentLanguage === 'id' ? 'Pengalaman IT Support' : 'IT Support Experience' }}
+        </h1>
+        <p class="hero-subtitle">
+          {{ currentLanguage === 'id' 
+            ? 'Perjalanan dalam dunia teknologi dan infrastruktur IT' 
+            : 'Journey in the world of technology and IT infrastructure' }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="content-section">
+    <div class="content-container">
+      
+      <!-- Main Article -->
+      <div class="article-card">
+        <div class="article-header">
+          <h2 class="article-title">
+            {{ currentLanguage === 'id' 
+              ? 'Pengalaman Membongkar Server Kampus' 
+              : 'Campus Server Maintenance Experience' }}
+          </h2>
+          <div class="article-meta">
+            <ion-icon name="time-outline" class="meta-icon"></ion-icon>
+            <span>{{ currentLanguage === 'id' ? '5 menit baca' : '5 min read' }}</span>
+          </div>
+        </div>
+
+        <div class="article-content">
+          <p class="article-paragraph">
+            {{ currentLanguage === 'id' 
+              ? 'Sebagai seorang IT Support, saya pernah mengalami momen yang cukup menantang ketika harus membongkar server kampus untuk keperluan pembersihan dan optimalisasi. Pengalaman ini tidak hanya menguji kemampuan teknis, tetapi juga kemampuan problem-solving dalam situasi yang kritis.'
+              : 'As an IT Support professional, I once experienced a challenging moment when I had to dismantle the campus server for cleaning and optimization purposes. This experience not only tested technical skills but also problem-solving abilities in critical situations.' }}
+          </p>
+
+          <div class="highlight-box">
+            <ion-icon name="server-outline" class="highlight-icon"></ion-icon>
+            <div class="highlight-content">
+              <h3 class="highlight-title">
+                {{ currentLanguage === 'id' ? 'Tantangan Utama' : 'Main Challenges' }}
+              </h3>
+              <p class="highlight-text">
+                {{ currentLanguage === 'id' 
+                  ? 'Proses pembongkaran server memerlukan perencanaan yang matang dan kehati-hatian tinggi untuk memastikan tidak ada data yang hilang atau hardware yang rusak.'
+                  : 'The server dismantling process required careful planning and high precision to ensure no data loss or hardware damage occurred.' }}
+              </p>
+            </div>
+          </div>
+
+          <p class="article-paragraph">
+            {{ currentLanguage === 'id' 
+              ? 'Proses dimulai dengan backup data lengkap dan dokumentasi konfigurasi sistem. Setiap komponen server dicatat dengan detail, mulai dari posisi kabel, konfigurasi RAID, hingga pengaturan BIOS. Hal ini penting untuk memastikan server dapat dikembalikan ke kondisi semula atau bahkan lebih optimal.'
+              : 'The process began with complete data backup and system configuration documentation. Every server component was recorded in detail, from cable positions, RAID configurations, to BIOS settings. This was crucial to ensure the server could be restored to its original condition or even better optimized.' }}
+          </p>
+
+          <div class="process-steps">
+            <h3 class="steps-title">
+              {{ currentLanguage === 'id' ? 'Langkah-langkah Optimalisasi' : 'Optimization Steps' }}
+            </h3>
+            
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>{{ currentLanguage === 'id' ? 'Pembersihan Hardware' : 'Hardware Cleaning' }}</h4>
+                <p>{{ currentLanguage === 'id' 
+                  ? 'Membersihkan debu dan kotoran dari semua komponen untuk meningkatkan sirkulasi udara dan mengurangi suhu operasional.'
+                  : 'Cleaning dust and dirt from all components to improve air circulation and reduce operational temperature.' }}</p>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>{{ currentLanguage === 'id' ? 'Upgrade Komponen' : 'Component Upgrade' }}</h4>
+                <p>{{ currentLanguage === 'id' 
+                  ? 'Mengganti komponen yang sudah usang dengan yang lebih baru untuk meningkatkan performa dan reliabilitas sistem.'
+                  : 'Replacing outdated components with newer ones to improve system performance and reliability.' }}</p>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>{{ currentLanguage === 'id' ? 'Konfigurasi Ulang' : 'Reconfiguration' }}</h4>
+                <p>{{ currentLanguage === 'id' 
+                  ? 'Mengoptimalkan konfigurasi sistem berdasarkan kebutuhan terkini dan best practices terbaru.'
+                  : 'Optimizing system configuration based on current needs and latest best practices.' }}</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="article-paragraph">
+            {{ currentLanguage === 'id' 
+              ? 'Hasil dari proses ini sangat memuaskan. Server yang sebelumnya mengalami overheating dan performa lambat, kini berjalan dengan stabil dan efisien. Downtime yang terjadi selama proses maintenance berhasil diminimalkan berkat perencanaan yang matang.'
+              : 'The results of this process were very satisfying. The server that previously experienced overheating and slow performance now runs stably and efficiently. Downtime during the maintenance process was successfully minimized through careful planning.' }}
+          </p>
+
+          <div class="conclusion-box">
+            <ion-icon name="checkmark-circle-outline" class="conclusion-icon"></ion-icon>
+            <div class="conclusion-content">
+              <h3 class="conclusion-title">
+                {{ currentLanguage === 'id' ? 'Kesimpulan' : 'Conclusion' }}
+              </h3>
+              <p class="conclusion-text">
+                {{ currentLanguage === 'id' 
+                  ? 'Pengalaman ini mengajarkan pentingnya maintenance proaktif dan dokumentasi yang baik dalam pengelolaan infrastruktur IT. Setiap tantangan adalah kesempatan untuk belajar dan berkembang.'
+                  : 'This experience taught the importance of proactive maintenance and good documentation in IT infrastructure management. Every challenge is an opportunity to learn and grow.' }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Section -->
+      <div class="skills-section">
+        <h2 class="section-title">
+          {{ currentLanguage === 'id' ? 'Keahlian IT Support' : 'IT Support Skills' }}
+        </h2>
+        
+        <div class="skills-grid">
+          <div class="skill-card">
+            <ion-icon name="hardware-chip-outline" class="skill-icon"></ion-icon>
+            <h3 class="skill-title">
+              {{ currentLanguage === 'id' ? 'Hardware Troubleshooting' : 'Hardware Troubleshooting' }}
+            </h3>
+            <p class="skill-description">
+              {{ currentLanguage === 'id' 
+                ? 'Diagnosa dan perbaikan masalah hardware komputer dan server'
+                : 'Diagnosis and repair of computer and server hardware issues' }}
+            </p>
+          </div>
+
+          <div class="skill-card">
+            <ion-icon name="terminal-outline" class="skill-icon"></ion-icon>
+            <h3 class="skill-title">
+              {{ currentLanguage === 'id' ? 'System Administration' : 'System Administration' }}
+            </h3>
+            <p class="skill-description">
+              {{ currentLanguage === 'id' 
+                ? 'Pengelolaan sistem operasi dan konfigurasi server'
+                : 'Operating system management and server configuration' }}
+            </p>
+          </div>
+
+          <div class="skill-card">
+            <ion-icon name="wifi-outline" class="skill-icon"></ion-icon>
+            <h3 class="skill-title">
+              {{ currentLanguage === 'id' ? 'Network Management' : 'Network Management' }}
+            </h3>
+            <p class="skill-description">
+              {{ currentLanguage === 'id' 
+                ? 'Konfigurasi dan maintenance infrastruktur jaringan'
+                : 'Network infrastructure configuration and maintenance' }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </ion-content>
