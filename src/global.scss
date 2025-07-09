@@ -75,3 +75,89 @@ ion-router-outlet {
         transform: translateX(0);
     }
 }
+
+/* Header dan Footer Ion Select */
+.alert-wrapper {
+    background: #2c3e50 !important;
+
+    /* Header */
+    .alert-head {
+        background: #2c3e50 !important;
+        color: white !important;
+
+        .alert-title {
+            color: white !important;
+        }
+
+        .alert-sub-title {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+    }
+
+    /* Body/Content area */
+    .alert-message {
+        background: #2c3e50 !important;
+        color: white !important;
+    }
+
+    /* Radio button group */
+    .alert-radio-group {
+        background: #2c3e50 !important;
+
+        .alert-radio-button {
+            background: #2c3e50 !important;
+            color: white !important;
+
+            /* Radio button label */
+            .alert-radio-label {
+                color: white !important;
+            }
+
+            /* Radio button icon */
+            .alert-radio-icon {
+                border-color: white !important;
+
+                .alert-radio-inner {
+                    background: white !important;
+                }
+            }
+        }
+
+        &::-webkit-scrollbar {
+            width: 0px !important;
+            background: transparent !important;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent !important;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: transparent !important;
+        }
+
+        /* Firefox */
+        scrollbar-width: none !important;
+        scrollbar-color: transparent transparent !important;
+    }
+}
+
+/* Footer/Button area */
+.alert-button-group {
+    background: #2c3e50 !important;
+
+    .alert-button {
+        background: transparent !important;
+        color: white !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
+
+        &.alert-button-cancel {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        &.alert-button-confirm {
+            color: white !important;
+            font-weight: bold;
+        }
+    }
+}

@@ -944,6 +944,63 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  /* Password confirmation in Source code button*/
+  async confirmPassword(sourceLink: string) {
+    const alert = await this.alertController.create({
+      header: 'Konfirmasi Password',
+      message: 'Masukkan password untuk mengakses source code:',
+      inputs: [
+        {
+          name: 'password',
+          type: 'password',
+          placeholder: 'Password'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: 'Konfirmasi',
+          handler: (data) => {
+            if (data.password === '0503') {
+              /* Password benar, buka link */
+              window.open(sourceLink, '_github');
+            } else {
+              /* Password salah, tampilkan pesan error */
+              this.showErrorAlert(sourceLink);
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  /* Untuk menampilkan error alert di Source code button */
+  async showErrorAlert(sourceLink: string) {
+    const errorAlert = await this.alertController.create({
+      header: 'Salah Password',
+      message: 'Password tidak tepat! Coba lagi',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            // Kembali ke password confirmation
+            setTimeout(() => {
+              this.confirmPassword(sourceLink);
+            }, 100);
+          }
+        }
+      ]
+    });
+
+    await errorAlert.present();
+  }
+
   navigateToAboutMe(event?: Event) {
     if (event) {
       event.preventDefault();
