@@ -25,9 +25,7 @@ export class AppComponent {
     ['/privacypolicy', 'Privacy Policy - Maulana Farras Blog\'s'],
     ['/upscale', 'Upscale - Maulana Farras Blog\'s'],
     ['/socialvit', 'SocialVit - Maulana Farras Blog\'s'],
-    ['/tabs/tab2', 'Pertanian Mobile - Maulana Farras Blog\'s'],
-    ['/tabs/tab3', 'Portofolio - Maulana Farras Blog\'s'],
-    ['/tabs/tab4', 'Aplikasir - Maulana Farras Blog\'s'],
+    ['/itsupport', 'IT Support - Maulana Farras Blog\'s'],
   ]);
 
   constructor(
