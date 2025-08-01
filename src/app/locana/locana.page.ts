@@ -76,18 +76,6 @@ export class LocanaPage implements OnInit {
       ]
     },
     {
-      url: 'assets/locana2.jpg', 
-      title: 'Sistem Geofence',
-      brief: 'Notifikasi otomatis batas wilayah',
-      caption: 'Sistem Geofence Locana',
-      description: 'Fitur geofence yang memungkinkan pengguna menetapkan batas wilayah virtual. Sistem akan memberikan notifikasi saat target memasuki atau meninggalkan area yang sudah ditentukan.',
-      features: [
-        'Pembuatan area geofence khusus',
-        'Notifikasi masuk/keluar area',
-        'Riwayat pelanggaran batas wilayah'
-      ]
-    },
-    {
       url: 'assets/riwayat.jpg', 
       title: 'Histori Pelacakan',
       brief: 'Riwayat lokasi dengan timeline',
@@ -108,6 +96,18 @@ export class LocanaPage implements OnInit {
         'Kontrol izin akses pelacakan',
         'Enkripsi data end-to-end',
         'Penghapusan otomatis data lama'
+      ]
+    },
+    {
+      url: 'assets/password.png', 
+      title: 'Generator Password Random',
+      brief: 'Pembuatan password secara random',
+      caption: 'Generator Password Random',
+      description: 'Fitur Generator ini memungkinkan pengguna untuk membuat password secara acak dengan kombinasi huruf, angka, dan simbol. Password yang dihasilkan dapat digunakan untuk keperluan keamanan, seperti akun online atau kebutuhan lainnya.',
+      features: [
+        'Pembuatan password random',
+        'Tersedia kriteria password yang dihasilkan',
+        'Riwayat password random yang di copy paste tersimpan selama 12 jam'
       ]
     }
   ];

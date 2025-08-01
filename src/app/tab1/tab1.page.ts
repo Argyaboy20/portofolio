@@ -1099,9 +1099,9 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.isMerdekaProgramModalOpen = false;
   }
 
-  openMSIBModal() {
+  /*openMSIBModal() {
     this.isMSIBModalOpen = true;
-  }
+  }*/
 
   closeMSIBModal() {
     this.isMSIBModalOpen = false;
