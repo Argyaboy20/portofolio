@@ -1,13 +1,113 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>socialvit</ion-title>
+  <ion-toolbar class="custom-toolbar">
+    
+    <!-- Center - Blog title (clickable) -->
+    <ion-title class="blog-title" (click)="navigateToHome()">
+      {{ currentLanguage === 'id' ? 'Blog Maulana Farras' : 'Maulana Farras Blog\'s' }}
+    </ion-title>
+    
+    <!-- Right side - Language toggle -->
+    <ion-buttons slot="end">
+      <ion-button 
+        fill="clear" 
+        class="lang-toggle"
+        (click)="toggleLanguage()">
+        {{ currentLanguage === 'id' ? 'IND' : 'EN' }}
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">socialvit</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="main-content">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <h1 class="hero-title">
+      {{ currentLanguage === 'id' ? 'Galeri Proyek SocialVit' : 'SocialVit Project Gallery' }}
+    </h1>
+    <p class="hero-subtitle">
+      {{ currentLanguage === 'id' ? 'Eksplorasi visual dari proyek inovatif kami' : 'Visual exploration of our innovative project' }}
+    </p>
+  </div>
+
+  <!-- 3D Carousel Gallery -->
+  <div class="gallery-section">
+    <h2 class="section-title">
+      {{ currentLanguage === 'id' ? 'Galeri Foto' : 'Photo Gallery' }}
+    </h2>
+    
+    <div class="carousel-container">
+      <div class="carousel-track" #carouselTrack [style.transform]="'translateX(' + (-activeIndex * 100) + '%)'">
+        <div 
+          class="carousel-item" 
+          *ngFor="let item of galleryItems; let i = index"
+          [class.active]="i === activeIndex"
+          [style.transform]="'translateX(' + (i * 100) + '%)'">
+          <div class="image-container">
+            <img [src]="item.image" [alt]="currentLanguage === 'id' ? item.title_id : item.title_en" loading="lazy" />
+            <div class="image-overlay" [class.show]="i === activeIndex">
+              <h3>{{ currentLanguage === 'id' ? item.title_id : item.title_en }}</h3>
+              <p>{{ currentLanguage === 'id' ? item.description_id : item.description_en }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Navigation buttons -->
+      <button class="nav-btn prev-btn" (click)="previousSlide()" [disabled]="activeIndex === 0">
+        <ion-icon name="chevron-back"></ion-icon>
+      </button>
+      <button class="nav-btn next-btn" (click)="nextSlide()" [disabled]="activeIndex === galleryItems.length - 1">
+        <ion-icon name="chevron-forward"></ion-icon>
+      </button>
+      
+      <!-- Indicators -->
+      <div class="indicators">
+        <span 
+          *ngFor="let item of galleryItems; let i = index"
+          class="indicator"
+          [class.active]="i === activeIndex"
+          (click)="goToSlide(i)">
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Stack Section -->
+  <div class="tech-stack-section">
+    <h2 class="section-title">
+      {{ currentLanguage === 'id' ? 'Teknologi yang Digunakan' : 'Tech Stack' }}
+    </h2>
+    
+    <div class="tech-grid">
+      <div class="tech-item" *ngFor="let tech of techStack">
+        <div class="tech-icon">
+          <img [src]="tech.icon" [alt]="tech.name" />
+        </div>
+        <h3>{{ tech.name }}</h3>
+        <p>{{ currentLanguage === 'id' ? tech.description_id : tech.description_en }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Section -->
+  <div class="team-section">
+    <h2 class="section-title">
+      {{ currentLanguage === 'id' ? 'Tim Pengembang' : 'Development Team' }}
+    </h2>
+    
+    <div class="team-info">
+      <div class="team-card">
+        <h3>{{ currentLanguage === 'id' ? 'Proyek Tim' : 'Team Project' }}</h3>
+        <p>
+          {{ currentLanguage === 'id' ? 
+             'Proyek ini dikerjakan secara kolaboratif dalam tim. Saya bertanggung jawab pada bagian CV Registrants, mengelola sistem pendaftaran dan manajemen CV pengguna.' :
+             'This project was developed collaboratively as a team. I was responsible for the CV Registrants section, managing the registration system and user CV management.' 
+          }}
+        </p>
+        <div class="role-badge">
+          {{ currentLanguage === 'id' ? 'Bagian: CV Registrants' : 'Section: CV Registrants' }}
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

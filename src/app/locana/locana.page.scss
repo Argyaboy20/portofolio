@@ -79,6 +79,8 @@ ion-header {
       text-decoration: none;
       display: inline-block;
       transition: transform 0.3s ease;
+      font-size: 1.1rem;
+      max-width: 400px;
       
       &:hover {
         transform: scale(1.03);
@@ -96,7 +98,7 @@ ion-header {
     }
     
     ion-buttons {
-      margin-right: 8px;
+      margin-right: 4px;
       
       ion-button {
         --color: #{$text-light};
@@ -111,6 +113,10 @@ ion-header {
           --color: #{$accent-color};
         }
       }
+    }
+
+    .biodata-button {
+      margin-right: -20px;
     }
   }
 }
