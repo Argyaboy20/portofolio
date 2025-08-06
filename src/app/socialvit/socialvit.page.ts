@@ -12,16 +12,17 @@ inject();
   standalone: false,
 })
 export class SocialvitPage implements OnInit {
-  
+
   /* ViewChild reference for carousel manipulation */
   @ViewChild('carouselTrack', { static: false }) carouselTrack!: ElementRef;
-  
   /* Current language state - default to Indonesian */
   currentLanguage: 'id' | 'en' = 'id';
-  
   /* Active carousel index */
   activeIndex: number = 0;
-  
+  isModalOpen: boolean = false;
+  selectedImage: string = '';
+  selectedImageTitle: string = '';
+
   /* Gallery items data with bilingual support */
   galleryItems = [
     {
@@ -39,7 +40,7 @@ export class SocialvitPage implements OnInit {
       description_en: 'CV payment management and user registration feature that I developed'
     },
   ];
-  
+
   /* Tech stack data with bilingual descriptions */
   techStack = [
     {
@@ -73,9 +74,9 @@ export class SocialvitPage implements OnInit {
       description_en: 'JavaScript superset with type safety'
     }
   ];
-  
+
   /* Carousel auto-slide interval reference */
-   private autoSlideInterval: any;
+  private autoSlideInterval: any;
 
   constructor(private router: Router) { }
 
@@ -138,11 +139,27 @@ export class SocialvitPage implements OnInit {
     if (index >= 0 && index < this.galleryItems.length) {
       this.activeIndex = index;
     }
-    
+
     /* Restart auto-slide after manual navigation */
     this.stopAutoSlide();
     setTimeout(() => {
       this.startAutoSlide();
     }, 3000);
+  }
+
+  /* Buka modal dengan foto yang dipilih */
+  openModal(item: any): void {
+    this.selectedImage = item.image;
+    this.selectedImageTitle = this.currentLanguage === 'id' ? item.title_id : item.title_en;
+    this.isModalOpen = true;
+    this.stopAutoSlide(); // Hentikan auto-slide saat modal terbuka
+  }
+
+  /* Tutup modal */
+  closeModal(): void {
+    this.isModalOpen = false;
+    this.selectedImage = '';
+    this.selectedImageTitle = '';
+    this.startAutoSlide(); // Mulai auto-slide kembali saat modal ditutup
   }
 }
