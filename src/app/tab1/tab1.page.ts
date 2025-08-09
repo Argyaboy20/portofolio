@@ -425,12 +425,12 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         if (ionicLink) {
           /* Create text nodes for before and after the link */
           const beforeText = this.currentLanguage === 'en' ?
-            'A Software Engineer focused on hybrid mobile application development with a passion for creating innovative solutions. My core expertise lies in using ' :
-            'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan ';
+            'A Software Engineer focused on fullstack application development with a passion for creating innovative solutions. My core expertise lies in using ' :
+            'Seorang Software Engineer dengan fokus pada pengembangan aplikasi fullstack yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan ';
 
           const afterText = this.currentLanguage === 'en' ?
-            ' combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.79 achieved during my college years at ' :
-            ' yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.79 yang saya raih selama masa perkuliahan di ';
+            ' combined with Angular, React, Vue, Node.js and TypeScript to develop cross-platform mobile applications. In addition, I also use Laravel for the backend. With a GPA of 3.79 achieved during my college years at ' :
+            ' yang dipadukan dengan Angular, React, Vue, Node.js dan TypeScript untuk mengembangkan aplikasi mobile cross-platform. Selain itu saya juga menggunakan Laravel untuk Backend. Dengan IPK 3.79 yang saya raih selama masa perkuliahan di ';
 
           /* Clear the paragraph and rebuild it */
           p1.innerHTML = '';
