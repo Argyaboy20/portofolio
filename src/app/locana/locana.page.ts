@@ -99,7 +99,7 @@ export class LocanaPage implements OnInit {
       ]
     },
     {
-      url: 'assets/password.png', 
+      url: 'assets/passwordrandom.jpg', 
       title: 'Generator Password Random',
       brief: 'Pembuatan password secara random',
       caption: 'Generator Password Random',
