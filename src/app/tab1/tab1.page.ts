@@ -144,7 +144,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     },
     {
       title: 'Locana App',
-      duration: 'Mei 2025 - sekarang',
+      duration: 'Mei 2025 - Agustus 2025',
       description: 'Project ini bertujuan sebagai project iseng-iseng saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.',
       image: '/assets/logolocana.jpg',
       demoLink: '/locana',
@@ -173,7 +173,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       title: 'ApliKasir',
       duration: 'April - Mei 2024',
       description: 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.',
-      image: '/assets/apliKasir.png',
+      image: '/assets/ApliKasir/home.png',
       demoLink: '/aplikasir',
       sourceLink: 'https://github.com/hshinosa/ApliKasir-UI.git',
       startDate: new Date(2024, 3, 1)  /* April 1, 2024 */
@@ -603,7 +603,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.projects[0].duration = 'May 2025 - present';
 
       this.projects[1].description = 'This project aims to be my passion project developed with Ionic Framework based on HTML, Node.js, and PHP.';
-      this.projects[1].duration = 'May 2025 - present';
+      this.projects[1].duration = 'May 2025 - August 2025';
 
       this.projects[2].description = 'This project aims to create a personal website as my portfolio in Fullstack Developer, developed with Ionic Framework, Node.js, Angular and Javascript.';
       this.projects[2].duration = 'February 2025 - present';
@@ -619,7 +619,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       this.projects[0].duration = 'Mei 2025 - sekarang';
 
       this.projects[1].description = 'Project ini bertujuan sebagai project iseng-iseng saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.';
-      this.projects[1].duration = 'Mei 2025 - sekarang';
+      this.projects[1].duration = 'Mei 2025 - Agustus 2025';
 
       this.projects[2].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Fullstack Developer yang dikembangkan dengan Framework Ionic, Node.js, Angular dan Javascript.';
       this.projects[2].duration = 'Februari 2025 - sekarang';
