@@ -48,16 +48,37 @@ export class Tab4Page implements OnInit, OnDestroy {
 
   projectImages: ProjectImage[] = [
     {
-      url: '/assets/apliKasir.png',
-      originalCaption: 'Tampilan Halaman Utama',
+      url: '/assets/ApliKasir/home.png',
+      originalCaption: 'Tampilan Halaman Utama ApliKasir',
       caption: 'Home Page View',
       details: 'Halaman utama aplikasi dengan UI modern dan user-friendly',
       techStack: ['C#', 'Json', 'API']
     },
     {
-      url: '/assets/editHutang.png',
+      url: '/assets/ApliKasir/DataBarang.png',
+      originalCaption: 'Tampilan Halaman Data Barang',
+      caption: 'Product Data Page View',
+      details: 'Halaman yang menampilkan daftar produk yang sudah ditambahkan',
+      techStack: ['C#', 'Json', 'API']
+    },
+    {
+      url: '/assets/ApliKasir/tambahTransaksi.png',
+      originalCaption: 'Tampilan Halaman Tambah Transaksi',
+      caption: 'Add Transaction Page View',
+      details: 'Halaman untuk menambahkan transaksi baru atau hutang',
+      techStack: ['C#', 'Json', 'API']
+    },
+    {
+      url: '/assets/ApliKasir/hapustransaksi.png',
+      originalCaption: 'Tampilan Halaman Edit Transaksi/Hutang',
+      caption: 'Edit Transaction/Debt Page View',
+      details: 'Halaman untuk menghapus transaksi atau hutang yang sudah ada',
+      techStack: ['C#', 'Json', 'API']
+    },
+    {
+      url: '/assets/ApliKasir/editHutang.png',
       originalCaption: 'Tampilan Menu Edit',
-      caption: 'Edit Menu View',
+      caption: 'Edit Debt View',
       details: 'Form untuk melakukan edit data transaksi atau hutang',
       techStack: ['General Libraries', 'Firebase Auth']
     },
