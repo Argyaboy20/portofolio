@@ -84,7 +84,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   translations: TranslationDict = {
     id: {
       profilSingkat: 'Profil Singkat',
-      aboutContent: 'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan Ionic Framework yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.79 yang saya raih selama masa perkuliahan di Institut Teknologi dan Bisnis Indonesia, saya membuktikan komitmen dan dedikasi yang kuat dalam bidang akademik.',
+      aboutContent: 'Seorang Software Engineer dengan fokus pada pengembangan aplikasi mobile hybrid yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan Ionic Framework yang dipadukan dengan JavaScript dan HTML untuk mengembangkan aplikasi mobile cross-platform. Dengan IPK 3.82 yang saya raih selama masa perkuliahan di Institut Teknologi dan Bisnis Indonesia, saya membuktikan komitmen dan dedikasi yang kuat dalam bidang akademik.',
       aboutContent2: 'Kemampuan bahasa Inggris saya yang berada di level intermediate (EF SET: 67) memungkinkan saya untuk berkolaborasi secara efektif dalam tim internasional. Saya selalu antusias untuk mempelajari teknologi-teknologi baru dan menerapkannya dalam pengembangan aplikasi yang inovatif dan bermanfaat. Hubungi saya jika anda tertarik untuk bekerja sama lebih lanjut dalam hal pengembangan perangkat lunak',
       keahlian: 'Keahlian',
       tools: 'Alat dan Teknologi',
@@ -108,7 +108,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     },
     en: {
       profilSingkat: 'Brief Profile',
-      aboutContent: 'A Software Engineer with a focus on hybrid mobile application development who is passionate about creating innovative solutions. My main expertise lies in using Ionic Framework combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.79 achieved during my studies at the Indonesian Institute of Technology and Business, I proved my strong commitment and dedication in academics.',
+      aboutContent: 'A Software Engineer with a focus on hybrid mobile application development who is passionate about creating innovative solutions. My main expertise lies in using Ionic Framework combined with JavaScript and HTML to develop cross-platform mobile applications. With a GPA of 3.82 achieved during my studies at the Indonesian Institute of Technology and Business, I proved my strong commitment and dedication in academics.',
       aboutContent2: 'My English skills at the intermediate level (EF SET: 67) enable me to collaborate effectively in international teams. I am always enthusiastic to learn new technologies and apply them in the development of innovative and useful applications. Contact me if you are interested in further collaboration on software development.',
       keahlian: 'Skills',
       tools: 'Tools and Technologies',
@@ -429,8 +429,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             'Seorang Software Engineer dengan fokus pada pengembangan aplikasi fullstack yang memiliki semangat tinggi dalam menciptakan solusi inovatif. Keahlian utama saya terletak pada penggunaan ';
 
           const afterText = this.currentLanguage === 'en' ?
-            ' combined with Angular, React, Vue, Node.js and TypeScript to develop cross-platform mobile applications. In addition, I also use Laravel for the backend. With a GPA of 3.79 achieved during my college years at ' :
-            ' yang dipadukan dengan Angular, React, Vue, Node.js dan TypeScript untuk mengembangkan aplikasi mobile cross-platform. Selain itu saya juga menggunakan Laravel untuk Backend. Dengan IPK 3.79 yang saya raih selama masa perkuliahan di ';
+            ' combined with Angular, React, Vue, Node.js and TypeScript to develop cross-platform mobile applications. In addition, I also use Laravel for the backend. With a GPA of 3.82 achieved during my college years at ' :
+            ' yang dipadukan dengan Angular, React, Vue, Node.js dan TypeScript untuk mengembangkan aplikasi mobile cross-platform. Selain itu saya juga menggunakan Laravel untuk Backend. Dengan IPK 3.82 yang saya raih selama masa perkuliahan di ';
 
           /* Clear the paragraph and rebuild it */
           p1.innerHTML = '';
