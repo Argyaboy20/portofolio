@@ -35,9 +35,16 @@ export class SocialvitPage implements OnInit {
     {
       image: 'assets/2.png',
       title_id: 'Sistem CV Registrants',
-      title_en: 'CV Analyzer Registrants',
+      title_en: 'CV Analyzer Registrant',
       description_id: 'Fitur manajemen pembayaran CV dan pendaftaran pengguna yang saya kembangkan',
       description_en: 'CV payment management and user registration feature that I developed'
+    },
+    {
+      image: 'assets/3.png',
+      title_id: 'Informasi Pengguna CV Registrant',
+      title_en: 'Detail User CV Registrant',
+      description_id: 'Halaman detail informasi pengguna CV Registrant',
+      description_en: 'User detail information page for CV Registrant'
     },
   ];
 
@@ -68,10 +75,10 @@ export class SocialvitPage implements OnInit {
       description_en: 'Relational database for efficient data storage'
     },
     {
-      name: 'TypeScript',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
-      description_id: 'Superset JavaScript dengan type safety',
-      description_en: 'JavaScript superset with type safety'
+      name: 'Middlewares',
+      icon: '/assets/icon/middleware.png',
+      description_id: 'Middleware untuk menangani request dan response yang kompleks',
+      description_en: 'Middleware for handling complex requests and responses'
     }
   ];
 
