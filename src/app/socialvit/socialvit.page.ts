@@ -63,10 +63,10 @@ export class SocialvitPage implements OnInit {
       description_en: 'Modern build tool for fast development'
     },
     {
-      name: 'Angular',
-      icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg',
-      description_id: 'Framework frontend untuk aplikasi web yang dinamis',
-      description_en: 'Frontend framework for dynamic web applications'
+      name: 'Quill.js',
+      icon: '/assets/icon/quilljs.png',
+      description_id: 'Rich text editor untuk pengalaman menulis yang lebih baik',
+      description_en: 'Rich text editor for enhanced writing experience'
     },
     {
       name: 'MySQL',
