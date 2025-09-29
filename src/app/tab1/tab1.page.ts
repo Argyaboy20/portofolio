@@ -135,7 +135,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   projects: Project[] = [
     {
       title: 'Perancangan Social-Vit',
-      duration: 'June 2025 - sekarang',
+      duration: 'June 2025 - September 2025',
       description: 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya.',
       image: '/assets/socialvit.webp',
       demoLink: '/socialvit',
@@ -600,7 +600,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     if (this.currentLanguage === 'en') {
       // Translate project descriptions to English
       this.projects[0].description = 'This project was created as an output of an internship at Eduwork as a Programmer for 3 months. Using the Laravel framework with PHP and other languages.';
-      this.projects[0].duration = 'May 2025 - present';
+      this.projects[0].duration = 'June 2025 - September 2025';
 
       this.projects[1].description = 'This project aims to be my passion project developed with Ionic Framework based on HTML, Node.js, and PHP.';
       this.projects[1].duration = 'May 2025 - August 2025';
@@ -616,7 +616,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     } else {
       /* Reset to original Indonesian descriptions */
       this.projects[0].description = 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya.';
-      this.projects[0].duration = 'Mei 2025 - sekarang';
+      this.projects[0].duration = 'Juni 2025 - September 2025';
 
       this.projects[1].description = 'Project ini bertujuan sebagai project iseng-iseng saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.';
       this.projects[1].duration = 'Mei 2025 - Agustus 2025';
