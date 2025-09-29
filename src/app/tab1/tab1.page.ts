@@ -135,7 +135,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   projects: Project[] = [
     {
       title: 'Perancangan Social-Vit',
-      duration: 'June 2025 - September 2025',
+      duration: 'Juni 2025 - September 2025',
       description: 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya.',
       image: '/assets/socialvit.webp',
       demoLink: '/socialvit',
