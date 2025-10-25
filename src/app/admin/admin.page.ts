@@ -39,7 +39,7 @@ export class AdminPage implements OnInit {
       titleId: 'Sekretaris dan Bendahara - Panitia BM8 Labuan Bajo (WFH)',
       titleEn: 'Secretary and Treasurer - BM8 Labuan Bajo Committee (WFH)',
       company: 'Bakti Milenial Foundation',
-      period: 'Mar 2025 - Sekarang',
+      period: 'Mar - Jul 2025',
       descriptionId: `• Merancang formulir pendaftaran untuk fully funded, partial funded dan self funded serta formulir lainnya jika diperlukan
 • Menangani bidang CRM khususnya di bidang pemasaran dalam bentuk WA Blast
 • Membuat Rancangan Anggaran Biaya untuk kegiatan selanjutnya
