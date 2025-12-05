@@ -79,6 +79,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   isMSIBModalOpen = false;
   /* Profile image modal state */
   isProfileImageModalOpen = false;
+  currentSortOrder: 'newest' | 'oldest' = 'newest';
 
   currentLanguage: 'id' | 'en' = 'id'; /* default to Indonesian */
   translations: TranslationDict = {
@@ -133,6 +134,15 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   };
 
   projects: Project[] = [
+    {
+      title: 'PMM Connect',
+      duration: 'Oktober 2025 - Desember 2025',
+      description: 'Project ini dibuat sebagai hasil output dari magang PKL di kampus untuk kebutuhan akademik. Menggunakan framework adonis js dengan bahasa Typescript dan lainnya.',
+      image: '/assets/logopmm.png',
+      demoLink: '/pmmconnect',
+      sourceLink: 'https://github.com/Argyaboy20/connectpmm.git',
+      startDate: new Date(2025, 10, 27)  /* Oktober 27, 2025 */
+    },
     {
       title: 'Perancangan Social-Vit',
       duration: 'Juni 2025 - September 2025',
@@ -324,6 +334,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     try {
       /* Set language back to default (Indonesian) */
       this.currentLanguage = 'id';
+      this.currentSortOrder = 'newest';
 
       /* Sort projects by newest */
       this.sortProjects('newest');
@@ -596,39 +607,70 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       footer.textContent = t.copyright;
     }
 
-    /* Update project descriptions based on language  */
+    /* Simpan urutan current projects berdasarkan title untuk identifikasi */
+    const currentProjectOrder = this.projects.map(p => p.title);
+
     if (this.currentLanguage === 'en') {
       // Translate project descriptions to English
-      this.projects[0].description = 'This project was created as an output of an internship at Eduwork as a Programmer for 3 months. Using the Laravel framework with PHP and other languages.';
-      this.projects[0].duration = 'June 2025 - September 2025';
-
-      this.projects[1].description = 'This project aims to be my passion project developed with Ionic Framework based on HTML, Node.js, and PHP.';
-      this.projects[1].duration = 'May 2025 - August 2025';
-
-      this.projects[2].description = 'This project aims to create a personal website as my portfolio in Fullstack Developer, developed with Ionic Framework, Node.js, Angular and Javascript.';
-      this.projects[2].duration = 'February 2025 - present';
-
-      this.projects[3].description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend.';
-      this.projects[3].duration = 'November 2024 - February 2025';
-
-      this.projects[4].description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
-      this.projects[4].duration = 'April - May 2024';
+      // Update berdasarkan title, bukan index
+      this.projects.forEach(project => {
+        switch(project.title) {
+          case 'PMM Connect':
+            project.description = 'This project was created as an output of an internship at the university for academic purposes. It uses the Adonis JS framework with Typescript and other languages.';
+            project.duration = 'October 2025 - December 2025';
+            break;
+          case 'Perancangan Social-Vit':
+            project.description = 'This project was created as an output of an internship at Eduwork as a Programmer for 3 months. Using the Laravel framework with PHP and other languages.';
+            project.duration = 'June 2025 - September 2025';
+            break;
+          case 'Locana App':
+            project.description = 'This project aims to be my passion project developed with Ionic Framework based on HTML, Node.js, and PHP.';
+            project.duration = 'May 2025 - August 2025';
+            break;
+          case 'Web Portofolio':
+            project.description = 'This project aims to create a personal website as my portfolio in Fullstack Developer, developed with Ionic Framework, Node.js, Angular and Javascript.';
+            project.duration = 'February 2025 - present';
+            break;
+          case 'Pertanian Mobile App':
+            project.description = 'This project was developed for my Mobile Programming final assignment and addresses current challenges in Agriculture. It was designed with Ionic Framework and MySQL backend.';
+            project.duration = 'November 2024 - February 2025';
+            break;
+          case 'ApliKasir':
+            project.description = 'Designed as a group project during the Merdeka Student Exchange batch 4 to Telkom University. It was created as a major assignment for the KPL course using C# language.';
+            project.duration = 'April - May 2024';
+            break;
+        }
+      });
     } else {
       /* Reset to original Indonesian descriptions */
-      this.projects[0].description = 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya.';
-      this.projects[0].duration = 'Juni 2025 - September 2025';
-
-      this.projects[1].description = 'Project ini bertujuan sebagai project iseng-iseng saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.';
-      this.projects[1].duration = 'Mei 2025 - Agustus 2025';
-
-      this.projects[2].description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Fullstack Developer yang dikembangkan dengan Framework Ionic, Node.js, Angular dan Javascript.';
-      this.projects[2].duration = 'Februari 2025 - sekarang';
-
-      this.projects[3].description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql.';
-      this.projects[3].duration = 'November 2024 - Februari 2025';
-
-      this.projects[4].description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
-      this.projects[4].duration = 'April - Mei 2024';
+      this.projects.forEach(project => {
+        switch(project.title) {
+          case 'PMM Connect':
+            project.description = 'Project ini dibuat sebagai hasil output dari magang PKL di kampus untuk kebutuhan akademik. Menggunakan framework adonis js dengan bahasa Typescript dan lainnya.';
+            project.duration = 'Oktober 2025 - Desember 2025';
+            break;
+          case 'Perancangan Social-Vit':
+            project.description = 'Project ini dibuat sebagai hasil output dari magang di Eduwork sebagai Programmer selama 3 bulan. Menggunakan framework Laravel dengan bahasa PHP dan lainnya.';
+            project.duration = 'Juni 2025 - September 2025';
+            break;
+          case 'Locana App':
+            project.description = 'Project ini bertujuan sebagai project iseng-iseng saya yang dikembangkan dengan Ionic Framework berbasis HTML, Node.js, dan PHP.';
+            project.duration = 'Mei 2025 - Agustus 2025';
+            break;
+          case 'Web Portofolio':
+            project.description = 'Project ini bertujuan untuk website pribadi sebagai portofolio saya di bidang Fullstack Developer yang dikembangkan dengan Framework Ionic, Node.js, Angular dan Javascript.';
+            project.duration = 'Februari 2025 - sekarang';
+            break;
+          case 'Pertanian Mobile App':
+            project.description = 'Project ini dikembangkan dengan tujuan sebagai tugas akhir di mata kuliah Pemograman Mobile dan menjawab tantangan di bidang Pertanian saat ini. Dirancang dengan Framework Ionic dengan backend berupa MySql.';
+            project.duration = 'November 2024 - Februari 2025';
+            break;
+          case 'ApliKasir':
+            project.description = 'Dirancang secara berkelompok selama mengikuti Pertukaran Mahasiswa Merdeka batch 4 ke Telkom University. Ditujukan sebagai tugas besar dari mata kuliah KPL dengan bahasa C#.';
+            project.duration = 'April - Mei 2024';
+            break;
+        }
+      });
     }
   }
 
@@ -891,6 +933,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   /* Method to sort projects */
   sortProjects(order: 'newest' | 'oldest') {
+    this.currentSortOrder = order; // SIMPAN STATUS SORTING
     if (order === 'newest') {
       this.projects.sort((a, b) => b.startDate.getTime() - a.startDate.getTime());
     } else {
