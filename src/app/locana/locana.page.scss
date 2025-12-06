@@ -27,19 +27,19 @@ $modal-bg: #f9f9f9;
   /* Hero section styles */
   .hero-section {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 4rem 1rem;
     margin-bottom: 2rem;
     color: $text-light;
 
     .page-title {
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .page-description {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       max-width: 800px;
       margin: 0 auto;
       opacity: 0.9;
@@ -127,7 +127,7 @@ ion-header {
   
   .gallery-container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     
     .gallery-item {
@@ -187,7 +187,7 @@ ion-header {
   
   .tools-container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     
     .tool-item {
@@ -261,7 +261,7 @@ ion-header {
     
     .cta-buttons {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
       max-width: 400px;
       margin: 0 auto;
@@ -295,13 +295,15 @@ ion-header {
 
 /* Modal styles */
 .image-preview-modal {
-  --width: 90%;
-  --height: 80%;
+  --width: 80%;
+  --height: 85%;
   --border-radius: 16px;
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
   
   .modal-content {
     --background: #{$modal-bg};
+    display: flex;
+    flex-direction: column;
     
     .modal-header {
       display: flex;
@@ -328,7 +330,7 @@ ion-header {
     
     .modal-image-container {
       width: 100%;
-      height: 100%;
+      height: 50%;
       overflow: hidden;
       
       img {
@@ -376,18 +378,36 @@ ion-header {
   }
 }
 
-/* Media queries for responsive design */
-@media (min-width: 576px) {
+/* Tablet Styles */
+@media (max-width: 768px) {
   .locana-content {
+    .page-container {
+      padding: 16px;
+    }
+
+    .hero-section {
+      padding: 2.5rem 1rem;
+      
+      .page-title {
+        font-size: 2rem;
+      }
+      
+      .page-description {
+        font-size: 1rem;
+      }
+    }
+    
     .gallery-section {
       .gallery-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
       }
     }
     
     .tools-section {
       .tools-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
       }
     }
     
@@ -399,50 +419,162 @@ ion-header {
       }
     }
   }
+
+  .image-preview-modal {
+    --width: 85%;
+    --height: 80%;
+    
+    .modal-content {
+      .modal-image-container {
+        height: 45%;
+      }
+    }
+  }
 }
 
-@media (min-width: 992px) {
+/* Mobile Styles */
+@media (max-width: 640px) {
   .locana-content {
     .page-container {
-      padding: 32px;
+      padding: 12px;
     }
-    
+
+    ion-header {
+      ion-toolbar {
+        .blog-title {
+          font-size: 0.80rem;
+          text-align: left;
+          margin-right: auto;
+          max-width: 280px;
+        }
+      }
+    }
+
     .hero-section {
-      padding: 4rem 1rem;
+      padding: 1.5rem 1rem;
+      margin-bottom: 1.5rem;
       
       .page-title {
-        font-size: 3rem;
+        font-size: 1.5rem;
       }
       
       .page-description {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
       }
     }
     
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
     .gallery-section {
+      margin-bottom: 2rem;
+
       .gallery-container {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr;
+        gap: 1rem;
       }
     }
     
     .tools-section {
+      margin-bottom: 2rem;
+
       .tools-container {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+        
+        .tool-item {
+          padding: 0.8rem;
+          
+          .tool-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            margin-right: 0.8rem;
+          }
+          
+          .tool-content {
+            .tool-name {
+              font-size: 1rem;
+            }
+            
+            .tool-description {
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+    }
+    
+    .cta-section {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      
+      .cta-content {
+        .cta-title {
+          font-size: 1.4rem;
+        }
+        
+        .cta-description {
+          font-size: 0.9rem;
+          margin-bottom: 1rem;
+        }
+        
+        .cta-buttons {
+          grid-template-columns: 1fr;
+          gap: 0.8rem;
+          
+          ion-button {
+            height: 45px;
+            font-size: 0.95rem;
+          }
+        }
       }
     }
   }
-  
+
   .image-preview-modal {
-    --width: 80%;
-    --height: 85%;
-    
+    --width: 90%;
+    --height: 75%;
     
     .modal-content {
-      display: flex;
-      flex-direction: column;
-      
+      .modal-header {
+        padding: 0.8rem 1rem;
+        
+        .modal-title {
+          font-size: 1.1rem;
+        }
+      }
+
       .modal-image-container {
-        height: 50%;
+        height: 40%;
+      }
+      
+      .modal-details {
+        padding: 1rem;
+        
+        .detail-title {
+          font-size: 1rem;
+        }
+        
+        .detail-text {
+          font-size: 0.9rem;
+        }
+        
+        .detail-features {
+          h4 {
+            font-size: 0.95rem;
+          }
+          
+          ul {
+            padding-left: 1rem;
+            
+            li {
+              font-size: 0.9rem;
+            }
+          }
+        }
       }
     }
   }

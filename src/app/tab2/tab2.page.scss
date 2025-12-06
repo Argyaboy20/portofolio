@@ -17,7 +17,6 @@ $gradient-end: #50e3c2;
     display: inline-block;
 
     &:hover {
-
         .primary-text,
         .secondary-text {
             opacity: 0.8;
@@ -191,6 +190,11 @@ ion-toolbar {
         height: 200px;
         object-fit: cover;
         transition: transform 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 
     .image-caption {
@@ -274,7 +278,6 @@ ion-toolbar {
     color: color.adjust($text-color-dark, $lightness: 30%);
     line-height: 1.4;
 }
-
 
 /* CTA Section */
 .cta-section {
@@ -374,6 +377,7 @@ ion-toolbar {
     width: 100%;
     height: 100%;
     padding: 20px;
+    animation: fadeIn 0.3s ease-out;
 
     .full-size-image {
         max-width: 90%;
@@ -395,18 +399,7 @@ ion-toolbar {
     }
 }
 
-.gallery-item {
-    img {
-        cursor: pointer;
-        transition: transform 0.3s ease;
-
-        &:hover {
-            transform: scale(1.05);
-        }
-    }
-}
-
-/* Tambahkan animasi untuk modal */
+/* Animasi untuk modal */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -419,107 +412,25 @@ ion-toolbar {
     }
 }
 
-.modal-image-container {
-    animation: fadeIn 0.3s ease-out;
-}
-
-/* Galaxy Fold and extremely small devices */
-@media screen and (max-width: 280px) {
+/* Tablet Styles */
+@media (max-width: 768px) {
     .blog-title {
-        font-size: 0.8rem;
-        margin-left: 4px;
+        font-size: 0.9rem;
+        margin-left: -11.0rem;
     }
 
     ion-toolbar ion-buttons {
-        ion-button {
-            font-size: 0.8rem;
-        }
-
         &.language-button {
-            right: 0.2rem;
+            right: 0.5rem;
         }
 
         &.biodata-button {
-            margin-right: 2rem;
+            margin-right: 3rem;
         }
-    }
-
-    .section-title {
-        font-size: 1.5rem;
-    }
-
-    .gallery-item {
-        min-width: 220px;
-    }
-
-    .tool-item {
-        width: 100px;
-    }
-
-    .cta-section .cta-content h3 {
-        font-size: 1.4rem;
-    }
-}
-
-/* Small mobile devices */
-@media (max-width: 480px) {
-    .blog-title {
-        font-size: 0.8rem;
-        margin-left: -11.0rem;
     }
 
     .section-title {
         font-size: 1.6rem;
-    }
-
-    .gallery-section {
-        margin-bottom: 25px;
-    }
-
-    .gallery-item {
-        min-width: 240px;
-    }
-
-    .tools-container {
-        gap: 10px;
-    }
-
-    .tool-item {
-        width: 110px;
-        padding: 15px 10px;
-    }
-
-    .tool-icon {
-        width: 50px;
-        height: 50px;
-        
-        ion-icon {
-            font-size: 25px;
-        }
-    }
-
-    .cta-section {
-        padding: 20px 15px;
-    }
-
-    .cta-section .cta-content h3 {
-        font-size: 1.5rem;
-    }
-
-    .cta-section .cta-content p {
-        font-size: 0.9rem;
-    }
-
-    .website-btn,
-    .android-btn {
-        font-size: 0.9rem;
-    }
-}
-
-/* Responsive for tablets and mobile */
-@media (max-width: 768px) {
-    .section-title {
-        font-size: 1.8rem;
     }
 
     .showcase-container {
@@ -527,31 +438,36 @@ ion-toolbar {
     }
 
     .gallery-section {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
 
     .gallery-item {
-        min-width: 260px;
+        min-width: 250px;
 
         img {
-            height: 180px;
+            height: 170px;
         }
     }
 
     .tools-container {
         padding: 15px 5px;
-        gap: 15px;
+        gap: 10px;
+        max-width: 700px;
     }
 
     .tool-item {
-        padding: 15px 10px;
         width: 120px;
+        padding: 15px 10px;
     }
 
     .tool-icon {
         width: 50px;
         height: 50px;
         margin-bottom: 10px;
+
+        ion-icon {
+            font-size: 25px;
+        }
     }
 
     .tool-name {
@@ -565,19 +481,24 @@ ion-toolbar {
     .cta-section {
         margin-top: 30px;
         padding: 25px 15px;
-    }
 
-    .cta-section .cta-content h3 {
-        font-size: 1.6rem;
-    }
+        .cta-content h3 {
+            font-size: 1.5rem;
+        }
 
-    .cta-section .cta-content p {
-        font-size: 1rem;
-        margin-bottom: 20px;
+        .cta-content p {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
     }
 
     .button-container {
         max-width: 250px;
+    }
+
+    .website-btn,
+    .android-btn {
+        font-size: 0.9rem;
     }
 
     .image-preview-modal {
@@ -598,118 +519,13 @@ ion-toolbar {
     }
 }
 
-/* iPad Air, iPad Mini */
-@media screen and (max-width: 820px) {
-    .blog-title {
-        font-size: 1.1rem;
-        left: 12px;
-    }
-
-    ion-toolbar ion-buttons {
-        &.language-button {
-            right: 1rem;
-        }
-
-        &.biodata-button {
-            margin-right: 3.5rem;
-        }
-    }
-
-    .showcase-container {
-        padding: 15px 20px;
-    }
-
-    .gallery-item {
-        min-width: 270px;
-    }
-
-    .tools-container {
-        max-width: 700px;
-    }
-
-    .tool-item {
-        width: 130px;
-    }
-}
-
-/* Tablets and small laptops */
-@media screen and (max-width: 1024px) {
-    .blog-title {
-        font-size: 1.2rem;
-    }
-
-    .gallery-scroll {
-        padding: 10px 10px;
-    }
-
-    .gallery-item {
-        min-width: 260px;
-    }
-
-    .tools-container {
-        max-width: 750px;
-    }
-
-    .tool-item {
-        width: 130px;
-    }
-}
-
-/* iPhone 12 Pro Max, iPhone 11 Pro Max, iPhone XS Max */
-@media screen and (max-width: 428px) {
-    .blog-title {
-        font-size: 1rem;
-        left: 10px;
-    }
-
-    ion-toolbar ion-buttons {
-        &.language-button {
-            right: 0.5rem;
-        }
-
-        &.biodata-button {
-            margin-right: 3rem;
-        }
-    }
-
-    .section-title {
-        font-size: 1.7rem;
-    }
-
-    .gallery-item {
-        min-width: 250px;
-    }
-
-    .cta-section .cta-content h3 {
-        font-size: 1.5rem;
-    }
-}
-
-/* iPhone 12, iPhone 12 Pro, iPhone X, iPhone XS */
-@media screen and (max-width: 390px) {
+/* Mobile Styles */
+@media (max-width: 640px) {
     .blog-title {
         font-size: 0.9rem;
-        left: 8px;
-    }
-
-    .gallery-item {
-        min-width: 240px;
-    }
-
-    .tool-item {
-        width: 115px;
-    }
-
-    .cta-section .cta-content h3 {
-        font-size: 1.4rem;
-    }
-}
-
-/* iPhone 12 Mini, iPhone SE */
-@media screen and (max-width: 375px) {
-    .blog-title {
-        font-size: 0.85rem;
-        left: 6px;
+        margin-left: 0px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     ion-toolbar ion-buttons {
@@ -726,12 +542,25 @@ ion-toolbar {
         }
     }
 
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .gallery-section {
+        margin-bottom: 20px;
+    }
+
     .gallery-item {
         min-width: 230px;
 
         img {
-            height: 170px;
+            height: 160px;
         }
+    }
+
+    .tools-container {
+        gap: 10px;
+        padding: 15px 10px;
     }
 
     .tool-item {
@@ -742,7 +571,8 @@ ion-toolbar {
     .tool-icon {
         width: 45px;
         height: 45px;
-        
+        margin-bottom: 10px;
+
         ion-icon {
             font-size: 22px;
         }
@@ -754,5 +584,45 @@ ion-toolbar {
 
     .tool-description {
         font-size: 0.75rem;
+    }
+
+    .cta-section {
+        margin-top: 30px;
+        padding: 20px 15px;
+
+        .cta-content h3 {
+            font-size: 1.4rem;
+        }
+
+        .cta-content p {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+    }
+
+    .button-container {
+        max-width: 250px;
+    }
+
+    .website-btn,
+    .android-btn {
+        font-size: 0.9rem;
+    }
+
+    .image-preview-modal {
+        .modal-image-container {
+            padding: 10px;
+
+            .full-size-image {
+                max-width: 95%;
+                max-height: 70vh;
+            }
+
+            .image-caption {
+                margin-top: 10px;
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
     }
 }
