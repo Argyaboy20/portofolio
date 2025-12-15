@@ -113,7 +113,7 @@ export class SocialvitPage implements OnInit {
   startAutoSlide(): void {
     this.autoSlideInterval = setInterval(() => {
       this.nextSlide();
-    }, 5000); // Change slide every 5 seconds
+    }, 10000); // Change slide every 10 seconds
   }
 
   /* Stop automatic carousel sliding */
@@ -151,7 +151,7 @@ export class SocialvitPage implements OnInit {
     this.stopAutoSlide();
     setTimeout(() => {
       this.startAutoSlide();
-    }, 3000);
+    }, 5000);
   }
 
   /* Buka modal dengan foto yang dipilih */
