@@ -186,7 +186,7 @@ ion-toolbar {
     --background: linear-gradient(135deg, #141e30, #243b55);
 
     ion-title {
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 1px;
         text-decoration: none;
         cursor: pointer;
@@ -504,15 +504,14 @@ ion-toolbar {
     padding: 20px;
 
     .recommendation-link {
-        text-decoration: none; /* Removes the default underline */
-        color: inherit; /* Maintains the existing text color */
-        display: block; /* Ensures the entire slide is clickable */
+        text-decoration: none;
+        color: inherit;
+        display: block;
 
         &:hover {
-            text-decoration: none; /* Ensures no underline on hover */
+            text-decoration: none;
         }
     }
-
 
     ion-card-title {
         display: flex;
@@ -531,12 +530,14 @@ ion-toolbar {
         height: auto;
         --swiper-pagination-color: var(--accent-color);
         --swiper-pagination-bullet-inactive-color: rgba(255, 255, 255, 0.3);
-        padding-bottom: 40px;
+        padding-bottom: 50px;
     }
 
     .recommendation-slide {
-        padding: 5px;
+        padding: 5px 5px 30px 5px;
         height: auto;
+        display: flex;
+        flex-direction: column;
 
         ion-avatar {
             width: 80px;
@@ -566,10 +567,10 @@ ion-toolbar {
             font-size: 14px;
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-style: italic;
             text-align: center;
-            display: block; // Ensure proper block display
+            display: block;
             overflow: visible;
         }
 
@@ -577,7 +578,8 @@ ion-toolbar {
             color: #ffd700;
             font-size: 16px;
             text-align: center;
-            margin-top: -5px;
+            margin-top: 0px;
+            margin-bottom: 15px;
         }
     }
 }
@@ -601,214 +603,14 @@ ion-toolbar {
     animation: glow 3s infinite;
 }
 
-/* Galaxy Fold and extremely small devices */
-@media screen and (max-width: 280px) {
-    .career-container {
-        padding: 5px 1px;
-        width: 100%;
-    }
-
-    ion-content {
-
-        &::before,
-        &::after {
-            background-size: 20px, 16px, 18px;
-            opacity: 0.4;
-        }
-    }
-
-    .profile-card,
-    .experience-card,
-    .skills-card,
-    .recommendations-card {
-        &::before {
-            top: -10px;
-            right: -10px;
-            width: 20px;
-            height: 20px;
-            background-size: 20px;
-        }
-
-        margin-bottom: 10px;
-    }
-
-    .experience-card {
-        ion-item {
-            &:hover {
-                border-left: 3px solid var(--secondary-color);
-                --background: rgba(0, 198, 255, 0.1);
-                transform: translateX(5px);
-                transition: all 0.3s ease;
-            }
-        }
-    }
-
-    .recommendations-card {
-        padding: 10px;
-
-        swiper-container {
-            padding-bottom: 30px;
-        }
-
-        .recommendation-slide {
-            h3 {
-                font-size: 16px;
-            }
-
-            h4 {
-                font-size: 12px;
-                margin-bottom: 10px;
-            }
-
-            p {
-                font-size: 12px;
-                line-height: 1.5;
-                margin-bottom: 10px;
-            }
-
-            .rating {
-                font-size: 14px;
-            }
-
-            ion-avatar {
-                width: 60px;
-                height: 60px;
-                margin-bottom: 10px;
-            }
-        }
-    }
-
-    ion-card-title {
-        font-size: 18px;
-    }
-
-    ion-card-subtitle {
-        font-size: 14px;
-    }
-
-    .job-title,
-    .company-name {
-        font-size: 14px;
-    }
-
-    .job-period,
-    .job-description {
-        font-size: 12px;
-    }
-
-    .skill-button {
-        height: 80px;
-
-        .skill-icon {
-            font-size: 20px;
-        }
-
-        .skill-name {
-            font-size: 10px;
-        }
-    }
-}
-
-/* Devices with max-width 480px */
-@media (max-width: 480px) {
-    .career-container {
-        padding: 5px 2px;
-        width: 100%;
-    }
-
-    ion-content {
-
-        &::before,
-        &::after {
-            background-size: 25px, 22px, 24px;
-            opacity: 0.5;
-        }
-    }
-
-    .profile-card,
-    .experience-card,
-    .skills-card,
-    .recommendations-card {
-        &::before {
-            top: -12px;
-            right: -12px;
-            width: 24px;
-            height: 24px;
-            background-size: 24px;
-        }
-
-        margin-bottom: 15px;
-    }
-
-    .experience-card {
-        ion-item {
-            &:hover {
-                border-left: 3px solid var(--secondary-color);
-                --background: rgba(0, 198, 255, 0.1);
-                transform: translateX(5px);
-                transition: all 0.3s ease;
-            }
-        }
-    }
-
-    .recommendations-card {
-        padding: 15px;
-
-        .recommendation-slide {
-            h3 {
-                font-size: 17px;
-            }
-
-            h4 {
-                font-size: 13px;
-            }
-
-            p {
-                font-size: 13px;
-            }
-        }
-    }
-
-    ion-card-title {
-        font-size: 20px;
-    }
-
-    ion-card-subtitle {
-        font-size: 15px;
-    }
-
-    .job-title,
-    .company-name {
-        font-size: 16px;
-    }
-
-    .job-period,
-    .job-description {
-        font-size: 13px;
-    }
-
-    .skill-button {
-        height: 90px;
-
-        .skill-icon {
-            font-size: 24px;
-        }
-
-        .skill-name {
-            font-size: 12px;
-        }
-    }
-}
-
-/* Responsif untuk tablet dan mobile */
+/* Tablet Styles */
 @media (max-width: 768px) {
     .career-container {
-        padding: 5px 3px;
+        padding: 15px 5px;
         width: 100%;
     }
 
     ion-content {
-
         &::before,
         &::after {
             background-size: 30px, 25px, 28px;
@@ -819,7 +621,8 @@ ion-toolbar {
     .profile-card,
     .experience-card,
     .skills-card,
-    .recommendations-card {
+    .recommendations-card,
+    .typing-speed-card {
         &::before {
             top: -13px;
             right: -13px;
@@ -827,9 +630,11 @@ ion-toolbar {
             height: 26px;
             background-size: 26px;
         }
+
+        margin-bottom: 20px;
     }
 
-    /* Reduce intensity of animations for better performance on mobile */
+    /* Reduce intensity of animations for better performance */
     @keyframes float {
         0% {
             transform: translateY(0) rotate(0deg);
@@ -876,43 +681,7 @@ ion-toolbar {
     }
 
     swiper-container {
-        height: 320px;
-    }
-}
-
-/* Add these new media queries */
-@media screen and (max-width: 1024px) {
-    .career-container {
-        padding: 15px 5x;
-        width: 100%;
-    }
-
-    ion-content {
-
-        &::before,
-        &::after {
-            background-size: 35px, 30px, 32px;
-            opacity: 0.6;
-        }
-    }
-
-    .profile-card,
-    .experience-card,
-    .skills-card,
-    .recommendations-card {
-        &::before {
-            top: -15px;
-            right: -15px;
-            width: 30px;
-            height: 30px;
-            background-size: 30px;
-        }
-
-        margin-bottom: 20px;
-    }
-
-    .recommendations-card {
-        padding: 20px;
+        height: auto;
     }
 
     ion-card-title {
@@ -922,227 +691,32 @@ ion-toolbar {
     ion-card-subtitle {
         font-size: 16px;
     }
-}
 
-/* iPad Air, iPad Mini */
-@media screen and (max-width: 820px) {
-    .career-container {
-        padding: 15px 5px;
-        width: 100%;
-    }
-
-    ion-content {
-
-        &::before,
-        &::after {
-            background-size: 32px, 28px, 30px;
-            opacity: 0.6;
-        }
-    }
-
-    .profile-card,
-    .experience-card,
-    .skills-card,
-    .recommendations-card {
-        &::before {
-            top: -14px;
-            right: -14px;
-            width: 28px;
-            height: 28px;
-            background-size: 28px;
-        }
-
-        margin-bottom: 20px;
-    }
-
-    .experience-card {
-        ion-item {
-            &:hover {
-                border-left: 3px solid var(--secondary-color);
-                --background: rgba(0, 198, 255, 0.1);
-                transform: translateX(5px);
-                transition: all 0.3s ease;
-            }
-        }
-    }
-
-    .recommendations-card {
-        padding: 20px;
-
-        .recommendation-slide {
-            h3 {
-                font-size: 18px;
-            }
-
-            h4 {
-                font-size: 15px;
-            }
-
-            p {
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        }
-    }
-
-    ion-card-title {
-        font-size: 24px;
-    }
-
-    ion-card-subtitle {
-        font-size: 18px;
-    }
-}
-
-/* iPhone 12 Pro Max, iPhone 11 Pro Max, iPhone XS Max */
-@media screen and (max-width: 428px) {
-    .career-container {
-        padding: 15px 5px;
-        width: 100%;
-    }
-
-    ion-content {
-
-        &::before,
-        &::after {
-            background-size: 25px, 22px, 24px;
-            opacity: 0.5;
-        }
-    }
-
-    .profile-card,
-    .experience-card,
-    .skills-card,
-    .recommendations-card {
-        &::before {
-            top: -12px;
-            right: -12px;
-            width: 24px;
-            height: 24px;
-            background-size: 24px;
-        }
-
-        margin-bottom: 15px;
-    }
-
-    .experience-card {
-        ion-item {
-            &:hover {
-                border-left: 3px solid var(--secondary-color);
-                --background: rgba(0, 198, 255, 0.1);
-                transform: translateX(5px);
-                transition: all 0.3s ease;
-            }
-        }
-    }
-
-    .recommendations-card {
-        padding: 15px;
-
-        .recommendation-slide {
-            h3 {
-                font-size: 17px;
-            }
-
-            h4 {
-                font-size: 13px;
-            }
-
-            p {
-                font-size: 13px;
-                line-height: 1.5;
-            }
-        }
-    }
-
-    ion-card-title {
-        font-size: 22px;
-    }
-
-    ion-card-subtitle {
+    .job-title,
+    .company-name {
         font-size: 16px;
     }
+
+    .job-period,
+    .job-description {
+        font-size: 13px;
+    }
 }
 
-/* iPhone 12, iPhone 12 Pro, iPhone X, iPhone XS */
-@media screen and (max-width: 390px) {
+/* Mobile Styles */
+@media (max-width: 640px) {
+    ion-toolbar {
+        ion-title {
+            font-size: 16px;
+        }
+    }
+
     .career-container {
-        padding: 10px 3px;
+        padding: 10px 0;
         width: 100%;
     }
 
     ion-content {
-
-        &::before,
-        &::after {
-            background-size: 22px, 20px, 21px;
-            opacity: 0.5;
-        }
-    }
-
-    .profile-card,
-    .experience-card,
-    .skills-card,
-    .recommendations-card {
-        &::before {
-            top: -11px;
-            right: -11px;
-            width: 22px;
-            height: 22px;
-            background-size: 22px;
-        }
-
-        margin-bottom: 10px;
-    }
-
-    .experience-card {
-        ion-item {
-            &:hover {
-                border-left: 3px solid var(--secondary-color);
-                --background: rgba(0, 198, 255, 0.1);
-                transform: translateX(5px);
-                transition: all 0.3s ease;
-            }
-        }
-    }
-
-    .recommendations-card {
-        padding: 10px;
-
-        .recommendation-slide {
-            h3 {
-                font-size: 16px;
-            }
-
-            h4 {
-                font-size: 12px;
-            }
-
-            p {
-                font-size: 12px;
-                line-height: 1.5;
-            }
-        }
-    }
-
-    ion-card-title {
-        font-size: 20px;
-    }
-
-    ion-card-subtitle {
-        font-size: 14px;
-    }
-}
-
-/* iPhone 12 Mini, iPhone SE */
-@media screen and (max-width: 375px) {
-    .career-container {
-        padding: 5px 3px;
-        width: 100%;
-    }
-
-    ion-content {
-
         &::before,
         &::after {
             background-size: 20px, 18px, 19px;
@@ -1153,7 +727,8 @@ ion-toolbar {
     .profile-card,
     .experience-card,
     .skills-card,
-    .recommendations-card {
+    .recommendations-card,
+    .typing-speed-card {
         &::before {
             top: -10px;
             right: -10px;
@@ -1162,7 +737,7 @@ ion-toolbar {
             background-size: 20px;
         }
 
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
 
     /* Simplify animations for better performance on small devices */
@@ -1192,29 +767,35 @@ ion-toolbar {
     }
 
     .recommendations-card {
-        padding: 5px;
+        padding: 10px;
+
+        swiper-container {
+            padding-bottom: 50px;
+        }
 
         .recommendation-slide {
-            padding: 3px;
+            padding: 3px 3px 25px 3px;
 
             h3 {
-                font-size: 15px;
+                font-size: 16px;
                 margin-bottom: 3px;
             }
 
             h4 {
-                font-size: 11px;
+                font-size: 12px;
                 margin-bottom: 10px;
             }
 
             p {
-                font-size: 11px;
+                font-size: 12px;
                 line-height: 1.4;
-                margin-bottom: 10px;
+                margin-bottom: 15px;
             }
 
             .rating {
                 font-size: 12px;
+                margin-top: 10px;
+                margin-bottom: 15px
             }
 
             ion-avatar {
@@ -1230,6 +811,43 @@ ion-toolbar {
     }
 
     ion-card-subtitle {
+        font-size: 14px;
+    }
+
+    .profile-card {
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+        }
+
+        ion-card-title {
+            font-size: 20px;
+        }
+
+        ion-card-subtitle {
+            font-size: 14px;
+        }
+    }
+
+    .job-title,
+    .company-name {
+        font-size: 14px;
+    }
+
+    .job-period,
+    .job-description {
         font-size: 12px;
+    }
+
+    .skill-button {
+        height: 80px;
+
+        .skill-icon {
+            font-size: 20px;
+        }
+
+        .skill-name {
+            font-size: 10px;
+        }
     }
 }
