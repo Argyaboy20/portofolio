@@ -8,13 +8,14 @@ $text-color-dark: #333;
 $text-color-light: #fff;
 @use "sass:color";
 
+/* DEFAULT STYLES (Desktop) */
+
 /* Gaya umum */
 .blog-title {
     text-decoration: none;
     display: inline-block;
 
     &:hover {
-
         .primary-text,
         .secondary-text {
             opacity: 0.8;
@@ -38,7 +39,6 @@ ion-toolbar {
             transition: all 0.3s ease;
             animation: buttonSlideIn 0.5s ease forwards;
 
-            // Optimized pseudo-element for hover effect
             &::before {
                 content: '';
                 position: absolute;
@@ -82,13 +82,11 @@ ion-toolbar {
     }
 }
 
-// Keyframes for button hover effect
 @keyframes buttonSlideIn {
     0% {
         opacity: 0;
         transform: translateY(-10px);
     }
-
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -99,11 +97,9 @@ ion-toolbar {
     0% {
         transform: translateY(0);
     }
-
     50% {
         transform: translateY(-3px);
     }
-
     100% {
         transform: translateY(0);
     }
@@ -151,7 +147,7 @@ ion-header {
     }
 }
 
-/* Hero Section dengan Background Animasi */
+/* Hero Section */
 .hero-section {
     height: 400px;
     background: linear-gradient(135deg, #2c3e50, #4a90e2);
@@ -161,13 +157,11 @@ ion-header {
     position: relative;
     overflow: hidden;
     will-change: transform;
-    /* Hint for browser optimization */
 
     .hero-content {
         text-align: center;
         z-index: 2;
         padding: 2rem;
-        /* Pre-animate the hero content to avoid lag */
         opacity: 1;
         transform: translateY(0);
     }
@@ -192,9 +186,7 @@ ion-header {
     border-radius: 50%;
     opacity: 0.2;
     will-change: transform;
-    /* Optimize for animation */
     backface-visibility: hidden;
-    /* Reduce composite layers */
 }
 
 .circle-1 {
@@ -225,12 +217,9 @@ ion-header {
 }
 
 @keyframes float {
-
-    0%,
-    100% {
+    0%, 100% {
         transform: translate(0, 0);
     }
-
     50% {
         transform: translate(15px, 15px);
     }
@@ -248,7 +237,6 @@ ion-header {
 section {
     padding: 4rem 2rem;
     contain: content;
-    /* Improve scroll performance */
 }
 
 .section-title {
@@ -439,7 +427,7 @@ section {
     }
 }
 
-/* Quick Facts Section - streamlined */
+/* Quick Facts Section */
 .facts-section {
     background: linear-gradient(135deg, #2c3e50, #4a90e2);
     color: $text-color-light;
@@ -597,8 +585,8 @@ section {
 
 .contact-container {
     display: flex;
-    flex-direction: column; /* Change to column layout */
-    align-items: center; /* Center items horizontally */
+    flex-direction: column;
+    align-items: center;
     max-width: 1200px;
     margin: 0 auto;
     gap: 3rem;
@@ -606,7 +594,7 @@ section {
 
 .rotating-gallery {
     width: 100%;
-    max-width: 500px; /* Reasonable max-width */
+    max-width: 500px;
     margin: 0 auto;
 
     .photo-container {
@@ -617,10 +605,10 @@ section {
 
         .rotating-photo {
             width: 100%;
-            height: auto; /* Changed from fixed height to auto */
-            object-fit: contain; /* Changed from cover to contain */
+            height: auto;
+            object-fit: contain;
             transition: opacity 0.5s ease;
-            display: block; /* Ensures no extra space below image */
+            display: block;
         }
 
         .photo-caption {
@@ -652,10 +640,10 @@ section {
 }
 
 .contact-info {
-    width: 100%; /* Full width */
-    max-width: 600px; /* Match the max-width of rotating gallery */
+    width: 100%;
+    max-width: 600px;
     padding: 2rem;
-    text-align: center; /* Center the text */
+    text-align: center;
 
     h3 {
         font-size: 1.5rem;
@@ -663,14 +651,14 @@ section {
         margin-bottom: 2rem;
         position: relative;
         padding-bottom: 0.5rem;
-        text-align: center; /* Center the heading */
+        text-align: center;
 
         &:after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 50%; /* Center the line */
-            transform: translateX(-50%); /* Ensure perfect centering */
+            left: 50%;
+            transform: translateX(-50%);
             width: 50px;
             height: 3px;
             background: $secondary-color;
@@ -678,11 +666,10 @@ section {
     }
 }
 
-
 .contact-item {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the items */
+    justify-content: center;
     margin-bottom: 1.5rem;
 
     ion-icon,
@@ -816,24 +803,23 @@ section {
     }
 }
 
-
 /* Base animation classes */
 .animate-on-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  will-change: opacity, transform;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    will-change: opacity, transform;
 }
 
 .animate-on-scroll.animate {
-  opacity: 1;
-  transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .animate-on-scroll.animate-out {
-  opacity: 0;
-  transform: translateY(-30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 /* Different animation variations */
@@ -900,7 +886,6 @@ section {
     }
 }
 
-/* Hobbies Section */
 .hobbies-section {
     .hobby-card.animate-on-scroll {
         opacity: 0;
@@ -913,7 +898,6 @@ section {
     }
 }
 
-/* Facts Section */
 .facts-section {
     .fact-item.animate-on-scroll {
         opacity: 0;
@@ -1004,7 +988,6 @@ section {
     }
 }
 
-/* Modified Awards Modal styling */
 .awards-modal {
     --height: 90%;
     --width: 90%;
@@ -1086,33 +1069,6 @@ section {
     }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .award-slide {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-
-        .award-image-container {
-            img {
-                max-height: 300px;
-            }
-        }
-
-        .award-info {
-            padding: 0.5rem;
-
-            h3 {
-                font-size: 1.2rem;
-            }
-
-            p {
-                font-size: 0.95rem;
-            }
-        }
-    }
-}
-
-/* Gallery Section */
 .gallery-section {
     .gallery-item.animate-on-scroll {
         opacity: 0;
@@ -1131,7 +1087,6 @@ section {
         opacity: 0;
         transform: translateY(30px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1143,7 +1098,6 @@ section {
         opacity: 0;
         transform: translateY(-30px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1155,7 +1109,6 @@ section {
         opacity: 0;
         transform: translateX(-50px);
     }
-
     to {
         opacity: 1;
         transform: translateX(0);
@@ -1167,7 +1120,6 @@ section {
         opacity: 0;
         transform: translateX(50px);
     }
-
     to {
         opacity: 1;
         transform: translateX(0);
@@ -1179,28 +1131,23 @@ section {
         opacity: 0;
         transform: scale(0.8);
     }
-
     to {
         opacity: 1;
         transform: scale(1);
     }
 }
 
-
-/* Keyframe untuk animasi fade out */
 @keyframes fadeOut {
     from {
         opacity: 1;
         transform: translateY(0);
     }
-
     to {
         opacity: 0;
         transform: translateY(-30px);
     }
 }
 
-/* Update variasi animasi yang ada */
 .fade-in-right.animate-out {
     animation: fadeOutRight 0.8s ease-out forwards;
 }
@@ -1221,13 +1168,11 @@ section {
     animation: zoomOut 0.8s ease-out forwards;
 }
 
-/* Tambahkan keyframes untuk variasi fade out */
 @keyframes fadeOutRight {
     from {
         opacity: 1;
         transform: translateX(0);
     }
-
     to {
         opacity: 0;
         transform: translateX(50px);
@@ -1239,7 +1184,6 @@ section {
         opacity: 1;
         transform: translateX(0);
     }
-
     to {
         opacity: 0;
         transform: translateX(-50px);
@@ -1251,7 +1195,6 @@ section {
         opacity: 1;
         transform: translateY(0);
     }
-
     to {
         opacity: 0;
         transform: translateY(-50px);
@@ -1263,7 +1206,6 @@ section {
         opacity: 1;
         transform: translateY(0);
     }
-
     to {
         opacity: 0;
         transform: translateY(50px);
@@ -1275,20 +1217,19 @@ section {
         opacity: 1;
         transform: scale(1);
     }
-
     to {
         opacity: 0;
         transform: scale(0.8);
     }
 }
 
-
 .modal-image-container img {
     animation: zoomIn 0.4s ease-out;
 }
 
-/* Responsif untuk tablet dan mobile */
+/* TABLET STYLES */
 @media (max-width: 768px) {
+    /* Toolbar adjustments */
     ion-toolbar {
         ion-buttons {
             &.gallery-button {
@@ -1296,15 +1237,39 @@ section {
             }
 
             &.language-button {
-                margin-right: -1.0rem;
+                right: 0.5rem;
             }
         }
     }
 
-    .hero-title {
-        font-size: 2.5rem;
+    .primary-text {
+        margin-left: 8rem;
     }
 
+    /* Hero section */
+    .hero-section {
+        height: 350px;
+
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+    }
+
+    /* Sections padding */
+    section {
+        padding: 3rem 1.5rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Timeline adjustments */
     .timeline:before {
         left: 30px;
     }
@@ -1315,75 +1280,426 @@ section {
         padding-right: 12px;
         text-align: left;
 
-        &:nth-child(odd) {
+        &:nth-child(odd),
+        &:nth-child(even) {
             left: 0;
             text-align: left;
 
             .timeline-content {
+                padding-left: 5px;
                 padding-right: 0;
-                padding-left: 5px;
-            }
-        }
-
-        &:nth-child(even) {
-            left: 0;
-
-            .timeline-content {
-                padding-left: 5px;
             }
         }
 
         .timeline-dot {
             left: 20px;
             right: auto;
-
-            :nth-child(even) & {
-                left: 20px;
-            }
         }
 
-        /* Adding specific fix for the second dot if needed */
+        &:nth-child(even) .timeline-dot {
+            left: 20px;
+        }
+
         &:nth-child(2) .timeline-dot {
-            /* Ensure exact alignment with the timeline */
             left: 20px;
             top: 15px;
         }
     }
 
+    /* Grids adjustments */
+    .hobbies-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+    }
+
+    /* Facts section */
+    .fact-item {
+        min-width: 180px;
+        padding: 1.5rem;
+    }
+
+    .fact-number {
+        font-size: 2.5rem;
+    }
+
+    /* Quotes section */
+    .quotes-section {
+        padding: 4rem 1.5rem;
+
+        blockquote {
+            font-size: 1.6rem;
+            padding: 0 1.5rem;
+        }
+    }
+
+    /* Contact section */
+    .contact-container {
+        gap: 2rem;
+    }
+
+    .rotating-gallery {
+        max-width: 450px;
+    }
+
+    .contact-info {
+        padding: 1.5rem;
+    }
+
+    /* Awards section */
+    .award-slide {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.2rem;
+
+        .award-image-container img {
+            max-height: 350px;
+        }
+
+        .award-info {
+            padding: 0.8rem;
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            p {
+                font-size: 0.98rem;
+            }
+        }
+    }
+
+    /* Modal adjustments */
+    .modal-image-container {
+        .full-size-image {
+            max-width: 92%;
+            max-height: 85%;
+
+            &.zoomed {
+                transform: scale(1.8);
+            }
+        }
+    }
+}
+
+/* MOBILE STYLES */
+@media (max-width: 640px) {
+    /* Toolbar mobile */
+    ion-toolbar {
+        ion-buttons {
+            ion-button {
+                font-size: 0.75rem;
+                padding: 0 0.3rem;
+                min-width: auto;
+            }
+
+            &.gallery-button {
+                margin-right: 0.5rem;
+            }
+
+            &.language-button {
+                right: 0;
+
+                ion-button {
+                    min-width: 35px;  // tambahkan ini - khusus untuk button EN/ID
+                }
+            }
+        }
+    }
+
+    .primary-text {
+        margin-left: 0;
+        font-size: 0.85rem;
+    }
+
+    .secondary-text {
+        font-size: 0.85rem;
+    }
+
+    /* Hero section mobile */
+    .hero-section {
+        height: 300px;
+
+        .hero-content {
+            padding: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+        }
+    }
+
+    /* Animated circles smaller */
+    .circle-1 {
+        width: 200px;
+        height: 200px;
+    }
+
+    .circle-2 {
+        width: 150px;
+        height: 150px;
+    }
+
+    .circle-3 {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Sections mobile */
+    section {
+        padding: 2.5rem 1rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+
+        &:after {
+            width: 50px;
+            height: 3px;
+        }
+    }
+
+    /* Timeline mobile */
+    .timeline-item {
+        padding-left: 60px;
+        padding-right: 8px;
+        margin-bottom: 1.5rem;
+
+        .timeline-dot {
+            left: 15px;
+            width: 16px;
+            height: 16px;
+        }
+
+        &:nth-child(2) .timeline-dot {
+            left: 15px;
+        }
+    }
+
+    .timeline:before {
+        left: 23px;
+        width: 3px;
+    }
+
+    .timeline-content {
+        padding: 1.2rem;
+
+        h3 {
+            font-size: 1.1rem;
+        }
+
+        h4 {
+            font-size: 0.95rem;
+        }
+
+        p {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Grids mobile - single column */
     .hobbies-grid,
     .gallery-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .hobby-card {
+        padding: 1.5rem 1rem;
+
+        h3 {
+            font-size: 1.1rem;
+        }
+
+        p {
+            font-size: 0.85rem;
+        }
+    }
+
+    .hobby-icon {
+        width: 60px;
+        height: 60px;
+
+        ion-icon {
+            font-size: 1.5rem;
+        }
+    }
+
+    /* Facts mobile */
+    .facts-container {
+        gap: 1.5rem;
     }
 
     .fact-item {
-        min-width: 150px;
+        min-width: 140px;
+        padding: 1.2rem;
     }
 
-    blockquote {
-        font-size: 1.5rem;
-        padding: 0 1rem;
+    .fact-number {
+        font-size: 2rem;
     }
 
+    .fact-label {
+        font-size: 0.9rem;
+    }
+
+    /* Quotes mobile */
+    .quotes-section {
+        padding: 3rem 1rem;
+
+        blockquote {
+            font-size: 1.4rem;
+            padding: 0 1rem;
+        }
+
+        cite {
+            font-size: 0.95rem;
+        }
+
+        .quote-icon {
+            font-size: 3rem;
+        }
+    }
+
+    /* Gallery mobile */
+    .gallery-item {
+        height: 220px;
+    }
+
+    .gallery-overlay span {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    /* Contact mobile */
+    .contact-container {
+        gap: 1.5rem;
+    }
+
+    .rotating-gallery {
+        max-width: 100%;
+
+        .photo-container {
+            .photo-caption {
+                bottom: 20px;
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+    .contact-info {
+        padding: 1rem;
+
+        h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+
+            &:after {
+                width: 40px;
+            }
+        }
+    }
+
+    .contact-item {
+        margin-bottom: 1.2rem;
+
+        ion-icon,
+        .quora-icon {
+            font-size: 1.3rem;
+        }
+
+        span {
+            font-size: 0.95rem;
+        }
+    }
+
+    /* Awards mobile */
+    .awards-item {
+        height: 250px;
+    }
+
+    .award-slide {
+        padding: 1rem;
+        gap: 1rem;
+
+        .award-image-container img {
+            max-height: 300px;
+        }
+
+        .award-info {
+            padding: 0.5rem;
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+        }
+    }
+
+    .awards-carousel {
+        padding: 0.5rem;
+        gap: 1.5rem;
+    }
+
+    /* Footer mobile */
+    .biodata-footer {
+        padding: 2rem 1rem;
+
+        p {
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            gap: 1rem;
+
+            a {
+                width: 45px;
+                height: 45px;
+
+                ion-icon {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Modal mobile */
     .modal-image-container {
-        /* Reset the positioning to defaults */
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 100vh; /* Force it to use the full viewport height */
-        padding: -5px; /* Add some padding around the image */
+        height: 100vh;
+        padding: 5px;
         box-sizing: border-box;
 
         .full-size-image {
             max-width: 95%;
             max-height: 80vh;
             object-fit: contain;
-            margin: auto; /* Center in the available space */
-            position: static; /* Remove any absolute positioning */
+            margin: auto;
+            position: static;
             transform-origin: center;
 
             &.zoomed {
-                transform: scale(1.8);
+                transform: scale(1.5);
             }
         }
     }
