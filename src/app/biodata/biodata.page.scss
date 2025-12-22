@@ -996,15 +996,48 @@ section {
 
     &::part(content) {
         border-radius: 10px;
+        background: #000000 !important;
+    }
+
+    .awards-modal-header {
+        ion-toolbar {
+            ---background: #fff;
+            --color: #2c3e50;
+            
+            ion-title {
+                text-align: center;
+                font-weight: 600;
+                font-size: 1.3rem;
+                letter-spacing: 0.5px;
+                color: #ffffff !important;
+            }
+            
+            /* Styling untuk tombol close */
+            .close-button {
+                --color: #ffffff !important;
+                --background: transparent;
+                --background-hover: rgba(44, 62, 80, 0.1);
+                --background-activated: rgba(44, 62, 80, 0.2);
+                --border-radius: 50%;
+                --padding-start: 10px;
+                --padding-end: 10px;
+                font-size: 1.5rem;
+                transition: all 0.3s ease;
+                
+                ion-icon {
+                    font-size: 2rem;
+                    color: #ffffff !important;
+                }
+                
+                &:hover {
+                    transform: rotate(90deg);
+                }
+            }
+        }
     }
 }
 
-.awards-modal-header {
-    ion-toolbar {
-        --background: #4a90e2;
-        --color: #fff;
-    }
-}
+
 
 .awards-modal-content {
     padding: 1.5rem;
@@ -1384,6 +1417,34 @@ section {
             }
         }
     }
+
+    .awards-modal {
+        .awards-modal-header {
+            ion-toolbar {
+                --background: #fff;
+                --color: #2c3e50;
+
+                ion-title {
+                    font-size: 1.15rem;
+                    padding-right: 45px; /* Beri space untuk tombol close */
+                    letter-spacing: 0.3px;
+                    color: #ffffff;
+                }
+                
+                .close-button {
+                    --color: #ffffff;
+                    --padding-start: 8px;
+                    --padding-end: 8px;
+                    font-size: 1.4rem;
+                    
+                    ion-icon {
+                        font-size: 1.7rem;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /* MOBILE STYLES */
@@ -1392,8 +1453,7 @@ section {
     ion-toolbar {
         ion-buttons {
             ion-button {
-                font-size: 0.75rem;
-                padding: 0 0.3rem;
+                font-size: 0.7rem;
                 min-width: auto;
             }
 
@@ -1405,10 +1465,15 @@ section {
                 right: 0;
 
                 ion-button {
-                    min-width: 35px;  // tambahkan ini - khusus untuk button EN/ID
+                    min-width: 35px;
                 }
             }
         }
+    }
+
+    .blog-title {
+        top: 10%;
+        transform: translateY(-10%);
     }
 
     .primary-text {
@@ -1478,10 +1543,26 @@ section {
             left: 15px;
             width: 16px;
             height: 16px;
+            top: 15px;
+        }
+
+        &:nth-child(odd),
+        &:nth-child(even) {
+            .timeline-dot {
+                left: 15px; /* Semua dot di posisi yang sama */
+                top: 15px;  /* Semua dot di ketinggian yang sama */
+            }
         }
 
         &:nth-child(2) .timeline-dot {
             left: 15px;
+            top: 15px;
+        }
+
+        &:nth-child(4) .timeline-dot,
+        &:nth-child(6) .timeline-dot {
+            left: 15px;
+            top: 15px;
         }
     }
 
@@ -1700,6 +1781,38 @@ section {
 
             &.zoomed {
                 transform: scale(1.5);
+            }
+        }
+    }
+
+    .awards-modal {
+        .awards-modal-header {
+            ion-toolbar {
+                --background: #fff;
+                --color: #2c3e50;
+
+                ion-title {
+                    font-size: 1rem;
+                    padding-right: 40px; /* Space untuk tombol close */
+                    letter-spacing: 0.2px;
+                    font-weight: 500;
+                    color: #ffffff;
+                }
+                
+                .close-button {
+                    --color: #ffffff;
+                    --padding-start: 6px;
+                    --padding-end: 6px;
+                    font-size: 1.2rem;
+                    
+                    ion-icon {
+                        font-size: 1.5rem;
+                    }
+                    
+                    &:hover {
+                        transform: rotate(90deg) scale(0.95);
+                    }
+                }
             }
         }
     }

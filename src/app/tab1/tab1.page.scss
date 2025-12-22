@@ -2141,11 +2141,13 @@ footer {
     .blog-title {
         font-size: 0.85rem;
         left: 6px;
+        top: 10%;
+        transform: translateY(-10%);
     }
 
     ion-toolbar ion-buttons {
         ion-button {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         &.language-button {
@@ -2153,7 +2155,7 @@ footer {
         }
 
         &.biodata-button {
-            margin-right: 2.5rem;
+            margin-right: 2rem;
         }
     }
 

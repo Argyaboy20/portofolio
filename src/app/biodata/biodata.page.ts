@@ -220,7 +220,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       otherWays: "My Discussion Platforms",
       whatsappContact: "Contact me here",
       quoraProfile: "Quora Profile",
-      awardsTitle: "Awards & Achievements",
+      awardsTitle: "Awards",
       pilmapresRole: "Outstanding Student Award 2023",
       pilmapresDesc: "Participated in the Outstanding Student Selection 2023 representing the department and faculty. Developed innovative work and presented new ideas in technology.",
       roboticsRole: "Robotics Trainer",
