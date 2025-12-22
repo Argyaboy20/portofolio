@@ -1,5 +1,5 @@
+// Default Styles
 .modern-header {
-
     ion-toolbar {
         --background: linear-gradient(135deg, #6366F1, #3B82F6);
         --border-width: 0;
@@ -38,11 +38,9 @@
     .header-icon {
         width: 24px;
         height: 24px;
-        /* Added 3D effects */
         filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.3));
         transform-style: preserve-3d;
         perspective: 500px;
-        /* Kept the original animation */
         animation: pulse 3s ease-in-out infinite;
     }
 
@@ -96,15 +94,13 @@
         --color: #6366F1;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.5px; /* Mengurangi letter-spacing */
+        letter-spacing: 0.5px;
         border-radius: 15px;
         margin: 0 2px;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
-        /* Memperkecil ukuran font */
-        font-size: 0.75rem; 
-        /* Menambah ketajaman teks */
+        font-size: 0.75rem;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -115,7 +111,6 @@
 
         &.segment-button-checked {
             box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
-            /* Menghapus efek blur */
             filter: none;
             
             &::after {
@@ -132,13 +127,11 @@
         }
         
         &:not(.segment-button-checked) {
-            opacity: 0.9; /* Meningkatkan opacity untuk kejelasan lebih baik */
-            transform: scale(0.98); /* Mengurangi perbedaan skala agar tidak terlalu blur */
-            /* Memastikan tidak ada filter blur */
+            opacity: 0.9;
+            transform: scale(0.98);
             filter: none;
         }
         
-        /* Memastikan teks tetap tajam saat transisi */
         ion-label {
             transform: translateZ(0);
             backface-visibility: hidden;
@@ -149,20 +142,17 @@
 
 ion-segment-button:hover {
     filter: none !important;
-    /* Pastikan tidak ada efek blur saat hover */
 }
 
-/* Memperbaiki transisi untuk menghindari blur */
 @keyframes expandLine {
     from {
         width: 0;
     }
     to {
-        width: 50%; /* Mengurangi lebar garis agar tidak terlalu dominan untuk teks kecil */
+        width: 50%;
     }
 }
 
-/* Ripple effect on click for segment buttons */
 @keyframes ripple {
     0% {
         transform: scale(0);
@@ -193,7 +183,7 @@ ion-segment-button.segment-activated::before {
 
 .photo-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); // 2 columns
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     padding: 16px;
     max-width: 900px;
@@ -203,7 +193,6 @@ ion-segment-button.segment-activated::before {
     transition: opacity 0.2s ease;
 }
 
-/* Styles for animation state */
 .grid-fade-out {
     opacity: 0;
 }
@@ -212,7 +201,6 @@ ion-segment-button.segment-activated::before {
     opacity: 1;
 }
 
-/* Animated card entrance */
 .photo-card:nth-child(1) { animation-delay: 0.05s; }
 .photo-card:nth-child(2) { animation-delay: 0.1s; }
 .photo-card:nth-child(3) { animation-delay: 0.15s; }
@@ -226,7 +214,7 @@ ion-segment-button.segment-activated::before {
 
 .photo-card {
     perspective: 1000px;
-    aspect-ratio: 1; /* Make it square */
+    aspect-ratio: 1;
     cursor: pointer;
     contain: layout style;
     animation: fadeIn 0.5s ease-out;
@@ -305,7 +293,6 @@ ion-segment-button.segment-activated::before {
     }
 }
 
-/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -354,7 +341,6 @@ ion-segment-button.segment-activated::before {
     }
 }
 
-/* Animasi untuk modal */
 ion-modal {
     --height: 80%;
     --border-radius: 20px;
@@ -374,7 +360,6 @@ ion-modal {
     }
 }
 
-/* Audio Player */
 .audio-player {
     display: flex;
     align-items: center;
@@ -416,9 +401,56 @@ ion-modal {
     }
 }
 
-/* Galaxy Fold and extremely small devices */
-@media screen and (max-width: 280px) {
+/* Tablet Styles */
+@media (max-width: 768px) {
     .modern-header {
+        ion-toolbar {
+            padding: 8px 0;
+        }
+
+        .header-content {
+            padding: 12px 18px;
+        }
+
+        .logo-container {
+            padding: 10px;
+            margin-bottom: 8px;
+        }
+
+        .main-title {
+            font-size: 26px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+        }
+    }
+
+    .category-selector {
+        margin: 15px 10px;
+    }
+
+    .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 700px;
+    }
+
+    .modal-content {
+        max-width: 500px;
+    }
+
+    ion-modal {
+        --height: 70%;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 640px) {
+    .modern-header {
+        ion-toolbar {
+            padding: 8px 0;
+        }
+
         .header-content {
             padding: 10px 15px;
         }
@@ -428,7 +460,8 @@ ion-modal {
         }
 
         .header-icon {
-            font-size: 20px;
+            width: 20px;
+            height: 20px;
         }
 
         .main-title {
@@ -445,12 +478,47 @@ ion-modal {
         margin: 15px 0;
 
         ion-segment-button {
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
+            font-size: 0.7rem;
+            letter-spacing: 0.3px;
+        }
+    }
+
+    .photo-grid {
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .photo-card {
+        .photo-front {
+            h3 {
+                padding: 10px;
+                font-size: 1em;
+            }
+        }
+
+        .photo-back {
+            padding: 15px;
+
+            .date {
+                font-size: 0.85em;
+            }
+
+            .description {
+                font-size: 0.9em;
+            }
+        }
+    }
+
+    .modal-content {
+        .detail-content {
+            h2 {
+                font-size: 1.4em;
+            }
         }
     }
 
     .audio-player {
+        width: calc(100% - 30px);
         padding: 4px 10px;
 
         ion-button {
@@ -471,134 +539,5 @@ ion-modal {
                 font-size: 9px;
             }
         }
-    }
-}
-
-/* Small mobile devices (iPhone SE, etc.) */
-@media screen and (max-width: 375px) {
-    .modern-header {
-        .main-title {
-            font-size: 24px;
-        }
-    }
-
-    .photo-grid {
-        gap: 10px;
-        padding: 10px;
-    }
-
-    .photo-card {
-        .photo-front {
-            h3 {
-                padding: 10px;
-                font-size: 1em;
-            }
-        }
-
-        .photo-back {
-            padding: 15px;
-
-            .description {
-                font-size: 0.9em;
-            }
-        }
-    }
-}
-
-/* iPhone 12, iPhone 12 Pro, iPhone X, iPhone XS */
-@media screen and (max-width: 390px) {
-    .modern-header {
-        .header-content {
-            padding: 12px 18px;
-        }
-
-        .main-title {
-            font-size: 26px;
-        }
-    }
-}
-
-/* iPhone 12 Pro Max, iPhone 11 Pro Max, iPhone XS Max */
-@media screen and (max-width: 428px) {
-    .category-selector {
-        margin: 18px 0;
-    }
-
-    .photo-card {
-        .photo-back {
-            .date {
-                font-size: 0.85em;
-            }
-        }
-    }
-
-    .modal-content {
-        .detail-content {
-            h2 {
-                font-size: 1.4em;
-            }
-        }
-    }
-}
-
-/* General mobile devices */
-@media (max-width: 480px) {
-    .modern-header {
-        ion-toolbar {
-            padding: 8px 0;
-        }
-    }
-
-    .audio-player {
-        width: calc(100% - 30px);
-    }
-}
-
-/* iPad Air, iPad Mini */
-@media screen and (max-width: 820px) {
-    .photo-grid {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 700px;
-    }
-
-    .modal-content {
-        max-width: 500px;
-    }
-}
-
-/* General tablet devices */
-@media (max-width: 768px) {
-    .modern-header {
-        .header-content {
-            padding: 15px;
-        }
-
-        .logo-container {
-            padding: 10px;
-            margin-bottom: 8px;
-        }
-
-        .main-title {
-            font-size: 26px;
-        }
-
-        .subtitle {
-            font-size: 13px;
-        }
-    }
-
-    .category-selector {
-        margin: 15px 10px;
-    }
-}
-
-/* Larger tablets and small desktops */
-@media screen and (max-width: 1024px) {
-    .photo-grid {
-        max-width: 800px;
-    }
-
-    ion-modal {
-        --height: 70%;
     }
 }
