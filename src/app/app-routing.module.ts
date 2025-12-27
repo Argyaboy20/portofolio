@@ -47,9 +47,6 @@ const routes: Routes = [
     loadChildren: () => import('./privacypolicy/privacypolicy.module').then( m => m.PrivacypolicyPageModule)
   },
   {
-    path: 'upscale',
-    loadChildren: () => import('./upscale/upscale.module').then( m => m.UpscalePageModule)
-  },  {
     path: 'socialvit',
     loadChildren: () => import('./socialvit/socialvit.module').then( m => m.SocialvitPageModule)
   },

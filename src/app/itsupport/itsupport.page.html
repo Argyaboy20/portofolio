@@ -1,7 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="custom-toolbar">
     <ion-title class="toolbar-title">
-      <span class="title-text" (click)="navigateToHome()">{{ currentLanguage === 'id' ? 'Maulana Farras Blog\'s' : 'Maulana Farras Blog\'s' }}</span>
+      <span class="title-text" (click)="navigateToHome()">
+        {{ currentLanguage === 'id' ? 'Maulana Farras Blog' : 'Maulana Farras Blog' }}
+      </span>
     </ion-title>
     <ion-buttons slot="end">
       <ion-button 
@@ -28,178 +30,474 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Hero Section -->
-  <div class="hero-section">
-    <div class="hero-content">
-      <div class="hero-image-container">
-        <img 
-          src="/assets/itsupport.jpeg" 
-          alt="IT Support Experience" 
-          class="hero-image"
-          [attr.alt]="currentLanguage === 'id' ? 'Pengalaman IT Support' : 'IT Support Experience'">
-      </div>
-      
-      <div class="hero-text">
-        <h1 class="hero-title">
-          {{ currentLanguage === 'id' ? 'Pengalaman IT Support' : 'IT Support Experience' }}
+  <!-- Hero Banner with Gradient Overlay -->
+  <div class="hero-banner">
+    <div class="hero-overlay"></div>
+    <div class="hero-grid">
+      <div class="hero-text-side">
+        <div class="badge">
+          <ion-icon name="code-slash-outline"></ion-icon>
+          <span>{{ currentLanguage === 'id' ? 'Pengalaman Profesional' : 'Professional Experience' }}</span>
+        </div>
+        <h1 class="main-title">
+          {{ currentLanguage === 'id' ? 'IT Support & Server Management' : 'IT Support & Server Management' }}
         </h1>
-        <p class="hero-subtitle">
+        <p class="main-description">
           {{ currentLanguage === 'id' 
-            ? 'Perjalanan dalam dunia teknologi dan infrastruktur IT' 
-            : 'Journey in the world of technology and IT infrastructure' }}
+            ? 'Memulai perjalanan di dunia IT Support dengan fokus pada troubleshooting hardware, maintenance server, dan membantu operasional teknologi kampus berjalan lancar.'
+            : 'Starting a journey in IT Support with focus on hardware troubleshooting, server maintenance, and helping campus technology operations run smoothly.' }}
+        </p>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-number">1+</div>
+            <div class="stat-label">{{ currentLanguage === 'id' ? 'Tahun Pengalaman' : 'Year Experience' }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">{{ currentLanguage === 'id' ? 'Server Dikelola' : 'Servers Managed' }}</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">{{ currentLanguage === 'id' ? 'Uptime Rate' : 'Uptime Rate' }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-image-side">
+        <div class="image-frame">
+          <img 
+            src="/assets/itsupport.jpeg" 
+            alt="IT Support Experience" 
+            class="featured-image"
+            [attr.alt]="currentLanguage === 'id' ? 'Pengalaman IT Support' : 'IT Support Experience'">
+          <div class="image-glow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Story Section -->
+  <div class="story-section">
+    <div class="section-container">
+      
+      <!-- Story Header -->
+      <div class="story-header">
+        <div class="category-tag">
+          <ion-icon name="server-outline"></ion-icon>
+          {{ currentLanguage === 'id' ? 'Case Study' : 'Case Study' }}
+        </div>
+        <h2 class="story-title">
+          {{ currentLanguage === 'id' 
+            ? 'Pengalaman Membongkar & Mengoptimasi Server Kampus' 
+            : 'Campus Server Dismantling & Optimization Experience' }}
+        </h2>
+        <div class="story-meta">
+          <span class="meta-item">
+            <ion-icon name="calendar-outline"></ion-icon>
+            {{ currentLanguage === 'id' ? 'Desember 2024' : 'December 2024' }}
+          </span>
+          <span class="meta-divider">•</span>
+          <span class="meta-item">
+            <ion-icon name="time-outline"></ion-icon>
+            {{ currentLanguage === 'id' ? '8 menit baca' : '8 min read' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Introduction Card -->
+      <div class="content-card intro-card">
+        <div class="card-icon-wrapper">
+          <ion-icon name="bulb-outline" class="card-icon"></ion-icon>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">{{ currentLanguage === 'id' ? 'Latar Belakang' : 'Background' }}</h3>
+          <p class="card-text">
+            {{ currentLanguage === 'id' 
+              ? 'Sebagai IT Support junior di kampus, saya mendapat kesempatan untuk menghadapi tantangan ketika server utama lab komputer mengalami overheating dan performa yang menurun. Ini adalah pengalaman maintenance pertama saya yang cukup kompleks dan membutuhkan bimbingan dari senior.'
+              : 'As a junior IT Support at campus, I got the opportunity to face a challenge when the main computer lab server experienced overheating and declining performance. This was my first complex maintenance experience that required guidance from seniors.' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Challenge Highlight -->
+      <div class="highlight-card">
+        <div class="highlight-icon-box">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+        </div>
+        <div class="highlight-content">
+          <h3 class="highlight-heading">
+            {{ currentLanguage === 'id' ? 'Tantangan Kritis' : 'Critical Challenge' }}
+          </h3>
+          <p class="highlight-description">
+            {{ currentLanguage === 'id' 
+              ? 'Server lab mencapai suhu 78°C dengan load CPU yang tinggi saat jam sibuk. Dengan bimbingan dari senior IT, saya membantu proses maintenance untuk mencegah kerusakan lebih lanjut dan meningkatkan performa sistem.'
+              : 'Lab server reached 78°C with high CPU load during peak hours. With guidance from senior IT, I assisted in the maintenance process to prevent further damage and improve system performance.' }}
+          </p>
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <div class="metric-value danger">78°C</div>
+              <div class="metric-label">{{ currentLanguage === 'id' ? 'Suhu Puncak' : 'Peak Temp' }}</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value warning">85%+</div>
+              <div class="metric-label">{{ currentLanguage === 'id' ? 'CPU Load' : 'CPU Load' }}</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-value info">Lab PC</div>
+              <div class="metric-label">{{ currentLanguage === 'id' ? 'Server Type' : 'Server Type' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Process Timeline -->
+      <div class="timeline-section">
+        <h3 class="section-subtitle">
+          {{ currentLanguage === 'id' ? 'Tahapan Eksekusi' : 'Execution Phases' }}
+        </h3>
+        
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker">
+              <div class="marker-dot"></div>
+              <div class="marker-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-badge phase1">
+                {{ currentLanguage === 'id' ? 'Fase 1' : 'Phase 1' }}
+              </div>
+              <h4 class="timeline-title">
+                {{ currentLanguage === 'id' ? 'Persiapan & Backup' : 'Preparation & Backup' }}
+              </h4>
+              <p class="timeline-description">
+                {{ currentLanguage === 'id' 
+                  ? 'Belajar melakukan backup data penting (sekitar 500GB), mendokumentasikan konfigurasi dengan bantuan senior, dan merencanakan jadwal maintenance di luar jam kuliah untuk meminimalkan gangguan.'
+                  : 'Learning to backup important data (around 500GB), documenting configuration with senior help, and planning maintenance schedule outside class hours to minimize disruption.' }}
+              </p>
+              <div class="timeline-tags">
+                <span class="tag">Data Backup</span>
+                <span class="tag">Documentation</span>
+                <span class="tag">Coordination</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker">
+              <div class="marker-dot"></div>
+              <div class="marker-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-badge phase2">
+                {{ currentLanguage === 'id' ? 'Fase 2' : 'Phase 2' }}
+              </div>
+              <h4 class="timeline-title">
+                {{ currentLanguage === 'id' ? 'Pembongkaran & Pembersihan' : 'Dismantling & Cleaning' }}
+              </h4>
+              <p class="timeline-description">
+                {{ currentLanguage === 'id' 
+                  ? 'Di bawah supervisi senior, membantu membongkar komponen server, membersihkan debu yang menumpuk pada heatsink dan fan. Belajar cara mengganti thermal paste dengan benar untuk meningkatkan transfer panas.'
+                  : 'Under senior supervision, helped dismantle server components, cleaned accumulated dust on heatsinks and fans. Learned proper way to replace thermal paste to improve heat transfer.' }}
+              </p>
+              <div class="timeline-tags">
+                <span class="tag">Hardware Cleaning</span>
+                <span class="tag">Thermal Maintenance</span>
+                <span class="tag">Component Check</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker">
+              <div class="marker-dot"></div>
+              <div class="marker-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-badge phase3">
+                {{ currentLanguage === 'id' ? 'Fase 3' : 'Phase 3' }}
+              </div>
+              <h4 class="timeline-title">
+                {{ currentLanguage === 'id' ? 'Upgrade & Optimasi' : 'Upgrade & Optimization' }}
+              </h4>
+              <p class="timeline-description">
+                {{ currentLanguage === 'id' 
+                  ? 'Membantu merapikan cable management untuk airflow yang lebih baik. Belajar tentang pentingnya pengaturan kabel dan sirkulasi udara dalam menjaga suhu server tetap optimal.'
+                  : 'Helped organize cable management for better airflow. Learned about the importance of cable arrangement and air circulation in maintaining optimal server temperature.' }}
+              </p>
+              <div class="timeline-tags">
+                <span class="tag">Hardware Upgrade</span>
+                <span class="tag">Airflow Optimization</span>
+                <span class="tag">Firmware Update</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker">
+              <div class="marker-dot"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-badge phase4">
+                {{ currentLanguage === 'id' ? 'Fase 4' : 'Phase 4' }}
+              </div>
+              <h4 class="timeline-title">
+                {{ currentLanguage === 'id' ? 'Testing & Monitoring' : 'Testing & Monitoring' }}
+              </h4>
+              <p class="timeline-description">
+                {{ currentLanguage === 'id' 
+                  ? 'Mengamati dan mencatat suhu serta performa sistem selama beberapa hari. Belajar menggunakan monitoring tools untuk memantau kesehatan server dan mendeteksi masalah sejak dini.'
+                  : 'Observed and recorded temperature and system performance for several days. Learned to use monitoring tools to track server health and detect issues early.' }}
+              </p>
+              <div class="timeline-tags">
+                <span class="tag">Stress Testing</span>
+                <span class="tag">Real-time Monitoring</span>
+                <span class="tag">Alert Setup</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Dashboard -->
+      <div class="results-section">
+        <h3 class="section-subtitle">
+          {{ currentLanguage === 'id' ? 'Hasil Yang Dicapai' : 'Achieved Results' }}
+        </h3>
+        
+        <div class="results-grid">
+          <div class="result-card success">
+            <div class="result-icon">
+              <ion-icon name="thermometer-outline"></ion-icon>
+            </div>
+            <div class="result-data">
+              <div class="result-comparison">
+                <span class="old-value">78°C</span>
+                <ion-icon name="arrow-forward-outline" class="arrow"></ion-icon>
+                <span class="new-value">58°C</span>
+              </div>
+              <div class="result-label">{{ currentLanguage === 'id' ? 'Suhu Operasional' : 'Operating Temperature' }}</div>
+              <div class="result-improvement">-26% {{ currentLanguage === 'id' ? 'Penurunan' : 'Reduction' }}</div>
+            </div>
+          </div>
+
+          <div class="result-card success">
+            <div class="result-icon">
+              <ion-icon name="speedometer-outline"></ion-icon>
+            </div>
+            <div class="result-data">
+              <div class="result-comparison">
+                <span class="old-value">85%</span>
+                <ion-icon name="arrow-forward-outline" class="arrow"></ion-icon>
+                <span class="new-value">55%</span>
+              </div>
+              <div class="result-label">{{ currentLanguage === 'id' ? 'CPU Load Rata-rata' : 'Average CPU Load' }}</div>
+              <div class="result-improvement">-35% {{ currentLanguage === 'id' ? 'Penurunan' : 'Reduction' }}</div>
+            </div>
+          </div>
+
+          <div class="result-card success">
+            <div class="result-icon">
+              <ion-icon name="flash-outline"></ion-icon>
+            </div>
+            <div class="result-data">
+              <div class="result-comparison">
+                <span class="old-value">4.5s</span>
+                <ion-icon name="arrow-forward-outline" class="arrow"></ion-icon>
+                <span class="new-value">2.3s</span>
+              </div>
+              <div class="result-label">{{ currentLanguage === 'id' ? 'Response Time' : 'Response Time' }}</div>
+              <div class="result-improvement">+49% {{ currentLanguage === 'id' ? 'Lebih Cepat' : 'Faster' }}</div>
+            </div>
+          </div>
+
+          <div class="result-card success">
+            <div class="result-icon">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+            </div>
+            <div class="result-data">
+              <div class="result-comparison">
+                <span class="old-value">92%</span>
+                <ion-icon name="arrow-forward-outline" class="arrow"></ion-icon>
+                <span class="new-value">97%</span>
+              </div>
+              <div class="result-label">{{ currentLanguage === 'id' ? 'Uptime Rate' : 'Uptime Rate' }}</div>
+              <div class="result-improvement">+5% {{ currentLanguage === 'id' ? 'Peningkatan' : 'Improvement' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Learnings -->
+      <div class="learnings-card">
+        <div class="learnings-header">
+          <ion-icon name="school-outline" class="learnings-icon"></ion-icon>
+          <h3 class="learnings-title">
+            {{ currentLanguage === 'id' ? 'Pembelajaran Penting' : 'Key Learnings' }}
+          </h3>
+        </div>
+        <div class="learnings-list">
+          <div class="learning-item">
+            <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+            <p>{{ currentLanguage === 'id' 
+              ? 'Pentingnya dokumentasi yang detail - mencatat setiap langkah sangat membantu saat troubleshooting'
+              : 'Importance of detailed documentation - recording every step helps a lot during troubleshooting' }}</p>
+          </div>
+          <div class="learning-item">
+            <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+            <p>{{ currentLanguage === 'id' 
+              ? 'Belajar dari senior sangat berharga - banyak tips praktis yang tidak ada di buku'
+              : 'Learning from seniors is invaluable - lots of practical tips not found in books' }}</p>
+          </div>
+          <div class="learning-item">
+            <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+            <p>{{ currentLanguage === 'id' 
+              ? 'Maintenance preventif lebih baik daripada menunggu sampai rusak parah'
+              : 'Preventive maintenance is better than waiting until severe damage occurs' }}</p>
+          </div>
+          <div class="learning-item">
+            <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+            <p>{{ currentLanguage === 'id' 
+              ? 'Hal sederhana seperti membersihkan debu bisa memberikan dampak besar pada performa'
+              : 'Simple things like cleaning dust can have a major impact on performance' }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Skills & Expertise Section -->
+  <div class="skills-section">
+    <div class="section-container">
+      <div class="skills-header">
+        <h2 class="section-title">
+          {{ currentLanguage === 'id' ? 'Keahlian & Expertise' : 'Skills & Expertise' }}
+        </h2>
+        <p class="section-description">
+          {{ currentLanguage === 'id' 
+            ? 'Skill yang sedang saya pelajari dan kembangkan melalui pengalaman hands-on di lapangan'
+            : 'Skills that I am learning and developing through hands-on experience in the field' }}
         </p>
       </div>
-    </div>
-  </div>
 
-  <!-- Content Section -->
-  <div class="content-section">
-    <div class="content-container">
-      
-      <!-- Main Article -->
-      <div class="article-card">
-        <div class="article-header">
-          <h2 class="article-title">
+      <div class="expertise-grid">
+        <div class="expertise-card">
+          <div class="expertise-icon-wrapper">
+            <ion-icon name="hardware-chip-outline"></ion-icon>
+          </div>
+          <h3 class="expertise-title">
+            {{ currentLanguage === 'id' ? 'Hardware Troubleshooting' : 'Hardware Troubleshooting' }}
+          </h3>
+          <p class="expertise-description">
             {{ currentLanguage === 'id' 
-              ? 'Pengalaman Membongkar Server Kampus' 
-              : 'Campus Server Maintenance Experience' }}
-          </h2>
-          <div class="article-meta">
-            <ion-icon name="time-outline" class="meta-icon"></ion-icon>
-            <span>{{ currentLanguage === 'id' ? '5 menit baca' : '5 min read' }}</span>
+              ? 'Belajar mendiagnosa masalah hardware dasar seperti komponen rusak, overheating, dan connection issues. Membantu perbaikan PC dan server di lab kampus.'
+              : 'Learning to diagnose basic hardware problems like broken components, overheating, and connection issues. Assisting with PC and server repairs in campus lab.' }}
+          </p>
+          <div class="expertise-skills">
+            <span class="skill-badge">Server Components</span>
+            <span class="skill-badge">Thermal Management</span>
+            <span class="skill-badge">Component Testing</span>
           </div>
         </div>
 
-        <div class="article-content">
-          <p class="article-paragraph">
-            {{ currentLanguage === 'id' 
-              ? 'Sebagai seorang IT Support, saya pernah mengalami momen yang cukup menantang ketika harus membongkar server kampus untuk keperluan pembersihan dan optimalisasi. Pengalaman ini tidak hanya menguji kemampuan teknis, tetapi juga kemampuan problem-solving dalam situasi yang kritis.'
-              : 'As an IT Support professional, I once experienced a challenging moment when I had to dismantle the campus server for cleaning and optimization purposes. This experience not only tested technical skills but also problem-solving abilities in critical situations.' }}
-          </p>
-
-          <div class="highlight-box">
-            <ion-icon name="server-outline" class="highlight-icon"></ion-icon>
-            <div class="highlight-content">
-              <h3 class="highlight-title">
-                {{ currentLanguage === 'id' ? 'Tantangan Utama' : 'Main Challenges' }}
-              </h3>
-              <p class="highlight-text">
-                {{ currentLanguage === 'id' 
-                  ? 'Proses pembongkaran server memerlukan perencanaan yang matang dan kehati-hatian tinggi untuk memastikan tidak ada data yang hilang atau hardware yang rusak.'
-                  : 'The server dismantling process required careful planning and high precision to ensure no data loss or hardware damage occurred.' }}
-              </p>
-            </div>
+        <div class="expertise-card">
+          <div class="expertise-icon-wrapper">
+            <ion-icon name="terminal-outline"></ion-icon>
           </div>
-
-          <p class="article-paragraph">
+          <h3 class="expertise-title">
+            {{ currentLanguage === 'id' ? 'System Administration' : 'System Administration' }}
+          </h3>
+          <p class="expertise-description">
             {{ currentLanguage === 'id' 
-              ? 'Proses dimulai dengan backup data lengkap dan dokumentasi konfigurasi sistem. Setiap komponen server dicatat dengan detail, mulai dari posisi kabel, konfigurasi RAID, hingga pengaturan BIOS. Hal ini penting untuk memastikan server dapat dikembalikan ke kondisi semula atau bahkan lebih optimal.'
-              : 'The process began with complete data backup and system configuration documentation. Every server component was recorded in detail, from cable positions, RAID configurations, to BIOS settings. This was crucial to ensure the server could be restored to its original condition or even better optimized.' }}
+              ? 'Mempelajari dasar administrasi sistem Linux dan Windows Server. Membantu konfigurasi user accounts, permissions, dan basic system monitoring.'
+              : 'Learning basics of Linux and Windows Server administration. Helping with user account configuration, permissions, and basic system monitoring.' }}
           </p>
-
-          <div class="process-steps">
-            <h3 class="steps-title">
-              {{ currentLanguage === 'id' ? 'Langkah-langkah Optimalisasi' : 'Optimization Steps' }}
-            </h3>
-            
-            <div class="step-item">
-              <div class="step-number">1</div>
-              <div class="step-content">
-                <h4>{{ currentLanguage === 'id' ? 'Pembersihan Hardware' : 'Hardware Cleaning' }}</h4>
-                <p>{{ currentLanguage === 'id' 
-                  ? 'Membersihkan debu dan kotoran dari semua komponen untuk meningkatkan sirkulasi udara dan mengurangi suhu operasional.'
-                  : 'Cleaning dust and dirt from all components to improve air circulation and reduce operational temperature.' }}</p>
-              </div>
-            </div>
-
-            <div class="step-item">
-              <div class="step-number">2</div>
-              <div class="step-content">
-                <h4>{{ currentLanguage === 'id' ? 'Upgrade Komponen' : 'Component Upgrade' }}</h4>
-                <p>{{ currentLanguage === 'id' 
-                  ? 'Mengganti komponen yang sudah usang dengan yang lebih baru untuk meningkatkan performa dan reliabilitas sistem.'
-                  : 'Replacing outdated components with newer ones to improve system performance and reliability.' }}</p>
-              </div>
-            </div>
-
-            <div class="step-item">
-              <div class="step-number">3</div>
-              <div class="step-content">
-                <h4>{{ currentLanguage === 'id' ? 'Konfigurasi Ulang' : 'Reconfiguration' }}</h4>
-                <p>{{ currentLanguage === 'id' 
-                  ? 'Mengoptimalkan konfigurasi sistem berdasarkan kebutuhan terkini dan best practices terbaru.'
-                  : 'Optimizing system configuration based on current needs and latest best practices.' }}</p>
-              </div>
-            </div>
-          </div>
-
-          <p class="article-paragraph">
-            {{ currentLanguage === 'id' 
-              ? 'Hasil dari proses ini sangat memuaskan. Server yang sebelumnya mengalami overheating dan performa lambat, kini berjalan dengan stabil dan efisien. Downtime yang terjadi selama proses maintenance berhasil diminimalkan berkat perencanaan yang matang.'
-              : 'The results of this process were very satisfying. The server that previously experienced overheating and slow performance now runs stably and efficiently. Downtime during the maintenance process was successfully minimized through careful planning.' }}
-          </p>
-
-          <div class="conclusion-box">
-            <ion-icon name="checkmark-circle-outline" class="conclusion-icon"></ion-icon>
-            <div class="conclusion-content">
-              <h3 class="conclusion-title">
-                {{ currentLanguage === 'id' ? 'Kesimpulan' : 'Conclusion' }}
-              </h3>
-              <p class="conclusion-text">
-                {{ currentLanguage === 'id' 
-                  ? 'Pengalaman ini mengajarkan pentingnya maintenance proaktif dan dokumentasi yang baik dalam pengelolaan infrastruktur IT. Setiap tantangan adalah kesempatan untuk belajar dan berkembang.'
-                  : 'This experience taught the importance of proactive maintenance and good documentation in IT infrastructure management. Every challenge is an opportunity to learn and grow.' }}
-              </p>
-            </div>
+          <div class="expertise-skills">
+            <span class="skill-badge">Linux Administration</span>
+            <span class="skill-badge">Windows Server</span>
+            <span class="skill-badge">System Monitoring</span>
           </div>
         </div>
-      </div>
 
-      <!-- Skills Section -->
-      <div class="skills-section">
-        <h2 class="section-title">
-          {{ currentLanguage === 'id' ? 'Keahlian IT Support' : 'IT Support Skills' }}
-        </h2>
-        
-        <div class="skills-grid">
-          <div class="skill-card">
-            <ion-icon name="hardware-chip-outline" class="skill-icon"></ion-icon>
-            <h3 class="skill-title">
-              {{ currentLanguage === 'id' ? 'Hardware Troubleshooting' : 'Hardware Troubleshooting' }}
-            </h3>
-            <p class="skill-description">
-              {{ currentLanguage === 'id' 
-                ? 'Diagnosa dan perbaikan masalah hardware komputer dan server'
-                : 'Diagnosis and repair of computer and server hardware issues' }}
-            </p>
+        <div class="expertise-card">
+          <div class="expertise-icon-wrapper">
+            <ion-icon name="wifi-outline"></ion-icon>
           </div>
-
-          <div class="skill-card">
-            <ion-icon name="terminal-outline" class="skill-icon"></ion-icon>
-            <h3 class="skill-title">
-              {{ currentLanguage === 'id' ? 'System Administration' : 'System Administration' }}
-            </h3>
-            <p class="skill-description">
-              {{ currentLanguage === 'id' 
-                ? 'Pengelolaan sistem operasi dan konfigurasi server'
-                : 'Operating system management and server configuration' }}
-            </p>
+          <h3 class="expertise-title">
+            {{ currentLanguage === 'id' ? 'Network Management' : 'Network Management' }}
+          </h3>
+          <p class="expertise-description">
+            {{ currentLanguage === 'id' 
+              ? 'Membantu troubleshooting masalah koneksi jaringan dasar, konfigurasi switch, dan monitoring bandwidth. Belajar tentang network topology dan protokol.'
+              : 'Helping troubleshoot basic network connectivity issues, switch configuration, and bandwidth monitoring. Learning about network topology and protocols.' }}
+          </p>
+          <div class="expertise-skills">
+            <span class="skill-badge">Network Config</span>
+            <span class="skill-badge">Bandwidth Optimization</span>
+            <span class="skill-badge">Network Security</span>
           </div>
+        </div>
 
-          <div class="skill-card">
-            <ion-icon name="wifi-outline" class="skill-icon"></ion-icon>
-            <h3 class="skill-title">
-              {{ currentLanguage === 'id' ? 'Network Management' : 'Network Management' }}
-            </h3>
-            <p class="skill-description">
-              {{ currentLanguage === 'id' 
-                ? 'Konfigurasi dan maintenance infrastruktur jaringan'
-                : 'Network infrastructure configuration and maintenance' }}
-            </p>
+        <div class="expertise-card">
+          <div class="expertise-icon-wrapper">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+          </div>
+          <h3 class="expertise-title">
+            {{ currentLanguage === 'id' ? 'Security & Backup' : 'Security & Backup' }}
+          </h3>
+          <p class="expertise-description">
+            {{ currentLanguage === 'id' 
+              ? 'Belajar prosedur backup data yang benar dan memahami dasar-dasar disaster recovery. Membantu implementasi basic security practices di sistem kampus.'
+              : 'Learning proper data backup procedures and understanding disaster recovery basics. Helping implement basic security practices in campus systems.' }}
+          </p>
+          <div class="expertise-skills">
+            <span class="skill-badge">Data Backup</span>
+            <span class="skill-badge">Disaster Recovery</span>
+            <span class="skill-badge">Security Hardening</span>
+          </div>
+        </div>
+
+        <div class="expertise-card">
+          <div class="expertise-icon-wrapper">
+            <ion-icon name="analytics-outline"></ion-icon>
+          </div>
+          <h3 class="expertise-title">
+            {{ currentLanguage === 'id' ? 'Performance Tuning' : 'Performance Tuning' }}
+          </h3>
+          <p class="expertise-description">
+            {{ currentLanguage === 'id' 
+              ? 'Mempelajari cara mengidentifikasi bottleneck sistem dan memahami dasar optimasi resource. Menggunakan monitoring tools untuk tracking performa.'
+              : 'Learning how to identify system bottlenecks and understand resource optimization basics. Using monitoring tools for performance tracking.' }}
+          </p>
+          <div class="expertise-skills">
+            <span class="skill-badge">Performance Analysis</span>
+            <span class="skill-badge">Resource Optimization</span>
+            <span class="skill-badge">Load Balancing</span>
+          </div>
+        </div>
+
+        <div class="expertise-card">
+          <div class="expertise-icon-wrapper">
+            <ion-icon name="people-outline"></ion-icon>
+          </div>
+          <h3 class="expertise-title">
+            {{ currentLanguage === 'id' ? 'User Support & Training' : 'User Support & Training' }}
+          </h3>
+          <p class="expertise-description">
+            {{ currentLanguage === 'id' 
+              ? 'Memberikan bantuan teknis kepada mahasiswa dan staff kampus. Belajar komunikasi yang efektif dalam menjelaskan masalah teknis dengan bahasa sederhana.'
+              : 'Providing technical assistance to students and campus staff. Learning effective communication in explaining technical issues in simple language.' }}
+          </p>
+          <div class="expertise-skills">
+            <span class="skill-badge">Help Desk</span>
+            <span class="skill-badge">Technical Training</span>
+            <span class="skill-badge">Documentation</span>
           </div>
         </div>
       </div>
-
     </div>
   </div>
+
+  <!-- Bottom Spacing -->
+  <div class="bottom-spacer"></div>
+
 </ion-content>
