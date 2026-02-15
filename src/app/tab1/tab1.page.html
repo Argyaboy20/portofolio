@@ -72,15 +72,23 @@
     </div>
 
     <div class="profile-container">
-      <div class="profile-image" (click)="openProfileImageModal()">
-        <ion-img src="/assets/Foto1.jpg" alt="Foto Profil"></ion-img>
+      <!-- Wrapper untuk foto + info (biar bisa sejajar pas scroll) -->
+      <div class="profile-header">
+        <div class="profile-image" (click)="openProfileImageModal()">
+          <ion-img src="/assets/Foto1.jpg" alt="Foto Profil"></ion-img>
+        </div>
+        
+        <div class="profile-info">
+          <h1 class="name">Maulana Farras</h1>
+          <p class="title">Programmer | Data Analyst</p>
+        </div>
+
+        <!-- Ini yang hilang pas scroll -->
+        <p class="title1" (click)="navigateToITSupport()">IT Support Specialist</p>
+
+        <p class="cv-link" (click)="openCV()">Lihat CV</p>
       </div>
-      <h1 class="name">Maulana Farras</h1>
-      <p class="title">Programmer | Data Analyst |</p>
-      <p class="title1" (click)="navigateToITSupport()">IT Support Specialist</p>
-
-      <p class="cv-link" (click)="openCV()">Lihat CV</p>
-
+      
       <div class="contact-info">
         <h3>Kontak Pribadi</h3>
         <div class="social-links">
@@ -106,6 +114,8 @@
 
   <!-- Right Panel - Scrollable Content -->
   <div class="right-panel" #rightPanel>
+    <!-- TAMBAHKAN INI: Placeholder untuk nahan space -->
+    <div class="left-panel-placeholder"></div>
 
     <div class="right-panel-3d-elements">
       <div class="bg-element-3d"></div>

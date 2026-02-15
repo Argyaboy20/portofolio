@@ -64,6 +64,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   private backButtonSubscription!: Subscription;
   private screenshotPrevention: (() => void) | null = null;
   private scrollHandler: (() => void) | null = null;
+  private scrollThreshold = 300; // Batas scroll
+  private isScrolled = false;
 
   @ViewChild('mainMenu', { static: false }) mainMenu!: IonMenu;
   @ViewChildren('sectionElement') sectionElements!: QueryList<ElementRef>;
@@ -198,6 +200,63 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private menuCtrl: MenuController
   ) { }
+
+  ionViewDidEnter() {
+    this.setupScrollListener();
+  }
+
+  setupScrollListener() {
+    const content = document.querySelector('ion-content');
+    
+    if (content) {
+      const scrollElement = content.shadowRoot?.querySelector('.inner-scroll');
+      
+      if (scrollElement) {
+        scrollElement.addEventListener('scroll', (event: any) => {
+          const scrollTop = (event.target as HTMLElement).scrollTop;
+          
+          if (window.innerWidth <= 768) {
+            // Hitung progress scroll (0 = belum scroll, 1 = full scroll)
+            const scrollProgress = Math.min(scrollTop / this.scrollThreshold, 1);
+            
+            this.applyScrollProgress(scrollProgress);
+            
+            // Toggle class untuk hide/show elements
+            if (scrollTop > 50 && !this.isScrolled) {
+              this.isScrolled = true;
+              this.applyScrolledState();
+            } else if (scrollTop <= 50 && this.isScrolled) {
+              this.isScrolled = false;
+              this.removeScrolledState();
+            }
+          }
+        });
+      }
+    }
+  }
+
+  applyScrollProgress(progress: number) {
+    const leftPanel = document.querySelector('.left-panel') as HTMLElement;
+    
+    if (leftPanel) {
+      // Set CSS variable untuk animasi gradual
+      leftPanel.style.setProperty('--scroll-progress', progress.toString());
+    }
+  }
+
+  applyScrolledState() {
+    const leftPanel = document.querySelector('.left-panel');
+    if (leftPanel) {
+      leftPanel.classList.add('scrolled');
+    }
+  }
+
+  removeScrolledState() {
+    const leftPanel = document.querySelector('.left-panel');
+    if (leftPanel) {
+      leftPanel.classList.remove('scrolled');
+    }
+  }
 
   ngOnInit() {
     /* Sort projects by newest first by default */
