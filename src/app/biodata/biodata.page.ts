@@ -72,6 +72,8 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   
   private backButtonSubscription!: Subscription;
   private eventListeners: Array<() => void> = [];
+  private scrollDirectionHandler: (() => void) | null = null;
+  private sectionObserver: IntersectionObserver | null = null;
   isAwardsModalOpen = false;
   
   /* Zoom properties */
@@ -325,7 +327,20 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     /* Clean up image cache */
     this.clearImageCache();
 
+    /* Clean up event listeners */
     this.cleanupEventListeners();
+
+    /* CRITICAL FIX: Remove scroll event listener */
+    if (this.scrollDirectionHandler) {
+      window.removeEventListener('scroll', this.scrollDirectionHandler);
+      this.scrollDirectionHandler = null;
+    }
+
+    /* CRITICAL FIX: Disconnect intersection observer */
+    if (this.sectionObserver) {
+      this.sectionObserver.disconnect();
+      this.sectionObserver = null;
+    }
   }
 
   /* Metode untuk preload dan caching gambar */
@@ -430,7 +445,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       threshold: 0.1
     };
   
-    const sectionObserver = new IntersectionObserver((entries) => {
+    this.sectionObserver = new IntersectionObserver((entries) => {
       const scrollDirection = getScrollDirection();
       
       entries.forEach(entry => {
@@ -462,11 +477,14 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     }, observerOptions);
   
     sections.forEach(section => {
-      sectionObserver.observe(section);
+      this.sectionObserver!.observe(section);
     });
   
+    /* Store the scroll handler reference so we can remove it later */
+    this.scrollDirectionHandler = getScrollDirection;
+    
     /* Also track scroll events for better direction detection */
-    window.addEventListener('scroll', getScrollDirection);
+    window.addEventListener('scroll', this.scrollDirectionHandler);
   }
   
   toggleLanguage() {

@@ -110,9 +110,8 @@ ion-content {
     font-family: 'Roboto', sans-serif;
     --padding-top: 0;
     --padding-bottom: 20px;
-    --offset-bottom: auto !important;
-    --overflow: auto;
-    overflow: auto;
+     --overflow: scroll !important;
+    -webkit-overflow-scrolling: touch;
 }
 
 ion-header {
@@ -139,7 +138,6 @@ ion-header {
 .biodata-content {
     padding-top: var(--ion-safe-area-top, 0);
     padding-bottom: var(--ion-safe-area-bottom, 0);
-    --offset-top: 0 !important;
 
     .scroll-content {
         margin-top: 0 !important;
