@@ -1163,4 +1163,9 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   closeProfileImageModal() {
     this.isProfileImageModalOpen = false;
   }
+
+  /* Open CV PDF */
+  openCV() {
+    window.open('/assets/CV/Programmer.pdf', '_blank');
+  }
 }
