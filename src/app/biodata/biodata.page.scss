@@ -721,14 +721,51 @@ section {
             background: $secondary-color;
         }
     }
+
+    &.facts-style {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        
+        h3 {
+        color: #ffffff;
+        margin-bottom: 1.5rem;
+        }
+        
+        .contact-item {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        ion-icon, .quora-icon {
+            color: #ffffff;
+        }
+        
+        a, span {
+            color: #ffffff;
+        }
+        
+        .bold-text {
+            font-weight: 600;
+        }
+        }
+    }
 }
 
 .contact-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-
     ion-icon,
     .quora-icon {
         font-size: 1.5rem;
