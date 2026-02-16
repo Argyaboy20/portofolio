@@ -1124,7 +1124,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         {
           name: 'password',
           type: 'password',
-          placeholder: 'Password'
+          placeholder: 'Password',
+          attributes: {
+            maxlength: 50  // Opsional: batasi panjang input
+          }
         }
       ],
       buttons: [
@@ -1136,12 +1139,54 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         {
           text: 'Konfirmasi',
           handler: (data) => {
+            // TAMBAHKAN VALIDASI KOSONG DI SINI:
+            
+            // Cek apakah password kosong atau hanya whitespace
+            if (!data.password || data.password.trim() === '') {
+              // Tampilkan pesan error inline di bawah input
+              const message = alert.querySelector('.alert-message');
+              if (message) {
+                // Hapus error message lama jika ada
+                const existingError = alert.querySelector('.password-error');
+                if (existingError) {
+                  existingError.remove();
+                }
+                
+                // Buat error message baru
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'password-error';
+                errorDiv.style.color = '#eb445a';
+                errorDiv.style.fontSize = '0.875rem';
+                errorDiv.style.marginTop = '8px';
+                errorDiv.style.textAlign = 'left';
+                errorDiv.style.background = 'rgba(255, 255, 255, 0.85)';
+                errorDiv.style.padding = '8px 12px';
+                errorDiv.style.borderRadius = '20px';
+                errorDiv.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+                errorDiv.style.display = 'inline-block';  
+                errorDiv.style.width = 'auto'; 
+                errorDiv.textContent = 'Password kosong. Harap diisi!';
+                
+                // Tambahkan error message setelah input
+                const alertInputs = alert.querySelector('.alert-input-group');
+                if (alertInputs) {
+                  alertInputs.appendChild(errorDiv);
+                }
+              }
+              
+              // Return false untuk mencegah alert tertutup
+              return false;
+            }
+            
+            // Jika ada input, lanjutkan validasi password
             if (data.password === '0503') {
               /* Password benar, buka link */
               window.open(sourceLink, '_github');
+              return true;  // Tutup alert
             } else {
-              /* Password salah, tampilkan pesan error */
+              /* Password salah, tampilkan error alert */
               this.showErrorAlert(sourceLink);
+              return true;  // Tutup alert saat ini, buka error alert
             }
           }
         }
