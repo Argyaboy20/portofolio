@@ -348,10 +348,23 @@
 
     <!-- Tools section -->
     <section id="tools" class="section" #sectionElement>
-      <h2 class="section-title">Alat dan Teknologi</h2>
+      <div class="section-header">
+        <h2 class="section-title">Alat dan Teknologi</h2>
+        <div class="filter-buttons">
+          <ion-button size="small" fill="clear" (click)="filterTools('all')" [class.active]="currentToolFilter === 'all'">
+            {{ filterLabels.all }}
+          </ion-button>
+          <ion-button size="small" fill="clear" (click)="filterTools('programmer')" [class.active]="currentToolFilter === 'programmer'">
+            {{ filterLabels.programmer }}
+          </ion-button>
+          <ion-button size="small" fill="clear" (click)="filterTools('data-analyst')" [class.active]="currentToolFilter === 'data-analyst'">
+            {{ filterLabels.dataAnalyst }}
+          </ion-button>
+        </div>
+      </div>
       <div class="section-content">
         <div class="tools-container">
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="code-slash-outline"></ion-icon>
             </div>
@@ -359,7 +372,7 @@
             <div class="tool-level">Advanced</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-github"></ion-icon>
             </div>
@@ -367,7 +380,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-npm"></ion-icon>
             </div>
@@ -375,7 +388,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-ionic"></ion-icon>
             </div>
@@ -383,7 +396,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-angular"></ion-icon>
             </div>
@@ -391,7 +404,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="git-branch-outline"></ion-icon>
             </div>
@@ -399,7 +412,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-capacitor"></ion-icon>
             </div>
@@ -407,7 +420,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-vercel"></ion-icon>
             </div>
@@ -415,7 +428,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-laravel"></ion-icon>
             </div>
@@ -423,7 +436,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-react"></ion-icon>
             </div>
@@ -431,7 +444,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <img src="/assets/icon/adonis.png" alt="Adonis Js" class="custom-icon">
             </div>
@@ -439,7 +452,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="data-analyst">
             <div class="tool-icon">
               <ion-icon name="logo-python"></ion-icon>
             </div>
@@ -447,7 +460,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="data-analyst">
             <div class="tool-icon">
               <ion-icon name="flash-outline"></ion-icon>
             </div>
@@ -455,7 +468,7 @@
             <div class="tool-level">Intermediate</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-firebase"></ion-icon>
             </div>
@@ -463,7 +476,7 @@
             <div class="tool-level">Basic</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="logo-figma"></ion-icon>
             </div>
@@ -471,7 +484,7 @@
             <div class="tool-level">Basic</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="map-outline"></ion-icon>
             </div>
@@ -479,7 +492,7 @@
             <div class="tool-level">Basic</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="pulse-outline"></ion-icon>
             </div>
@@ -487,7 +500,7 @@
             <div class="tool-level">Basic</div>
           </div>
 
-          <div class="tool-item">
+          <div class="tool-item" data-category="programmer">
             <div class="tool-icon">
               <ion-icon name="code-outline"></ion-icon>
             </div>

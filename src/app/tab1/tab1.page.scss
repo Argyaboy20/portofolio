@@ -729,6 +729,30 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
+.filter-buttons {
+    display: flex;
+    gap: 0.3rem; // Gap lebih kecil karena 3 tombol
+    
+    ion-button {
+        --color: #{$primary-color};
+        font-size: 0.75rem; // Sedikit lebih kecil dari sort-buttons
+        text-transform: none;
+        font-weight: 500;
+        --padding-start: 0.6rem;
+        --padding-end: 0.6rem;
+        
+        &:hover {
+            --color: #{$secondary-color};
+        }
+        
+        &.active {
+            --color: #{$secondary-color};
+            font-weight: 700;
+            border-bottom: 2px solid $secondary-color;
+        }
+    }
+}
+
 .sort-buttons {
     display: flex;
     gap: 0.5rem;
@@ -2097,6 +2121,31 @@ footer {
         padding: 0.15rem 0.5rem;
     }
 
+    .filter-buttons {
+        gap: 0.25rem;
+        
+        ion-button {
+            font-size: 0.7rem;
+            --padding-start: 0.5rem;
+            --padding-end: 0.5rem;
+        }
+    }
+
+    .sort-buttons {
+        gap: 0.4rem;
+        
+        ion-button {
+            font-size: 0.7rem;
+            --padding-start: 0.5rem;
+            --padding-end: 0.5rem;
+            
+            ion-icon {
+                font-size: 0.9rem;
+                margin-right: 3px;
+            }
+        }
+    }
+
     #career {
         .career-container {
             .career-item {
@@ -2147,28 +2196,6 @@ footer {
         .modal-description {
             font-size: 0.9rem;
             padding: 1rem;
-        }
-    }
-
-    .msib-modal {
-        --width: 90%;
-        --height: 50%;
-
-        .modal-header h2 {
-            font-size: 1.4rem;
-        }
-
-        .modal-header ion-button {
-            width: 40px;
-            height: 40px;
-
-            ion-icon {
-                font-size: 1.4rem;
-            }
-        }
-
-        .modal-education-item .education-item {
-            padding: 1.2rem;
         }
     }
 
@@ -2370,6 +2397,31 @@ footer {
 
     .tool-name {
         font-size: 0.75rem;
+    }
+
+    .filter-buttons {
+        gap: 0.2rem;
+        
+        ion-button {
+            font-size: 0.65rem;
+            --padding-start: 0.4rem;
+            --padding-end: 0.4rem;
+        }
+    }
+
+    .sort-buttons {
+        gap: 0.3rem;
+        
+        ion-button {
+            font-size: 0.65rem;
+            --padding-start: 0.4rem;
+            --padding-end: 0.4rem;
+            
+            ion-icon {
+                font-size: 0.8rem;
+                margin-right: 2px;
+            }
+        }
     }
 
     .education-item {

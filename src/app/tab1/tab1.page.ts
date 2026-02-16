@@ -83,6 +83,14 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   isProfileImageModalOpen = false;
   currentSortOrder: 'newest' | 'oldest' = 'newest';
 
+  currentToolFilter: 'all' | 'programmer' | 'data-analyst' = 'all';
+
+  filterLabels = {
+    all: 'Semua',
+    programmer: 'Programmer',
+    dataAnalyst: 'Data Analyst'
+  };
+
   currentLanguage: 'id' | 'en' = 'id'; /* default to Indonesian */
   translations: TranslationDict = {
     id: {
@@ -263,6 +271,13 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.sortProjects('newest');
 
     this.setupBackButtonHandler();
+    this.resetToolsFilter();
+
+    this.filterLabels = {
+      all: 'Semua',
+      programmer: 'Programmer',
+      dataAnalyst: 'Data Analyst'
+    };
   }
 
   ngAfterViewInit() {
@@ -378,6 +393,21 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   /* Add this method to your class */
   toggleLanguage() {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
+
+    if (this.currentLanguage === 'en') {
+      this.filterLabels = {
+        all: 'All',
+        programmer: 'Programmer',
+        dataAnalyst: 'Data Analyst'
+      };
+    } else {
+      this.filterLabels = {
+        all: 'Semua',
+        programmer: 'Programmer',
+        dataAnalyst: 'Data Analyst'
+      };
+    }
+
     this.updateContent();
 
     /* Add this to ensure responsive layout remains intact after language switch */
@@ -390,10 +420,19 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   doRefresh(event: any) {
     console.log('Memulai refresh halaman');
 
+    // TAMBAHKAN INI: Reset filter tools ke "Semua"
+    this.resetToolsFilter();
+
     try {
       /* Set language back to default (Indonesian) */
       this.currentLanguage = 'id';
       this.currentSortOrder = 'newest';
+
+      this.filterLabels = {
+        all: 'Semua',
+        programmer: 'Programmer',
+        dataAnalyst: 'Data Analyst'
+      };
 
       /* Sort projects by newest */
       this.sortProjects('newest');
@@ -998,6 +1037,36 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.projects.sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
     }
+  }
+
+  /* Method Tools Filter */
+  filterTools(filter: 'all' | 'programmer' | 'data-analyst') {
+    this.currentToolFilter = filter;
+    
+    const toolItems = document.querySelectorAll('.tool-item');
+    
+    toolItems.forEach((item: any) => {
+      const category = item.getAttribute('data-category');
+      
+      if (filter === 'all') {
+        item.style.display = 'flex'; // Tampilkan semua
+      } else if (category === filter) {
+        item.style.display = 'flex'; // Tampilkan yang sesuai filter
+      } else {
+        item.style.display = 'none'; // Sembunyikan yang tidak sesuai
+      }
+    });
+  }
+
+  // Method untuk reset tools filter ke default (dipanggil saat init)
+  resetToolsFilter() {
+    this.currentToolFilter = 'all'; // Set ke default
+    
+    // Pastikan semua tool-items visible
+    const toolItems = document.querySelectorAll('.tool-item');
+    toolItems.forEach((item: any) => {
+      item.style.display = 'flex';
+    });
   }
 
   /* Metode untuk membuka link sosial media */
