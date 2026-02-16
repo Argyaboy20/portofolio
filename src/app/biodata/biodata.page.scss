@@ -10,6 +10,65 @@ $text-color-light: #fff;
 
 /* DEFAULT STYLES (Desktop) */
 
+/* ========== ANIMATION SYSTEM - IN & OUT ========== */
+
+/* Base state - elemen belum terlihat */
+.timeline-item,
+.hobby-card,
+.fact-item,
+.gallery-item,
+.awards-item,
+.quote-container,
+.rotating-gallery,
+.contact-info {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Section titles base state */
+.timeline-section .section-title,
+.hobbies-section .section-title,
+.facts-section .section-title,
+.quotes-section .section-title,
+.awards-section .section-title,
+.gallery-section .section-title,
+.contact-section .section-title {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* Animasi IN - muncul dari bawah */
+.animate-in {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Animasi OUT - hilang ke bawah */
+.animate-out {
+    opacity: 0 !important;
+    transform: translateY(50px) !important;
+}
+
+/* Delay untuk elemen yang berurutan */
+.hobby-card:nth-child(1).animate-in { transition-delay: 0.1s; }
+.hobby-card:nth-child(2).animate-in { transition-delay: 0.2s; }
+.hobby-card:nth-child(3).animate-in { transition-delay: 0.3s; }
+.hobby-card:nth-child(4).animate-in { transition-delay: 0.4s; }
+
+.fact-item:nth-child(1).animate-in { transition-delay: 0.1s; }
+.fact-item:nth-child(2).animate-in { transition-delay: 0.2s; }
+.fact-item:nth-child(3).animate-in { transition-delay: 0.3s; }
+.fact-item:nth-child(4).animate-in { transition-delay: 0.4s; }
+
+.gallery-item:nth-child(1).animate-in { transition-delay: 0.1s; }
+.gallery-item:nth-child(2).animate-in { transition-delay: 0.2s; }
+.gallery-item:nth-child(3).animate-in { transition-delay: 0.3s; }
+.gallery-item:nth-child(4).animate-in { transition-delay: 0.4s; }
+
+/* ========== END ANIMATION SYSTEM ========== */
+
 /* Gaya umum */
 .blog-title {
     text-decoration: none;
@@ -1798,7 +1857,7 @@ section {
                 }
                 
                 .close-button {
-                    --color: #ffffff;
+                    --color: #fawards-countfffff;
                     --padding-start: 6px;
                     --padding-end: 6px;
                     font-size: 1.2rem;

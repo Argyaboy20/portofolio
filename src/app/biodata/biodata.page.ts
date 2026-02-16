@@ -93,6 +93,11 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   private cachePriorityQueue: string[] = [];
   private maxCacheSize = 15; /* Maximum number of images to cache */
   
+  /* Scroll animation properties */
+  private lastScrollTop = 0;
+  private animatedElements = new Set<Element>();
+  private scrollDirection: 'up' | 'down' = 'down';
+  
   awards = [
     {
       image: '/assets/bestPerfomance.jpg',
@@ -223,14 +228,22 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       whatsappContact: "Contact me here",
       quoraProfile: "Quora Profile",
       awardsTitle: "Awards",
-      pilmapresRole: "Outstanding Student Award 2023",
-      pilmapresDesc: "Participated in the Outstanding Student Selection 2023 representing the department and faculty. Developed innovative work and presented new ideas in technology.",
+      pilmapresRole: "Pilmapres 2023",
+      pilmapresDesc: "Participated in the 2023 Outstanding Student Selection representing the study program and faculty. Developed innovative works and presented new ideas in the field of technology.",
       roboticsRole: "Robotics Trainer",
-      roboticsDesc: "Conducted training in line follower robot development, line follower robot design, and robot simulation with Arduino IDE Interface.",
-      pmmRole: "Merdeka Student Exchange Program 4",
-      pmmDesc: "Participated in the Merdeka Student Exchange Program Batch 4 to expand knowledge and learning experiences outside the home campus.",
+      roboticsDesc: "Conducted training in making line-following robots, designing line-following robots, and robot simulation with Arduino IDE Interface.",
+      pmmRole: "Independent Student Exchange 4",
+      pmmDesc: "Participated in the Independent Student Exchange Program Batch 4 to expand insights and learning experiences outside the home campus.",
     }
   };
+  currentLanguage: Language = 'id';
+
+  /* Gallery rotation properties */
+  currentPhotoIndex = 0;
+  currentRotatingPhoto = '';
+  currentPhotoCaption = '';
+  photoProgressPercentage = 0;
+  photoRotationInterval: any;
 
   rotatingPhotos = [
     { src: '/assets/raskece.jpg', caption: 'Picture of me' },
@@ -238,366 +251,297 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     { src: '/assets/team.jpg', caption: 'Team building activities' },
     { src: '/assets/belajar.jpg', caption: 'Learning new technologies' }
   ];
-  currentPhotoIndex = 0;
-  currentRotatingPhoto = '';
-  currentPhotoCaption = '';
-  photoProgressPercentage = 0;
-  photoRotationInterval: any;
 
-
+  /* Gallery Modal property */
   isGalleryModalOpen = false;
   currentGalleryImage = '';
-  currentLanguage: Language = 'id'; /* Default language is Indonesian */
 
   constructor(
-    private postProvider: PostProvider,
+    private postPvdr: PostProvider,
     private toastController: ToastController,
     private platform: Platform,
     private router: Router,
+    private elementRef: ElementRef,
     private renderer: Renderer2
   ) { }
 
   ngOnInit() {
-    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-      /* Check if any modal is open */
+    /* Language setup */
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    if (savedLanguage) {
+      this.currentLanguage = savedLanguage as Language;
+    }
+
+    /* Initialize image cache for gallery */
+    this.initializeImageCache();
+
+    /* Back button handler */
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
       if (this.isAwardsModalOpen) {
         this.closeAwardsModal();
       } else if (this.isGalleryModalOpen) {
         this.closeGalleryModal();
       } else {
-        /* Navigate back to tab1 */
         this.router.navigate(['/']);
       }
     });
-
-    /* Precache rotating photos */
-    this.rotatingPhotos.forEach(photo => {
-      this.preloadImage(photo.src);
-    });
-
-    /* Precache award images */
-    this.awards.forEach(award => {
-      this.preloadImage(award.image);
-    });
-
-    this.startPhotoRotation();
-
-    const scrollToContact = localStorage.getItem('scrollToContact');
-    if (scrollToContact === 'true') {
-      /* Clear the flag */
-      localStorage.removeItem('scrollToContact');
-
-      /* Give the page time to render */
-      setTimeout(() => {
-        const contactSection = document.querySelector('.contact-section');
-        if (contactSection) {
-          contactSection.scrollIntoView({ behavior: 'smooth' });
-
-          /* Show toast notification - using a simple check to determine language */ 
-          const isIndonesian = document.documentElement.lang === 'id' ||
-            localStorage.getItem('currentLanguage') === 'id';
-
-          this.toastController.create({
-            message: this.currentLanguage === 'id'
-              ? 'Scroll lagi ke bawah untuk kontak yang bisa dihubungi'
-              : 'Scroll down further to see contact information',
-            duration: 3000,
-            position: 'bottom',
-            color: 'primary',
-            cssClass: 'custom-toast',
-            buttons: [{ text: 'OK', role: 'cancel' }]
-          }).then(toast => toast.present());
-        }
-      }, 1000);
-    }
   }
 
   ngAfterViewInit() {
-    this.initSectionAnimations();
+    setTimeout(() => {
+      this.setupScrollAnimations();
+      this.startPhotoRotation();
+    }, 100);
   }
 
   ngOnDestroy() {
-    /* Clean up the subscription when the component is destroyed */
     if (this.backButtonSubscription) {
       this.backButtonSubscription.unsubscribe();
     }
 
     this.stopPhotoRotation();
-    
-    /* Clean up image cache */
-    this.clearImageCache();
-
-    /* Clean up event listeners */
     this.cleanupEventListeners();
-
-    /* CRITICAL FIX: Remove scroll event listener */
-    if (this.scrollDirectionHandler) {
-      window.removeEventListener('scroll', this.scrollDirectionHandler);
-      this.scrollDirectionHandler = null;
-    }
-
-    /* CRITICAL FIX: Disconnect intersection observer */
+    
+    /* Cleanup scroll animations */
     if (this.sectionObserver) {
       this.sectionObserver.disconnect();
-      this.sectionObserver = null;
     }
+    if (this.scrollDirectionHandler) {
+      this.scrollDirectionHandler();
+    }
+
+    /* Cleanup image cache */
+    this.imageCache.forEach(cachedImage => {
+      if (cachedImage.objectUrl) {
+        URL.revokeObjectURL(cachedImage.objectUrl);
+      }
+    });
+    this.imageCache.clear();
   }
 
-  /* Metode untuk preload dan caching gambar */
-  preloadImage(src: string): void {
-    /* Jika gambar sudah dalam cache, prioritaskan */
+  /* ========== NEW SCROLL ANIMATION SYSTEM ========== */
+  
+  private setupScrollAnimations(): void {
+    const content = this.elementRef.nativeElement.querySelector('ion-content');
+    if (!content) return;
+
+    /* Setup scroll direction tracking */
+    this.setupScrollDirectionTracking(content);
+
+    /* Setup intersection observer for animations */
+    this.setupIntersectionObserver();
+  }
+
+  private setupScrollDirectionTracking(content: any): void {
+    const scrollElement = content.shadowRoot?.querySelector('.inner-scroll') || content;
+    
+    const handleScroll = () => {
+      const currentScrollTop = scrollElement.scrollTop || 0;
+      
+      if (currentScrollTop > this.lastScrollTop) {
+        this.scrollDirection = 'down';
+      } else if (currentScrollTop < this.lastScrollTop) {
+        this.scrollDirection = 'up';
+      }
+      
+      this.lastScrollTop = currentScrollTop;
+    };
+
+    scrollElement.addEventListener('scroll', handleScroll, { passive: true });
+    
+    this.scrollDirectionHandler = () => {
+      scrollElement.removeEventListener('scroll', handleScroll);
+    };
+  }
+
+  private setupIntersectionObserver(): void {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: [0, 0.1, 0.5, 0.9, 1]
+    };
+
+    this.sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const element = entry.target;
+        const isInViewport = entry.isIntersecting;
+        const hasBeenAnimated = this.animatedElements.has(element);
+
+        if (this.scrollDirection === 'down') {
+          // Scroll ke bawah: trigger animasi IN
+          if (isInViewport && !hasBeenAnimated && entry.intersectionRatio > 0.1) {
+            this.animateIn(element);
+            this.animatedElements.add(element);
+          }
+        } else if (this.scrollDirection === 'up') {
+          // Scroll ke atas: trigger animasi OUT
+          if (!isInViewport && hasBeenAnimated && entry.intersectionRatio === 0) {
+            this.animateOut(element);
+            this.animatedElements.delete(element);
+          }
+        }
+      });
+    }, options);
+
+    // Observe all animatable elements
+    const animatableSelectors = [
+      '.timeline-section .section-title',
+      '.timeline-item',
+      '.hobbies-section .section-title',
+      '.hobby-card',
+      '.facts-section .section-title',
+      '.fact-item',
+      '.quotes-section .quote-container',
+      '.awards-section .section-title',
+      '.awards-item',
+      '.gallery-section .section-title',
+      '.gallery-item',
+      '.contact-section .section-title',
+      '.rotating-gallery',
+      '.contact-info'
+    ];
+
+    animatableSelectors.forEach(selector => {
+      const elements = this.elementRef.nativeElement.querySelectorAll(selector);
+      elements.forEach((el: Element) => {
+        this.sectionObserver?.observe(el);
+      });
+    });
+  }
+
+  private animateIn(element: Element): void {
+    this.renderer.addClass(element, 'animate-in');
+    this.renderer.removeClass(element, 'animate-out');
+  }
+
+  private animateOut(element: Element): void {
+    this.renderer.addClass(element, 'animate-out');
+    this.renderer.removeClass(element, 'animate-in');
+  }
+
+  /* ========== END SCROLL ANIMATION SYSTEM ========== */
+
+  toggleLanguage() {
+    this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
+    localStorage.setItem('preferredLanguage', this.currentLanguage);
+  }
+
+  /* ========== Image Cache System ========== */
+  
+  private initializeImageCache(): void {
+    /* Priority images to cache */
+    const priorityImages = [
+      ...this.rotatingPhotos.map(p => p.src),
+      '/assets/coding.png',
+      '/assets/team.jpg',
+      '/assets/pmm.jpg',
+      '/assets/konser.jpg'
+    ];
+
+    priorityImages.forEach(src => {
+      this.preloadImage(src);
+    });
+  }
+
+  private preloadImage(src: string): void {
     if (this.imageCache.has(src)) {
-      const cachedImage = this.imageCache.get(src);
-      /* Memindahkan ke depan dalam priority queue */
-      this.cachePriorityQueue = this.cachePriorityQueue.filter(url => url !== src);
-      this.cachePriorityQueue.unshift(src);
       return;
     }
 
-    /* Buat entri cache baru */
-    const cacheEntry: CachedImage = {
+    const cachedImage: CachedImage = {
       src,
       isLoaded: false,
       isLoading: true
     };
-    
-    this.imageCache.set(src, cacheEntry);
-    this.cachePriorityQueue.push(src);
 
-    /* Cek apakah cache melebihi kapasitas maksimum */
-    if (this.cachePriorityQueue.length > this.maxCacheSize) {
-      const oldestSrc = this.cachePriorityQueue.pop();
-      if (oldestSrc) {
-        const oldEntry = this.imageCache.get(oldestSrc);
-        if (oldEntry && oldEntry.objectUrl) {
-          URL.revokeObjectURL(oldEntry.objectUrl);
-        }
-        this.imageCache.delete(oldestSrc);
-      }
-    }
+    this.imageCache.set(src, cachedImage);
 
-    /* Fetch gambar dan simpan sebagai blob */
     fetch(src)
       .then(response => response.blob())
       .then(blob => {
         const objectUrl = URL.createObjectURL(blob);
-        const imageEntry = this.imageCache.get(src);
-        if (imageEntry) {
-          imageEntry.blob = blob;
-          imageEntry.objectUrl = objectUrl;
-          imageEntry.isLoaded = true;
-          imageEntry.isLoading = false;
-        }
+        cachedImage.blob = blob;
+        cachedImage.objectUrl = objectUrl;
+        cachedImage.isLoaded = true;
+        cachedImage.isLoading = false;
+
+        this.manageCacheSize();
       })
       .catch(error => {
-        console.error(`Failed to cache image ${src}:`, error);
-        const imageEntry = this.imageCache.get(src);
-        if (imageEntry) {
-          imageEntry.isLoading = false;
-        }
+        console.error(`Failed to preload image: ${src}`, error);
+        cachedImage.isLoading = false;
       });
   }
 
-  /* Mendapatkan URL gambar (dari cache jika tersedia) */
-  getImageUrl(src: string): string {
-    const cachedImage = this.imageCache.get(src);
-    if (cachedImage && cachedImage.isLoaded && cachedImage.objectUrl) {
-      // Memindahkan ke depan dalam priority queue
-      this.cachePriorityQueue = this.cachePriorityQueue.filter(url => url !== src);
-      this.cachePriorityQueue.unshift(src);
-      return cachedImage.objectUrl;
+  private manageCacheSize(): void {
+    if (this.imageCache.size > this.maxCacheSize) {
+      const oldestKey = this.cachePriorityQueue.shift();
+      if (oldestKey) {
+        const cachedImage = this.imageCache.get(oldestKey);
+        if (cachedImage?.objectUrl) {
+          URL.revokeObjectURL(cachedImage.objectUrl);
+        }
+        this.imageCache.delete(oldestKey);
+      }
     }
-    
-    /* Jika tidak ada dalam cache, preload dan gunakan URL asli */
-    if (!cachedImage) {
-      this.preloadImage(src);
+  }
+
+  private getImageUrl(src: string): string {
+    const cachedImage = this.imageCache.get(src);
+    if (cachedImage?.objectUrl) {
+      return cachedImage.objectUrl;
     }
     return src;
   }
 
-  /* Membersihkan cache gambar */
-  clearImageCache(): void {
-    /* Revoke semua objectURL untuk mencegah memory leak */
-    this.imageCache.forEach(entry => {
-      if (entry.objectUrl) {
-        URL.revokeObjectURL(entry.objectUrl);
-      }
-    });
-    this.imageCache.clear();
-    this.cachePriorityQueue = [];
-  }
+  /* ========== Gallery Modal Controls ========== */
 
-  private initSectionAnimations() {
-    const sections = document.querySelectorAll('.animate-on-scroll');
-    let lastScrollY = window.scrollY;
-  
-    /* Create a function to determine scroll direction */
-    const getScrollDirection = () => {
-      const scrollY = window.scrollY;
-      const direction = scrollY > lastScrollY ? 'down' : 'up';
-      lastScrollY = scrollY > 0 ? scrollY : 0;
-      return direction;
-    };
-  
-    const observerOptions = {
-      root: null,
-      rootMargin: '-50px 0px',
-      threshold: 0.1
-    };
-  
-    this.sectionObserver = new IntersectionObserver((entries) => {
-      const scrollDirection = getScrollDirection();
-      
-      entries.forEach(entry => {
-        /* Add a data attribute to track animation state */
-        if (!entry.target.hasAttribute('data-animated')) {
-          entry.target.setAttribute('data-animated', 'false');
-        }
-        
-        const wasAnimated = entry.target.getAttribute('data-animated') === 'true';
-        
-        if (entry.isIntersecting) {
-          /* Element is visible */
-          entry.target.classList.add('animate');
-          entry.target.classList.remove('animate-out');
-          entry.target.setAttribute('data-animated', 'true');
-        } else {
-          /* Element is not visible */
-          if (scrollDirection === 'up' && wasAnimated) {
-            /* Only apply fade-out when scrolling up and element was previously animated */
-            entry.target.classList.add('animate-out');
-            entry.target.classList.remove('animate');
-          } else if (scrollDirection === 'down') {
-            /* When scrolling down past an element, just remove animation classes */
-            entry.target.classList.remove('animate');
-            entry.target.classList.remove('animate-out');
-          }
-        }
-      });
-    }, observerOptions);
-  
-    sections.forEach(section => {
-      this.sectionObserver!.observe(section);
-    });
-  
-    /* Store the scroll handler reference so we can remove it later */
-    this.scrollDirectionHandler = getScrollDirection;
-    
-    /* Also track scroll events for better direction detection */
-    window.addEventListener('scroll', this.scrollDirectionHandler);
-  }
-  
-  toggleLanguage() {
-    this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
-  }
-
-  /* Handle klik pada container */
   handleContainerClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
     
-    /* Jika klik langsung pada gambar */
-    if (target.tagName === 'IMG') {
-      this.toggleImageZoom(event);
-    } else {
-      /* Jika klik di luar gambar saat zoom aktif, reset zoom */
-      if (this.isImageZoomed) {
-        this.exitZoomMode();
-      }
+    if (target.classList.contains('modal-image-container')) {
+      this.closeGalleryModal();
+      return;
     }
-  }
 
-  /* Toggle zoom mode */
-  toggleImageZoom(event: MouseEvent): void {
-    event.stopPropagation();
-    
     if (!this.isImageZoomed) {
-      this.enterZoomMode(event);
-    } else {
-      /* Jika sudah dalam mode zoom, zoom in di titik klik */
-      this.zoomAtClickPoint(event);
+      this.enterZoomMode();
     }
   }
 
-  /* Masuk ke mode zoom */
-  private enterZoomMode(event: MouseEvent): void {
+  enterZoomMode(): void {
     this.isImageZoomed = true;
-    this.setupZoomControls();
     
-    /* Zoom in di titik klik */
-    setTimeout(() => {
-      this.zoomAtClickPoint(event);
-    }, 50); /* Delay kecil untuk memastikan setup selesai */
+    if (this.zoomableImage) {
+      this.renderer.addClass(this.zoomableImage.nativeElement, 'zoomable-active');
+      this.setupZoomEventListeners();
+    }
+    
+    if (this.imageContainer) {
+      this.renderer.addClass(this.imageContainer.nativeElement, 'zoom-mode');
+    }
   }
 
-  /* Keluar dari mode zoom */
-  private exitZoomMode(): void {
+  exitZoomMode(): void {
     this.isImageZoomed = false;
     this.resetZoom();
     this.cleanupEventListeners();
   }
 
-  /* Zoom in di titik klik */
-   private zoomAtClickPoint(event: MouseEvent): void {
+  private setupZoomEventListeners(): void {
     if (!this.zoomableImage) return;
-
-    const imgElement = this.zoomableImage.nativeElement;
-    const rect = imgElement.getBoundingClientRect();
-    
-    /* Koordinat relatif terhadap gambar */
-    const clickX = event.clientX - rect.left;
-    const clickY = event.clientY - rect.top;
-    
-    /* Tentukan level zoom berdasarkan scale saat ini */
-    let newScale: number;
-    if (this.currentScale < 1.5) {
-      newScale = 2;
-    } else if (this.currentScale < 2.5) {
-      newScale = 3;
-    } else if (this.currentScale < 3.5) {
-      newScale = 4;
-    } else {
-      /* Reset jika sudah terlalu besar */
-      newScale = 1;
-      this.translateX = 0;
-      this.translateY = 0;
-    }
-    
-    if (newScale > 1) {
-      this.zoomAtPoint(clickX, clickY, newScale);
-    } else {
-      this.currentScale = 1;
-      this.applyTransform();
-    }
-  }
-
-  /* Setup zoom controls dan event listeners */
-  private setupZoomControls(): void {
-    if (!this.zoomableImage || !this.imageContainer) return;
     
     const imgElement = this.zoomableImage.nativeElement;
-    const containerElement = this.imageContainer.nativeElement;
     
-    /* Reset posisi dan scale */
-    this.currentScale = 1;
-    this.translateX = 0;
-    this.translateY = 0;
-    this.applyTransform();
-    
-    /* Setup event listeners */
-    this.setupMouseEvents(imgElement, containerElement);
-    this.setupTouchEvents(imgElement, containerElement);
+    this.setupMouseEvents(imgElement);
+    this.setupTouchEvents(imgElement);
     this.setupWheelEvent(imgElement);
-    
-    /* Tambahkan styling */
-    this.renderer.addClass(imgElement, 'zoomable-active');
-    this.renderer.addClass(containerElement, 'zoom-mode');
   }
-  
-   /* Setup mouse events */
-  private setupMouseEvents(imgElement: HTMLElement, containerElement: HTMLElement): void {
-    /* Mouse down - start dragging */
+
+  /* Setup mouse events for drag */
+  private setupMouseEvents(imgElement: HTMLElement): void {
     const onMouseDown = (e: MouseEvent) => {
-      if (!this.isImageZoomed || this.currentScale <= 1) return;
+      if (!this.isImageZoomed) return;
       
       this.isDragging = true;
       this.startX = e.clientX - this.translateX;
@@ -606,24 +550,21 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       this.renderer.addClass(imgElement, 'dragging');
       e.preventDefault();
     };
-    
-    /* Mouse move - drag image */
+
     const onMouseMove = (e: MouseEvent) => {
       if (!this.isDragging || !this.isImageZoomed) return;
       
       const newTranslateX = e.clientX - this.startX;
       const newTranslateY = e.clientY - this.startY;
       
-      /* Apply boundaries to prevent dragging too far */
-      const boundedTranslate = this.applyBoundaries(newTranslateX, newTranslateY);
-      this.translateX = boundedTranslate.x;
-      this.translateY = boundedTranslate.y;
+      const bounded = this.applyBoundaries(newTranslateX, newTranslateY);
+      this.translateX = bounded.x;
+      this.translateY = bounded.y;
       
       this.applyTransform();
       e.preventDefault();
     };
-    
-    /* Mouse up - stop dragging */
+
     const onMouseUp = () => {
       if (this.isDragging) {
         this.isDragging = false;
@@ -631,7 +572,6 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       }
     };
 
-    /* Add event listeners dan simpan referensi untuk cleanup */
     imgElement.addEventListener('mousedown', onMouseDown);
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
@@ -642,72 +582,66 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       () => document.removeEventListener('mouseup', onMouseUp)
     );
   }
-  
-  /* Setup touch events */
-  private setupTouchEvents(imgElement: HTMLElement, containerElement: HTMLElement): void {
-    let lastTouchX = 0;
-    let lastTouchY = 0;
-    let initialPinchDistance = 0;
-    let initialScale = 1;
 
+  /* Setup touch events for mobile */
+  private setupTouchEvents(imgElement: HTMLElement): void {
     const onTouchStart = (e: TouchEvent) => {
       if (!this.isImageZoomed) return;
       
       if (e.touches.length === 1) {
-        /* Single touch - start pan */
         this.isDragging = true;
         this.startX = e.touches[0].clientX - this.translateX;
         this.startY = e.touches[0].clientY - this.translateY;
-        lastTouchX = e.touches[0].clientX;
-        lastTouchY = e.touches[0].clientY;
+        this.renderer.addClass(imgElement, 'dragging');
       } else if (e.touches.length === 2) {
-        /* Two fingers - start pinch */
-        this.isDragging = false;
-        initialPinchDistance = this.getTouchDistance(e.touches);
-        initialScale = this.currentScale;
+        this.lastTouchDistance = this.getTouchDistance(e.touches);
       }
-      
-      e.preventDefault();
     };
 
     const onTouchMove = (e: TouchEvent) => {
       if (!this.isImageZoomed) return;
       
       if (e.touches.length === 1 && this.isDragging) {
-        /* Single touch - pan */
         const newTranslateX = e.touches[0].clientX - this.startX;
         const newTranslateY = e.touches[0].clientY - this.startY;
         
-        const boundedTranslate = this.applyBoundaries(newTranslateX, newTranslateY);
-        this.translateX = boundedTranslate.x;
-        this.translateY = boundedTranslate.y;
+        const bounded = this.applyBoundaries(newTranslateX, newTranslateY);
+        this.translateX = bounded.x;
+        this.translateY = bounded.y;
         
         this.applyTransform();
-      } else if (e.touches.length === 2 && initialPinchDistance > 0) {
-        /* Two fingers - pinch zoom */
+        e.preventDefault();
+      } else if (e.touches.length === 2) {
         const currentDistance = this.getTouchDistance(e.touches);
-        const scaleChange = currentDistance / initialPinchDistance;
-        const newScale = Math.max(0.5, Math.min(5, initialScale * scaleChange));
+        const scaleDelta = currentDistance / this.lastTouchDistance;
         
-        /* Get midpoint of touches */
-        const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-        const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+        const newScale = Math.max(0.5, Math.min(5, this.currentScale * scaleDelta));
+        
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+        const centerX = (touch1.clientX + touch2.clientX) / 2;
+        const centerY = (touch1.clientY + touch2.clientY) / 2;
+        
         const rect = imgElement.getBoundingClientRect();
+        const x = centerX - rect.left;
+        const y = centerY - rect.top;
         
-        this.zoomAtPoint(midX - rect.left, midY - rect.top, newScale);
+        this.zoomAtPoint(x, y, newScale);
+        
+        this.lastTouchDistance = currentDistance;
+        e.preventDefault();
       }
-      
-      e.preventDefault();
     };
 
     const onTouchEnd = (e: TouchEvent) => {
       if (e.touches.length === 0) {
         this.isDragging = false;
-        initialPinchDistance = 0;
+        this.renderer.removeClass(imgElement, 'dragging');
+      } else if (e.touches.length === 1) {
+        this.lastTouchDistance = 0;
       }
     };
 
-    /* Add event listeners */
     imgElement.addEventListener('touchstart', onTouchStart, { passive: false });
     imgElement.addEventListener('touchmove', onTouchMove, { passive: false });
     imgElement.addEventListener('touchend', onTouchEnd);
