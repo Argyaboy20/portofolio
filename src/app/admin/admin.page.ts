@@ -290,4 +290,9 @@ export class AdminPage implements OnInit {
     /* Navigate back to the admin page */
     this.router.navigateByUrl('/admin');
   }
+
+  /* Method untuk membuka CV Admin */
+  openAdminCV() {
+    window.open('/assets/CV/Admin.pdf', '_blank');
+  }
 }

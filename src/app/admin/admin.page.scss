@@ -203,33 +203,80 @@ ion-toolbar {
 
 /* Profile Card */
 .profile-card {
-    --background: linear-gradient(135deg, rgba(39, 60, 117, 0.7), rgba(25, 42, 86, 0.7));
-    border-radius: var(--card-radius);
-    box-shadow: var(--card-shadow);
-    overflow: hidden;
-    margin-bottom: 20px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: visible;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: linear-gradient(135deg, rgba(20, 30, 48, 0.9), rgba(36, 59, 85, 0.9));
+  margin-bottom: 20px;
+  
+  ion-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px; /* Dinaikkan dari sebelumnya (mungkin 20px atau default) */
+    padding-bottom: 25px; /* Tambahkan space untuk tombol CV */
+  }
 
-    .profile-avatar {
-        margin: 20px auto;
-        width: 100px;
-        height: 100px;
-        border: 4px solid var(--accent-color);
-        box-shadow: 0 0 20px rgba(0, 198, 255, 0.5);
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px; /* Jarak antara foto dan title dikurangi sedikit */
+    border: 4px solid rgba(74, 144, 226, 0.6); /* Border biru sesuai tema admin */
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.4);
+    
+    img {
+      object-fit: cover;
+    }
+  }
+
+  ion-card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px; /* Jarak ke subtitle dikurangi */
+  }
+
+  ion-card-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 12px; /* Jarak ke tombol CV */
+  }
+
+  // TAMBAHKAN STYLING UNTUK TOMBOL CV:
+  .cv-link-container {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .cv-link-admin {
+    display: inline-block;
+    color: #4a90e2; /* Warna biru yang sinkron dengan tema admin */
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 20px;
+    border-radius: 20px;
+    background: rgba(74, 144, 226, 0.1); /* Background transparan biru */
+    border: 1.5px solid rgba(74, 144, 226, 0.5);
+    transition: all 0.3s ease;
+    margin: 0;
+    
+    &:hover {
+      background: rgba(74, 144, 226, 0.2);
+      border-color: rgba(74, 144, 226, 0.8);
+      color: #5da3f5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
     }
 
-    ion-card-title {
-        font-size: 24px;
-        font-weight: 700;
-        color: white;
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba(74, 144, 226, 0.2);
     }
-
-    ion-card-subtitle {
-        font-size: 16px;
-        opacity: 0.9;
-        color: var(--accent-color);
-    }
+  }
 }
 
 /* Experience Card */
@@ -815,17 +862,30 @@ ion-toolbar {
     }
 
     .profile-card {
+        ion-card-header {
+        padding-top: 25px;
+        padding-bottom: 20px;
+        }
+
         .profile-avatar {
-            width: 80px;
-            height: 80px;
+        width: 100px;
+        height: 100px;
+        margin-bottom: 12px;
         }
 
         ion-card-title {
-            font-size: 20px;
+        font-size: 1.3rem;
+        margin-bottom: 6px;
         }
 
         ion-card-subtitle {
-            font-size: 14px;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        }
+
+        .cv-link-admin {
+        font-size: 0.85rem;
+        padding: 7px 16px;
         }
     }
 

@@ -20,10 +20,12 @@
         <ion-avatar class="profile-avatar">
           <img src="/assets/PasPhoto.jpg" alt="Profile" />
         </ion-avatar>
-        <ion-card-title class="ion-text-center">{{ language === 'id' ? 'Karir Administrasi' : 'Administration Career'
-          }}</ion-card-title>
-        <ion-card-subtitle class="ion-text-center">{{ language === 'id' ? 'Profesional & Efisien' : 'Professional &
-          Efficient' }}</ion-card-subtitle>
+        <ion-card-title class="ion-text-center">{{ language === 'id' ? 'Karir Administrasi' : 'Administration Career' }}</ion-card-title>
+        <ion-card-subtitle class="ion-text-center">{{ language === 'id' ? 'Profesional & Efisien' : 'Professional & Efficient' }}</ion-card-subtitle>
+        <!-- TAMBAHKAN INI: Tombol Lihat CV -->
+        <div class="cv-link-container ion-text-center">
+          <p class="cv-link-admin" (click)="openAdminCV()">{{ language === 'id' ? 'Lihat CV' : 'View CV' }}</p>
+        </div>
       </ion-card-header>
     </ion-card>
 
