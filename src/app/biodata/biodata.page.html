@@ -255,20 +255,16 @@
     [backdropDismiss]="true">
     <ng-template>
       <ion-content class="modal-content">
-        <ion-header class="awards-modal-header animate-on-scroll">
-          <ion-toolbar>
-            <!-- Judul di tengah -->
-            <ion-title>
-              {{ currentLanguage === 'id' ? 'Sertifikat Penghargaan' : 'Award Certificates' }}
-            </ion-title>
-            <!-- Tombol close di kanan -->
-            <ion-buttons slot="end">
-              <ion-button (click)="closeAwardsModal()" class="close-button">
-                <ion-icon name="close" slot="icon-only"></ion-icon>
-              </ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
+        <!-- Custom Header tanpa ion-header -->
+        <div class="awards-modal-header">
+          <h2 class="modal-title">
+            {{ currentLanguage === 'id' ? 'Sertifikat Penghargaan' : 'Award Certificates' }}
+          </h2>
+          <button class="close-button" (click)="closeAwardsModal()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </div>
+        
         <div class="awards-modal-content">
           <div class="awards-carousel">
             <div class="award-slide" *ngFor="let award of awards; let i = index">
