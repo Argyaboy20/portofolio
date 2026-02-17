@@ -47,9 +47,17 @@ $text-color-light: #fff;
 .custom-toast {
     opacity: 1 !important;
     --background: var(--ion-color-primary) !important;
-    --color: white !important;
+    --color: #ffffff !important;
     --border-radius: 8px !important;
     --box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2) !important;
+
+    // Override langsung ke elemen dalam shadow DOM toast
+    &::part(message) {
+        color: #ffffff !important;
+    }
+    &::part(button) {
+        color: #ffffff !important;
+    }
 }
 
 ion-toolbar {

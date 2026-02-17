@@ -300,6 +300,20 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
           const contactSection = document.querySelector('.contact-footer-section');
           if (contactSection) {
             contactSection.scrollIntoView({ behavior: 'smooth' });
+
+            /* Add a delayed toast notification after scrolling */
+            setTimeout(() => {
+              this.toastController.create({
+                message: this.currentLanguage === 'id'
+                  ? 'Silakan hubungi kontak yang terlampir berikut untuk informasi lebih lanjut'
+                  : 'Please contact the listed contact for more information',
+                duration: 3000,
+                position: 'bottom', /* Position at bottom */
+                color: 'primary', /* Using primary color for better visibility */
+                cssClass: 'custom-toast', /* Adding a CSS class for additional styling */
+                buttons: [{ text: 'OK', role: 'cancel' }]
+              }).then(toast => toast.present());
+            }, 1000);
           }
         }, 600); // beri waktu halaman render sempurna
       }
