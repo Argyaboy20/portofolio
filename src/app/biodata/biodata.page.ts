@@ -309,7 +309,6 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
                   : 'Please contact the listed contact for more information',
                 duration: 3000,
                 position: 'bottom', /* Position at bottom */
-                color: 'primary', /* Using primary color for better visibility */
                 cssClass: 'custom-toast', /* Adding a CSS class for additional styling */
                 buttons: [{ text: 'OK', role: 'cancel' }]
               }).then(toast => toast.present());
