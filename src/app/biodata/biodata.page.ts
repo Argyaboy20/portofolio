@@ -4,6 +4,7 @@ import { PostProvider } from '../../provider/post-providers';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { inject } from "@vercel/analytics"
+import { PortfolioDataService } from '../services/portfolio-data.service';
 
 
 inject();
@@ -87,6 +88,10 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   startX = 0;
   startY = 0;
   lastTouchDistance = 0;
+
+  projectsCount: number = 0;
+  codingYears: number = 0;
+  techStacksCount: number = 0;
   
   /* Image cache properties */
   private imageCache: Map<string, CachedImage> = new Map();
@@ -262,7 +267,8 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     private platform: Platform,
     private router: Router,
     private elementRef: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private portfolioData: PortfolioDataService
   ) { }
 
   ngOnInit() {
@@ -285,6 +291,11 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
         this.router.navigate(['/']);
       }
     });
+
+    // Isi data dari service
+    this.projectsCount = this.portfolioData.getProjectsCount();
+    this.techStacksCount = this.portfolioData.getTechStackCount();
+    this.codingYears = this.portfolioData.getCodingYears();
   }
 
   ngAfterViewInit() {

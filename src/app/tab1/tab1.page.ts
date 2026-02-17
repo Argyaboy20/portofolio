@@ -7,6 +7,7 @@ import { Capacitor } from '@capacitor/core';
 import { Router } from '@angular/router';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
 import { inject } from "@vercel/analytics"
+import { PortfolioDataService } from '../services/portfolio-data.service';
 
 
 inject();
@@ -19,6 +20,14 @@ interface Project {
   demoLink: string;
   sourceLink: string;
   startDate: Date;  /* For sorting purposes */
+}
+
+interface Tool {
+  name: string;
+  icon: string;
+  category: 'programmer' | 'data-analyst';
+  level: 'Advanced' | 'Intermediate' | 'Basic';
+  isTechStack: boolean; // ← kunci utamanya di sini
 }
 
 /* interface penerjemahan */
@@ -200,13 +209,39 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     }
   ];
 
+  tools: Tool[] = [
+    { name: 'VS Code',      icon: 'code-slash-outline', category: 'programmer',    level: 'Advanced',      isTechStack: false },
+    { name: 'GitHub',       icon: 'logo-github',        category: 'programmer',    level: 'Intermediate',  isTechStack: false },
+    { name: 'NPM/Node.js',  icon: 'logo-npm',           category: 'programmer',    level: 'Intermediate',  isTechStack: false },
+    { name: 'Ionic CLI',    icon: 'logo-ionic',         category: 'programmer',    level: 'Intermediate',  isTechStack: true  },
+    { name: 'Angular CLI',  icon: 'logo-angular',       category: 'programmer',    level: 'Intermediate',  isTechStack: true  },
+    { name: 'Git',          icon: 'git-branch-outline', category: 'programmer',    level: 'Intermediate',  isTechStack: false },
+    { name: 'Capacitor',    icon: 'logo-capacitor',     category: 'programmer',    level: 'Intermediate',  isTechStack: true  },
+    { name: 'Vercel',       icon: 'logo-vercel',        category: 'programmer',    level: 'Intermediate',  isTechStack: false },
+    { name: 'Laravel',      icon: 'logo-laravel',       category: 'programmer',    level: 'Intermediate',  isTechStack: true  },
+    { name: 'React',        icon: 'logo-react',         category: 'programmer',    level: 'Intermediate',  isTechStack: true  },
+    { name: 'Adonis Js',    icon: '',                   category: 'programmer',    level: 'Intermediate',  isTechStack: true  },
+    { name: 'Python',       icon: 'logo-python',        category: 'data-analyst',  level: 'Intermediate',  isTechStack: true  },
+    { name: 'Apache Spark', icon: 'flash-outline',      category: 'data-analyst',  level: 'Intermediate',  isTechStack: false },
+    { name: 'Firebase',     icon: 'logo-firebase',      category: 'programmer',    level: 'Basic',         isTechStack: true  },
+    { name: 'Figma',        icon: 'logo-figma',         category: 'programmer',    level: 'Basic',         isTechStack: false },
+    { name: 'Leaflet',      icon: 'map-outline',        category: 'programmer',    level: 'Basic',         isTechStack: true  },
+    { name: 'WebSocket',    icon: 'pulse-outline',      category: 'programmer',    level: 'Basic',         isTechStack: true  },
+    { name: 'C#',           icon: 'code-outline',       category: 'programmer',    level: 'Basic',         isTechStack: true  },
+  ];
+
+  get techStackCount(): number {
+    return this.tools.filter(t => t.isTechStack).length;
+  }
+
   constructor(
     private navCtrl: NavController,
     private platform: Platform,
     private alertController: AlertController,
     private toastController: ToastController,
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private portfolioData: PortfolioDataService
   ) { }
 
   ionViewDidEnter() {
@@ -273,11 +308,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.setupBackButtonHandler();
     this.resetToolsFilter();
 
-    this.filterLabels = {
-      all: 'Semua',
-      programmer: 'Programmer',
-      dataAnalyst: 'Data Analyst'
-    };
+    this.portfolioData.setTools(this.tools);
+    this.portfolioData.setProjectsCount(this.projects.length);
   }
 
   ngAfterViewInit() {
@@ -1026,22 +1058,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /* Method Tools Filter */
-  filterTools(filter: 'all' | 'programmer' | 'data-analyst') {
-    this.currentToolFilter = filter;
-    
-    const toolItems = document.querySelectorAll('.tool-item');
-    
-    toolItems.forEach((item: any) => {
-      const category = item.getAttribute('data-category');
-      
-      if (filter === 'all') {
-        item.style.display = 'flex'; // Tampilkan semua
-      } else if (category === filter) {
-        item.style.display = 'flex'; // Tampilkan yang sesuai filter
-      } else {
-        item.style.display = 'none'; // Sembunyikan yang tidak sesuai
-      }
-    });
+  filterTools(category: 'all' | 'programmer' | 'data-analyst') {
+    this.currentToolFilter = category;
   }
 
   // Method untuk reset tools filter ke default (dipanggil saat init)

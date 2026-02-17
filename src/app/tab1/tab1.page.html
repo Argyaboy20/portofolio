@@ -364,149 +364,21 @@
       </div>
       <div class="section-content">
         <div class="tools-container">
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="code-slash-outline"></ion-icon>
+          <ng-container *ngFor="let tool of tools">
+            <div class="tool-item"
+                [attr.data-category]="tool.category"
+                *ngIf="currentToolFilter === 'all' || currentToolFilter === tool.category">
+              <div class="tool-icon">
+                <!-- Icon khusus untuk Adonis Js yang pakai img -->
+                <img *ngIf="tool.name === 'Adonis Js'"
+                    src="/assets/icon/adonis.png" alt="Adonis Js" class="custom-icon">
+                <ion-icon *ngIf="tool.name !== 'Adonis Js'"
+                          [name]="tool.icon"></ion-icon>
+              </div>
+              <span class="tool-name">{{ tool.name }}</span>
+              <div class="tool-level">{{ tool.level }}</div>
             </div>
-            <span class="tool-name">VS Code</span>
-            <div class="tool-level">Advanced</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-github"></ion-icon>
-            </div>
-            <span class="tool-name">GitHub</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-npm"></ion-icon>
-            </div>
-            <span class="tool-name">NPM/Node.js</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-ionic"></ion-icon>
-            </div>
-            <span class="tool-name">Ionic CLI</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-angular"></ion-icon>
-            </div>
-            <span class="tool-name">Angular CLI</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="git-branch-outline"></ion-icon>
-            </div>
-            <span class="tool-name">Git</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-capacitor"></ion-icon>
-            </div>
-            <span class="tool-name">Capacitor</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-vercel"></ion-icon>
-            </div>
-            <span class="tool-name">Vercel</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-laravel"></ion-icon>
-            </div>
-            <span class="tool-name">Laravel</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-react"></ion-icon>
-            </div>
-            <span class="tool-name">React</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <img src="/assets/icon/adonis.png" alt="Adonis Js" class="custom-icon">
-            </div>
-            <span class="tool-name">Adonis Js</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="data-analyst">
-            <div class="tool-icon">
-              <ion-icon name="logo-python"></ion-icon>
-            </div>
-            <span class="tool-name">Python</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="data-analyst">
-            <div class="tool-icon">
-              <ion-icon name="flash-outline"></ion-icon>
-            </div>
-            <span class="tool-name">Apache Spark</span>
-            <div class="tool-level">Intermediate</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-firebase"></ion-icon>
-            </div>
-            <span class="tool-name">Firebase</span>
-            <div class="tool-level">Basic</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="logo-figma"></ion-icon>
-            </div>
-            <span class="tool-name">Figma</span>
-            <div class="tool-level">Basic</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="map-outline"></ion-icon>
-            </div>
-            <span class="tool-name">Leaflet</span>
-            <div class="tool-level">Basic</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="pulse-outline"></ion-icon>
-            </div>
-            <span class="tool-name">WebSocket</span>
-            <div class="tool-level">Basic</div>
-          </div>
-
-          <div class="tool-item" data-category="programmer">
-            <div class="tool-icon">
-              <ion-icon name="code-outline"></ion-icon>
-            </div>
-            <span class="tool-name">C#</span>
-            <div class="tool-level">Basic</div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </section>
