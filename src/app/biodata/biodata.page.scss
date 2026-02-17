@@ -19,8 +19,7 @@ $text-color-light: #fff;
 .gallery-item,
 .awards-item,
 .quote-container,
-.rotating-gallery,
-.contact-info {
+.rotating-gallery {
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -33,22 +32,22 @@ $text-color-light: #fff;
 .quotes-section .section-title,
 .awards-section .section-title,
 .gallery-section .section-title,
-.contact-section .section-title {
+.rotating-gallery-section .section-title {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
-/* Animasi IN - muncul dari bawah */
+/* Animasi IN - override semua jenis transform direction */
 .animate-in {
     opacity: 1 !important;
-    transform: translateY(0) !important;
+    transform: translateY(0) translateX(0) !important;
 }
 
-/* Animasi OUT - hilang ke bawah */
+/* Animasi OUT - dihandle via inline style di TypeScript, class ini sebagai fallback */
 .animate-out {
-    opacity: 0 !important;
-    transform: translateY(50px) !important;
+    opacity: 0;
+    transform: translateY(50px);
 }
 
 /* Delay untuk elemen yang berurutan */
@@ -167,8 +166,6 @@ ion-toolbar {
 ion-content {
     --background: #f5f7fa;
     font-family: 'Roboto', sans-serif;
-    --padding-top: 0;
-    --padding-bottom: 20px;
      --overflow: scroll !important;
     -webkit-overflow-scrolling: touch;
 }
@@ -636,34 +633,36 @@ section {
 }
 
 /* Contact Section */
-.contact-section {
+/* ========== ROTATING GALLERY SECTION ========== */
+.rotating-gallery-section {
     background-color: $bg-color-light;
+    padding: 4rem 2rem;
 }
 
-.contact-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.rotating-gallery-container {
     max-width: 1200px;
     margin: 0 auto;
-    gap: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .rotating-gallery {
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     margin: 0 auto;
 
     .photo-container {
         position: relative;
-        border-radius: 8px;
+        border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        height: 800px;
 
         .rotating-photo {
             width: 100%;
-            height: auto;
-            object-fit: contain;
+            height: 100%;
+            object-fit: cover;
             transition: opacity 0.5s ease;
             display: block;
         }
@@ -675,8 +674,10 @@ section {
             right: 0;
             background: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         .photo-progress {
@@ -696,111 +697,121 @@ section {
     }
 }
 
-.contact-info {
+/* ========== CONTACT FOOTER SECTION ========== */
+.contact-footer-section {
+    background: linear-gradient(135deg, #2c3e50, #4a90e2);
+    padding: 4rem 0;
+    margin: 0;
     width: 100%;
-    max-width: 600px;
-    padding: 2rem;
+}
+
+.contact-footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
     text-align: center;
+}
 
-    h3 {
-        font-size: 1.5rem;
-        color: $bg-color-dark;
-        margin-bottom: 2rem;
-        position: relative;
-        padding-bottom: 0.5rem;
-        text-align: center;
+.contact-footer-title {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 1rem;
+    text-align: center;
+    font-weight: 600;
 
-        &:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 3px;
-            background: $secondary-color;
-        }
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 2px;
     }
+}
 
-    &.facts-style {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 2rem;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        
-        h3 {
-        color: #ffffff;
-        margin-bottom: 1.5rem;
-        }
-        
-        .contact-item {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 1rem;
-        border-radius: 12px;
-        margin-bottom: 1rem;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1.5rem;
-        
-        &:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(5px);
-        }
-        
-        ion-icon, .quora-icon {
-            color: #ffffff;
-        }
-        
-        a, span {
-            color: #ffffff;
-        }
-        
-        .bold-text {
-            font-weight: 600;
-        }
-        }
-    }
+.contact-items-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
 }
 
 .contact-item {
-    ion-icon,
-    .quora-icon {
-        font-size: 1.5rem;
-        color: $primary-color;
-        margin-right: 1rem;
-    }
-
-    span {
-        color: $text-color-dark;
-        font-size: 1rem;
-    }
-    
-    a {
-        color: $text-color-dark;
-        text-decoration: none;
-        transition: color 0.3s ease;
-        
-        &:hover {
-            color: $primary-color;
-        }
-    }
-}
-
-.quora-icon {
-    width: 24px;
-    height: 24px;
-    background-color: #b92b27;
-    color: white;
-    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1.5rem 2.5rem;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    margin-right: 1rem;
-    font-size: 16px;
+    gap: 1rem;
+    min-width: 250px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    transform: translateY(0);
+    
+    &:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    ion-icon {
+        font-size: 2rem;
+        color: #ffffff;
+        flex-shrink: 0;
+    }
+    
+    .quora-icon {
+        width: 32px;
+        height: 32px;
+        background-color: #b92b27;
+        color: white;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+    
+    a, span {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: opacity 0.3s ease;
+        
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+    
+    .bold-text {
+        font-weight: 600;
+    }
+}
+
+.footer-copyright {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    
+    p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+        margin: 0;
+        letter-spacing: 0.5px;
+    }
 }
 
 /* Footer */
@@ -913,7 +924,7 @@ section {
 
 .animate-on-scroll.animate-out {
     opacity: 0;
-    transform: translateY(-30px);
+    /* transform diset via inline style oleh TypeScript sesuai fade-in-* class */
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
@@ -974,9 +985,10 @@ section {
         transform: translateX(50px);
     }
 
-    &.animate {
-        opacity: 1;
-        transform: translateX(0);
+    &.animate,
+    &.animate-in {
+        opacity: 1 !important;
+        transform: translateX(0) !important;
         transition: all 0.8s ease-out;
     }
 }
@@ -1477,17 +1489,57 @@ section {
         }
     }
 
-    /* Contact section */
-    .contact-container {
-        gap: 2rem;
+    /* Rotating Gallery section - Tablet */
+    .rotating-gallery-section {
+        padding: 3rem 1.5rem;
     }
 
     .rotating-gallery {
-        max-width: 450px;
+        max-width: 500px;
+        
+        .photo-container {
+            .photo-caption {
+                font-size: 1rem;
+                padding: 10px;
+            }
+        }
     }
 
-    .contact-info {
-        padding: 1.5rem;
+    /* Contact Footer section - Tablet */
+    .contact-footer-section {
+        padding: 3rem 0;
+    }
+
+    .contact-footer-container {
+        padding: 0 1.5rem;
+    }
+
+    .contact-footer-title {
+        font-size: 1.8rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .contact-items-wrapper {
+        gap: 1.5rem;
+    }
+
+    .contact-item {
+        padding: 1.2rem 2rem;
+        min-width: 220px;
+        
+        ion-icon {
+            font-size: 1.8rem;
+        }
+        
+        .quora-icon {
+            width: 28px;
+            height: 28px;
+            font-size: 18px;
+        }
+        
+        a, span {
+            font-size: 1rem;
+        }
     }
 
     /* Awards section */
@@ -1773,15 +1825,18 @@ section {
         padding: 0.4rem 0.8rem;
     }
 
-    /* Contact mobile */
-    .contact-container {
-        gap: 1.5rem;
+    /* Rotating Gallery mobile */
+    .rotating-gallery-section {
+        padding: 2.5rem 1rem;
     }
 
     .rotating-gallery {
         max-width: 100%;
 
         .photo-container {
+            border-radius: 15px;
+            height: 500px;
+            
             .photo-caption {
                 bottom: 20px;
                 padding: 8px;
@@ -1790,29 +1845,56 @@ section {
         }
     }
 
-    .contact-info {
-        padding: 1rem;
+    /* Contact Footer mobile */
+    .contact-footer-section {
+        padding: 2.5rem 0;
+    }
 
-        h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
+    .contact-footer-container {
+        padding: 0 1rem;
+    }
 
-            &:after {
-                width: 40px;
-            }
+    .contact-footer-title {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+
+        &:after {
+            width: 60px;
+            height: 3px;
         }
     }
 
-    .contact-item {
-        margin-bottom: 1.2rem;
+    .contact-items-wrapper {
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-        ion-icon,
+    .contact-item {
+        padding: 1rem 1.5rem;
+        min-width: 100%;
+        width: 100%;
+
+        ion-icon {
+            font-size: 1.5rem;
+        }
+        
         .quora-icon {
-            font-size: 1.3rem;
+            width: 24px;
+            height: 24px;
+            font-size: 16px;
         }
 
-        span {
+        a, span {
             font-size: 0.95rem;
+        }
+    }
+
+    .footer-copyright {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        
+        p {
+            font-size: 0.9rem;
         }
     }
 

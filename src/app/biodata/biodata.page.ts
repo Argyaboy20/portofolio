@@ -291,6 +291,18 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.setupScrollAnimations();
       this.startPhotoRotation();
+
+      // ✅ TAMBAHAN: Cek flag dari localStorage untuk auto-scroll
+      const shouldScroll = localStorage.getItem('scrollToContact');
+      if (shouldScroll === 'true') {
+        localStorage.removeItem('scrollToContact'); // hapus flag agar tidak looping
+        setTimeout(() => {
+          const contactSection = document.querySelector('.contact-footer-section');
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 600); // beri waktu halaman render sempurna
+      }
     }, 100);
   }
 
@@ -396,9 +408,10 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       '.awards-item',
       '.gallery-section .section-title',
       '.gallery-item',
-      '.contact-section .section-title',
+      '.rotating-gallery-section .section-title',
       '.rotating-gallery',
-      '.contact-info'
+      '.contact-footer-title',
+      '.contact-items-wrapper'
     ];
 
     animatableSelectors.forEach(selector => {
@@ -410,13 +423,38 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private animateIn(element: Element): void {
-    this.renderer.addClass(element, 'animate-in');
+    // Reset inline style dulu supaya transition direction class berlaku kembali
+    this.renderer.removeStyle(element, 'transform');
+    this.renderer.removeStyle(element, 'opacity');
     this.renderer.removeClass(element, 'animate-out');
+    // Paksa reflow agar browser baca ulang initial state dari CSS class
+    (element as HTMLElement).getBoundingClientRect();
+    this.renderer.addClass(element, 'animate-in');
   }
 
   private animateOut(element: Element): void {
-    this.renderer.addClass(element, 'animate-out');
     this.renderer.removeClass(element, 'animate-in');
+    // Kembalikan transform asal sesuai direction class yang ada di elemen
+    const el = element as HTMLElement;
+    let outTransform = 'translateY(50px)'; // default
+
+    if (el.classList.contains('fade-in-left')) {
+      outTransform = 'translateX(50px)';
+    } else if (el.classList.contains('fade-in-right')) {
+      outTransform = 'translateX(-50px)';
+    } else if (el.classList.contains('fade-in-up')) {
+      outTransform = 'translateY(50px)';
+    } else if (el.classList.contains('fade-in-down')) {
+      outTransform = 'translateY(-50px)';
+    } else if (el.classList.contains('timeline-item')) {
+      // Timeline: odd dari kiri, even dari kanan — sesuai CSS section-specific
+      const siblings = Array.from(el.parentElement?.children || []);
+      const index = siblings.indexOf(el);
+      outTransform = index % 2 === 0 ? 'translateX(-50px)' : 'translateX(50px)';
+    }
+
+    this.renderer.setStyle(el, 'opacity', '0');
+    this.renderer.setStyle(el, 'transform', outTransform);
   }
 
   /* ========== END SCROLL ANIMATION SYSTEM ========== */

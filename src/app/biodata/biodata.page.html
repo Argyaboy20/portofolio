@@ -214,11 +214,11 @@
     </div>
   </section>
 
-  <!-- Contact Form Section -->
-  <section class="contact-section">
+  <!-- Rotating Gallery Section -->
+  <section class="rotating-gallery-section">
     <h2 class="section-title animate-on-scroll">{{ getText('connect') }}</h2>
-    <div class="contact-container">
-      <div class="rotating-gallery animate-on-scroll fade-in-left">
+    <div class="rotating-gallery-container">
+      <div class="rotating-gallery animate-on-scroll fade-in-up">
         <div class="photo-container">
           <img [src]="currentRotatingPhoto" alt="Rotating gallery image" class="rotating-photo">
           <div class="photo-caption">{{ currentPhotoCaption }}</div>
@@ -227,8 +227,14 @@
           </div>
         </div>
       </div>
-      <div class="contact-info facts-style animate-on-scroll fade-in-right delay-1">
-        <h3>{{ getText('otherWays') }}</h3>
+    </div>
+  </section>
+
+  <!-- Contact Info Footer Section -->
+  <section class="contact-footer-section">
+    <div class="contact-footer-container">
+      <h3 class="contact-footer-title animate-on-scroll">{{ getText('otherWays') }}</h3>
+      <div class="contact-items-wrapper animate-on-scroll fade-in-right">
         <div class="contact-item">
           <ion-icon name="logo-whatsapp"></ion-icon>
           <a href="https://wa.me/+6285761787971?text=Halo%20Maulana%2C%20saya%20tertarik%20untuk%20bekerjasama%20dalam%20pengembangan%20software.%20Berikut%20rincian%20softwarenya.%0A%0A1.%20Jenis%20software%3A%20%28website%2Fmobile%2Fhybrid%29%0A2.%20Target%20user%3A%20%0A3.%20Fungsi%20software%3A%20"
@@ -246,6 +252,9 @@
           <ion-icon name="location-outline"></ion-icon>
           <span>Medan, Indonesia</span>
         </div>
+      </div>
+      <div class="footer-copyright">
+        <p>&copy; 2025 Maulana Farras. All rights reserved.</p>
       </div>
     </div>
   </section>

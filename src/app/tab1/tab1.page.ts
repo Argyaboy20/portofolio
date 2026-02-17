@@ -776,11 +776,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   navigateToBiodataContact() {
     /* Use standard navigation for mobile browsers */
     if (this.platform.is('mobile') || window.innerWidth <= 768) {
+      /* Set a flag in localStorage to indicate we should scroll to contact section after page loads */
+      localStorage.setItem('scrollToContact', 'true');
       /* For mobile, navigate first, then scroll to the contact section after the page loads */
       window.location.href = window.location.origin + '/biodata';
 
-      /* Set a flag in localStorage to indicate we should scroll to contact section after page loads */
-      localStorage.setItem('scrollToContact', 'true');
     } else {
       /* For desktop, use animated navigation */
       const animation = (baseEl: HTMLElement, opts?: any): Animation => {
@@ -808,7 +808,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       }).then(() => {
         /* After navigation, set a timeout to scroll to the contact section */
         setTimeout(() => {
-          const contactSection = document.querySelector('.contact-section');
+          const contactSection = document.querySelector('.contact-footer-section');
           if (contactSection) {
             contactSection.scrollIntoView({ behavior: 'smooth' });
 
@@ -816,8 +816,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             setTimeout(() => {
               this.toastController.create({
                 message: this.currentLanguage === 'id'
-                  ? 'Scroll lagi ke bawah untuk kontak yang bisa dihubungi'
-                  : 'Scroll down further to see contact information',
+                  ? 'Silakan hubungi kontak yang terlampir berikut untuk informasi lebih lanjut'
+                  : 'Please contact the listed contact for more information',
                 duration: 3000,
                 position: 'bottom', /* Position at bottom */
                 color: 'primary', /* Using primary color for better visibility */
