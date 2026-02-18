@@ -9,7 +9,6 @@ $text-color-light: #fff;
 @use "sass:color";
 
 /* DEFAULT STYLES (Desktop) */
-
 /* ========== ANIMATION SYSTEM - IN & OUT ========== */
 
 /* Base state - elemen belum terlihat */
@@ -729,7 +728,7 @@ section {
         transform: translateX(-50%);
         width: 80px;
         height: 4px;
-        background: rgba(255, 255, 255, 0.8);
+        background: linear-gradient(to right, $primary-color, $secondary-color);
         border-radius: 2px;
     }
 }

@@ -318,9 +318,10 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
                 message: this.currentLanguage === 'id'
                   ? 'Silakan hubungi kontak yang terlampir berikut untuk informasi lebih lanjut'
                   : 'Please contact the listed contact for more information',
-                duration: 3000,
-                position: 'bottom', /* Position at bottom */
-                cssClass: 'custom-toast', /* Adding a CSS class for additional styling */
+                duration: 4000,
+                position: 'bottom',
+                positionAnchor: undefined,
+                cssClass: 'custom-toast',
                 buttons: [{ text: 'OK', role: 'cancel' }]
               }).then(toast => toast.present());
             }, 1000);
@@ -915,16 +916,11 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   async presentToast(message: string, color: string) {
     const toast = await this.toastController.create({
       message,
-      duration: 3000,
+      duration: 4000,
       color,
       position: 'bottom',
       cssClass: 'custom-toast',
-      buttons: [
-        {
-          text: 'OK',
-          role: 'cancel'
-        }
-      ]
+      buttons: [{ text: 'OK', role: 'cancel' }]
     });
     await toast.present();
   }
