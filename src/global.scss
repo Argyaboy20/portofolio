@@ -162,6 +162,53 @@ ion-router-outlet {
     }
 }
 
+// ============================================
+// Keyframes untuk Toast Animations
+// ============================================
+@keyframes toastFadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastFadeOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes toastFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastFadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
 // Welcome Toast - harus di global karena ion-toast dirender di luar komponen
 ion-toast.welcome-toast {
   --border-radius: 14px;
@@ -169,6 +216,13 @@ ion-toast.welcome-toast {
   --width: fit-content;
   --min-width: unset;
   --max-width: unset;
+
+  // Animation welcome toast: masuk dari atas, keluar ke atas
+  animation: toastFadeInDown 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  &.toast-leave {
+    animation: toastFadeOutUp 0.3s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+  }
 
   &::part(message) {
     font-size: 14px;
@@ -195,6 +249,13 @@ ion-toast.custom-toast {
   --max-width: 480px;
   margin-inline: auto;
 
+  // Animation custom toast: masuk dari bawah, keluar ke bawah
+  animation: toastFadeInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+  &.toast-leave {
+    animation: toastFadeOutDown 0.3s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+  }
+
   &::part(message) {
     font-size: 14px;
     font-weight: 500;
@@ -218,6 +279,11 @@ ion-toast.custom-toast {
   ion-toast.welcome-toast {
     --border-radius: 12px;
 
+    animation: toastFadeInDown 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    &.toast-leave {
+      animation: toastFadeOutUp 0.3s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+    }
+
     &::part(message) {
       font-size: 13px;
     }
@@ -232,6 +298,11 @@ ion-toast.custom-toast {
     --width: 85vw;
     --max-width: 85vw;
     margin-inline: auto;
+
+    animation: toastFadeInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    &.toast-leave {
+      animation: toastFadeOutDown 0.3s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+    }
 
     &::part(message) {
       font-size: 13px;
@@ -249,6 +320,11 @@ ion-toast.custom-toast {
   ion-toast.welcome-toast {
     --border-radius: 10px;
     --width: fit-content;
+
+    animation: toastFadeInDown 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    &.toast-leave {
+      animation: toastFadeOutUp 0.3s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+    }
 
     &::part(message) {
       font-size: 12px;
@@ -270,6 +346,11 @@ ion-toast.custom-toast {
     --width: 82vw;
     --max-width: 82vw;
     margin-inline: auto;
+
+    animation: toastFadeInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    &.toast-leave {
+      animation: toastFadeOutDown 0.3s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+    }
 
     &::part(message) {
       font-size: 12px;
