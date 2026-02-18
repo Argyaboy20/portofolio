@@ -215,6 +215,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
     this.setupBackButtonHandler();
     this.resetToolsFilter();
+    this.showWelcomeNotification();
   }
 
   ngAfterViewInit() {
@@ -277,6 +278,32 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     document.removeEventListener('selectstart', this.preventAction);
     document.removeEventListener('keydown', this.preventScreenshotShortcuts);
     document.removeEventListener('keydown', this.preventDevToolsScreenshot, true);
+  }
+
+  /* Method untuk menampilkan notifikasi selamat datang */
+  private showWelcomeNotification() {
+    const welcomeKey = 'welcomed';
+    
+    if (!sessionStorage.getItem(welcomeKey)) {
+      sessionStorage.setItem(welcomeKey, 'true');
+      
+      setTimeout(async () => {
+        const toast = await this.toastController.create({
+          message: 'Hai! Selamat datang di website pribadiku! 👋',
+          duration: 4000,
+          position: 'top',
+          color: 'dark',
+          cssClass: 'welcome-toast',
+          buttons: [
+            {
+              icon: 'close-outline',
+              role: 'cancel'
+            }
+          ]
+        });
+        await toast.present();
+      }, 800); // sedikit delay agar halaman selesai render dulu
+    }
   }
 
   /* Method baru untuk memperbaiki interaksi profil */
