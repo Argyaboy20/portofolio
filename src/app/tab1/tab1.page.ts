@@ -283,26 +283,47 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   /* Method untuk menampilkan notifikasi selamat datang */
   private showWelcomeNotification() {
     const welcomeKey = 'welcomed';
-    
+
     if (!sessionStorage.getItem(welcomeKey)) {
       sessionStorage.setItem(welcomeKey, 'true');
-      
+
       setTimeout(async () => {
         const toast = await this.toastController.create({
           message: 'Hai! Selamat datang di website pribadiku! 👋',
-          duration: 4000,
           position: 'top',
           color: 'dark',
           cssClass: 'welcome-toast',
-          buttons: [
-            {
-              icon: 'close-outline',
-              role: 'cancel'
+          buttons: [{
+            icon: 'close-outline',
+            role: 'cancel',
+            handler: () => {
+              this.dismissWithAnimation(toast, 'up');
+              return false; // cegah Ionic dismiss otomatis
             }
-          ]
+          }]
         });
+
         await toast.present();
-      }, 800); // sedikit delay agar halaman selesai render dulu
+
+        // Auto dismiss setelah 3500ms dengan animasi out
+        setTimeout(() => {
+          this.dismissWithAnimation(toast, 'up');
+        }, 4000);
+
+      }, 800);
+    }
+  }
+
+  private dismissWithAnimation(toast: HTMLIonToastElement, direction: 'up' | 'down') {
+    const wrapper = toast.shadowRoot?.querySelector('.toast-wrapper') as HTMLElement;
+    if (wrapper) {
+      const translateY = direction === 'up' ? '-16px' : '16px';
+      wrapper.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-in';
+      wrapper.style.opacity = '0';
+      wrapper.style.transform = `translateY(${translateY})`;
+      setTimeout(() => toast.dismiss(), 300);
+    } else {
+      toast.dismiss();
     }
   }
 

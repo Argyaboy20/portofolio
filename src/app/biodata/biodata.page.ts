@@ -313,17 +313,24 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
             contactSection.scrollIntoView({ behavior: 'smooth' });
 
             /* Add a delayed toast notification after scrolling */
-            setTimeout(() => {
-              this.toastController.create({
+            setTimeout(async () => {
+              const toast = await this.toastController.create({
                 message: this.currentLanguage === 'id'
                   ? 'Silakan hubungi kontak yang terlampir berikut untuk informasi lebih lanjut'
                   : 'Please contact the listed contact for more information',
-                duration: 4000,
                 position: 'bottom',
-                positionAnchor: undefined,
                 cssClass: 'custom-toast',
-                buttons: [{ text: 'OK', role: 'cancel' }]
-              }).then(toast => toast.present());
+                buttons: [{
+                  text: 'OK',
+                  role: 'cancel',
+                  handler: () => {
+                    this.dismissWithAnimation(toast, 'down');
+                    return false;
+                  }
+                }]
+              });
+              await toast.present();
+              setTimeout(() => this.dismissWithAnimation(toast, 'down'), 4000);
             }, 1000);
           }
         }, 600); // beri waktu halaman render sempurna
@@ -916,12 +923,32 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   async presentToast(message: string, color: string) {
     const toast = await this.toastController.create({
       message,
-      duration: 4000,
       color,
       position: 'bottom',
       cssClass: 'custom-toast',
-      buttons: [{ text: 'OK', role: 'cancel' }]
+      buttons: [{
+        text: 'OK',
+        role: 'cancel',
+        handler: () => {
+          this.dismissWithAnimation(toast, 'down');
+          return false;
+        }
+      }]
     });
     await toast.present();
+    setTimeout(() => this.dismissWithAnimation(toast, 'down'), 4000);
+  }
+
+  private dismissWithAnimation(toast: HTMLIonToastElement, direction: 'up' | 'down') {
+    const wrapper = toast.shadowRoot?.querySelector('.toast-wrapper') as HTMLElement;
+    if (wrapper) {
+      const translateY = direction === 'up' ? '-16px' : '16px';
+      wrapper.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-in';
+      wrapper.style.opacity = '0';
+      wrapper.style.transform = `translateY(${translateY})`;
+      setTimeout(() => toast.dismiss(), 300);
+    } else {
+      toast.dismiss();
+    }
   }
 }
