@@ -36,11 +36,21 @@ interface Translations {
   relawan: string;
   aktivitasSosial: string;
   klikUntukKegiatan: string;
+  publikasi: string;
+  lihatSelengkapnya: string;
+  judulmodalpublikasi: string;
 }
 
 interface TranslationDict {
   id: Translations;
   en: Translations;
+}
+
+export interface Publikasi {
+  jurnalNama: string;      
+  judulArtikel: string;    
+  link: string;            
+  favicon?: string;        
 }
 
 @Component({
@@ -55,12 +65,12 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   private backButtonSubscription!: Subscription;
   private screenshotPrevention: (() => void) | null = null;
   private scrollHandler: (() => void) | null = null;
-  private scrollThreshold = 300; // Batas scroll
+  private scrollThreshold = 300; /* Batas scroll */
   private isScrolled = false;
 
   @ViewChild('mainMenu', { static: false }) mainMenu!: IonMenu;
   @ViewChildren('sectionElement') sectionElements!: QueryList<ElementRef>;
-  // Add new properties for responsive layout
+  /* New properties for responsive layout */
   @ViewChild('leftPanel', { static: true }) leftPanel!: ElementRef;
   @ViewChild('rightPanel', { static: true }) rightPanel!: ElementRef;
   @ViewChildren('skillBar') skillBars!: QueryList<ElementRef>;
@@ -72,6 +82,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   isMSIBModalOpen = false;
   /* Profile image modal state */
   isProfileImageModalOpen = false;
+  /* --- Publikasi --- */ 
+  isPublikasiModalOpen = false;
   currentSortOrder: 'newest' | 'oldest' = 'newest';
 
   currentToolFilter: 'all' | 'programmer' | 'data-analyst' = 'all';
@@ -82,6 +94,25 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     dataAnalyst: 'Data Analyst'
   };
 
+  /* Publikasi */
+  publikasiList: Publikasi[] = [
+    {
+      jurnalNama: 'LOFIAN: Jurnal Teknologi Informasi dan Komunikasi',
+      judulArtikel: 'Studi Literatur Information Retrieval System Semantik Untuk Pencarian Produk E-Commerce',
+      link: 'https://ejournal.umbp.ac.id/index.php/lofian/article/view/352',
+    },
+  ];
+
+  /* Ambil 4 pertama untuk tampilan utama, sisanya di modal */
+  get publikasiTampil(): Publikasi[] {
+    return this.publikasiList.slice(0, 4);
+  }
+
+  get publikasiModal(): Publikasi[] {
+    return this.publikasiList;
+  }
+
+  /* Tombol translate */
   currentLanguage: 'id' | 'en' = 'id'; /* default to Indonesian */
   translations: TranslationDict = {
     id: {
@@ -106,7 +137,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       klikUntukDetail: 'Klik untuk melihat detail lebih lanjut',
       relawan: 'Relawan',
       aktivitasSosial: 'Aktivitas Sosial',
-      klikUntukKegiatan: 'Klik untuk melihat keterlibatan dalam kegiatan sosial'
+      klikUntukKegiatan: 'Klik untuk melihat keterlibatan dalam kegiatan sosial',
+      publikasi: 'Publikasi',
+      lihatSelengkapnya: 'Lihat Selengkapnya',
+      judulmodalpublikasi: 'Semua Publkasi'
     },
     en: {
       profilSingkat: 'Brief Profile',
@@ -130,7 +164,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       klikUntukDetail: 'Click to see more details',
       relawan: 'Volunteer',
       aktivitasSosial: 'Social Activities',
-      klikUntukKegiatan: 'Click to see involvement in social activities'
+      klikUntukKegiatan: 'Click to see involvement in social activities',
+      publikasi: 'Publications',
+      lihatSelengkapnya: 'See More',
+      judulmodalpublikasi: 'All Publications'
     }
   };
 
@@ -167,12 +204,12 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           const scrollTop = (event.target as HTMLElement).scrollTop;
           
           if (window.innerWidth <= 768) {
-            // Hitung progress scroll (0 = belum scroll, 1 = full scroll)
+            /* Hitung progress scroll (0 = belum scroll, 1 = full scroll) */
             const scrollProgress = Math.min(scrollTop / this.scrollThreshold, 1);
             
             this.applyScrollProgress(scrollProgress);
             
-            // Toggle class untuk hide/show elements
+            /* Toggle class untuk hide/show elements */
             if (scrollTop > 50 && !this.isScrolled) {
               this.isScrolled = true;
               this.applyScrolledState();
@@ -190,7 +227,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     const leftPanel = document.querySelector('.left-panel') as HTMLElement;
     
     if (leftPanel) {
-      // Set CSS variable untuk animasi gradual
+      /* Set CSS variable untuk animasi gradual */
       leftPanel.style.setProperty('--scroll-progress', progress.toString());
     }
   }
@@ -298,14 +335,14 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             role: 'cancel',
             handler: () => {
               this.dismissWithAnimation(toast, 'up');
-              return false; // cegah Ionic dismiss otomatis
+              return false; /* cegah Ionic dismiss otomatis */
             }
           }]
         });
 
         await toast.present();
 
-        // Auto dismiss setelah 3500ms dengan animasi out
+        /* Auto dismiss setelah 3500ms dengan animasi out */
         setTimeout(() => {
           this.dismissWithAnimation(toast, 'up');
         }, 4000);
@@ -405,7 +442,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   doRefresh(event: any) {
     console.log('Memulai refresh halaman');
 
-    // TAMBAHKAN INI: Reset filter tools ke "Semua"
+    /* Reset filter tools ke "Semua" */
     this.resetToolsFilter();
 
     try {
@@ -694,8 +731,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     const currentProjectOrder = this.projects.map(p => p.title);
 
     if (this.currentLanguage === 'en') {
-      // Translate project descriptions to English
-      // Update berdasarkan title, bukan index
+      /* Translate project descriptions to English, Update berdasarkan title, bukan index */
       this.projects.forEach(project => {
         switch(project.title) {
           case 'PMM Connect':
@@ -857,7 +893,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     const preventKeys = [
       'PrintScreen',
       'F12',
-      'KeyP'  // For Ctrl+P print prevention
+      'KeyP'  /* For Ctrl+P print prevention */
     ];
 
     if (
@@ -912,7 +948,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  //*Metode untuk konfirmasi keluar */
+  /*Metode untuk konfirmasi keluar */
   async confirmExitApp() {
     const alert = await this.alertController.create({
       header: this.currentLanguage === 'id' ? 'Konfirmasi' : 'Confirmation',
@@ -1002,7 +1038,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   /* Method to sort projects */
   sortProjects(order: 'newest' | 'oldest') {
-    this.currentSortOrder = order; // SIMPAN STATUS SORTING
+    this.currentSortOrder = order; /* SIMPAN STATUS SORTING */
     if (order === 'newest') {
       this.projects.sort((a, b) => b.startDate.getTime() - a.startDate.getTime());
     } else {
@@ -1015,11 +1051,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.currentToolFilter = category;
   }
 
-  // Method untuk reset tools filter ke default (dipanggil saat init)
+  /* Method untuk reset tools filter ke default (dipanggil saat init) */
   resetToolsFilter() {
-    this.currentToolFilter = 'all'; // Set ke default
+    this.currentToolFilter = 'all'; /* Set ke default "all" */
     
-    // Pastikan semua tool-items visible
+    /* Pastikan semua tool-items visible */
     const toolItems = document.querySelectorAll('.tool-item');
     toolItems.forEach((item: any) => {
       item.style.display = 'flex';
@@ -1083,7 +1119,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           type: 'password',
           placeholder: 'Password',
           attributes: {
-            maxlength: 50  // Opsional: batasi panjang input
+            maxlength: 50  /* Opsional: batasi panjang input password */
           }
         }
       ],
@@ -1096,20 +1132,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         {
           text: 'Konfirmasi',
           handler: (data) => {
-            // TAMBAHKAN VALIDASI KOSONG DI SINI:
-            
-            // Cek apakah password kosong atau hanya whitespace
+            /* Cek apakah password kosong atau hanya whitespace */
             if (!data.password || data.password.trim() === '') {
-              // Tampilkan pesan error inline di bawah input
+              /* Tampilkan pesan error inline di bawah input password */
               const message = alert.querySelector('.alert-message');
               if (message) {
-                // Hapus error message lama jika ada
+                /* Hapus error message lama jika ada */
                 const existingError = alert.querySelector('.password-error');
                 if (existingError) {
                   existingError.remove();
                 }
                 
-                // Buat error message baru
+                /* Buat error message baru */
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'password-error';
                 errorDiv.style.color = '#eb445a';
@@ -1124,26 +1158,26 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
                 errorDiv.style.width = 'auto'; 
                 errorDiv.textContent = 'Password kosong. Harap diisi!';
                 
-                // Tambahkan error message setelah input
+                /* Tambahkan error message setelah input */
                 const alertInputs = alert.querySelector('.alert-input-group');
                 if (alertInputs) {
                   alertInputs.appendChild(errorDiv);
                 }
               }
               
-              // Return false untuk mencegah alert tertutup
+              /* Return false untuk mencegah alert tertutup */
               return false;
             }
             
-            // Jika ada input, lanjutkan validasi password
+            /* Jika ada input, lanjutkan validasi password */
             if (data.password === '0503') {
               /* Password benar, buka link */
               window.open(sourceLink, '_github');
-              return true;  // Tutup alert
+              return true;
             } else {
               /* Password salah, tampilkan error alert */
               this.showErrorAlert(sourceLink);
-              return true;  // Tutup alert saat ini, buka error alert
+              return true;
             }
           }
         }
@@ -1162,7 +1196,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         {
           text: 'OK',
           handler: () => {
-            // Kembali ke password confirmation
+            /* Kembali ke password confirmation */
             setTimeout(() => {
               this.confirmPassword(sourceLink);
             }, 100);
@@ -1262,7 +1296,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   navigateToITSupport() {
     this.router.navigate(['/itsupport']);
-}
+  }
 
   openMerdekaProgramModal() {
     this.isMerdekaProgramModalOpen = true;
@@ -1297,5 +1331,17 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   /* Open CV PDF */
   openCV() {
     window.open('/assets/CV/Programmer.pdf', '_blank');
+  }
+
+  openPublikasiModal() {
+    this.isPublikasiModalOpen = true;
+  }
+
+  closePublikasiModal() {
+    this.isPublikasiModalOpen = false;
+  }
+
+  openPublikasiLink(url: string) {
+    window.open(url, '_blank');
   }
 }

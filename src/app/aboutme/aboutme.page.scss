@@ -8,6 +8,18 @@
   --text-dark: #fff; /* Changed from #333 to white */
 }
 
+/* Force dark mode regardless of system preference */
+@media (prefers-color-scheme: light) {
+  :host {
+    --toolbar-color: #2c3e50;
+    --background-color: #000;
+    --text-color: #fff;
+    --accent-color: #3498db;
+    --container-background: transparent;
+    --text-dark: #fff;
+  }
+}
+
 ion-toolbar {
   --background: var(--toolbar-color);
   --color: var(--text-color);
@@ -15,7 +27,7 @@ ion-toolbar {
 
 ion-title {
   cursor: pointer;
-  font-size: 16px;
+  font-size: 21px;
 }
 
 .about-me-page {
@@ -121,7 +133,7 @@ ion-fab {
 .desktop-view {
   display: none;
   
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     display: flex;
     flex-direction: row;
     max-width: 1200px;
@@ -163,7 +175,7 @@ ion-fab {
   display: flex;
   flex-direction: column;
   
-  @media (min-width: 768px) {
+  @media (min-width: 769px) {
     display: none;
   }
   
@@ -174,5 +186,145 @@ ion-fab {
   .profile-image {
     text-align: center;
     margin-bottom: 15px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE - MOBILE 768px
+   ============================================================ */
+@media (max-width: 768px) {
+  .desktop-view {
+    display: none;
+  }
+
+  .mobile-view {
+    display: flex;
+  }
+
+  .container {
+    padding: 15px;
+    margin: 15px 20px; /* space kiri kanan agar tidak mentok */
+  }
+
+  .page-title {
+    font-size: 26px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+  }
+
+  .profile-section {
+    gap: 15px;
+  }
+
+  .profile-image img {
+    max-width: 200px;
+  }
+
+  .profile-info {
+    h2 {
+      font-size: 21px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin: 16px 0 8px;
+    }
+  }
+
+  .privacy-button, .privacy-button-mobile {
+    font-size: 15px;
+    margin-top: 16px;
+  }
+
+  .app-footer {
+    font-size: 13px;
+    margin-top: 30px;
+  }
+
+  ion-fab {
+    bottom: 40px !important;
+    right: 10px !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE - MOBILE 640px
+   ============================================================ */
+@media (max-width: 640px) {
+  ion-title {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 12px;
+    margin: 10px 25px; /* space kiri kanan agar tidak mentok */
+    border-radius: 6px;
+  }
+
+  .page-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+    padding-bottom: 7px;
+  }
+
+  .profile-section {
+    gap: 12px;
+  }
+
+  .profile-image img {
+    max-width: 160px;
+    border-radius: 6px;
+  }
+
+  .profile-info {
+    h2 {
+      font-size: 18px;
+      margin-bottom: 7px;
+    }
+
+    p {
+      font-size: 0.875rem;
+      line-height: 1.55;
+      margin-bottom: 13px;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin: 13px 0 7px;
+    }
+  }
+
+  .privacy-button, .privacy-button-mobile {
+    font-size: 14px;
+    margin-top: 13px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+
+  .mobile-view {
+    .privacy-button-mobile {
+      margin: 18px 0;
+    }
+
+    .profile-image {
+      margin-bottom: 12px;
+    }
+  }
+
+  .app-footer {
+    font-size: 12px;
+    margin-top: 25px;
+    padding: 4px;
+  }
+
+  ion-fab {
+    bottom: 35px !important;
+    right: 8px !important;
   }
 }

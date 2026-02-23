@@ -10,6 +10,20 @@
   --hover-color: #555555;
 }
 
+/* Force dark mode regardless of system preference */
+@media (prefers-color-scheme: light) {
+  :root {
+    --primary-bg: #1a1a1a;
+    --secondary-bg: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --accent-color: #4a9eff;
+    --border-color: #404040;
+    --highlight-bg: #333333;
+    --hover-color: #555555;
+  }
+}
+
 /* Header Styles */
 .transparent-header {
   --background: transparent;
@@ -23,7 +37,7 @@
 }
 
 .transparent-toolbar {
-  --background: rgba(26, 26, 26, 0.8);
+  --background: rgba(26, 26, 26, 0.8) !important;
   --border-color: rgba(64, 64, 64, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -42,9 +56,10 @@
 
 /* Main Content Styles */
 .dark-content {
-  --background: var(--primary-bg);
-  --color: var(--text-primary);
-  padding-top: 60px; /* Account for fixed header */
+  --background: #1a1a1a !important;
+  --color: #ffffff !important;
+  color-scheme: dark;
+  padding-top: 60px;
 }
 
 .privacy-container {
@@ -52,6 +67,10 @@
   background: var(--primary-bg);
   color: var(--text-primary);
 }
+
+/* ============================================================
+   DESKTOP LAYOUT (> 768px)
+   ============================================================ */
 
 /* Desktop Layout */
 .desktop-layout {
@@ -257,10 +276,10 @@
     position: absolute;
     left: 1rem;
     top: 0.5rem;
-    color: var(--text-primary); /* Warna putih */
+    color: var(--text-primary);
     font-size: 1.2rem;
     font-weight: bold;
-    line-height: 1.25rem; /* Sejajar dengan h3 */
+    line-height: 1.25rem;
   }
   
   h3 {
@@ -269,7 +288,7 @@
   }
 
   p {
-    margin-bottom: 0; /* Tampilan list yang rapat */
+    margin-bottom: 0;
   }
   
   code {
@@ -328,7 +347,9 @@ ion-fab {
   }
 }
 
-/* Responsive Design */
+/* ============================================================
+   RESPONSIVE - Tablet 768px
+   ============================================================ */
 @media (max-width: 768px) {
   .desktop-layout {
     display: none;
@@ -337,12 +358,32 @@ ion-fab {
   .mobile-layout {
     display: block;
   }
+
+  .mobile-content {
+    padding: 1rem;
+    padding-bottom: 0;
+  }
+
+  .mobile-buttons {
+    gap: 0.875rem;
+    padding: 0.875rem;
+    margin-top: 1.75rem;
+  }
+
+  .mobile-btn {
+    height: 46px;
+  }
   
   .privacy-header {
     margin-top: clamp(3.5rem, 3vh, 1.5rem);
 
     h1 {
       font-size: 2rem;
+      margin-bottom: 0.875rem;
+    }
+
+    .tldr {
+      font-size: 1rem;
     }
   }
   
@@ -353,10 +394,28 @@ ion-fab {
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
     }
+
+    h3 {
+      font-size: 1.15rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+    }
+  }
+
+  .privacy-list {
+    padding: 0.875rem;
+    margin-top: -1.25rem;
+
+    li {
+      font-size: 0.95rem;
+      padding-left: 1.4rem;
+    }
   }
 
   .info-item {
-    padding: 0.75rem; /* Padding lebih kecil untuk mobile */
+    padding: 0.75rem;
     padding-left: 1.75rem;
     margin-bottom: 0.4rem;
 
@@ -366,20 +425,127 @@ ion-fab {
     }
   }
   
+  .footer {
+    padding: 1.5rem;
+
+    p {
+      font-size: 0.85rem;
+    }
+  }
+
   ion-fab {
     right: 10px !important;
+    bottom: 40px !important;
   }
 }
 
-@media (min-width: 769px) {
-  .desktop-layout {
-    display: flex;
+/* ============================================================
+   RESPONSIVE - MOBILE 640px
+   ============================================================ */
+@media (max-width: 640px) {
+  .dark-content {
+    padding-top: 52px;
   }
-  
-  .mobile-layout {
-    display: none;
+
+  .mobile-content {
+    padding: 0.75rem;
+    padding-bottom: 0;
+  }
+
+  .mobile-buttons {
+    gap: 0.75rem;
+    padding: 0.75rem;
+    margin-top: 1.5rem;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .mobile-btn {
+    height: 44px;
+    font-size: 0.9rem;
+  }
+
+  .privacy-header {
+    margin-top: clamp(3.25rem, 2.5vh, 1.25rem);
+    margin-bottom: 1.25rem;
+
+    h1 {
+      font-size: 1.65rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tldr {
+      font-size: 0.9rem;
+      border-radius: 6px;
+    }
+  }
+
+  .section {
+    margin-bottom: 1rem;
+
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+      padding-bottom: 0.4rem;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+      margin-top: 0.75rem;
+      margin-bottom: 0.35rem;
+    }
+
+    p {
+      font-size: 0.875rem;
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+  }
+
+  .privacy-list {
+    padding: 0.75rem;
+    margin-top: -1rem;
+
+    li {
+      font-size: 0.875rem;
+      padding-left: 1.25rem;
+      padding-top: 0.2rem;
+      padding-bottom: 0.2rem;
+    }
+  }
+
+  .info-item {
+    padding: 0.6rem;
+    padding-left: 1.6rem;
+    margin-bottom: 0.35rem;
+    border-radius: 6px;
+
+    &:before {
+      left: 0.6rem;
+      top: 1.4rem;
+      font-size: 1rem;
+    }
+
+    code {
+      font-size: 0.8rem;
+      padding: 0.15rem 0.3rem;
+    }
+  }
+
+  .footer {
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+
+    p {
+      font-size: 0.8rem;
+    }
+  }
+
+  ion-fab {
+    right: 8px !important;
+    bottom: 35px !important;
   }
 }
+
 
 /* Animations */
 @keyframes fadeIn {

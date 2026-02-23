@@ -461,6 +461,39 @@
       </div>
     </section>
 
+    <!-- Publikasi Section -->
+    <section id="publikasi" class="section" #sectionElement>
+      <h2 class="section-title">{{ translations[currentLanguage].publikasi }}</h2>
+      <div class="section-content">
+        <div class="publikasi-container">
+
+          <div class="publikasi-item"
+              *ngFor="let pub of publikasiTampil; let i = index"
+                (click)="openPublikasiLink(pub.link)">
+              <div class="publikasi-icon">
+                <span class="publikasi-number">{{ i + 1 }}</span>
+              </div>
+            <div class="publikasi-details">
+              <h3>{{ pub.jurnalNama }}</h3>
+              <p class="publikasi-description">{{ pub.judulArtikel }}</p>
+            </div>
+            <div class="publikasi-badge">
+              <ion-icon name="open-outline"></ion-icon>
+            </div>
+          </div>
+
+          <!-- Tombol Lihat Selengkapnya — hanya muncul jika ada item ke-5 dst -->
+          <div class="lihat-selengkapnya-wrapper" *ngIf="publikasiModal.length > 4">
+            <button class="lihat-selengkapnya-btn" (click)="openPublikasiModal()">
+              {{ translations[currentLanguage].lihatSelengkapnya }}
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer>
       <p>© 2025 - Hak cipta dilindungi undang-undang</p>
@@ -501,6 +534,41 @@
         <img src="/assets/Foto1.jpg" alt="Foto Profil" class="full-size-image"
           (contextmenu)="showDownloadRestrictionAlert()" (dragstart)="showDownloadRestrictionAlert()"
           (selectstart)="showDownloadRestrictionAlert()">
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- Publikasi Modal -->
+<ion-modal [isOpen]="isPublikasiModalOpen" (didDismiss)="closePublikasiModal()"
+  class="publikasi-modal" [backdropDismiss]="true">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{ translations[currentLanguage].judulmodalpublikasi }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closePublikasiModal()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="modal-publikasi-content">
+      <div class="publikasi-container modal-mode">
+        <div class="publikasi-item"
+             *ngFor="let pub of publikasiModal; let i = index"
+              (click)="openPublikasiLink(pub.link)">
+            <div class="publikasi-icon">
+              <span class="publikasi-number">{{ i + 1 }}</span>
+            </div>
+          <div class="publikasi-details">
+            <h3>{{ pub.jurnalNama }}</h3>
+            <p class="publikasi-description">{{ pub.judulArtikel }}</p>
+          </div>
+          <div class="publikasi-badge">
+            <ion-icon name="open-outline"></ion-icon>
+          </div>
+        </div>
       </div>
     </ion-content>
   </ng-template>
