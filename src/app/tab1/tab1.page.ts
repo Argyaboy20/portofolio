@@ -101,6 +101,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       judulArtikel: 'Studi Literatur Information Retrieval System Semantik Untuk Pencarian Produk E-Commerce',
       link: 'https://ejournal.umbp.ac.id/index.php/lofian/article/view/352',
     },
+    {
+      jurnalNama: 'JUKTISI: Jurnal Komputer Teknologi Informasi',
+      judulArtikel: 'Evaluasi Pengalaman Pengguna Website Pendaftaran KIP-Kuliah ITBI Menggunakan UEQ+',
+      link: 'https://ejurnal.lkpkaryaprima.id/index.php/juktisi/article/view/932',
+    },
   ];
 
   /* Ambil 4 pertama untuk tampilan utama, sisanya di modal */
@@ -127,7 +132,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       contactPerson: 'Kontak Pribadi',
       viewDemo: 'Lihat Demo',
       sourceCode: 'Source Code',
-      copyright: '© 2025 - Hak cipta dilindungi undang-undang',
+      copyright: 'Hak cipta dilindungi undang-undang',
       pendidikan: 'Pendidikan',
       sarjanaTI: 'Rekayasa Perangkat Lunak',
       semester: 'Semester',
@@ -154,7 +159,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       contactPerson: 'Contact Person',
       viewDemo: 'View Demo',
       sourceCode: 'Source Code',
-      copyright: '© 2025 - All Rights Reserved',
+      copyright: 'All Rights Reserved',
       pendidikan: 'Education',
       sarjanaTI: 'Bachelor of Software Engineering',
       semester: 'Semester',
@@ -170,6 +175,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       judulmodalpublikasi: 'All Publications'
     }
   };
+
+  currentYear: number = new Date().getFullYear();
 
   get projects(): Project[] {
     return this.portfolioData.projects;
@@ -720,12 +727,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
     const careerDescription = document.querySelector('.career-description');
     if (careerDescription) careerDescription.textContent = t.klikUntukDetail;
-
-    /* Update footer */
-    const footer = document.querySelector('footer p');
-    if (footer) {
-      footer.textContent = t.copyright;
-    }
 
     /* Simpan urutan current projects berdasarkan title untuk identifikasi */
     const currentProjectOrder = this.projects.map(p => p.title);
