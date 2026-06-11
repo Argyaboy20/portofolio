@@ -103,6 +103,7 @@
 /* ========== HERO SECTION ========== */
 .hero-section {
   text-align: center;
+  will-change: transform;
   padding: 60px 20px 40px;
   position: relative;
   overflow: hidden;
@@ -114,6 +115,7 @@
 
   &::before {
     content: '';
+    will-change: transform;
     position: absolute;
     top: -50%;
     left: -50%;
@@ -470,6 +472,7 @@
 
 .tech-item {
   padding: 30px 24px;
+  will-change: transform;
   border-radius: var(--border-radius);
   background: linear-gradient(135deg,
       rgba(254, 41, 72, 0.2),
@@ -566,6 +569,7 @@
 
   &::before {
     content: '';
+    will-change: transform;
     position: absolute;
     top: -2px;
     left: -2px;

@@ -6,11 +6,8 @@ import { App } from '@capacitor/app';
 import { Capacitor } from '@capacitor/core';
 import { Router } from '@angular/router';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
-import { inject } from "@vercel/analytics"
 import { PortfolioDataService, Tool, Project } from '../services/portfolio-data.service';
 
-
-inject();
 
 /* interface penerjemahan */
 interface Translations {
@@ -335,7 +332,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         const toast = await this.toastController.create({
           message: 'Hai! Selamat datang di website pribadiku! 👋',
           position: 'top',
-          color: 'dark',
           cssClass: 'welcome-toast',
           buttons: [{
             icon: 'close-outline',

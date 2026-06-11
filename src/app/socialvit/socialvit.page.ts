@@ -1,9 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { inject } from "@vercel/analytics";
-
-/* Initialize Vercel Analytics */
-inject();
 
 @Component({
   selector: 'app-socialvit',

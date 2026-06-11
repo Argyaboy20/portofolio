@@ -2,10 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { inject } from "@vercel/analytics"
-
-
-inject();
 
 interface ProjectImage {
   url: string;

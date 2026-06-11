@@ -1,8 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { inject } from "@vercel/analytics";
-
-inject();
 
 @Component({
   selector: 'app-itsupport',

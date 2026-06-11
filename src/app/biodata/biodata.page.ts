@@ -3,11 +3,7 @@ import { ToastController, Platform } from '@ionic/angular';
 import { PostProvider } from '../../provider/post-providers';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { inject } from "@vercel/analytics"
 import { PortfolioDataService } from '../services/portfolio-data.service';
-
-
-inject();
 
 // Define types for our translations
 type Language = 'id' | 'en';
@@ -278,8 +274,14 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       this.currentLanguage = savedLanguage as Language;
     }
 
-    /* Initialize image cache for gallery */
-    this.initializeImageCache();
+    // Tunda preload cache sampai browser idle
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(() => {
+        this.initializeImageCache();
+      }, { timeout: 3000 });
+    } else {
+      setTimeout(() => this.initializeImageCache(), 2000);
+    }
 
     /* Back button handler */
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
@@ -538,7 +540,6 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
         this.manageCacheSize();
       })
       .catch(error => {
-        console.error(`Failed to preload image: ${src}`, error);
         cachedImage.isLoading = false;
       });
   }

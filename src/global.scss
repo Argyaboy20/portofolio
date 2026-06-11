@@ -217,6 +217,9 @@ ion-toast.welcome-toast {
   --min-width: unset;
   --max-width: unset;
 
+  --background: #ffffff !important;
+  --color: #333333 !important;
+
   // Animation welcome toast: masuk dari atas, keluar ke atas
   animation: toastFadeInDown 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 
@@ -229,15 +232,20 @@ ion-toast.welcome-toast {
     font-weight: 500;
     white-space: nowrap;
     line-height: 1.4;
+    color: #333333 !important;
   }
 
   &::part(container) {
     padding: 6px 14px;
+    background: #ffffff !important;
   }
 
   &::part(button) {
     font-size: 18px;
     min-width: 32px;
+    display: flex !important;
+    align-items: center !important;
+    align-self: center !important;
   }
 }
 

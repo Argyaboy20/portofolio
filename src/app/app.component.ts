@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { filter } from 'rxjs/operators';
+import { inject } from "@vercel/analytics";
+
+/* Initialize Vercel Analytics */
+inject();
 
 @Component({
   selector: 'app-root',
@@ -36,7 +40,6 @@ export class AppComponent {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      console.log('Navigation to:', event.urlAfterRedirects);
       
       // Set title berdasarkan route
       const title = this.titleMap.get(event.urlAfterRedirects) || 'Maulana Farras Blog\'s - Blog Pribadi Maulana Farras';
@@ -44,7 +47,6 @@ export class AppComponent {
       // Set dengan delay untuk memastikan tidak ke-override
       setTimeout(() => {
         this.titleService.setTitle(title);
-        console.log('Title set to:', title);
       }, 100);
     });
   }

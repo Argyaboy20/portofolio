@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { register } from 'swiper/element/bundle';
-import { inject } from "@vercel/analytics";
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
-
-inject();
 
 @Component({
   selector: 'app-admin',

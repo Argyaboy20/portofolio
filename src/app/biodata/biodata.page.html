@@ -169,7 +169,7 @@
     <div class="awards-grid">
       <div class="awards-item" (click)="openAwardsModal()">
         <div class="awards-preview">
-          <img src="/assets/awards.png" style="object-fit: contain;" alt="Awards collection">
+          <img src="/assets/awards.png" style="object-fit: contain;" alt="Awards collection" loading="lazy">
           <div class="awards-count">{{awardsCount}}</div>
         </div>
         <div class="awards-overlay">
@@ -185,28 +185,28 @@
     <div class="gallery-grid">
       <!-- Fixed Gallery Items -->
       <div class="gallery-item animate-on-scroll" data-delay="1" (click)="openGalleryModal('/assets/coding.png')">
-        <img src="/assets/coding.png" alt="Working on project">
+        <img src="/assets/coding.png" alt="Working on project" loading="lazy">
         <div class="gallery-overlay">
           <span>Coding Session</span>
         </div>
       </div>
 
       <div class="gallery-item animate-on-scroll" data-delay="2" (click)="openGalleryModal('/assets/team.jpg')">
-        <img src="/assets/team.jpg" alt="Team building">
+        <img src="/assets/team.jpg" alt="Team building" loading="lazy">
         <div class="gallery-overlay">
           <span>Team Building</span>
         </div>
       </div>
 
       <div class="gallery-item animate-on-scroll" data-delay="3" (click)="openGalleryModal('/assets/pmm.jpg')">
-        <img src="/assets/pmm.jpg" alt="Traveling">
+        <img src="/assets/pmm.jpg" alt="Traveling" loading="lazy">
         <div class="gallery-overlay">
           <span>PMM's Story</span>
         </div>
       </div>
 
       <div class="gallery-item animate-on-scroll" data-delay="4" (click)="openGalleryModal('/assets/konser.jpg')">
-        <img src="/assets/konser.jpg" alt="Hobby">
+        <img src="/assets/konser.jpg" alt="Hobby" loading="lazy">
         <div class="gallery-overlay">
           <span>Music Festival</span>
         </div>

@@ -3,10 +3,6 @@ import { CommonModule } from '@angular/common';
 import { IonicModule, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { inject } from "@vercel/analytics"
-
-
-inject();
 
 interface PhotoItem {
   id: number;
@@ -150,7 +146,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     this.audio.loop = true;
 
     /* Preload audio */
-    this.audio.preload = 'metadata';
+    this.audio.preload = 'none';
 
     /* Inisialisasi cache dari localStorage jika ada */
     this.initializeCache();
@@ -161,12 +157,18 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     this.updateFilteredPhotos();
 
     /* Defer image loading for better initial performance */
-    setTimeout(() => {
-      this.preloadImages();
-    }, 100);
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(() => {
+        this.preloadImages();
+      });
+    } else {
+      setTimeout(() => {
+        this.preloadImages();
+      }, 2000);
+    }
 
      /* Tambahkan subscription untuk backbutton */
-     this.backButtonSubscription = this.platform.backButton.subscribe(() => {
+    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
       /* Navigasi kembali ke halaman biodata */
       this.router.navigate(['/biodata']);
     });
@@ -200,7 +202,6 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       const playPromise = this.audio.play();
       if (playPromise !== undefined) {
         playPromise.catch(error => {
-          console.log('Audio playback prevented: ', error);
         });
       }
     }
@@ -274,7 +275,6 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
         });
       }
     } catch (error) {
-      console.error('Error loading image cache:', error);
       /* Reset cache if corrupted */
       this.imageCache = new Map();
       localStorage.removeItem('galeriImageCache');
@@ -286,8 +286,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     try {
       localStorage.setItem('galeriImageCache', 
         JSON.stringify(Array.from(this.imageCache.entries())));
-    } catch (error: any) { /* Type assertion untuk error */
-      console.error('Error saving image cache:', error);
+    } catch (error: any) { 
       /* If storage is full, clear it and try again */
       if (error.name === 'QuotaExceededError') {
         localStorage.clear();
@@ -328,18 +327,6 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
         threshold: 0.1
       });
     }
-  }
-  
-  /* Setup lazy loading for all images in the current view */
-  private setupLazyLoading() {
-    if (!this.imageObserver) return;
-    
-    setTimeout(() => {
-      const imgElements = document.querySelectorAll('.photo-item img[data-photo-id]');
-      imgElements.forEach(img => {
-        this.imageObserver?.observe(img);
-      });
-    }, 100);
   }
   
   /* Load full image with caching */
@@ -414,7 +401,5 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       photo.loaded = false;
       photo.cached = false;
     });
-    
-    console.log('Image cache cleared');
   }
 }
