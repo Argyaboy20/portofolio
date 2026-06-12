@@ -165,7 +165,7 @@ ion-content#main-content {
 }
 
 ion-menu.mobile-only {
-    --background: #2c3e50;
+    --background: #2c3e50 !important;
     --width: 250px;
     z-index: 1000;
     pointer-events: none;
@@ -173,6 +173,7 @@ ion-menu.mobile-only {
     top: 0;
     left: 0;
     height: 100vh;
+    background: #2c3e50 !important; 
 }
 
 ion-menu-button {
@@ -185,8 +186,9 @@ ion-menu.mobile-only.show-menu {
 }
 
 ion-menu.mobile-only ion-content {
-    --background: #2c3e50;
+    --background: #2c3e50 !important;
     --color:#ffffff !important;
+    background: #2c3e50 !important;
     pointer-events: auto;
 }
 
