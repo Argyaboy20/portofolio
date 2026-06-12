@@ -165,7 +165,7 @@ ion-content#main-content {
 }
 
 ion-menu.mobile-only {
-   --background: #2c3e50 !important;
+    --background: #2c3e50;
     --width: 250px;
     z-index: 1000;
     pointer-events: none;
@@ -173,7 +173,9 @@ ion-menu.mobile-only {
     top: 0;
     left: 0;
     height: 100vh;
-    width: var(--width) !important;       
+}
+
+ion-menu.mobile-only::part(container) {
     background: #2c3e50 !important;
 }
 
