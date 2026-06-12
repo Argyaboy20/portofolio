@@ -175,10 +175,6 @@ ion-menu.mobile-only {
     height: 100vh;
 }
 
-ion-menu.mobile-only::part(container) {
-    background: #2c3e50 !important;
-}
-
 ion-menu-button {
     --color: #ffffff !important;
     color: #ffffff !important;
