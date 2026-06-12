@@ -238,6 +238,7 @@ ion-toast.welcome-toast {
   &::part(container) {
     padding: 6px 14px;
     background: #ffffff !important;
+    border-radius: 16px !important;
   }
 
   &::part(button) {

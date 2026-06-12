@@ -10,6 +10,7 @@ import { register } from 'swiper/element/bundle';
 })
 export class RelawanPage implements OnInit {
   currentLang = 'id';
+  currentYear: number = new Date().getFullYear();
   scene: any;
   camera: any;
   renderer: any;

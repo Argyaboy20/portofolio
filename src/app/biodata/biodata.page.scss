@@ -150,18 +150,6 @@ ion-toolbar {
     }
 }
 
-@keyframes buttonHover {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-3px);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
-
 ion-content {
     --background: #f5f7fa;
     font-family: 'Roboto', sans-serif;

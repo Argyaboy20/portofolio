@@ -40,6 +40,7 @@ interface TranslationKeys {
   roboticsDesc: string;
   pmmRole: string;
   pmmDesc: string;
+  copyright: string;
 }
 
 interface Translations {
@@ -202,6 +203,7 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       roboticsDesc: "Mengadakan pelatihan dalam pembuatan robot pengikut garis, desain robot pengikut garis, simulasi robot dengan Arduino IDE Interface.",
       pmmRole: "Pertukaran Mahasiswa Merdeka 4",
       pmmDesc: "Mengikuti program Pertukaran Mahasiswa Merdeka Batch 4 untuk memperluas wawasan dan pengalaman belajar di luar kampus asal.",
+      copyright: 'Hak cipta dilindungi undang-undang.',
     },
     en: {
       heroTitle: "Hello, I'm",
@@ -235,9 +237,11 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
       roboticsDesc: "Conducted training in making line-following robots, designing line-following robots, and robot simulation with Arduino IDE Interface.",
       pmmRole: "Independent Student Exchange 4",
       pmmDesc: "Participated in the Independent Student Exchange Program Batch 4 to expand insights and learning experiences outside the home campus.",
+      copyright: 'All rights reserved.',
     }
   };
   currentLanguage: Language = 'id';
+  currentYear: number = new Date().getFullYear();
 
   /* Gallery rotation properties */
   currentPhotoIndex = 0;
