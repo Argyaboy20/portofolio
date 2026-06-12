@@ -175,27 +175,36 @@ ion-menu.mobile-only {
     height: 100vh;
 }
 
+ion-menu-button {
+    --color: #ffffff !important;
+    color: #ffffff !important;
+}
+
 ion-menu.mobile-only.show-menu {
     pointer-events: auto;
 }
 
 ion-menu.mobile-only ion-content {
     --background: #2c3e50;
-    --color: white;
+    --color:#ffffff !important;
     pointer-events: auto;
 }
 
 ion-menu.mobile-only ion-item {
-    --background: #000000;
-    --color: white;
+    --background: #2c3e50;
+    --color: #ffffff !important;
     --background-hover: rgba(255, 255, 255, 0.1);
     --ripple-color: rgba(255, 255, 255, 0.1);
+    --border-color: #ffffff;       
+    --border-width: 0 0 1px 0;     
+    --border-style: solid;         
+    --inner-border-width: 0;       
     cursor: pointer;
     pointer-events: auto;
 }
 
 ion-menu.mobile-only ion-icon {
-    color: white;
+    color: #ffffff !important;
 }
 
 .menu-content-backdrop {
