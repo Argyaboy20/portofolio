@@ -175,6 +175,12 @@ ion-menu.mobile-only {
     height: 100vh;
 }
 
+ion-menu.mobile-only ion-list {
+    --background: #2c3e50;
+    background: #2c3e50;
+    padding: 0;
+}
+
 ion-menu-button {
     --color: #ffffff !important;
     color: #ffffff !important;
