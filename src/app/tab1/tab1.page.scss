@@ -723,9 +723,6 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     margin-bottom: 1.5rem;
     color: $bg-color-dark;
     position: relative;
-    min-width: 0;
-    flex: 1;
-    margin-bottom: 0;
 
     &:after {
         content: '';
@@ -2331,22 +2328,11 @@ footer {
 
     .filter-buttons {
         gap: 0.25rem;
-        flex-shrink: 0;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        max-width: 55%; /* sesuaikan, kasih ruang buat judul */
-        scrollbar-width: none; /* sembunyikan scrollbar di Firefox */
-
-        &::-webkit-scrollbar {
-            display: none; /* sembunyikan scrollbar di Chrome/Safari */
-        }
         
         ion-button {
             font-size: 0.7rem;
             --padding-start: 0.5rem;
             --padding-end: 0.5rem;
-            white-space: nowrap;
-            flex-shrink: 0;
         }
     }
 
@@ -2630,22 +2616,11 @@ footer {
 
     .filter-buttons {
         gap: 0.2rem;
-        flex-shrink: 0;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        max-width: 55%; /* sesuaikan, kasih ruang buat judul */
-        scrollbar-width: none; /* sembunyikan scrollbar di Firefox */
-
-        &::-webkit-scrollbar {
-            display: none; /* sembunyikan scrollbar di Chrome/Safari */
-        }
         
         ion-button {
             font-size: 0.65rem;
             --padding-start: 0.4rem;
             --padding-end: 0.4rem;
-            white-space: nowrap;
-            flex-shrink: 0;
         }
     }
 
