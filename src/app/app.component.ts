@@ -17,19 +17,19 @@ export class AppComponent {
   
   // Mapping route ke title
   private titleMap = new Map([
-    ['/locana', 'Locana - Maulana Farras Blog\'s'],
-    ['/pertanianmobile', 'Pertanian Mobile - Maulana Farras Blog\'s'],
-    ['/portofolio', 'Portofolio - Maulana Farras Blog\'s'],
-    ['/aplikasir', 'Aplikasir - Maulana Farras Blog\'s'],
-    ['/biodata', 'Biodata - Maulana Farras Blog\'s'],
-    ['/galeri-kehidupan', 'Galeri Kehidupan - Maulana Farras Blog\'s'],
-    ['/admin', 'Administrasi - Maulana Farras Blog\'s'],
-    ['/relawan', 'Relawan - Maulana Farras Blog\'s'],
     ['/aboutme', 'About Me - Maulana Farras Blog\'s'],
-    ['/privacypolicy', 'Privacy Policy - Maulana Farras Blog\'s'],
-    ['/upscale', 'Upscale - Maulana Farras Blog\'s'],
-    ['/socialvit', 'SocialVit - Maulana Farras Blog\'s'],
+    ['/admin', 'Administrasi - Maulana Farras Blog\'s'],
+    ['/biodata', 'Biodata - Maulana Farras Blog\'s'],
+    ['/connectpmm', 'PMM Connect - Maulana Farras Blog\'s'],
+    ['/galeri-kehidupan', 'Galeri Kehidupan - Maulana Farras Blog\'s'],
     ['/itsupport', 'IT Support - Maulana Farras Blog\'s'],
+    ['/locana', 'Locana App - Maulana Farras Blog\'s'],
+    ['/privacypolicy', 'Privacy Policy - Maulana Farras Blog\'s'],
+    ['/relawan', 'Relawan - Maulana Farras Blog\'s'],
+    ['/socialvit', 'SocialVit - Maulana Farras Blog\'s'],
+    ['/pertanianmobile', 'Pertanian Mobile - Maulana Farras Blog\'s'],
+    ['/portofolio', 'Web Portofolio - Maulana Farras Blog\'s'],
+    ['/aplikasir', 'Aplikasir - Maulana Farras Blog\'s'],
   ]);
 
   constructor(

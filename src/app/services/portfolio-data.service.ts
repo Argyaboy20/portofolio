@@ -49,7 +49,7 @@ export class PortfolioDataService {
       duration: 'Oktober 2025 - Desember 2025',
       description: 'Project ini dibuat sebagai hasil output dari magang PKL di kampus untuk kebutuhan akademik. Menggunakan framework adonis js dengan bahasa Typescript dan lainnya.',
       image: '/assets/logopmm.png',
-      demoLink: '/pmmconnect',
+      demoLink: '/connectpmm',
       sourceLink: 'https://github.com/Argyaboy20/connectpmm.git',
       startDate: new Date(2025, 10, 27)
     },

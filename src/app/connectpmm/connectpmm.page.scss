@@ -1,0 +1,602 @@
+// Variables
+$primary-color: #4a90e2;
+$secondary-color: #50e3c2;
+$brand-color: #012c49;
+$gradient-start: #667eea;
+$gradient-end: #764ba2;
+$text-color-dark: #333;
+@use 'sass:color';
+
+/* Gaya umum */
+.blog-title {
+    text-decoration: none;
+    display: inline-block;
+
+    &:hover {
+        .primary-text,
+        .secondary-text {
+            opacity: 0.8;
+        }
+    }
+}
+
+/* Toolbar */
+ion-toolbar {
+    position: relative;
+    --background: linear-gradient(135deg, #{$gradient-start} 0%, #{$gradient-end} 100%) !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 1rem;
+
+    ion-title {
+        flex: 1;
+    }
+
+    ion-buttons {
+        ion-button {
+            --color: #fff;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: buttonSlideIn 0.5s ease forwards;
+
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: rgba(255, 255, 255, 0.85);
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform 0.3s ease;
+            }
+
+            &:hover {
+                --color: #{$secondary-color};
+                animation: buttonHover 0.6s ease;
+
+                &::before {
+                    transform: scaleX(1);
+                    transform-origin: left;
+                }
+            }
+        }
+
+        &.language-button {
+            margin: 0;
+            flex-shrink: 0;
+
+            ion-button {
+                animation-delay: 0.2s;
+                font-weight: 600;
+                margin: 0;
+            }
+        }
+    }
+}
+
+@keyframes buttonSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes buttonHover {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.primary-text {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.secondary-text {
+    color: #ffe66d; // kuning lembut, kontras dengan ungu
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Background */
+.showcase-container {
+    position: relative;
+    padding: 20px;
+    background: #fff;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.bg-decoration {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.35;
+    z-index: -1;
+    pointer-events: none;
+
+    &--one {
+        width: 280px;
+        height: 280px;
+        top: -100px;
+        right: -100px;
+        background: linear-gradient(135deg, $gradient-start 0%, $gradient-end 100%);
+    }
+
+    &--two {
+        width: 220px;
+        height: 220px;
+        bottom: 10%;
+        left: -100px;
+        background: $brand-color;
+    }
+
+    &--three {
+        width: 180px;
+        height: 180px;
+        bottom: -60px;
+        right: 15%;
+        background: linear-gradient(135deg, $gradient-end 0%, $brand-color 100%);
+    }
+}
+
+ion-toolbar ion-buttons.language-button {
+    right: 0.5rem;
+}
+
+/* Section titles */
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, $gradient-start, $gradient-end);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.gallery-section {
+    margin-bottom: 40px;
+
+    .section-title {
+        background: none;
+        -webkit-text-fill-color: $brand-color;
+        color: $brand-color;
+    }
+}
+
+/* Single-image carousel */
+.image-gallery {
+    width: 100%;
+    overflow: hidden;
+
+    .gallery-scroll {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+.gallery-item {
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 0 8%;
+    scroll-snap-align: center;
+    box-sizing: border-box;
+
+    img {
+        width: 100%;
+        height: 480px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(1, 44, 73, 0.15);
+        cursor: pointer;
+        display: block;
+    }
+
+    .image-caption {
+        padding: 12px 0;
+        font-size: 0.9rem;
+        color: $text-color-dark;
+        text-align: center;
+    }
+}
+
+.gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 4px;
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #d8d8e8;
+        transition: background 0.3s ease, transform 0.3s ease;
+
+        &.active {
+            background: linear-gradient(135deg, $gradient-start, $gradient-end);
+            transform: scale(1.2);
+        }
+    }
+}
+
+/* Tools Section */
+.tools-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.tools-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 10px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tool-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 15px;
+    box-shadow: 0 8px 16px rgba(1, 44, 73, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    width: 140px;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(1, 44, 73, 0.15);
+
+        .tool-icon {
+            background: linear-gradient(135deg, $gradient-start, $gradient-end);
+
+            ion-icon {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.tool-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #f5f7fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+
+    ion-icon {
+        font-size: 30px;
+        color: $gradient-start;
+        transition: color 0.3s ease;
+    }
+}
+
+.tool-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: $text-color-dark;
+    margin-bottom: 8px;
+}
+
+.tool-description {
+    font-size: 0.85rem;
+    color: color.adjust($text-color-dark, $lightness: 30%);
+    line-height: 1.4;
+}
+
+/* CTA Section */
+.cta-section {
+    margin-top: 40px;
+    padding: 30px 20px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(1, 44, 73, 0.06);
+
+    .cta-content {
+        text-align: center;
+        max-width: 500px;
+        margin: 0 auto;
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, $gradient-start, $gradient-end);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: color.adjust($text-color-dark, $lightness: 20%);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.website-btn {
+    --border-radius: 25px;
+    --background: linear-gradient(135deg, #{$gradient-start}, #{$gradient-end});
+    --box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+
+    &:hover {
+        --background: linear-gradient(135deg, #{color.adjust($gradient-start, $lightness: -5%)}, #{color.adjust($gradient-end, $lightness: -5%)});
+    }
+}
+
+/* Image Modal */
+.image-preview-modal {
+    --width: 100%;
+    --height: 100%;
+    --backdrop-opacity: 0.8;
+
+    &::part(content) {
+        --background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.modal-content {
+    --background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.modal-image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-out;
+
+    .full-size-image {
+        max-width: 90%;
+        max-height: 80vh;
+        object-fit: contain;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(118, 75, 162, 0.3);
+    }
+
+    .image-caption {
+        margin-top: 15px;
+        color: #fff;
+        font-size: 1.1rem;
+        text-align: center;
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(5px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Tablet Styles */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .showcase-container {
+        padding: 15px;
+    }
+
+    .gallery-section {
+        margin-bottom: 25px;
+    }
+
+    .gallery-item img {
+        height: 400px;
+    }
+
+    .tools-container {
+        padding: 15px 5px;
+        gap: 10px;
+    }
+
+    .tool-item {
+        width: 120px;
+        padding: 15px 10px;
+    }
+
+    .tool-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+
+        ion-icon {
+            font-size: 25px;
+        }
+    }
+
+    .tool-name {
+        font-size: 0.9rem;
+    }
+
+    .tool-description {
+        font-size: 0.8rem;
+    }
+
+    .cta-section {
+        margin-top: 30px;
+        padding: 25px 15px;
+
+        .cta-content h3 {
+            font-size: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+    }
+
+    .button-container {
+        max-width: 250px;
+    }
+
+    .website-btn {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 640px) {
+    .blog-title {
+        font-size: 1rem;
+    }
+
+    ion-toolbar ion-buttons {
+        ion-button {
+            font-size: 0.9rem;
+        }
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .gallery-section {
+        margin-bottom: 20px;
+    }
+
+    .gallery-item {
+        padding: 0 4%;
+
+        img {
+            height: 320px;
+        }
+    }
+
+    .tools-container {
+        gap: 10px;
+        padding: 15px 10px;
+    }
+
+    .tool-item {
+        width: 100px;
+        padding: 15px 10px;
+    }
+
+    .tool-icon {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 10px;
+
+        ion-icon {
+            font-size: 22px;
+        }
+    }
+
+    .tool-name {
+        font-size: 0.85rem;
+    }
+
+    .tool-description {
+        font-size: 0.75rem;
+    }
+
+    .cta-section {
+        margin-top: 30px;
+        padding: 20px 15px;
+
+        .cta-content h3 {
+            font-size: 1.4rem;
+        }
+
+        .cta-content p {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+    }
+
+    .button-container {
+        max-width: 250px;
+    }
+
+    .website-btn {
+        font-size: 0.9rem;
+    }
+
+    .image-preview-modal .modal-image-container {
+        padding: 10px;
+
+        .full-size-image {
+            max-width: 95%;
+            max-height: 70vh;
+        }
+
+        .image-caption {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            padding: 8px 15px;
+        }
+    }
+}

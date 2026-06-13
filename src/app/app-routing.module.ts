@@ -54,9 +54,10 @@ const routes: Routes = [
     path: 'itsupport',
     loadChildren: () => import('./itsupport/itsupport.module').then( m => m.ItsupportPageModule)
   },
-
-
-
+  {
+    path: 'connectpmm',
+    loadChildren: () => import('./connectpmm/connectpmm.module').then( m => m.ConnectpmmPageModule)
+  },
 ];
 
 @NgModule({
