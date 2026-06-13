@@ -335,7 +335,20 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         'Hei, makasih udah berkunjung! 🙌',
         'Welcome! Jangan sungkan buat eksplor-eksplor ya ✨'
       ];
-      const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+
+      const poolKey = 'welcomeMessagePool';
+      let pool: string[] = JSON.parse(localStorage.getItem(poolKey) || '[]');
+
+      /* Kalau pool kosong (pertama kali atau sudah habis), isi ulang & acak */
+      if (pool.length === 0) {
+        pool = [...welcomeMessages].sort(() => Math.random() - 0.5);
+      }
+
+      /* Ambil 1 pesan dari depan pool */
+      const randomMessage = pool.shift()!;
+
+      /* Simpan sisa pool untuk pemakaian berikutnya */
+      localStorage.setItem(poolKey, JSON.stringify(pool));
 
       setTimeout(async () => {
         const toast = await this.toastController.create({
