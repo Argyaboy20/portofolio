@@ -245,6 +245,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     flex-direction: row;
     height: 100%;
     overflow: hidden;
+    overflow-anchor: none !important;
 }
 
 .left-panel {
@@ -2250,6 +2251,8 @@ footer {
         width: 100% !important;
         padding: 3.5rem 0 0 0 !important;
         overflow-x: hidden !important;
+        overflow-y: visible !important;   // <-- tambahkan ini
+        height: auto !important;          // <-- pastikan tidak ada height fixed yang memicu overflow
     }
 
     /* Section content perlu padding */
@@ -2579,7 +2582,8 @@ footer {
         width: 100% !important;
         padding: 3rem 0 0 0 !important;
         overflow-x: hidden !important;
-
+        overflow-y: visible !important;   // <-- tambahkan ini
+        height: auto !important;          // <-- pastikan tidak ada height fixed yang memicu overflow
     }
 
     /* Section content perlu padding */
