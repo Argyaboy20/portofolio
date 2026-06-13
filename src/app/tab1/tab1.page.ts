@@ -328,9 +328,18 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     if (!sessionStorage.getItem(welcomeKey)) {
       sessionStorage.setItem(welcomeKey, 'true');
 
+      const welcomeMessages = [
+        'Hai! Selamat datang di website pribadiku! 👋',
+        'Halo! Senang kamu mampir ke sini 😊',
+        'Yuhuu~ selamat datang! Semoga betah ya 🌟',
+        'Hei, makasih udah berkunjung! 🙌',
+        'Welcome! Jangan sungkan buat eksplor-eksplor ya ✨'
+      ];
+      const randomMessage = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
+
       setTimeout(async () => {
         const toast = await this.toastController.create({
-          message: 'Hai! Selamat datang di website pribadiku! 👋',
+          message: randomMessage,
           position: 'top',
           cssClass: 'welcome-toast',
           buttons: [{
