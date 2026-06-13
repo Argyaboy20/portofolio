@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
 import { PortfolioDataService, Tool, Project } from '../services/portfolio-data.service';
 
-
 /* interface penerjemahan */
 interface Translations {
   profilSingkat: string;

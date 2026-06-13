@@ -714,6 +714,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 .section-header {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 1.5rem;
 }
@@ -2576,7 +2577,8 @@ footer {
         position: relative !important;
         margin-left: 0 !important;
         width: 100% !important;
-        padding: 3rem 0 0 0 !important
+        padding: 3rem 0 0 0 !important;
+        overflow-x: hidden !important;
     }
 
     /* Section content perlu padding */
