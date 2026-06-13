@@ -210,8 +210,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
             /* Hitung progress scroll (0 = belum scroll, 1 = full scroll) */
             const scrollProgress = Math.min(scrollTop / this.scrollThreshold, 1);
             
-            this.applyScrollProgress(scrollProgress);
-            
             /* Toggle class untuk hide/show elements */
             if (scrollTop > 50 && !this.isScrolled) {
               this.isScrolled = true;
@@ -220,6 +218,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
               this.isScrolled = false;
               this.removeScrolledState();
             }
+
+            requestAnimationFrame(() => this.applyScrollProgress(scrollProgress));
           }
         });
       }
@@ -228,10 +228,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   applyScrollProgress(progress: number) {
     const leftPanel = document.querySelector('.left-panel') as HTMLElement;
-    
-    if (leftPanel) {
-      /* Set CSS variable untuk animasi gradual */
-      leftPanel.style.setProperty('--scroll-progress', progress.toString());
+    const rightPanel = document.querySelector('.right-panel') as HTMLElement;
+
+    if (leftPanel && rightPanel) {
+      const leftPanelHeight = leftPanel.offsetHeight;
+      rightPanel.style.paddingTop = `${leftPanelHeight}px`;
     }
   }
 
