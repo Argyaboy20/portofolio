@@ -61,7 +61,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   private backButtonSubscription!: Subscription;
   private screenshotPrevention: (() => void) | null = null;
   private scrollHandler: (() => void) | null = null;
-  private scrollThreshold = 300; /* Batas scroll */
+  private scrollThreshold = 100; /* Batas scroll */
   private isScrolled = false;
 
   @ViewChild('mainMenu', { static: false }) mainMenu!: IonMenu;
@@ -207,18 +207,17 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
           const scrollTop = (event.target as HTMLElement).scrollTop;
           
           if (window.innerWidth <= 768) {
-            /* Hitung progress scroll (0 = belum scroll, 1 = full scroll) */
             const scrollProgress = Math.min(scrollTop / this.scrollThreshold, 1);
             
-            /* Toggle class untuk hide/show elements */
-            if (scrollTop > 50 && !this.isScrolled) {
+            // Sistem 1: Toggle class
+            if (scrollTop >= this.scrollThreshold && !this.isScrolled) {
               this.isScrolled = true;
-              this.applyScrolledState();
-            } else if (scrollTop <= 50 && this.isScrolled) {
+              this.applyScrolledState();       
+            } else if (scrollTop < this.scrollThreshold && this.isScrolled) {
               this.isScrolled = false;
-              this.removeScrolledState();
+              this.removeScrolledState()
             }
-
+            // Sistem 2: applyScrollProgress (baris 229–236)
             requestAnimationFrame(() => this.applyScrollProgress(scrollProgress));
           }
         });
@@ -228,11 +227,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   applyScrollProgress(progress: number) {
     const leftPanel = document.querySelector('.left-panel') as HTMLElement;
-    const rightPanel = document.querySelector('.right-panel') as HTMLElement;
-
-    if (leftPanel && rightPanel) {
-      const leftPanelHeight = leftPanel.offsetHeight;
-      rightPanel.style.paddingTop = `${leftPanelHeight}px`;
+    if (leftPanel) {
+      leftPanel.style.setProperty('--scroll-progress', progress.toString());
     }
   }
 
