@@ -193,35 +193,31 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ionViewDidEnter() {
-    this.setupScrollListener();
   }
 
-  setupScrollListener() {
-    const content = document.querySelector('ion-content');
-    
-    if (content) {
-      const scrollElement = content.shadowRoot?.querySelector('.inner-scroll');
-      
-      if (scrollElement) {
-        scrollElement.addEventListener('scroll', (event: any) => {
-          const scrollTop = (event.target as HTMLElement).scrollTop;
-          
-          if (window.innerWidth <= 768) {
-            const scrollProgress = Math.min(scrollTop / this.scrollThreshold, 1);
-            
-            // Sistem 1: Toggle class
-            if (scrollTop >= this.scrollThreshold && !this.isScrolled) {
-              this.isScrolled = true;
-              this.applyScrolledState();       
-            } else if (scrollTop < this.scrollThreshold && this.isScrolled) {
-              this.isScrolled = false;
-              this.removeScrolledState()
-            }
-            // Sistem 2: applyScrollProgress (baris 229–236)
-            requestAnimationFrame(() => this.applyScrollProgress(scrollProgress));
-          }
-        });
-      }
+  onContentScroll(event: any) {
+    if (window.innerWidth > 768) return;
+
+    const scrollTop = event.detail.scrollTop;
+    const leftPanel = document.querySelector('.left-panel') as HTMLElement;
+    if (!leftPanel) return;
+
+    // Progresif mengecil saat scroll awal (0 sampai threshold)
+    // Setelah threshold, --scroll-progress tetap 1 (sudah mengecil penuh)
+    const scrollProgress = Math.min(scrollTop / this.scrollThreshold, 1);
+    leftPanel.style.setProperty('--scroll-progress', scrollProgress.toString());
+
+    // Mengecil: aktif begitu mulai scroll (scrollTop > 0)
+    if (scrollTop > 0 && !this.isScrolled) {
+      this.isScrolled = true;
+      leftPanel.classList.add('scrolled');
+    }
+
+    // Kembali besar: HANYA ketika benar-benar di posisi paling atas
+    if (scrollTop === 0 && this.isScrolled) {
+      this.isScrolled = false;
+      leftPanel.classList.remove('scrolled');
+      leftPanel.style.setProperty('--scroll-progress', '0');
     }
   }
 
@@ -411,12 +407,10 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     /* Create an Intersection Observer */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        /* Add class when element is entering viewport while scrolling down */
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-in');
           entry.target.classList.remove('animate-out');
         } else {
-          /* When scrolling up and element leaves viewport */
           if (entry.boundingClientRect.top > 0) {
             entry.target.classList.add('animate-out');
             entry.target.classList.remove('animate-in');
@@ -424,12 +418,15 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
         }
       });
     }, {
-      threshold: 0.1 /* Trigger when at least 10% of the element is visible */
+      threshold: 0.1,
+      rootMargin: '0px 0px -10px 0px'  // ← tambahan ini
     });
 
-    /* Observe all section elements */
     sections.forEach(section => {
-      observer.observe(section);
+      // Jangan observe left-panel — dia sticky, bukan section konten
+      if (!section.classList.contains('left-panel')) {
+        observer.observe(section);
+      }
     });
   }
 
@@ -1007,37 +1004,8 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
     this.handleResponsiveLayout();
   }
 
-  /* Method baru untuk setup scroll handler saja */
-  private setupScrollHandler() {
-    /* Define scroll handler */
-    this.scrollHandler = () => {
-      if (window.innerWidth <= 768) {
-        const scrollPosition = window.scrollY;
-        const leftPanelHeight = this.leftPanel.nativeElement.offsetHeight;
-
-        if (scrollPosition > leftPanelHeight / 2) {
-          this.leftPanel.nativeElement.classList.add('sticky');
-          this.rightPanel.nativeElement.classList.add('panel-with-sticky');
-        } else {
-          this.leftPanel.nativeElement.classList.remove('sticky');
-          this.rightPanel.nativeElement.classList.remove('panel-with-sticky');
-        }
-      }
-    };
-
-    /* Add scroll event listener */
-    window.addEventListener('scroll', this.scrollHandler);
-  }
-
   private handleResponsiveLayout() {
-    if (window.innerWidth <= 768) {
-      /* Mobile layout */
-      if (!this.scrollHandler) {
-        /* Cukup setup scroll handler langsung */
-        this.setupScrollHandler();
-      }
-    } else {
-      /* Desktop layout*/
+    if (window.innerWidth > 768) {
       this.removeResponsiveHandlers();
     }
   }
@@ -1045,8 +1013,6 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   private removeResponsiveHandlers() {
     if (this.scrollHandler) {
       window.removeEventListener('scroll', this.scrollHandler);
-      this.leftPanel.nativeElement.classList.remove('sticky');
-      this.rightPanel.nativeElement.classList.remove('panel-with-sticky');
       this.scrollHandler = null;
     }
   }

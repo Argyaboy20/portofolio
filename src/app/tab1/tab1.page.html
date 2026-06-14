@@ -35,7 +35,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="split-screen" id="main-content">
+<ion-content [fullscreen]="true" class="split-screen" id="main-content" (ionScroll)="onContentScroll($event)" scrollEvents="true">
 
   <ion-menu side="start" contentId="main-content" #mainMenu class="mobile-only" menuId="mainMenu">
     <ion-content>
