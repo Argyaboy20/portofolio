@@ -107,6 +107,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       judulArtikel: 'Analisis Log Transaksi E-Commerce Menggunakan Apache Spark untuk Mendukung Optimasi Manajemen Stok',
       link: 'https://jurnal.mdp.ac.id/index.php/jtsi/article/view/17332',
     },
+    {
+      jurnalNama: 'Jurnal SISTEMASI: Sistem Informasi',
+      judulArtikel: 'Moodle E-Learning Software Quality Evaluation using Defect Density and Code Metrics',
+      link: 'https://sistemasi.ftik.unisi.ac.id/index.php/stmsi/article/view/6861',
+    },
   ];
 
   /* Ambil 4 pertama untuk tampilan utama, sisanya di modal */
