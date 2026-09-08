@@ -43,10 +43,10 @@ interface TranslationDict {
 }
 
 export interface Publikasi {
-  jurnalNama: string;      
-  judulArtikel: string;    
-  link: string;            
-  favicon?: string;        
+  jurnalNama: string;
+  judulArtikel: string;
+  link: string;
+  favicon?: string;
 }
 
 @Component({
@@ -78,7 +78,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   isMSIBModalOpen = false;
   /* Profile image modal state */
   isProfileImageModalOpen = false;
-  /* --- Publikasi --- */ 
+  /* --- Publikasi --- */
   isPublikasiModalOpen = false;
   currentSortOrder: 'newest' | 'oldest' = 'newest';
 
@@ -101,6 +101,11 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       jurnalNama: 'JUKTISI: Jurnal Komputer Teknologi Informasi',
       judulArtikel: 'Evaluasi Pengalaman Pengguna Website Pendaftaran KIP-Kuliah ITBI Menggunakan UEQ+',
       link: 'https://ejurnal.lkpkaryaprima.id/index.php/juktisi/article/view/932',
+    },
+    {
+      jurnalNama: 'Jurnal Teknologi Sistem Informasi (JTSI)',
+      judulArtikel: 'Analisis Log Transaksi E-Commerce Menggunakan Apache Spark untuk Mendukung Optimasi Manajemen Stok',
+      link: 'https://jurnal.mdp.ac.id/index.php/jtsi/article/view/17332',
     },
   ];
 
@@ -537,7 +542,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
       case 'instagram':
         url = `https://www.instagram.com/${username}`;
         break;
-  
+
       default:
         return;
     }
@@ -1035,7 +1040,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
   /* Method untuk reset tools filter ke default (dipanggil saat init) */
   resetToolsFilter() {
     this.currentToolFilter = 'all'; /* Set ke default "all" */
-    
+
     /* Pastikan semua tool-items visible */
     const toolItems = document.querySelectorAll('.tool-item');
     toolItems.forEach((item: any) => {
@@ -1123,7 +1128,7 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
                 if (existingError) {
                   existingError.remove();
                 }
-                
+
                 /* Buat error message baru */
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'password-error';
@@ -1135,21 +1140,21 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
                 errorDiv.style.padding = '8px 12px';
                 errorDiv.style.borderRadius = '20px';
                 errorDiv.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
-                errorDiv.style.display = 'inline-block';  
-                errorDiv.style.width = 'auto'; 
+                errorDiv.style.display = 'inline-block';
+                errorDiv.style.width = 'auto';
                 errorDiv.textContent = 'Password kosong. Harap diisi!';
-                
+
                 /* Tambahkan error message setelah input */
                 const alertInputs = alert.querySelector('.alert-input-group');
                 if (alertInputs) {
                   alertInputs.appendChild(errorDiv);
                 }
               }
-              
+
               /* Return false untuk mencegah alert tertutup */
               return false;
             }
-            
+
             /* Jika ada input, lanjutkan validasi password */
             if (data.password === '0503') {
               /* Password benar, buka link */
