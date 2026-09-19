@@ -1734,6 +1734,7 @@ ion-content.split-screen::part(scroll) {
     --max-width: 92vw;
     --height: auto;
     --max-height: 85vh;
+    --border-radius: 15px;
 
     ion-header ion-toolbar {
         --background: linear-gradient(to right, #{$primary-color}, #{$secondary-color});
@@ -1747,6 +1748,7 @@ ion-content.split-screen::part(scroll) {
 
     ion-content {
         --background: rgba(255, 255, 255, 0.9);
+        --overflow: hidden; 
     }
 
     .modal-content {
