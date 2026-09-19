@@ -266,6 +266,10 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     overflow-anchor: none;
 }
 
+ion-content.split-screen::part(scroll) {
+    overflow-anchor: none;
+}
+
 .left-panel-placeholder {
     display: block;
     height: 2rem;
