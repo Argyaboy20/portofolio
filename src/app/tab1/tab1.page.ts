@@ -214,13 +214,15 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
     // Progresif mengecil saat scroll awal (0 sampai threshold)
     // Setelah threshold, --scroll-progress tetap 1 (sudah mengecil penuh)
-    const scrollProgress = Math.min(scrollTop / this.scrollThreshold, 1);
+    const isMobile = window.innerWidth <= 640;
+    const threshold = isMobile ? 10 : this.scrollThreshold;
+    const scrollProgress = Math.min(scrollTop / threshold, 1);
     leftPanel.style.setProperty('--scroll-progress', scrollProgress.toString());
 
-    // Mengecil: aktif begitu mulai scroll (scrollTop > 0)
-    if (scrollTop > 0 && !this.isScrolled) {
-      this.isScrolled = true;
-      leftPanel.classList.add('scrolled');
+    const shouldBeScrolled = isMobile ? scrollProgress >= 1 : scrollTop > 0;
+    if (shouldBeScrolled !== this.isScrolled) {
+      this.isScrolled = shouldBeScrolled;
+      leftPanel.classList.toggle('scrolled', shouldBeScrolled);
     }
 
     // Kembali besar: HANYA ketika benar-benar di posisi paling atas
