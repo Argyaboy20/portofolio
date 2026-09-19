@@ -1,34 +1,48 @@
-/* Variabel warna */
+@use 'sass:color';
+
+/* ============================================================
+   VARIABEL WARNA
+   ============================================================ */
 $primary-color: #4a90e2;
 $secondary-color: #50e3c2;
 $bg-color-dark: #2c3e50;
 $bg-color-light: #f5f7fa;
 $text-color-dark: #333;
 $text-color-light: #fff;
-@use 'sass:color';
 
-/* Desktop vs. Mobile Display Classes */
+/* ============================================================
+   BASE = MOBILE VIEW (< 641px)
+   Semua di bawah ini adalah default. Breakpoint di bawah file
+   hanya menaikkan ukuran, tidak pernah menurunkan.
+   ============================================================ */
+
+/* --- Toggle tampilan --- */
 .desktop-only {
-    display: block;
-}
-
-.mobile-only {
     display: none;
 }
 
-/* Desktop title container - holds title and About Me button */
-.desktop-title-container {
+.mobile-only {
+    display: block;
+}
+
+ion-title.mobile-only {
     display: flex;
+    align-items: center;
+}
+
+.desktop-title-container {
+    display: none;
     align-items: center;
     margin-left: 20px;
     font-size: 1.1rem;
     letter-spacing: 2px;
 }
 
-/* Gaya umum */
+/* --- Header / Toolbar --- */
 .blog-title {
     text-decoration: none;
     display: inline-block;
+    font-size: 0.85rem;
 
     &:hover {
         .primary-text,
@@ -38,8 +52,7 @@ $text-color-light: #fff;
     }
 
     &.mobile {
-        font-size: 1rem;
-        transform: translateX(90px);
+        font-size: 0.85rem;
     }
 }
 
@@ -50,6 +63,7 @@ ion-toolbar {
         ion-button {
             --color: #{$primary-color};
             font-weight: 500;
+            font-size: 0.8rem;
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
@@ -82,7 +96,7 @@ ion-toolbar {
         &.language-button {
             margin-right: 0;
             position: absolute;
-            right: 1.5rem;
+            right: 0.3rem;
 
             ion-button {
                 animation-delay: 0.2s;
@@ -90,13 +104,31 @@ ion-toolbar {
         }
 
         &.biodata-button {
-            margin-right: 4.5rem;
+            margin-right: 2.2rem;
 
             ion-button {
                 animation-delay: 0.1s;
             }
         }
     }
+}
+
+.about-me-button {
+    margin-left: 15px;
+    margin-top: 3px;
+    height: 20px;
+}
+
+.primary-text {
+    color: $primary-color;
+    font-weight: 700;
+    margin-left: 0;
+}
+
+.secondary-text {
+    color: $secondary-color;
+    font-weight: 700;
+    text-align: center;
 }
 
 @keyframes buttonSlideIn {
@@ -122,31 +154,23 @@ ion-toolbar {
     }
 }
 
+/* --- Shell --- */
 ion-content {
-    --background: #f5f7fa;
+    --background: #{$bg-color-light};
     font-family: 'Roboto', sans-serif;
-}
-
-.primary-text {
-    color: $primary-color;
-    font-weight: 700;
-    margin-left: 0;
-}
-
-.secondary-text {
-    color: $secondary-color;
-    font-weight: 700;
-    text-align: center;
-}
-
-.about-me-button {
-    margin-left: 15px;
-    margin-top: 3px;
-    height: 20px;
 }
 
 ion-content[main] {
     --overflow: hidden;
+}
+
+ion-content#main-content {
+    --overflow: auto;
+    position: relative;
+}
+
+ion-router-outlet {
+    position: relative;
 }
 
 body.menu-open {
@@ -155,17 +179,9 @@ body.menu-open {
     width: 100%;
 }
 
-ion-router-outlet {
-    position: relative;
-}
-
-ion-content#main-content {
-    --overflow: auto;
-    position: relative;
-}
-
+/* --- Side menu (mobile) --- */
 ion-menu.mobile-only {
-    --background: #2c3e50;
+    --background: #{$bg-color-dark};
     --width: 250px;
     z-index: 1000;
     pointer-events: none;
@@ -173,43 +189,58 @@ ion-menu.mobile-only {
     top: 0;
     left: 0;
     height: 100vh;
-}
 
-ion-menu.mobile-only ion-list {
-    --background: #2c3e50;
-    background: #2c3e50;
-    padding: 0;
+    &.show-menu {
+        pointer-events: auto;
+    }
+
+    ion-list {
+        --background: #{$bg-color-dark};
+        background: $bg-color-dark;
+        padding: 0;
+    }
+
+    ion-content {
+        --background: #{$bg-color-dark};
+        --color: #ffffff !important;
+        pointer-events: auto;
+    }
+
+    ion-item {
+        --background: #{$bg-color-dark};
+        --color: #ffffff !important;
+        --background-hover: rgba(255, 255, 255, 0.1);
+        --ripple-color: rgba(255, 255, 255, 0.1);
+        --border-color: #ffffff;
+        --border-width: 0 0 1px 0;
+        --border-style: solid;
+        --inner-border-width: 0;
+        cursor: pointer;
+        pointer-events: auto;
+    }
+
+    ion-icon {
+        color: #ffffff !important;
+    }
+
+    ion-item[button] {
+        pointer-events: auto;
+        cursor: pointer;
+        --detail-icon-opacity: 1;
+        --detail-icon-color: white;
+
+        &:hover {
+            --background: rgba(255, 255, 255, 0.2);
+        }
+
+        &:active {
+            --background: rgba(255, 255, 255, 0.3);
+        }
+    }
 }
 
 ion-menu-button {
     --color: #ffffff !important;
-    color: #ffffff !important;
-}
-
-ion-menu.mobile-only.show-menu {
-    pointer-events: auto;
-}
-
-ion-menu.mobile-only ion-content {
-    --background: #2c3e50;
-    --color:#ffffff !important;
-    pointer-events: auto;
-}
-
-ion-menu.mobile-only ion-item {
-    --background: #2c3e50;
-    --color: #ffffff !important;
-    --background-hover: rgba(255, 255, 255, 0.1);
-    --ripple-color: rgba(255, 255, 255, 0.1);
-    --border-color: #ffffff;       
-    --border-width: 0 0 1px 0;     
-    --border-style: solid;         
-    --inner-border-width: 0;       
-    cursor: pointer;
-    pointer-events: auto;
-}
-
-ion-menu.mobile-only ion-icon {
     color: #ffffff !important;
 }
 
@@ -219,47 +250,45 @@ ion-menu.mobile-only ion-icon {
     z-index: 999 !important;
 }
 
-ion-menu.mobile-only ion-item[button] {
-    pointer-events: auto;
-    cursor: pointer;
-    --detail-icon-opacity: 1;
-    --detail-icon-color: white;
-}
-
-ion-menu.mobile-only ion-item[button]:hover {
-    --background: rgba(255, 255, 255, 0.2);
-}
-
-ion-menu.mobile-only ion-item[button]:active {
-    --background: rgba(255, 255, 255, 0.3);
-}
-
 ion-content.split-screen[aria-hidden="true"] ion-menu {
     visibility: visible !important;
     opacity: 1 !important;
     pointer-events: auto !important;
 }
 
+/* ============================================================
+   LAYOUT - MOBILE: satu kolom, left-panel jadi header sticky
+   ============================================================ */
 .split-screen {
-    display: flex;
-    flex-direction: row;
+    display: block;
     height: 100%;
-    overflow: hidden;
-    overflow-anchor: none !important;
+    overflow-y: auto;
+    overflow-anchor: none;
+}
+
+.left-panel-placeholder {
+    display: block;
+    height: 2rem;
 }
 
 .left-panel {
-    width: 35%;
-    height: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: auto;
+    padding: calc(1.5rem - (0.8rem * var(--scroll-progress, 0))) 1.5rem;
+    margin: 0;
     background-color: $bg-color-dark;
     color: $text-color-light;
-    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    position: fixed;
-    overflow-y: auto;
+
+    transition: padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: padding, height;
 
     &::before {
         content: '';
@@ -273,8 +302,86 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
             radial-gradient(circle at 90% 80%, rgba(80, 227, 194, 0.1) 0%, transparent 50%);
         pointer-events: none;
     }
+
+    .profile-header,
+    .profile-image,
+    .profile-info,
+    .name,
+    .title,
+    .title1,
+    .cv-link {
+        transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    margin 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    font-size 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* State saat di-scroll (mobile & tablet) */
+    &.scrolled {
+        padding: 10px 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+        .profile-header {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .profile-info {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            flex: 1;
+        }
+
+        .profile-image {
+            width: 45px;
+            height: 45px;
+            margin: 0;
+            flex-shrink: 0;
+        }
+
+        .name {
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .title {
+            font-size: 10px;
+            margin: 0;
+            margin-top: 2px;
+        }
+
+        .title1,
+        .contact-info {
+            display: none;
+        }
+
+        .cv-link {
+            position: static;
+            margin: 0;
+            padding: 5px 12px;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+    }
 }
 
+.right-panel {
+    position: relative;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+/* --- Dekorasi background --- */
 .bg-elements {
     position: absolute;
     top: 0;
@@ -294,8 +401,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     &:nth-child(1) {
         top: 15%;
         left: 10%;
-        width: 60px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
         background: $primary-color;
         clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
         animation: floatShape 15s infinite linear;
@@ -304,8 +411,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     &:nth-child(2) {
         top: 45%;
         right: 15%;
-        width: 40px;
-        height: 40px;
+        width: 28px;
+        height: 28px;
         background: $secondary-color;
         border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
         animation: floatShape 12s infinite linear reverse;
@@ -314,8 +421,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     &:nth-child(3) {
         bottom: 20%;
         left: 20%;
-        width: 50px;
-        height: 50px;
+        width: 34px;
+        height: 34px;
         background: color.mix($primary-color, $secondary-color, 50%);
         clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
         animation: floatShape 18s infinite linear;
@@ -324,8 +431,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     &:nth-child(4) {
         top: 75%;
         right: 25%;
-        width: 35px;
-        height: 35px;
+        width: 24px;
+        height: 24px;
         background: $primary-color;
         border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
         animation: floatShape 20s infinite linear reverse;
@@ -347,15 +454,16 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
+/* --- Profil --- */
 .profile-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100%;
     z-index: 10;
 }
 
-/* Style baru untuk profile-header */
 .profile-header {
     display: flex;
     flex-direction: column;
@@ -364,7 +472,6 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     position: relative;
 }
 
-/* Style baru untuk profile-info */
 .profile-info {
     display: flex;
     flex-direction: column;
@@ -372,17 +479,18 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 }
 
 .profile-image {
-    width: 195px;
-    height: 195px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     overflow: hidden;
-    margin-bottom: 1.5rem;
-    margin-top: -20px;
+    margin-bottom: 1rem;
+    margin-top: 0;
     border: 3px solid $secondary-color;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     z-index: 11;
+    flex-shrink: 0;
 
     &:hover {
         transform: scale(1.05);
@@ -398,83 +506,84 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 }
 
 .name {
-    margin-top: -10px;
-    font-size: 1.8rem;
+    margin-top: 0;
+    font-size: 1.5rem;
     margin-bottom: 0.1rem;
     font-weight: 700;
 }
 
 .title {
     font-size: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     color: rgba(255, 255, 255, 0.8);
 }
 
 .title1 {
-    margin-top: -15px;
+    margin-top: 0;
     font-size: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     color: rgba(255, 255, 255, 0.8);
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s ease;
-    
+
     &:hover {
         color: rgba(255, 255, 255, 1);
     }
 }
 
 .cv-link {
-    color: rgba(255, 255, 255, 0.95);  
-    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.95rem;
     font-weight: 400;
-    font-family: 'Segoe UI', 'Roboto', sans-serif;  
-    letter-spacing: 0.5px;  
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-decoration: none;  
-    margin-top: 0.9rem;  
-    margin-bottom: 0.5rem;  
-    padding: 0.3rem 0.8rem;  
-    border: 1px solid rgba(255, 255, 255, 0.3);  
-    border-radius: 20px;  
-    display: inline-block;  
-    background: rgba(255, 255, 255, 0.05);  
-    backdrop-filter: blur(5px);  
-    
+    text-decoration: none;
+    margin-top: 0.5rem;
+    margin-bottom: 0.3rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+
     &:hover {
-      color: #ffffff;  
-      background: rgba(255, 255, 255, 0.15);  
-      border-color: rgba(255, 255, 255, 0.5);  
-      transform: translateY(-2px);  
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-    
+
     &:active {
-      transform: translateY(0);
+        transform: translateY(0);
     }
-  }
+}
 
 .contact-info {
     width: 100%;
-    margin-top: 1.5rem;
+    margin-top: 0.8rem;
 
     h3 {
         font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
         color: $secondary-color;
     }
 
     .email {
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
+        margin-bottom: 0.6rem;
+        font-size: 1rem;
     }
 }
 
 .social-links {
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
     position: relative;
     z-index: 12;
 
@@ -482,10 +591,10 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
         border-radius: 50%;
-        margin: 0 0.5rem;
+        margin: 0.3rem 0.45rem;
         background: rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease;
         position: relative;
@@ -498,21 +607,13 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         }
 
         ion-icon {
-            font-size: 1.2rem;
+            font-size: 1.35rem;
             color: $text-color-light;
         }
     }
 }
 
-.right-panel {
-    margin-left: 35%;
-    width: 65%;
-    height: 100%;
-    overflow-y: auto;
-    padding: 2rem 3rem;
-    position: relative;
-}
-
+/* --- Dekorasi 3D right panel --- */
 .right-panel-3d-elements {
     position: absolute;
     top: 0;
@@ -583,8 +684,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     &:nth-child(1) {
         top: 10%;
         right: 5%;
-        width: 80px;
-        height: 80px;
+        width: 50px;
+        height: 50px;
         background: linear-gradient(135deg, rgba(74, 144, 226, 0.8), rgba(80, 227, 194, 0.8));
         border-radius: 24% 76% 35% 65% / 27% 36% 64% 73%;
         box-shadow: 5px 5px 15px rgba(74, 144, 226, 0.3);
@@ -594,8 +695,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     &:nth-child(2) {
         top: 40%;
         left: 8%;
-        width: 60px;
-        height: 60px;
+        width: 38px;
+        height: 38px;
         background: linear-gradient(45deg, rgba(80, 227, 194, 0.8), rgba(74, 144, 226, 0.8));
         clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
         box-shadow: 3px 3px 12px rgba(80, 227, 194, 0.3);
@@ -605,8 +706,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     &:nth-child(3) {
         bottom: 15%;
         right: 15%;
-        width: 70px;
-        height: 70px;
+        width: 44px;
+        height: 44px;
         background: linear-gradient(to right, rgba(76, 169, 216, 0.8), rgba(78, 198, 205, 0.8));
         border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
         box-shadow: 4px 4px 14px rgba(76, 169, 216, 0.3);
@@ -616,8 +717,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     &:nth-child(4) {
         bottom: 35%;
         left: 20%;
-        width: 50px;
-        height: 50px;
+        width: 32px;
+        height: 32px;
         background: linear-gradient(to right, rgba(74, 144, 226, 0.8), rgba(74, 144, 226, 0.2));
         clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
         box-shadow: 2px 2px 10px rgba(74, 144, 226, 0.3);
@@ -625,70 +726,114 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
+/* ============================================================
+   SECTION
+   ============================================================ */
 .section {
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
     opacity: 0;
     transition: all 0.6s ease-out;
     transform: translateY(20px);
-}
 
-.section.animate-in {
-    opacity: 1;
-    transform: translateY(0);
-}
+    &.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-.section.animate-out {
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: all 0.4s ease-in;
+    &.animate-out {
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.4s ease-in;
+    }
 }
 
 #about.section {
     transform: translateX(-20px);
+
+    &.animate-in {
+        transform: translateX(0);
+    }
+
+    &.animate-out {
+        transform: translateX(20px);
+    }
 }
 
-#about.section.animate-in {
-    transform: translateX(0);
-}
-
-#about.section.animate-out {
-    transform: translateX(20px);
-}
-
-#education.section {
+#education.section,
+#tools.section,
+#career.section {
     transform: translateY(20px);
 }
 
 #skills.section {
     transform: translateX(20px);
-}
 
-#skills.section.animate-in {
-    transform: translateX(0);
-}
+    &.animate-in {
+        transform: translateX(0);
+    }
 
-#skills.section.animate-out {
-    transform: translateX(-20px);
-}
-
-#tools.section {
-    transform: translateY(20px);
+    &.animate-out {
+        transform: translateX(-20px);
+    }
 }
 
 #projects.section {
     transform: translateX(-20px);
+
+    &.animate-in {
+        transform: translateX(0);
+    }
+
+    &.animate-out {
+        transform: translateX(20px);
+    }
 }
 
-#projects.section.animate-in {
-    transform: translateX(0);
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
 }
 
-#projects.section.animate-out {
-    transform: translateX(20px);
+.section-title {
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+    color: $bg-color-dark;
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 40px;
+        height: 3px;
+        background: $primary-color;
+    }
 }
 
-#career.section {
-    transform: translateY(20px);
+.section-content {
+    color: $text-color-dark;
+    line-height: 1.6;
+    text-align: justify;
+    font-size: 0.9rem;
+}
+
+.clickable-text {
+    cursor: pointer;
+    color: var(--ion-color-primary);
+    transition: color 0.3s ease;
+
+    &:hover {
+        cursor: pointer;
+        color: var(--ion-color-primary-tint);
+        text-decoration: none;
+    }
 }
 
 .demo-link {
@@ -712,46 +857,23 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-.section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-}
-
-.section-title {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: $bg-color-dark;
-    position: relative;
-
-    &:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -10px;
-        width: 50px;
-        height: 4px;
-        background: $primary-color;
-    }
-}
-
 .filter-buttons {
     display: flex;
-    gap: 0.3rem; 
-    
+    flex-wrap: nowrap;
+    gap: 0.2rem;
+
     ion-button {
         --color: #{$primary-color};
-        font-size: 0.75rem;
+        --padding-start: 0.4rem;
+        --padding-end: 0.4rem;
+        font-size: 0.65rem;
         text-transform: none;
         font-weight: 500;
-        --padding-start: 0.6rem;
-        --padding-end: 0.6rem;
-        
+
         &:hover {
             --color: #{$secondary-color};
         }
-        
+
         &.active {
             --color: #{$secondary-color};
             font-weight: 700;
@@ -762,40 +884,29 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
 .sort-buttons {
     display: flex;
-    gap: 0.5rem;
+    flex-wrap: nowrap;
+    gap: 0.3rem;
 
     ion-button {
         --color: #{$primary-color};
-        font-size: 0.8rem;
+        --padding-start: 0.4rem;
+        --padding-end: 0.4rem;
+        font-size: 0.65rem;
 
         &:hover {
             --color: #{$secondary-color};
         }
 
         ion-icon {
-            margin-right: 4px;
+            font-size: 0.8rem;
+            margin-right: 2px;
         }
     }
 }
 
-.section-content {
-    color: $text-color-dark;
-    line-height: 1.6;
-    text-align: justify;
-}
-
-.clickable-text {
-    cursor: pointer;
-    color: var(--ion-color-primary);
-    transition: color 0.3s ease;
-}
-
-.clickable-text:hover {
-    cursor: pointer;
-    color: var(--ion-color-primary-tint);
-    text-decoration: none;
-}
-
+/* ============================================================
+   EDUCATION
+   ============================================================ */
 .education-timeline {
     position: relative;
     padding: 1rem 0;
@@ -803,8 +914,10 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
 .education-item {
     display: flex;
-    gap: 2rem;
-    padding: 1.5rem;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.8rem;
     background: linear-gradient(145deg, #ffffff, #f5f7fa);
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
@@ -818,8 +931,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
 .education-icon {
     flex-shrink: 0;
-    width: 60px;
-    height: 60px;
+    width: 35px;
+    height: 35px;
     background: linear-gradient(135deg, $primary-color, $secondary-color);
     border-radius: 12px;
     display: flex;
@@ -827,16 +940,17 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     justify-content: center;
 
     ion-icon {
-        font-size: 2rem;
+        font-size: 1.2rem;
         color: white;
     }
 }
 
 .education-details {
     flex: 1;
+    min-width: 0;
 
     .school-name {
-        font-size: 1.4rem;
+        font-size: 1.05rem;
         color: $bg-color-dark;
         margin-bottom: 0.5rem;
         font-weight: 600;
@@ -844,21 +958,21 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
     .degree {
         color: $primary-color;
-        font-size: 1.1rem;
+        font-size: 0.9rem;
         margin-bottom: 0.3rem;
         font-weight: 500;
     }
 
     .duration {
         color: #666;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         margin-bottom: 1rem;
     }
 }
 
 .education-stats {
     display: flex;
-    gap: 2rem;
+    gap: 0.6rem;
     margin: 1rem 0;
     flex-wrap: wrap;
 }
@@ -867,7 +981,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.8rem 1.5rem;
+    padding: 0.5rem 0.9rem;
     background: rgba(74, 144, 226, 0.1);
     border-radius: 8px;
     transition: transform 0.3s ease;
@@ -877,13 +991,13 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 
     .stat-label {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: $bg-color-dark;
         margin-bottom: 0.3rem;
     }
 
     .stat-value {
-        font-size: 1.2rem;
+        font-size: 1.05rem;
         font-weight: 600;
         color: $primary-color;
     }
@@ -892,7 +1006,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 .achievements {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.5rem;
     margin-top: 1rem;
 }
 
@@ -900,7 +1014,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 0.8rem;
     background: rgba(80, 227, 194, 0.1);
     border-radius: 20px;
     transition: all 0.3s ease;
@@ -911,246 +1025,21 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 
     ion-icon {
+        font-size: 1.1rem;
         color: $secondary-color;
-        font-size: 1.2rem;
     }
 
     span {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: $bg-color-dark;
         font-weight: 500;
         cursor: pointer;
     }
 }
 
-.merdeka-program-modal {
-    ion-header {
-        ion-toolbar {
-            --background: linear-gradient(to right, #4a90e2, #50e3c2);
-            --color: white;
-        }
-    }
-
-    ion-content {
-        --background: rgba(255, 255, 255, 0.9);
-    }
-
-    .modal-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        position: relative;
-
-        &:click {
-            pointer-events: none;
-        }
-    }
-
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        margin-bottom: 20px;
-        padding: 0 10px;
-
-        h2 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: $bg-color-dark;
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        ion-button {
-            --color: $primary-color;
-            --background: transparent;
-            --background-hover: rgba(74, 144, 226, 0.1);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-
-            ion-icon {
-                font-size: 1.5rem;
-            }
-
-            &:hover {
-                background: rgba(74, 144, 226, 0.1);
-            }
-        }
-    }
-
-    .modal-education-item {
-        width: 100%;
-
-        .education-item {
-            background: linear-gradient(145deg, #ffffff, #f5f7fa);
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-        }
-    }
-
-    .modal-description {
-        margin-top: 1rem;
-        padding: 0 1rem 1rem;
-        font-size: 0.9rem;
-        color: #666;
-        text-align: justify;
-    }
-}
-
-@keyframes modalFadeIn {
-    from {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-.msib-modal {
-    ion-header {
-        ion-toolbar {
-            --background: linear-gradient(to right, #4a90e2, #50e3c2);
-            --color: white;
-
-            ion-title {
-                font-weight: 600;
-                font-size: 18px;
-            }
-        }
-    }
-
-    ion-content {
-        --background: rgba(255, 255, 255, 0.9);
-    }
-
-    .modal-content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        position: relative;
-
-        &:click {
-            pointer-events: none;
-        }
-    }
-
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        margin-bottom: 20px;
-        padding: 0 10px;
-
-        h2 {
-            margin: 0;
-            font-size: 1.5rem;
-            color: var(--ion-color-dark);
-            font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        ion-button {
-            --color: var(--ion-color-primary);
-            --background: transparent;
-            --background-hover: rgba(74, 144, 226, 0.1);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-
-            ion-icon {
-                font-size: 1.5rem;
-            }
-
-            &:hover {
-                background: rgba(74, 144, 226, 0.1);
-            }
-        }
-    }
-
-    .modal-education-item {
-        width: 100%;
-
-        .education-item {
-            background: linear-gradient(145deg, #ffffff, #f5f7fa);
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-
-            .education-icon {
-                flex-shrink: 0;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background-color: var(--ion-color-primary);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-right: 15px;
-
-                ion-icon {
-                    font-size: 20px;
-                    color: var(--ion-color-light);
-                }
-            }
-
-            .education-details {
-                flex-grow: 1;
-
-                .processing-status {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-                    gap: 15px;
-                    padding: 10px 0;
-
-                    .hourglass-icon {
-                        font-size: 28px;
-                        color: var(--ion-color-primary);
-                        animation: pulse 1.5s infinite ease-in-out;
-                    }
-
-                    .processing-text {
-                        font-size: 20px;
-                        font-weight: 600;
-                        color: #000000;
-                    }
-                }
-            }
-        }
-    }
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0.6;
-        transform: scale(0.95);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.05);
-    }
-    100% {
-        opacity: 0.6;
-        transform: scale(0.95);
-    }
-}
-
+/* ============================================================
+   SKILLS
+   ============================================================ */
 .skill-bar {
     margin-bottom: 1.5rem;
 
@@ -1159,7 +1048,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         position: relative;
         width: 100%;
         height: 10px;
-        background-color: #f5f7fa;
+        background-color: $bg-color-light;
         border-radius: 5px;
         margin-top: 8px;
         overflow: hidden;
@@ -1203,7 +1092,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     .progress-fill {
         height: 100%;
         border-radius: 5px;
-        background: linear-gradient(to right, #4a90e2, #50e3c2);
+        background: linear-gradient(to right, $primary-color, $secondary-color);
         position: relative;
         transition: width 0.5s ease-in-out;
 
@@ -1221,6 +1110,26 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
     }
+}
+
+[data-progress="85%"] .progress-fill {
+    width: 85%;
+}
+
+[data-progress="80%"] .progress-fill {
+    width: 80%;
+}
+
+[data-progress="78%"] .progress-fill {
+    width: 78%;
+}
+
+[data-progress="75%"] .progress-fill {
+    width: 75%;
+}
+
+[data-progress="70%"] .progress-fill {
+    width: 70%;
 }
 
 @keyframes ripple {
@@ -1245,30 +1154,59 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-[data-progress="85%"] .progress-fill {
-    width: 85%;
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scale(0.95);
+    }
 }
 
-[data-progress="78%"] .progress-fill {
-    width: 78%;
+@keyframes careerPulse {
+    0% {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+        box-shadow: 0 8px 32px rgba(0, 30, 60, 0.3);
+    }
 }
 
-[data-progress="70%"] .progress-fill {
-    width: 70%;
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
-[data-progress="80%"] .progress-fill {
-    width: 80%;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-[data-progress="75%"] .progress-fill {
-    width: 75%;
-}
-
+/* ============================================================
+   TOOLS
+   ============================================================ */
 .tools-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
     margin-top: 1rem;
 }
 
@@ -1277,7 +1215,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 1.2rem 0.8rem;
+    padding: 0.8rem 0.5rem;
     background: linear-gradient(145deg, #ffffff, #f5f7fa);
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
@@ -1298,18 +1236,18 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 }
 
 .tool-icon {
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(74, 144, 226, 0.1);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
     transition: all 0.3s ease;
 
     ion-icon {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
         color: $primary-color;
         transition: color 0.3s ease;
     }
@@ -1317,14 +1255,15 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
 .tool-name {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     color: $bg-color-dark;
     margin-bottom: 0.3rem;
+    word-break: break-word;
 }
 
 .tool-level {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
     border-radius: 12px;
     background: rgba(80, 227, 194, 0.1);
     color: $primary-color;
@@ -1335,10 +1274,13 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
+/* ============================================================
+   PROJECTS
+   ============================================================ */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
 }
 
 .project-card {
@@ -1358,14 +1300,14 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
 .project-duration {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: $primary-color;
     margin-bottom: 0.5rem;
     font-style: italic;
 }
 
 .project-image {
-    height: 180px;
+    height: 150px;
     overflow: hidden;
 
     ion-img,
@@ -1379,7 +1321,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 }
 
 .project-info {
-    padding: 1.5rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -1387,11 +1329,12 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     h3 {
         margin-top: 0;
         margin-bottom: 0.5rem;
+        font-size: 1rem;
         color: $bg-color-dark;
     }
 
     p {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         margin-bottom: 1rem;
         color: #666;
     }
@@ -1399,13 +1342,14 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
 .project-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     margin-top: auto;
 
     a {
         text-decoration: none;
         color: $primary-color;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 500;
         transition: color 0.3s ease;
         cursor: pointer;
@@ -1416,136 +1360,11 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-.password-alert {
-    --backdrop-opacity: 0.6;
-    
-    .alert-wrapper {
-        --max-width: 320px;
-        --border-radius: 12px;
-        
-        .alert-head {
-            text-align: center;
-            padding: 1rem 1rem 0.5rem;
-            
-            h2 {
-                color: $primary-color;
-                font-size: 1.1rem;
-                font-weight: 600;
-            }
-        }
-        
-        .alert-message {
-            text-align: center;
-            color: #ffffff;
-            font-size: 0.9rem;
-            padding: 0 1rem;
-        }
-        
-        .alert-input-group {
-            padding: 1rem;
-            
-            .alert-input-wrapper {
-                border-radius: 8px;
-                border: 2px solid #e0e0e0;
-                transition: border-color 0.3s ease;
-                
-                &:focus-within {
-                    border-color: $primary-color;
-                }
-                
-                .alert-input {
-                    text-align: center;
-                    font-size: 1rem;
-                    padding: 0.75rem;
-                    border: none;
-                    background: transparent;
-                    
-                    &::placeholder {
-                        color: #ffffff;
-                    }
-                }
-            }
-        }
-        
-        .alert-button-group {
-            display: flex;
-            border-top: 1px solid #e0e0e0;
-            
-            .alert-button {
-                flex: 1;
-                padding: 0.75rem;
-                font-weight: 500;
-                font-size: 0.9rem;
-                transition: background-color 0.3s ease;
-                
-                &.alert-button-role-cancel {
-                    color: #ffffff;
-                    border-right: 1px solid #e0e0e0;
-                    
-                    &:hover {
-                        background-color: #f5f5f5;
-                    }
-                }
-                
-                &:not(.alert-button-role-cancel) {
-                    color: $primary-color;
-                    font-weight: 600;
-                    
-                    &:hover {
-                        background-color: rgba($primary-color, 0.1);
-                    }
-                }
-            }
-        }
-    }
-}
-
-.error-alert {
-    --backdrop-opacity: 0.6;
-    
-    .alert-wrapper {
-        --max-width: 280px;
-        --border-radius: 12px;
-        
-        .alert-head {
-            text-align: center;
-            padding: 1rem 1rem 0.5rem;
-            
-            h2 {
-                color: #e74c3c;
-                font-size: 1.1rem;
-                font-weight: 600;
-            }
-        }
-        
-        .alert-message {
-            text-align: center;
-            color: #2c3e50;
-            font-size: 0.9rem;
-            padding: 0 1rem 1rem;
-        }
-        
-        .alert-button-group {
-            border-top: 1px solid #e0e0e0;
-            
-            .alert-button {
-                width: 100%;
-                padding: 0.75rem;
-                color: #e74c3c;
-                font-weight: 600;
-                font-size: 0.9rem;
-                transition: background-color 0.3s ease;
-                
-                &:hover {
-                    background-color: rgba(#e74c3c, 0.1);
-                }
-            }
-        }
-    }
-}
-
+/* ============================================================
+   CAREER
+   ============================================================ */
 #career {
-    margin-top: 40px;
+    margin-top: 30px;
 
     .career-container {
         margin-top: 20px;
@@ -1553,36 +1372,34 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         .career-item {
             background: #1b508b;
             border-radius: 16px;
-            padding: 24px;
+            padding: 15px;
             transition: all 0.3s ease;
             display: flex;
+            flex-direction: column;
+            text-align: center;
             align-items: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            animation: pulse 3s infinite alternate;
+            animation: careerPulse 3s infinite alternate;
 
             &::before {
                 content: '';
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 4px;
-                height: 100%;
-                background: linear-gradient(to bottom, #ffffff, #e0e0e0);
-                transition: width 0.3s ease;
+                width: 100%;
+                height: 4px;
+                background: linear-gradient(to right, #ffffff, #e0e0e0);
+                transition: height 0.3s ease;
             }
 
             &:hover {
                 transform: translateY(-5px);
                 box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-                background: #2543a5;
-
-                &::before {
-                    width: 8px;
-                }
+                background: #3a80d2;
 
                 .career-icon {
                     transform: scale(1.1) rotate(10deg);
@@ -1601,17 +1418,17 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
             .career-icon {
                 background: rgba(255, 255, 255, 0.85);
-                width: 70px;
-                height: 70px;
+                width: 50px;
+                height: 50px;
                 border-radius: 16px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-right: 24px;
+                margin: 0 auto 15px;
                 transition: all 0.3s ease;
 
                 ion-icon {
-                    font-size: 32px;
+                    font-size: 24px;
                     color: #003cff;
                     transition: all 0.3s ease;
                 }
@@ -1621,7 +1438,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
                 flex: 1;
 
                 h3 {
-                    font-size: 22px;
+                    font-size: 18px;
                     font-weight: 600;
                     margin: 0 0 10px;
                     color: #ffffff;
@@ -1629,7 +1446,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
                 }
 
                 .career-description {
-                    font-size: 16px;
+                    font-size: 14px;
                     color: rgba(255, 255, 255, 0.9);
                     margin: 0;
                     position: relative;
@@ -1645,19 +1462,13 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
                     }
                 }
             }
-
-            @keyframes pulse {
-                0% {
-                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-                }
-                100% {
-                    box-shadow: 0 8px 32px rgba(0, 30, 60, 0.3);
-                }
-            }
         }
     }
 }
 
+/* ============================================================
+   VOLUNTEER
+   ============================================================ */
 #volunteer {
     margin-top: 30px;
     padding-top: 30px;
@@ -1665,15 +1476,18 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     .volunteer-container {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 0.5rem;
 
         .volunteer-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            gap: 0.4rem;
             background: #5b62b3;
-            border-radius: 16px;
-            padding: 1.5rem;
+            border-radius: 10px;
+            padding: 0.9rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -1681,58 +1495,60 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
             backdrop-filter: blur(10px);
             cursor: pointer;
 
-            &:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-                background: #5b62b3;
-            }
-
             &:before {
                 content: '';
                 position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                background: radial-gradient(circle, rgba(255, 252, 220, 0.1) 0%, transparent 70%);
-                transform: rotate(45deg);
+                top: 50%;
+                left: 50%;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle, rgba(255, 252, 220, 0.25) 0%, transparent 70%);
+                transform: translate(-50%, -50%) rotate(45deg);
                 z-index: -1;
                 transition: all 0.6s ease;
             }
 
-            &:hover:before {
-                transform: rotate(90deg);
-                background: radial-gradient(circle, rgba(255, 252, 220, 0.1) 0%, transparent 70%);
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+                background: #5b62b3;
+
+                &:before {
+                    transform: translate(-50%, -50%) rotate(90deg);
+                    background: radial-gradient(circle, rgba(255, 252, 220, 0.2) 0%, transparent 70%);
+                }
             }
 
             .volunteer-icon {
                 background: linear-gradient(135deg, #6da0e1, #6da0e1);
                 color: #fffcdc;
                 border-radius: 12px;
-                padding: 1rem;
-                margin-right: 1.5rem;
+                width: 50px;
+                height: 50px;
+                margin: 0 auto 13px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
                 ion-icon {
-                    font-size: 2rem;
+                    font-size: 1.5rem;
                 }
             }
 
             .volunteer-details {
                 flex: 1;
+                width: 100%;
 
                 h3 {
                     margin: 0 0 0.5rem 0;
-                    font-size: 1.2rem;
+                    font-size: 0.9rem;
                     font-weight: 600;
                     color: #ffffff;
                 }
 
                 .volunteer-description {
                     margin: 0;
-                    font-size: 0.9rem;
+                    font-size: 0.7rem;
                     color: #ffffff;
                 }
             }
@@ -1740,8 +1556,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
             .volunteer-badge {
                 background: rgba(20, 40, 29, 0.1);
                 border-radius: 50%;
-                width: 2.5rem;
-                height: 2.5rem;
+                width: 1.8rem;
+                height: 1.8rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -1749,7 +1565,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
                 ion-icon {
                     color: #ffffff;
-                    font-size: 1.2rem;
+                    font-size: 1rem;
                 }
 
                 &:hover {
@@ -1760,7 +1576,9 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-/* ===== PUBLIKASI SECTION ===== */
+/* ============================================================
+   PUBLIKASI
+   ============================================================ */
 #publikasi {
     margin-top: 30px;
     padding-top: 30px;
@@ -1768,22 +1586,24 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     .publikasi-container {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.7rem;
     }
 
     .publikasi-item {
         display: flex;
+        flex-direction: row;
         align-items: center;
+        text-align: left;
+        gap: 0.7rem;
         background: linear-gradient(135deg, #1b3a6b, #243b8a);
         border-radius: 16px;
-        padding: 1.2rem 1.5rem;
+        padding: 0.8rem 1rem;
         border: 1px solid rgba(255, 255, 255, 0.15);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         cursor: pointer;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        gap: 1rem;
 
         &::before {
             content: '';
@@ -1813,8 +1633,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
     .publikasi-icon {
         flex-shrink: 0;
-        width: 44px;
-        height: 44px;
+        width: 36px;
+        height: 36px;
         background: rgba(255, 255, 255, 0.15);
         border-radius: 10px;
         display: flex;
@@ -1822,26 +1642,32 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         justify-content: center;
 
         .publikasi-number {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #ffffff;
             line-height: 1;
+        }
+
+        .favicon-img {
+            width: 20px;
+            height: 20px;
         }
     }
 
     .publikasi-details {
         flex: 1;
+        min-width: 0;
 
         h3 {
             margin: 0 0 0.3rem 0;
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: #ffffff;
         }
 
         .publikasi-description {
             margin: 0;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.8);
             line-height: 1.4;
         }
@@ -1851,8 +1677,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         flex-shrink: 0;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 50%;
-        width: 2rem;
-        height: 2rem;
+        width: 1.7rem;
+        height: 1.7rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1860,11 +1686,10 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
 
         ion-icon {
             color: #ffffff;
-            font-size: 1rem;
+            font-size: 0.85rem;
         }
     }
 
-    /* Tombol Lihat Selengkapnya */
     .lihat-selengkapnya-wrapper {
         display: flex;
         justify-content: center;
@@ -1879,8 +1704,8 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
         border: 1.5px solid $primary-color;
         color: $primary-color;
         border-radius: 20px;
-        padding: 0.5rem 1.4rem;
-        font-size: 0.9rem;
+        padding: 0.4rem 1.1rem;
+        font-size: 0.8rem;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -1896,11 +1721,158 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 }
 
-/* Modal Publikasi */
+/* ============================================================
+   MODALS
+   ============================================================ */
+.merdeka-program-modal,
+.msib-modal {
+    --width: 92vw;
+    --max-width: 92vw;
+    --height: auto;
+    --max-height: 85vh;
+
+    ion-header ion-toolbar {
+        --background: linear-gradient(to right, #{$primary-color}, #{$secondary-color});
+        --color: white;
+
+        ion-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+    }
+
+    ion-content {
+        --background: rgba(255, 255, 255, 0.9);
+    }
+
+    .modal-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 16px;
+        padding: 0 10px;
+
+        h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: $bg-color-dark;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        ion-button {
+            --color: #{$primary-color};
+            --background: transparent;
+            --background-hover: rgba(74, 144, 226, 0.1);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+
+            ion-icon {
+                font-size: 1.3rem;
+            }
+
+            &:hover {
+                background: rgba(74, 144, 226, 0.1);
+            }
+        }
+    }
+
+    .modal-education-item {
+        width: 100%;
+
+        .education-item {
+            background: linear-gradient(145deg, #ffffff, #f5f7fa);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+        }
+    }
+
+    .modal-description {
+        margin-top: 1rem;
+        padding: 0 0.8rem 0.8rem;
+        font-size: 0.85rem;
+        color: #666;
+        text-align: justify;
+    }
+}
+
+.msib-modal {
+    ion-header ion-toolbar ion-title {
+        font-size: 16px;
+    }
+
+    .modal-header h2 {
+        color: var(--ion-color-dark);
+    }
+
+    .modal-header ion-button {
+        --color: var(--ion-color-primary);
+    }
+
+    .modal-education-item .education-item {
+        .education-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--ion-color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+
+            ion-icon {
+                font-size: 20px;
+                color: var(--ion-color-light);
+            }
+        }
+
+        .education-details {
+            flex-grow: 1;
+
+            .processing-status {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 12px;
+                padding: 10px 0;
+
+                .hourglass-icon {
+                    font-size: 24px;
+                    color: var(--ion-color-primary);
+                    animation: pulse 1.5s infinite ease-in-out;
+                }
+
+                .processing-text {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #000000;
+                }
+            }
+        }
+    }
+}
+
 .publikasi-modal {
-    --width: 600px;
-    --max-width: 90vw;
-    --height: 70vh;
+    --width: 95vw;
+    --max-width: 95vw;
+    --height: 80vh;
     --border-radius: 16px;
     --background: #1b3a6b;
 
@@ -1914,7 +1886,7 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 
     ion-header {
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .modal-publikasi-content {
@@ -1922,19 +1894,19 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
     }
 
     .publikasi-container.modal-mode {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
+        display: flex;
+        flex-direction: column;
+        padding: 0.8rem;
+        gap: 0.8rem;
 
         .publikasi-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
+            gap: 0.8rem;
             background: linear-gradient(135deg, #243b8a, #2e4fa3);
             border-radius: 14px;
-            padding: 1rem 1.2rem;
+            padding: 0.9rem 1rem;
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
             cursor: pointer;
@@ -1946,51 +1918,144 @@ ion-content.split-screen[aria-hidden="true"] ion-menu {
             }
 
             .publikasi-details {
-                flex: 1;         
-                text-align: left; 
+                flex: 1;
+                text-align: left;
             }
 
             .publikasi-badge {
-                flex-shrink: 0;   
+                flex-shrink: 0;
                 margin-left: auto;
             }
         }
     }
 }
 
-footer {
-    text-align: center;
-    margin-top: -1.5rem;
-    padding: 1.5rem 0;
-    color: #777;
-    font-size: 0.9rem;
+.password-alert {
+    --backdrop-opacity: 0.6;
 
-    ion-icon {
-        color: #e74c3c;
-        vertical-align: middle;
+    .alert-wrapper {
+        --max-width: 320px;
+        --border-radius: 12px;
+
+        .alert-head {
+            text-align: center;
+            padding: 1rem 1rem 0.5rem;
+
+            h2 {
+                color: $primary-color;
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+        }
+
+        .alert-message {
+            text-align: center;
+            color: #ffffff;
+            font-size: 0.9rem;
+            padding: 0 1rem;
+        }
+
+        .alert-input-group {
+            padding: 1rem;
+
+            .alert-input-wrapper {
+                border-radius: 8px;
+                border: 2px solid #e0e0e0;
+                transition: border-color 0.3s ease;
+
+                &:focus-within {
+                    border-color: $primary-color;
+                }
+
+                .alert-input {
+                    text-align: center;
+                    font-size: 1rem;
+                    padding: 0.75rem;
+                    border: none;
+                    background: transparent;
+
+                    &::placeholder {
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+
+        .alert-button-group {
+            display: flex;
+            border-top: 1px solid #e0e0e0;
+
+            .alert-button {
+                flex: 1;
+                padding: 0.75rem;
+                font-weight: 500;
+                font-size: 0.9rem;
+                transition: background-color 0.3s ease;
+
+                &.alert-button-role-cancel {
+                    color: #ffffff;
+                    border-right: 1px solid #e0e0e0;
+
+                    &:hover {
+                        background-color: #f5f5f5;
+                    }
+                }
+
+                &:not(.alert-button-role-cancel) {
+                    color: $primary-color;
+                    font-weight: 600;
+
+                    &:hover {
+                        background-color: rgba($primary-color, 0.1);
+                    }
+                }
+            }
+        }
     }
 }
 
-.right-panel-footer {
-    position: relative;
-    width: auto;
-    margin: 0 0 0;
-    margin-bottom: -2rem;
-    overflow: hidden;
-}
+.error-alert {
+    --backdrop-opacity: 0.6;
 
-.right-panel-footer ion-toolbar {
-    --background: #2c3e50;
-    --border-color: rgba(255, 255, 255, 0.1);
-    --min-height: 40px;
-}
+    .alert-wrapper {
+        --max-width: 280px;
+        --border-radius: 12px;
 
-.powered-by-text {
-    font-family: 'Trebuchet MS';
-    font-size: 13px;
-    text-align: center;
-    color: #ffffff;
-    font-weight: 500;
+        .alert-head {
+            text-align: center;
+            padding: 1rem 1rem 0.5rem;
+
+            h2 {
+                color: #e74c3c;
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+        }
+
+        .alert-message {
+            text-align: center;
+            color: $bg-color-dark;
+            font-size: 0.9rem;
+            padding: 0 1rem 1rem;
+        }
+
+        .alert-button-group {
+            border-top: 1px solid #e0e0e0;
+
+            .alert-button {
+                width: 100%;
+                padding: 0.75rem;
+                color: #e74c3c;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: rgba(#e74c3c, 0.1);
+                }
+            }
+        }
+    }
 }
 
 .profile-image-modal {
@@ -2020,31 +2085,25 @@ footer {
     height: 100%;
 
     .full-size-image {
-        width: 370px;
-        height: 370px;
+        width: 75vw;
+        height: 75vw;
+        max-width: 370px;
+        max-height: 370px;
         border-radius: 50%;
-        border: 3px solid #50e3c2;
+        border: 3px solid $secondary-color;
         object-fit: cover;
         object-position: center 70%;
         box-shadow: 0 0 15px rgba(80, 227, 194, 0.6);
     }
-}
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
+    img {
+        animation: fadeIn 0.3s ease-out;
     }
 }
 
-.modal-image-container img {
-    animation: fadeIn 0.3s ease-out;
-}
-
+/* ============================================================
+   FLIP CARD
+   ============================================================ */
 .flip-card-container {
     position: fixed;
     top: 0;
@@ -2069,8 +2128,10 @@ footer {
 }
 
 .flip-card {
-    width: 300px;
+    width: 82vw;
+    max-width: 300px;
     height: 400px;
+    max-height: 80vh;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -2088,7 +2149,7 @@ footer {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(135deg, #4a90e2, #50e3c2);
+        background: linear-gradient(135deg, $primary-color, $secondary-color);
         border-radius: 15px;
         padding: 20px;
         color: white;
@@ -2096,12 +2157,12 @@ footer {
 
         &.back {
             transform: rotateY(180deg);
-            background: linear-gradient(135deg, #50e3c2, #4a90e2);
+            background: linear-gradient(135deg, $secondary-color, $primary-color);
         }
 
         img {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             margin-bottom: 20px;
             border: 3px solid white;
@@ -2109,41 +2170,72 @@ footer {
 
         h2 {
             margin: 10px 0;
-            font-size: 1.8em;
+            font-size: 1.5em;
             text-align: center;
         }
 
         p {
             margin: 5px 0;
             text-align: center;
-            font-size: 1.1em;
+            font-size: 1em;
         }
     }
 }
 
-/* ============================= */
-/* MEDIA QUERIES - 3 BREAKPOINTS */
-/* ============================= */
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+    text-align: center;
+    margin-top: -1.5rem;
+    padding: 1.5rem 0;
+    color: #777;
+    font-size: 0.85rem;
 
-/* Tablet Styles */
-@media (max-width: 768px) {
-    .desktop-only {
-        display: none;
+    ion-icon {
+        color: #e74c3c;
+        vertical-align: middle;
     }
+}
 
-    .mobile-only {
-        display: block;
+.right-panel-footer {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+
+    ion-toolbar {
+        --background: #{$bg-color-dark};
+        --border-color: rgba(255, 255, 255, 0.1);
+        --min-height: 40px;
     }
+}
 
-    .blog-title {
+.powered-by-text {
+    font-family: 'Trebuchet MS';
+    font-size: 12px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* ============================================================
+   >= 641px  —  TABLET
+   Layout masih satu kolom, ukuran dinaikkan.
+   ============================================================ */
+@media (min-width: 641px) {
+    .blog-title,
+    .blog-title.mobile {
         font-size: 0.9rem;
-
-        &.mobile {
-            font-size: 0.9rem;
-        }
     }
 
     ion-toolbar ion-buttons {
+        ion-button {
+            font-size: 0.7rem;
+        }
+
         &.language-button {
             right: 1rem;
         }
@@ -2153,144 +2245,109 @@ footer {
         }
     }
 
-    .split-screen {
-        display: block !important;
-        overflow-y: auto !important;
-    }
-
-    .left-panel-placeholder {
-        display: block;
-        height: 2rem;
-    }
-
     .left-panel {
-        position: sticky !important;
-        top: 0px !important; 
-        z-index: 100;
-        width: 100% !important;
-        height: auto !important;
-        padding: calc(1.5rem - (0.8rem * var(--scroll-progress, 0))) 1.5rem;
-        margin: 0 !important; 
-        margin-top: 0 !important;
-        background-color: #2c3e50;
-        
-        transition: padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        padding: calc(1.75rem - (0.8rem * var(--scroll-progress, 0))) 2rem;
+    }
 
-        will-change: padding, height;
+    .profile-image {
+        width: 155px;
+        height: 155px;
+        margin-bottom: 1.2rem;
+    }
 
-        .profile-header,
-        .profile-image,
-        .profile-info,
-        .name, .title, .title1, .cv-link {
-            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        margin 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        font-size 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
+    .name {
+        font-size: 1.75rem;
+    }
 
-        /* State saat di-scroll */
-        &.scrolled {
-            padding: 10px 15px;
-            
-            /* TAMBAHKAN INI biar nempel banget di atas! */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    .title,
+    .title1 {
+        font-size: 1.15rem;
+    }
 
-            .profile-header {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                gap: 12px;
-            }
+    .contact-info h3 {
+        font-size: 1.3rem;
+    }
 
-            .profile-info {
-                flex-direction: column;
-                align-items: flex-start;
-                text-align: left;
-                flex: 1;
-            }
+    .social-links a {
+        width: 46px;
+        height: 46px;
 
-            .profile-image {
-                width: 45px !important;
-                height: 45px !important;
-                margin: 0 !important;
-                flex-shrink: 0;
-            }
-
-            .name {
-                font-size: 14px !important;
-                margin: 0 !important;
-                line-height: 1.2;
-            }
-
-            .title {
-                font-size: 10px !important;
-                margin: 0 !important;
-                margin-top: 2px !important;
-            }
-
-            .title1 {
-                display: none !important;
-            }
-
-            .contact-info {
-                display: none !important;
-            }
-
-            .cv-link {
-                position: static;
-                margin: 0;
-                padding: 5px 12px;
-                font-size: 10px;
-                flex-shrink: 0;
-            }
+        ion-icon {
+            font-size: 1.5rem;
         }
     }
 
-    .right-panel {
-        position: relative !important;
-        margin-left: 0 !important;
-        width: 100% !important;
-        padding: 0 !important;
-        overflow-x: hidden !important;
-        overflow-y: visible !important;   // <-- tambahkan ini
-        height: auto !important;          // <-- pastikan tidak ada height fixed yang memicu overflow
+    .cv-link {
+        font-size: 1.05rem;
+        padding: 0.45rem 1.1rem;
     }
 
-    /* Section content perlu padding */
+    .contact-info .email {
+        font-size: 1.1rem;
+    }
+
     .section {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        margin-bottom: 3rem;
     }
 
     .section-title {
         font-size: 1.5rem;
     }
 
-    .project-grid {
-        grid-template-columns: 1fr;
+    .section-content {
+        font-size: 0.95rem;
     }
 
-    .education-item {
-        flex-direction: row;
-        align-items: flex-start;
-        padding: 1rem;
+    .filter-buttons {
+        gap: 0.25rem;
 
-        .education-icon {
-            width: 40px;
-            height: 40px;
+        ion-button {
+            font-size: 0.7rem;
+            --padding-start: 0.5rem;
+            --padding-end: 0.5rem;
+        }
+    }
+
+    .sort-buttons {
+        gap: 0.4rem;
+
+        ion-button {
+            font-size: 0.7rem;
+            --padding-start: 0.5rem;
+            --padding-end: 0.5rem;
 
             ion-icon {
-                font-size: 1.5rem;
+                font-size: 0.9rem;
+                margin-right: 3px;
             }
         }
     }
 
+    .education-item {
+        padding: 1rem;
+        gap: 1.25rem;
+    }
+
+    .education-icon {
+        width: 40px;
+        height: 40px;
+
+        ion-icon {
+            font-size: 1.5rem;
+        }
+    }
+
+    .education-details .school-name {
+        font-size: 1.2rem;
+    }
+
+    .education-details .degree {
+        font-size: 1rem;
+    }
+
     .education-stats {
-        flex-wrap: wrap;
         gap: 1rem;
 
         .stat-item {
@@ -2299,12 +2356,7 @@ footer {
     }
 
     .achievements {
-        flex-wrap: wrap;
         gap: 0.5rem;
-
-        .achievement-badge {
-            padding: 0.3rem 0.8rem;
-        }
     }
 
     .tools-container {
@@ -2329,65 +2381,111 @@ footer {
         font-size: 0.8rem;
     }
 
-    .tool-level {
-        font-size: 0.7rem;
-        padding: 0.15rem 0.5rem;
+    .project-grid {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.5rem;
     }
 
-    .filter-buttons {
-        gap: 0.25rem;
-        
-        ion-button {
-            font-size: 0.7rem;
-            --padding-start: 0.5rem;
-            --padding-end: 0.5rem;
-        }
+    .project-image {
+        height: 165px;
     }
 
-    .sort-buttons {
-        gap: 0.4rem;
-        
-        ion-button {
-            font-size: 0.7rem;
-            --padding-start: 0.5rem;
-            --padding-end: 0.5rem;
-            
+    .project-info {
+        padding: 1.25rem;
+    }
+
+    #career .career-container .career-item {
+        padding: 20px;
+
+        .career-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 16px;
+
             ion-icon {
+                font-size: 28px;
+            }
+        }
+
+        .career-details h3 {
+            font-size: 20px;
+        }
+
+        .career-details .career-description {
+            font-size: 15px;
+        }
+    }
+
+    #volunteer .volunteer-container {
+        gap: 1.2rem;
+
+        .volunteer-item {
+            padding: 1.3rem;
+            border-radius: 16px;
+
+            .volunteer-icon {
+                width: 58px;
+                height: 58px;
+                margin-bottom: 1rem;
+
+                ion-icon {
+                    font-size: 1.8rem;
+                }
+            }
+
+            .volunteer-details h3 {
+                font-size: 1.15rem;
+            }
+
+            .volunteer-details .volunteer-description {
                 font-size: 0.9rem;
-                margin-right: 3px;
+            }
+
+            .volunteer-badge {
+                width: 2.3rem;
+                height: 2.3rem;
             }
         }
     }
 
-    #career {
-        .career-container {
-            .career-item {
-                flex-direction: column;
-                text-align: center;
+    #publikasi {
+        .publikasi-container {
+            gap: 1rem;
+        }
 
-                .career-icon {
-                    align-items: left;
-                    justify-content: left;
-                    margin-bottom: 16px;
-                    margin-right: 0;
-                }
+        .publikasi-item {
+            padding: 1.1rem 1.4rem;
+            gap: 1rem;
+        }
 
-                &::before {
-                    width: 100%;
-                    height: 4px;
-                    transition: height 0.3s ease;
-                }
+        .publikasi-icon {
+            width: 42px;
+            height: 42px;
+        }
 
-                &:hover {
-                    background: #3a80d2;
-                }
-            }
+        .publikasi-details h3 {
+            font-size: 0.95rem;
+        }
+
+        .publikasi-details .publikasi-description {
+            font-size: 0.82rem;
+        }
+
+        .publikasi-badge {
+            width: 1.9rem;
+            height: 1.9rem;
+        }
+
+        .lihat-selengkapnya-btn {
+            font-size: 0.88rem;
+            padding: 0.5rem 1.3rem;
         }
     }
 
-    .merdeka-program-modal {
-        --width: 90%;
-        --height: 50%;
+    .merdeka-program-modal,
+    .msib-modal {
+        --width: 80vw;
+        --max-width: 620px;
 
         .modal-header h2 {
             font-size: 1.4rem;
@@ -2412,65 +2510,60 @@ footer {
         }
     }
 
-    .volunteer-container {
-        .volunteer-item {
-            flex-direction: column;
-            text-align: center;
-            padding: 1.3rem;
+    .publikasi-modal {
+        --width: 90vw;
+        --max-width: 600px;
+        --height: 75vh;
+    }
 
-            .volunteer-icon {
-                margin-right: 0;
-                margin-bottom: 1rem;
+    .flip-card {
+        width: 300px;
+        height: 400px;
 
-                ion-icon {
-                    font-size: 1.8rem;
-                }
-            }
+        .card-face img {
+            width: 150px;
+            height: 150px;
+        }
 
-            .volunteer-details {
-                width: 100%;
+        .card-face h2 {
+            font-size: 1.8em;
+        }
 
-                h3 {
-                    font-size: 1.15rem;
-                }
-
-                .volunteer-description {
-                    font-size: 0.9rem;
-                }
-            }
+        .card-face p {
+            font-size: 1.1em;
         }
     }
 
-    /* Tablet: Publikasi tetap row (sama kayak desktop) */
-    #publikasi {
-        .publikasi-item {
-            flex-direction: row;
-            text-align: left;
-        }
-    }
-
-    .right-panel-footer {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
+    .powered-by-text {
+        font-size: 13px;
     }
 }
 
-/* Media query untuk iPad & Desktop (dari 820px ke atas) */
-@media (min-width: 820px) {
-    .right-panel-footer {
-        width: calc(100% + 6rem) !important;
-        margin: 0 -3rem 0 -3rem !important;
-        margin-bottom: -2rem !important;
+/* ============================================================
+   >= 768px  —  DESKTOP
+   Split screen aktif. Left panel jadi kolom kiri yang tingginya
+   mengikuti kontainer (bukan 100vh), jadi tidak pernah meluap.
+   ============================================================ */
+@media (min-width: 768px) {
+    .desktop-only {
+        display: block;
     }
-}
 
-/* Mobile Styles */
-@media (max-width: 640px) {
-    .blog-title {
-        font-size: 0.85rem;
-        left: 6px;
-        top: 10%;
-        transform: translateY(-10%);
+    .mobile-only {
+        display: none;
+    }
+
+    ion-title.mobile-only {
+        display: none;
+    }
+
+    .desktop-title-container {
+        display: flex;
+    }
+
+    .blog-title,
+    .blog-title.mobile {
+        font-size: 1rem;
     }
 
     ion-toolbar ion-buttons {
@@ -2479,187 +2572,437 @@ footer {
         }
 
         &.language-button {
-            right: 0.3rem;
+            right: 1.5rem;
         }
 
         &.biodata-button {
-            margin-right: 2.2rem;
+            margin-right: 4.5rem;
         }
     }
 
-     /* PENTING: Override split-screen di mobile */
+    /* --- Split screen --- */
     .split-screen {
-        display: block !important; 
-        overflow-y: auto !important;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        overflow: hidden;
     }
 
     .left-panel-placeholder {
-        display: block;
-        height: 2rem;
+        display: none;
     }
 
-    /* Left panel default */
     .left-panel {
-        position: sticky !important;
-        top: 0px !important; 
-        z-index: 100;
-        width: 100% !important;
-        height: auto !important;
-        padding: calc(1.5rem - (0.8rem * var(--scroll-progress, 0))) 1.5rem;
-        margin: 0 !important; 
-        margin-top: 0 !important; 
-        background-color: #2c3e50;
-        
-        transition: padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        
-        will-change: padding, height;
+        position: fixed;
+        width: 38%;
+        max-width: 38%;
+        height: 100%;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 1.5rem 1.25rem;
+        justify-content: flex-start;
+        box-shadow: none;
 
-        .profile-header,
-        .profile-image,
-        .profile-info,
-        .name, .title, .title1, .cv-link {
-            transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        margin 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        font-size 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
+        /* Container query: menjadikan tinggi panel ini sendiri (bukan
+           viewport) sebagai acuan satuan cqh untuk anak-anaknya,
+           supaya ukuran item selalu pas dengan ruang yang benar-benar
+           tersedia di panel ini, di layar berapa pun. */
+        container-type: size;
+        container-name: left-panel;
 
-        /* State saat di-scroll */
+        /* Reset state mobile: di desktop tidak ada mode scrolled */
         &.scrolled {
-            padding: 10px 15px;
-            
-            /* Agar nempel banget di atas! */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 1.5rem 1.25rem;
+            box-shadow: none;
 
             .profile-header {
-                flex-direction: row;
+                flex-direction: column;
                 align-items: center;
-                justify-content: space-between;
-                gap: 12px;
+                justify-content: flex-start;
+                gap: 0;
             }
 
             .profile-info {
                 flex-direction: column;
-                align-items: flex-start;
-                text-align: left;
-                flex: 1;
+                align-items: center;
+                text-align: center;
+                flex: none;
             }
 
             .profile-image {
-                width: 45px !important;
-                height: 45px !important;
-                margin: 0 !important;
-                flex-shrink: 0;
+                width: 170px;
+                height: 170px;
+                margin-bottom: 1.2rem;
             }
 
             .name {
-                font-size: 14px !important;
-                margin: 0 !important;
+                font-size: 1.8rem;
+                margin-bottom: 0.1rem;
                 line-height: 1.2;
             }
 
             .title {
-                font-size: 10px !important;
-                margin: 0 !important;
-                margin-top: 2px !important;
+                font-size: 1.1rem;
+                margin-top: 0;
+                margin-bottom: 0.35rem;
             }
 
             .title1 {
-                display: none !important;
+                display: block;
+                font-size: 1.1rem;
             }
 
             .contact-info {
-                display: none !important;
+                display: block;
             }
 
             .cv-link {
-                position: static;
-                margin: 0;
-                padding: 5px 12px;
-                font-size: 10px;
-                flex-shrink: 0;
+                margin-top: 0.6rem;
+                padding: 0.3rem 0.8rem;
+                font-size: 1rem;
             }
         }
+    }
+
+    /* Centering vertikal yang aman: kalau konten lebih tinggi
+       dari panel, auto-margin runtuh jadi 0 sehingga bagian atas
+       tetap bisa di-scroll (berbeda dengan justify-content:center). */
+    .profile-container {
+        margin: auto 0;
+        padding: 0.5rem 0;
     }
 
     .right-panel {
-        position: relative !important;
-        margin-left: 0 !important;
-        width: 100% !important;
-        padding: 0 !important;
-        overflow-x: hidden !important;
-        overflow-y: visible !important;   // <-- tambahkan ini
-        height: auto !important;          // <-- pastikan tidak ada height fixed yang memicu overflow
+        margin-left: 38%;
+        width: 62%;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 2rem 2.5rem;
     }
 
-    /* Section content perlu padding */
+    .profile-image {
+        width: 170px;
+        height: 170px;
+        margin-bottom: 1.2rem;
+    }
+
+    .name {
+        font-size: 1.8rem;
+    }
+
+    .title {
+        font-size: 1.1rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .title1 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .cv-link {
+        font-size: 1rem;
+        margin-top: 0.6rem;
+    }
+
+    .contact-info {
+        margin-top: 1rem;
+
+        h3 {
+            font-size: 1.35rem;
+        }
+
+        .email {
+            font-size: 1.05rem;
+        }
+    }
+
+    .social-links {
+        margin-top: 0.8rem;
+
+        a {
+            width: 46px;
+            height: 46px;
+            margin: 0.25rem 0.5rem;
+        }
+    }
+
+    .bg-shape {
+        &:nth-child(1) {
+            width: 50px;
+            height: 50px;
+        }
+
+        &:nth-child(2) {
+            width: 34px;
+            height: 34px;
+        }
+
+        &:nth-child(3) {
+            width: 42px;
+            height: 42px;
+        }
+
+        &:nth-child(4) {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
+    .bg-element-3d {
+        &:nth-child(1) {
+            width: 70px;
+            height: 70px;
+        }
+
+        &:nth-child(2) {
+            width: 52px;
+            height: 52px;
+        }
+
+        &:nth-child(3) {
+            width: 60px;
+            height: 60px;
+        }
+
+        &:nth-child(4) {
+            width: 44px;
+            height: 44px;
+        }
+    }
+
     .section {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 3.5rem;
+    }
+
+    .section-header {
+        align-items: center;
+        flex-wrap: nowrap;
+        margin-bottom: 1.5rem;
     }
 
     .section-title {
-        font-size: 1.3rem;
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+
+        &:after {
+            bottom: -10px;
+            width: 50px;
+            height: 4px;
+        }
     }
 
-    .tools-container {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.8rem;
+    .section-content {
+        font-size: 1rem;
     }
 
-    .tool-item {
-        padding: 0.8rem 0.5rem;
+    .filter-buttons ion-button {
+        font-size: 0.75rem;
+        --padding-start: 0.6rem;
+        --padding-end: 0.6rem;
     }
 
-    .tool-icon {
-        width: 35px;
-        height: 35px;
+    .sort-buttons ion-button {
+        font-size: 0.8rem;
 
         ion-icon {
-            font-size: 1.3rem;
-        }
-    }
-
-    .tool-name {
-        font-size: 0.75rem;
-    }
-
-    .filter-buttons {
-        gap: 0.2rem;
-        
-        ion-button {
-            font-size: 0.65rem;
-            --padding-start: 0.4rem;
-            --padding-end: 0.4rem;
-        }
-    }
-
-    .sort-buttons {
-        gap: 0.3rem;
-        
-        ion-button {
-            font-size: 0.65rem;
-            --padding-start: 0.4rem;
-            --padding-end: 0.4rem;
-            
-            ion-icon {
-                font-size: 0.8rem;
-                margin-right: 2px;
-            }
+            margin-right: 4px;
         }
     }
 
     .education-item {
-        padding: 0.8rem;
-        gap: 1rem;
+        gap: 1.5rem;
+        padding: 1.25rem;
+    }
 
-        .education-icon {
-            width: 35px;
-            height: 35px;
+    .education-icon {
+        width: 52px;
+        height: 52px;
+
+        ion-icon {
+            font-size: 1.8rem;
+        }
+    }
+
+    .education-details .school-name {
+        font-size: 1.3rem;
+    }
+
+    .education-details .degree {
+        font-size: 1.05rem;
+    }
+
+    .education-stats {
+        gap: 1.5rem;
+    }
+
+    .stat-item {
+        padding: 0.7rem 1.2rem;
+    }
+
+    .achievements {
+        gap: 0.8rem;
+    }
+
+    .achievement-badge {
+        padding: 0.5rem 1rem;
+
+        span {
+            font-size: 0.9rem;
+        }
+    }
+
+    .tools-container {
+        grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+        gap: 1.2rem;
+    }
+
+    .tool-item {
+        padding: 1.1rem 0.7rem;
+    }
+
+    .tool-icon {
+        width: 46px;
+        height: 46px;
+
+        ion-icon {
+            font-size: 1.7rem;
+        }
+    }
+
+    .tool-name {
+        font-size: 0.85rem;
+    }
+
+    .tool-level {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.6rem;
+    }
+
+    .project-grid {
+        grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+        gap: 1.75rem;
+    }
+
+    .project-image {
+        height: 175px;
+    }
+
+    .project-info {
+        padding: 1.4rem;
+
+        h3 {
+            font-size: 1.05rem;
+        }
+
+        p {
+            font-size: 0.9rem;
+        }
+    }
+
+    .project-duration {
+        font-size: 0.85rem;
+    }
+
+    .project-links a {
+        font-size: 0.9rem;
+    }
+
+    #career {
+        margin-top: 40px;
+
+        .career-container .career-item {
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+            padding: 22px;
+
+            &::before {
+                width: 4px;
+                height: 100%;
+                background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+                transition: width 0.3s ease;
+            }
+
+            &:hover {
+                background: #2543a5;
+
+                &::before {
+                    width: 8px;
+                }
+            }
+
+            .career-icon {
+                width: 64px;
+                height: 64px;
+                margin: 0 22px 0 0;
+
+                ion-icon {
+                    font-size: 30px;
+                }
+            }
+
+            .career-details h3 {
+                font-size: 21px;
+            }
+
+            .career-details .career-description {
+                font-size: 16px;
+            }
+        }
+    }
+
+    #volunteer .volunteer-container .volunteer-item {
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        justify-content: center;
+        padding: 1.4rem;
+        gap: 0;
+
+        &:before {
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            transform: rotate(45deg);
+            background: radial-gradient(circle, rgba(255, 252, 220, 0.1) 0%, transparent 70%);
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+            &:before {
+                transform: rotate(90deg);
+            }
+        }
+
+        .volunteer-icon {
+            width: auto;
+            height: auto;
+            padding: 1rem;
+            margin: 0 1.5rem 0 0;
+
+            ion-icon {
+                font-size: 2rem;
+            }
+        }
+
+        .volunteer-details h3 {
+            font-size: 1.2rem;
+        }
+
+        .volunteer-details .volunteer-description {
+            font-size: 0.9rem;
+        }
+
+        .volunteer-badge {
+            width: 2.5rem;
+            height: 2.5rem;
 
             ion-icon {
                 font-size: 1.2rem;
@@ -2667,145 +3010,430 @@ footer {
         }
     }
 
-    #career {
-        .career-container {
-            .career-item {
-                padding: 15px;
+    #publikasi .publikasi-item {
+        padding: 1.2rem 1.5rem;
+    }
 
-                .career-icon {
-                    margin-left: auto;
-                    margin-right: auto;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 50px;
-                    height: 50px;
-                    margin-bottom: 15px;
-                }
+    #publikasi .publikasi-icon {
+        width: 44px;
+        height: 44px;
 
-                .career-details h3 {
-                    font-size: 18px;
-                }
-
-                .career-details .career-description {
-                    font-size: 14px;
-                }
-            }
+        .publikasi-number {
+            font-size: 1.1rem;
         }
     }
 
-    #volunteer {
-        .volunteer-container {
-            gap: 0.5rem; 
-            .volunteer-item {
-                padding: 0.4rem;                  
-                gap: 0.4rem;
-                border-radius: 10px;
+    #publikasi .publikasi-details h3 {
+        font-size: 1rem;
+    }
 
-                &:before {
-                    top: 50%;
-                    left: 50%;
-                    width: 100%;
-                    height: 100%;   
-                    transform: translate(-50%, -50%) rotate(45deg);
-                    background: radial-gradient(circle, rgba(255, 252, 220, 0.25) 0%, transparent 70%);   
-                }
+    #publikasi .publikasi-details .publikasi-description {
+        font-size: 0.85rem;
+    }
 
-                &:hover {
-                    transform: translateY(-2px);                    
-                    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);   
+    #publikasi .publikasi-badge {
+        width: 2rem;
+        height: 2rem;
+    }
 
-                    &::before {                 
-                        background: radial-gradient(circle, rgba(255, 252, 220, 0.2) 0%, transparent 70%);
-                        transform: translate(-50%, -50%) rotate(90deg);  
-                    }
-                }
+    #publikasi .lihat-selengkapnya-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1.4rem;
+    }
 
-                /* Icon positioning center */
-                .volunteer-icon {
-                    margin-left: auto;
-                    margin-right: auto;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 50px;
-                    height: 50px;
-                    margin-bottom: 13px;
-                    
-                     ion-icon {
-                        font-size: 1.5rem;          
-                    }
-                }
+    .merdeka-program-modal,
+    .msib-modal {
+        --width: 640px;
+        --max-width: 90vw;
 
-                /* Text sizing lebih kecil & proporsional */
-                h3 { 
-                    font-size: 0.9rem; 
-                }          
-                .volunteer-description { 
-                    font-size: 0.7rem; 
-                }  
-                .volunteer-badge { 
-                    width: 1.8rem; 
-                    height: 1.8rem
-                }   
-            }
+        .modal-header h2 {
+            font-size: 1.5rem;
         }
     }
 
-    #publikasi {
-        .publikasi-container {
-            gap: 0.7rem;
+    .msib-modal .modal-education-item .education-item .education-details .processing-status {
+        gap: 15px;
+
+        .hourglass-icon {
+            font-size: 28px;
         }
 
-        .publikasi-item {
-            flex-direction: row;   /* tetap row di mobile, bukan column */
-            text-align: left;
-            padding: 0.8rem 1rem;
-            gap: 0.7rem;
-        }
-
-        .publikasi-icon {
-            width: 36px;
-            height: 36px;
-
-            .favicon-img {
-                width: 20px;
-                height: 20px;
-            }
-        }
-
-        .publikasi-details {
-            h3 {
-                font-size: 0.85rem;
-            }
-
-            .publikasi-description {
-                font-size: 0.75rem;
-            }
-        }
-
-        .publikasi-badge {
-            width: 1.7rem;
-            height: 1.7rem;
-
-            ion-icon {
-                font-size: 0.85rem;
-            }
-        }
-
-        .lihat-selengkapnya-btn {
-            font-size: 0.8rem;
-            padding: 0.4rem 1.1rem;
+        .processing-text {
+            font-size: 20px;
         }
     }
 
     .publikasi-modal {
-        --width: 95vw;
-        --height: 80vh;
+        --width: 600px;
+        --max-width: 90vw;
+        --height: 70vh;
+    }
+
+    .modal-image-container .full-size-image {
+        width: 340px;
+        height: 340px;
+    }
+
+    /* Footer full-bleed: menutup padding horizontal .right-panel */
+    .right-panel-footer {
+        width: calc(100% + 5rem);
+        margin: 0 -2.5rem;
+        margin-bottom: -2rem;
+    }
+
+    footer {
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================================
+   >= 1024px  —  LARGE DESKTOP
+   ============================================================ */
+@media (min-width: 1024px) {
+    .desktop-title-container {
+        font-size: 1.1rem;
+    }
+
+    /* --- Fallback: browser tanpa dukungan container query units.
+       Baseline dinaikkan ~20% dari permintaan terakhir. --- */
+    .left-panel {
+        width: 35%;
+        max-width: 35%;
+        padding: clamp(1.32rem, 4.32vh, 2.64rem) 1.9rem;
+
+        &.scrolled {
+            padding: clamp(1.32rem, 4.32vh, 2.64rem) 1.9rem;
+
+            .profile-image {
+                width: clamp(174px, 27.6vh, 258px);
+                height: clamp(174px, 27.6vh, 258px);
+            }
+
+            .name {
+                font-size: clamp(1.74rem, 4.08vh, 2.34rem);
+            }
+
+            .title {
+                font-size: clamp(1.14rem, 2.4vh, 1.32rem);
+            }
+        }
+    }
+
+    .right-panel {
+        margin-left: 35%;
+        width: 65%;
+        padding: 2rem 3rem;
+    }
+
+    .profile-image {
+        width: clamp(160px, 27cqh, 260px);
+        height: clamp(160px, 27cqh, 260px);
+        margin-bottom: clamp(1.08rem, 2.64vh, 1.92rem);
+    }
+
+    .name {
+        font-size: clamp(1.74rem, 4.08vh, 2.34rem);
+    }
+
+    .title,
+    .title1 {
+        font-size: clamp(1.14rem, 2.4vh, 1.32rem);
+    }
+
+    .title {
+        margin-bottom: clamp(0.36rem, 0.96vh, 0.54rem);
+    }
+
+    .title1 {
+        margin-bottom: clamp(0.48rem, 1.2vh, 0.78rem);
+    }
+
+    .cv-link {
+        font-size: clamp(1.06rem, 2.16vh, 1.18rem);
+        margin-top: clamp(0.66rem, 1.92vh, 1.2rem);
+        margin-bottom: clamp(0.36rem, 0.84vh, 0.48rem);
+        padding: clamp(0.36rem, 0.84vh, 0.42rem) 1.08rem;
+    }
+
+    .contact-info {
+        margin-top: clamp(1.08rem, 2.64vh, 1.92rem);
+
+        h3 {
+            font-size: clamp(1.32rem, 2.88vh, 1.56rem);
+            margin-bottom: clamp(0.36rem, 0.84vh, 0.54rem);
+        }
+
+        .email {
+            font-size: clamp(1.06rem, 2.04vh, 1.18rem);
+        }
+    }
+
+    .social-links {
+        margin-top: clamp(0.84rem, 2.16vh, 1.32rem);
+
+        a {
+            width: clamp(44px, 6.6vh, 53px);
+            height: clamp(44px, 6.6vh, 53px);
+            margin: clamp(0.26rem, 0.66vh, 0.34rem) 0.66rem;
+
+            ion-icon {
+                font-size: clamp(1.32rem, 2.52vh, 1.56rem);
+            }
+        }
+    }
+
+    /* --- Utama: browser modern (Chrome 105+, Safari 16+, Firefox 110+).
+       cqh = % tinggi .left-panel itu sendiri, jadi selalu pas dengan
+       ruang yang benar-benar tersedia, bukan tebakan viewport. --- */
+    @supports (container-type: size) {
+        .left-panel {
+            padding: clamp(1rem, 4cqh, 2.3rem) 1.9rem;
+
+            &.scrolled {
+                padding: clamp(1rem, 4cqh, 2.3rem) 1.9rem;
+
+                .profile-image {
+                    width: clamp(140px, 24cqh, 224px);
+                    height: clamp(140px, 24cqh, 224px);
+                }
+
+                .name {
+                    font-size: clamp(1.4rem, 4.4cqh, 2rem);
+                }
+
+                .title {
+                    font-size: clamp(0.9rem, 2.4cqh, 1.12rem);
+                }
+
+                .cv-link {
+                    font-size: clamp(1rem, 2.2cqh, 1.2rem);
+                    padding: clamp(0.35rem, 0.85cqh, 0.45rem) 1.05rem;
+                }
+            }
+        }
+
+        .profile-image {
+            width: clamp(160px, 27cqh, 260px);
+            height: clamp(160px, 27cqh, 260px);
+            margin-bottom: clamp(1rem, 2.4cqh, 1.8rem);
+        }
+
+        .name {
+            font-size: clamp(1.7rem, 5cqh, 2.4rem);
+        }
+
+        .title,
+        .title1 {
+            font-size: clamp(1.05rem, 2.7cqh, 1.35rem);
+        }
+
+        .title {
+            margin-bottom: clamp(0.28rem, 0.8cqh, 0.44rem);
+        }
+
+        .title1 {
+            margin-bottom: clamp(0.38rem, 1.04cqh, 0.64rem);
+        }
+
+        .cv-link {
+            font-size: clamp(1rem, 2.2cqh, 1.2rem);
+            margin-top: clamp(0.52rem, 1.6cqh, 1rem);
+            margin-bottom: clamp(0.28rem, 0.72cqh, 0.4rem);
+            padding: clamp(0.35rem, 0.85cqh, 0.45rem) 1.05rem;
+        }
+
+        .contact-info {
+            margin-top: clamp(0.85rem, 2.24cqh, 1.6rem);
+
+            h3 {
+                font-size: clamp(1.25rem, 2.9cqh, 1.6rem);
+                margin-bottom: clamp(0.28rem, 0.72cqh, 0.44rem);
+            }
+
+            .email {
+                font-size: clamp(1rem, 2.1cqh, 1.2rem);
+            }
+        }
+
+        .social-links {
+            margin-top: clamp(0.66rem, 1.84cqh, 1.1rem);
+
+            a {
+                width: clamp(42px, 6.6cqh, 54px);
+                height: clamp(42px, 6.6cqh, 54px);
+                margin: clamp(0.25rem, 0.66cqh, 0.34rem) 0.62rem;
+
+                ion-icon {
+                    font-size: clamp(1.3rem, 2.6cqh, 1.6rem);
+                }
+            }
+        }
+    }
+
+    .bg-shape {
+        &:nth-child(1) {
+            width: 60px;
+            height: 60px;
+        }
+
+        &:nth-child(2) {
+            width: 40px;
+            height: 40px;
+        }
+
+        &:nth-child(3) {
+            width: 50px;
+            height: 50px;
+        }
+
+        &:nth-child(4) {
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+    .bg-element-3d {
+        &:nth-child(1) {
+            width: 80px;
+            height: 80px;
+        }
+
+        &:nth-child(2) {
+            width: 60px;
+            height: 60px;
+        }
+
+        &:nth-child(3) {
+            width: 70px;
+            height: 70px;
+        }
+
+        &:nth-child(4) {
+            width: 50px;
+            height: 50px;
+        }
+    }
+
+    .section {
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .education-item {
+        gap: 2rem;
+        padding: 1.5rem;
+    }
+
+    .education-icon {
+        width: 60px;
+        height: 60px;
+
+        ion-icon {
+            font-size: 2rem;
+        }
+    }
+
+    .education-details .school-name {
+        font-size: 1.4rem;
+    }
+
+    .education-details .degree {
+        font-size: 1.1rem;
+    }
+
+    .education-stats {
+        gap: 2rem;
+    }
+
+    .stat-item {
+        padding: 0.8rem 1.5rem;
+
+        .stat-label {
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+        }
+    }
+
+    .achievements {
+        gap: 1rem;
+    }
+
+    .tools-container {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .tool-item {
+        padding: 1.2rem 0.8rem;
+    }
+
+    .tool-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 0.8rem;
+
+        ion-icon {
+            font-size: 1.8rem;
+        }
+    }
+
+    .tool-name {
+        font-size: 0.9rem;
+    }
+
+    .project-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .project-image {
+        height: 180px;
+    }
+
+    .project-info {
+        padding: 1.5rem;
+    }
+
+    #career .career-container .career-item {
+        padding: 24px;
+
+        .career-icon {
+            width: 70px;
+            height: 70px;
+            margin-right: 24px;
+
+            ion-icon {
+                font-size: 32px;
+            }
+        }
+
+        .career-details h3 {
+            font-size: 22px;
+        }
+    }
+
+    #volunteer .volunteer-container {
+        gap: 1.5rem;
+
+        .volunteer-item {
+            padding: 1.5rem;
+        }
+    }
+
+    .modal-image-container .full-size-image {
+        width: 370px;
+        height: 370px;
     }
 
     .right-panel-footer {
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
+        width: calc(100% + 6rem);
+        margin: 0 -3rem;
+        margin-bottom: -2rem;
     }
 }
