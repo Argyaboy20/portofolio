@@ -20,14 +20,37 @@
   }
 }
 
+/* =========================================================
+   MOBILE FIRST
+   Default (di luar @media) = tampilan mobile (< 641px)
+   Urutan breakpoint:
+     @media (min-width: 641px)  -> tablet
+     @media (min-width: 768px)  -> desktop
+     @media (min-width: 1024px) -> large desktop
+   ========================================================= */
+
+/* Toolbar (default: mobile)
+   Dibuat lebih ramping: tinggi toolbar, font judul, serta font & tinggi tombol
+   dikecilkan sedikit supaya area atas-bawah tidak terasa tebal. */
 ion-toolbar {
   --background: var(--toolbar-color);
   --color: var(--text-color);
+  --min-height: 42px;
+  --padding-top: 0;
+  --padding-bottom: 0;
 }
 
 ion-title {
   cursor: pointer;
-  font-size: 21px;
+  font-size: 13px;
+}
+
+ion-toolbar ion-buttons ion-button {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  height: 30px;
+  min-height: 30px;
+  font-size: 12px;
 }
 
 .about-me-page {
@@ -40,54 +63,49 @@ ion-title {
 
 /* Container styles */
 .container {
-  padding: 20px;
+  padding: 12px;
   background-color: var(--container-background);
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: none; /* Removed shadow */
   color: var(--text-color);
-  margin: 20px;
+  margin: 10px 25px; /* space kiri kanan agar tidak mentok */
 }
 
 .page-title {
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   color: var(--text-color); /* Changed to white  */
   border-bottom: 2px solid var(--accent-color);
-  padding-bottom: 10px;
+  padding-bottom: 7px;
 }
 
 /* Profile section styles */
 .profile-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 .profile-image img {
   width: 100%;
-  max-width: 250px;
-  border-radius: 8px;
+  max-width: 160px;
+  border-radius: 6px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .profile-info {
   h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 7px;
     color: var(--text-color); /* Changed to white */
   }
-  
+
   p {
-    line-height: 1.6;
-    margin-bottom: 20px; /* Increased spacing between paragraphs */
+    font-size: 0.875rem;
+    line-height: 1.55;
+    margin-bottom: 13px;
     color: var(--text-color);
-  }
-  
-  h3 {
-    font-size: 20px;
-    margin: 20px 0 10px;
-    color: var(--text-color); /* Changed to white */
   }
 }
 
@@ -97,12 +115,12 @@ ion-title {
   --color: #ffffff;
   font-weight: 600;
   text-transform: none;
-  font-size: 16px;
-  margin-top: 20px;
+  font-size: 14px;
+  margin-top: 13px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  --padding-start: 16px;
-  --padding-end: 16px;
+  --padding-start: 12px;
+  --padding-end: 12px;
 }
 
 /* Footer styles - positioned at bottom */
@@ -110,100 +128,67 @@ ion-title {
   background-color: var(--toolbar-color);
   color: var(--text-color);
   text-align: center;
-  padding: 2px;
-  font-size: 14px;
+  padding: 4px;
+  font-size: 12px;
   position: relative; /* Changed from sticky */
   width: 100%;
-  margin-top: 40px; /* Added margin to push it down */
+  margin-top: 25px; /* Added margin to push it down */
 }
 
 /* Scroll to top button styles - handled by ion-fab */
 ion-fab {
   --background: #3880ff;
   --color: white;
-  bottom: 50px !important;
-  right: 20px !important;
-  
+  bottom: 35px !important;
+  right: 8px !important;
+
   ion-fab-button {
     --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   }
 }
 
-/* Desktop View Specific Styles */
+/* Desktop View: disembunyikan di mobile & tablet, tampil mulai 768px */
 .desktop-view {
   display: none;
-  
-  @media (min-width: 769px) {
-    display: flex;
-    flex-direction: row;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    gap: 20px;
-    
-    .main-content {
-      flex: 3;
-    }
-    
-    .side-buttons {
-      flex: 1;
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .profile-section {
-      flex-direction: row;
-      align-items: flex-start;
-      
-      .profile-image {
-        flex: 1;
-        text-align: center;
-      }
-      
-      .profile-info {
-        flex: 2;
-        padding-left: 20px;
-      }
-    }
-  }
 }
 
-/* Mobile View Specific Styles */
+/* Mobile View: dipakai di mobile & tablet, disembunyikan mulai 768px */
 .mobile-view {
   display: flex;
   flex-direction: column;
-  
-  @media (min-width: 769px) {
-    display: none;
-  }
-  
+
   .privacy-button-mobile {
-    margin: 25px 0;
+    margin: 18px 0;
   }
-  
+
   .profile-image {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
   }
 }
 
-/* ============================================================
-   RESPONSIVE - MOBILE 768px
-   ============================================================ */
-@media (max-width: 768px) {
-  .desktop-view {
-    display: none;
+/* =========================================================
+   Tablet Styles (>= 641px)
+   ========================================================= */
+@media (min-width: 641px) {
+  ion-toolbar {
+    --min-height: 44px;
   }
 
-  .mobile-view {
-    display: flex;
+  ion-title {
+    font-size: 18px;
+  }
+
+  ion-toolbar ion-buttons ion-button {
+    height: 32px;
+    min-height: 32px;
+    font-size: 13px;
   }
 
   .container {
     padding: 15px;
-    margin: 15px 20px; /* space kiri kanan agar tidak mentok */
+    margin: 15px 20px;
+    border-radius: 8px;
   }
 
   .page-title {
@@ -218,6 +203,7 @@ ion-fab {
 
   .profile-image img {
     max-width: 200px;
+    border-radius: 8px;
   }
 
   .profile-info {
@@ -228,21 +214,30 @@ ion-fab {
 
     p {
       font-size: 0.95rem;
+      line-height: 1.6;
       margin-bottom: 16px;
-    }
-
-    h3 {
-      font-size: 18px;
-      margin: 16px 0 8px;
     }
   }
 
   .privacy-button, .privacy-button-mobile {
     font-size: 15px;
     margin-top: 16px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+  }
+
+  .mobile-view {
+    .privacy-button-mobile {
+      margin: 25px 0;
+    }
+
+    .profile-image {
+      margin-bottom: 15px;
+    }
   }
 
   .app-footer {
+    padding: 2px;
     font-size: 13px;
     margin-top: 30px;
   }
@@ -253,78 +248,129 @@ ion-fab {
   }
 }
 
-/* ============================================================
-   RESPONSIVE - MOBILE 640px
-   ============================================================ */
-@media (max-width: 640px) {
+/* =========================================================
+   Desktop Styles (>= 768px)
+   ========================================================= */
+@media (min-width: 768px) {
+  ion-toolbar {
+    --min-height: 46px;
+  }
+
   ion-title {
-    font-size: 14px;
+    font-size: 19px;
+  }
+
+  ion-toolbar ion-buttons ion-button {
+    height: 32px;
+    min-height: 32px;
+    font-size: 13px;
+  }
+
+  .mobile-view {
+    display: none;
+  }
+
+  .desktop-view {
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 20px;
+
+    .main-content {
+      flex: 3;
+    }
+
+    .side-buttons {
+      flex: 1;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .profile-section {
+      flex-direction: row;
+      align-items: flex-start;
+
+      .profile-image {
+        flex: 1;
+        text-align: center;
+      }
+
+      .profile-info {
+        flex: 2;
+        padding-left: 20px;
+      }
+    }
   }
 
   .container {
-    padding: 12px;
-    margin: 10px 25px; /* space kiri kanan agar tidak mentok */
-    border-radius: 6px;
+    padding: 20px;
+    margin: 20px;
   }
 
   .page-title {
-    font-size: 22px;
-    margin-bottom: 12px;
-    padding-bottom: 7px;
+    font-size: 32px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
   }
 
   .profile-section {
-    gap: 12px;
+    gap: 20px;
   }
 
   .profile-image img {
-    max-width: 160px;
-    border-radius: 6px;
+    max-width: 250px;
   }
 
   .profile-info {
     h2 {
-      font-size: 18px;
-      margin-bottom: 7px;
+      font-size: 24px;
+      margin-bottom: 10px;
     }
 
     p {
-      font-size: 0.875rem;
-      line-height: 1.55;
-      margin-bottom: 13px;
-    }
-
-    h3 {
-      font-size: 16px;
-      margin: 13px 0 7px;
+      font-size: inherit;
+      margin-bottom: 20px;
     }
   }
 
   .privacy-button, .privacy-button-mobile {
-    font-size: 14px;
-    margin-top: 13px;
-    --padding-start: 12px;
-    --padding-end: 12px;
-  }
-
-  .mobile-view {
-    .privacy-button-mobile {
-      margin: 18px 0;
-    }
-
-    .profile-image {
-      margin-bottom: 12px;
-    }
+    font-size: 16px;
+    margin-top: 20px;
   }
 
   .app-footer {
-    font-size: 12px;
-    margin-top: 25px;
-    padding: 4px;
+    font-size: 14px;
+    margin-top: 40px;
   }
 
   ion-fab {
-    bottom: 35px !important;
-    right: 8px !important;
+    bottom: 50px !important;
+    right: 20px !important;
+  }
+}
+
+/* =========================================================
+   Large Desktop Styles (>= 1024px)
+   Hanya penyesuaian ukuran toolbar. Konten sudah dibatasi
+   max-width 1200px dan ditengahkan lewat .desktop-view,
+   dan latar hitam ion-content sudah mengisi seluruh halaman.
+   ========================================================= */
+@media (min-width: 1024px) {
+  ion-toolbar {
+    --min-height: 48px;
+  }
+
+  ion-title {
+    font-size: 20px;
+  }
+
+  ion-toolbar ion-buttons ion-button {
+    height: 34px;
+    min-height: 34px;
+    font-size: 14px;
   }
 }

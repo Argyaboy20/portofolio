@@ -11,10 +11,23 @@ $text-color-light: #fff;
 $gradient-start: #4a90e2;
 $gradient-end: #50e3c2;
 
-/* Gaya umum */
+/* =========================================================
+   MOBILE FIRST
+   Default (di luar @media) = tampilan mobile (< 641px)
+   Urutan breakpoint:
+     @media (min-width: 641px)  -> tablet
+     @media (min-width: 768px)  -> desktop
+     @media (min-width: 1024px) -> large desktop
+   ========================================================= */
+
+/* Gaya umum (default: mobile) */
 .blog-title {
     text-decoration: none;
     display: inline-block;
+    font-size: 0.9rem;
+    margin-left: 0;
+    left: 50%;
+    transform: translateX(-50%);
 
     &:hover {
         .primary-text,
@@ -63,7 +76,7 @@ ion-toolbar {
         &.language-button {
             margin-right: 0;
             position: absolute;
-            right: 1.5rem;
+            right: 0.3rem;
 
             ion-button {
                 animation-delay: 0.2s;
@@ -71,12 +84,22 @@ ion-toolbar {
         }
 
         &.biodata-button {
-            margin-right: 4.5rem;
+            margin-right: 2.5rem;
 
             ion-button {
                 animation-delay: 0.1s;
             }
         }
+    }
+}
+
+// Font tombol toolbar 0.9rem HANYA untuk mobile (< 641px).
+// Di tablet ke atas font-size tombol dikembalikan ke default Ionic, dan default
+// itu tidak bisa di-reset dengan nilai pasti dari min-width, jadi rule ini
+// memakai kebalikan dari breakpoint tablet.
+@media not all and (min-width: 641px) {
+    ion-toolbar ion-buttons ion-button {
+        font-size: 0.9rem;
     }
 }
 
@@ -119,14 +142,21 @@ ion-toolbar {
     text-align: center;
 }
 
+// Latar halaman: saat konten lebih pendek dari tinggi layar (tablet/desktop tinggi),
+// sisa area di bawah konten ikut warna terang, tidak kosong/hitam.
+// Modal dikecualikan karena ion-content-nya sudah transparan (.modal-content).
+ion-content:not(.modal-content) {
+    --background: #{$bg-color-light};
+}
+
 /* New Gallery Styles */
 .showcase-container {
-    padding: 20px;
+    padding: 15px;
     background: $bg-color-light;
 }
 
 .section-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, $gradient-start, $gradient-end);
@@ -137,7 +167,7 @@ ion-toolbar {
 }
 
 .gallery-section {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .image-gallery {
@@ -169,7 +199,7 @@ ion-toolbar {
 }
 
 .gallery-item {
-    min-width: 280px;
+    min-width: 230px;
     border-radius: 12px;
     overflow: hidden;
     scroll-snap-align: start;
@@ -187,7 +217,7 @@ ion-toolbar {
 
     img {
         width: 100%;
-        height: 200px;
+        height: 160px;
         object-fit: cover;
         transition: transform 0.3s ease;
         cursor: pointer;
@@ -216,9 +246,9 @@ ion-toolbar {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    padding: 20px 10px;
-    max-width: 800px;
+    gap: 10px;
+    padding: 15px 10px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -228,11 +258,11 @@ ion-toolbar {
     align-items: center;
     background: white;
     border-radius: 12px;
-    padding: 20px 15px;
+    padding: 15px 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
-    width: 140px;
+    width: 100px;
 
     &:hover {
         transform: translateY(-5px);
@@ -249,18 +279,18 @@ ion-toolbar {
 }
 
 .tool-icon {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background: #f5f7fa;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     transition: all 0.3s ease;
 
     ion-icon {
-        font-size: 30px;
+        font-size: 22px;
         color: $primary-color;
         transition: color 0.3s ease;
     }
@@ -268,21 +298,21 @@ ion-toolbar {
 
 .tool-name {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.85rem;
     color: $text-color-dark;
     margin-bottom: 8px;
 }
 
 .tool-description {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: color.adjust($text-color-dark, $lightness: 30%);
     line-height: 1.4;
 }
 
 /* CTA Section */
 .cta-section {
-    margin-top: 40px;
-    padding: 30px 20px;
+    margin-top: 30px;
+    padding: 20px 15px;
     background: white;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
@@ -293,7 +323,7 @@ ion-toolbar {
         margin: 0 auto;
 
         h3 {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
             margin-bottom: 10px;
             background: linear-gradient(135deg, $gradient-start, $gradient-end);
@@ -304,8 +334,8 @@ ion-toolbar {
 
         p {
             color: color.adjust($text-color-dark, $lightness: 20%);
-            margin-bottom: 25px;
-            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
         }
     }
 }
@@ -314,14 +344,14 @@ ion-toolbar {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    max-width: 300px;
+    max-width: 250px;
     margin: 0 auto;
 }
 
 .website-btn,
 .android-btn {
     --border-radius: 25px;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -376,23 +406,23 @@ ion-toolbar {
     align-items: center;
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 10px;
     animation: fadeIn 0.3s ease-out;
 
     .full-size-image {
-        max-width: 90%;
-        max-height: 80vh;
+        max-width: 95%;
+        max-height: 70vh;
         object-fit: contain;
         border-radius: 10px;
         box-shadow: 0 0 20px rgba(80, 227, 194, 0.3);
     }
 
     .image-caption {
-        margin-top: 15px;
+        margin-top: 10px;
         color: white;
-        font-size: 1.1rem;
+        font-size: 0.9rem;
         text-align: center;
-        padding: 10px 20px;
+        padding: 8px 15px;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 20px;
         backdrop-filter: blur(5px);
@@ -412,11 +442,14 @@ ion-toolbar {
     }
 }
 
-/* Tablet Styles */
-@media (max-width: 768px) {
+/* =========================================================
+   Tablet Styles (>= 641px)
+   ========================================================= */
+@media (min-width: 641px) {
     .blog-title {
-        font-size: 0.9rem;
-        margin-left: -11.0rem;
+        margin-left: -11rem;
+        left: auto;
+        transform: none;
     }
 
     ion-toolbar ion-buttons {
@@ -433,10 +466,6 @@ ion-toolbar {
         font-size: 1.6rem;
     }
 
-    .showcase-container {
-        padding: 15px;
-    }
-
     .gallery-section {
         margin-bottom: 25px;
     }
@@ -451,19 +480,15 @@ ion-toolbar {
 
     .tools-container {
         padding: 15px 5px;
-        gap: 10px;
-        max-width: 700px;
     }
 
     .tool-item {
         width: 120px;
-        padding: 15px 10px;
     }
 
     .tool-icon {
         width: 50px;
         height: 50px;
-        margin-bottom: 10px;
 
         ion-icon {
             font-size: 25px;
@@ -479,150 +504,130 @@ ion-toolbar {
     }
 
     .cta-section {
-        margin-top: 30px;
         padding: 25px 15px;
 
         .cta-content h3 {
             font-size: 1.5rem;
         }
-
-        .cta-content p {
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-    }
-
-    .button-container {
-        max-width: 250px;
-    }
-
-    .website-btn,
-    .android-btn {
-        font-size: 0.9rem;
-    }
-
-    .image-preview-modal {
-        .modal-image-container {
-            padding: 10px;
-
-            .full-size-image {
-                max-width: 95%;
-                max-height: 70vh;
-            }
-
-            .image-caption {
-                margin-top: 10px;
-                font-size: 0.9rem;
-                padding: 8px 15px;
-            }
-        }
     }
 }
 
-/* Mobile Styles */
-@media (max-width: 640px) {
+/* =========================================================
+   Desktop Styles (>= 768px)
+   ========================================================= */
+@media (min-width: 768px) {
     .blog-title {
-        font-size: 0.9rem;
-        margin-left: 0px;
-        left: 50%;
-        transform: translateX(-50%);
+        font-size: inherit;
+        margin-left: 0;
     }
 
     ion-toolbar ion-buttons {
-        ion-button {
-            font-size: 0.9rem;
-        }
-
         &.language-button {
-            right: 0.3rem;
+            right: 1.5rem;
         }
 
         &.biodata-button {
-            margin-right: 2.5rem;
+            margin-right: 4.5rem;
         }
     }
 
     .section-title {
-        font-size: 1.5rem;
+        font-size: 2rem;
+    }
+
+    .showcase-container {
+        padding: 20px;
     }
 
     .gallery-section {
-        margin-bottom: 20px;
+        margin-bottom: 40px;
     }
 
     .gallery-item {
-        min-width: 230px;
+        min-width: 280px;
 
         img {
-            height: 160px;
+            height: 200px;
         }
     }
 
     .tools-container {
-        gap: 10px;
-        padding: 15px 10px;
+        gap: 20px;
+        padding: 20px 10px;
+        max-width: 800px;
     }
 
     .tool-item {
-        width: 100px;
-        padding: 15px 10px;
+        width: 140px;
+        padding: 20px 15px;
     }
 
     .tool-icon {
-        width: 45px;
-        height: 45px;
-        margin-bottom: 10px;
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
 
         ion-icon {
-            font-size: 22px;
+            font-size: 30px;
         }
     }
 
     .tool-name {
-        font-size: 0.85rem;
+        font-size: 1rem;
     }
 
     .tool-description {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
     }
 
     .cta-section {
-        margin-top: 30px;
-        padding: 20px 15px;
+        margin-top: 40px;
+        padding: 30px 20px;
 
         .cta-content h3 {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
         }
 
         .cta-content p {
-            font-size: 0.9rem;
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
         }
     }
 
     .button-container {
-        max-width: 250px;
+        max-width: 300px;
     }
 
     .website-btn,
     .android-btn {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
     }
 
-    .image-preview-modal {
-        .modal-image-container {
-            padding: 10px;
+    .modal-image-container {
+        padding: 20px;
 
-            .full-size-image {
-                max-width: 95%;
-                max-height: 70vh;
-            }
-
-            .image-caption {
-                margin-top: 10px;
-                font-size: 0.9rem;
-                padding: 8px 15px;
-            }
+        .full-size-image {
+            max-width: 90%;
+            max-height: 80vh;
         }
+
+        .image-caption {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+        }
+    }
+}
+
+/* =========================================================
+   Large Desktop Styles (>= 1024px)
+   Konten dibatasi lebarnya dan ditengahkan supaya tidak melebar
+   berlebihan di layar besar. Warna sisi kiri-kanan sama dengan
+   latar container (lihat ion-content di atas), jadi tampil menyatu.
+   ========================================================= */
+@media (min-width: 1024px) {
+    .showcase-container {
+        max-width: 1200px;
+        margin: 0 auto;
     }
 }
