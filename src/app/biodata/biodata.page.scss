@@ -8,7 +8,16 @@ $text-color-dark: #333;
 $text-color-light: #fff;
 @use "sass:color";
 
-/* DEFAULT STYLES (Desktop) */
+/* ==========================================================
+   MOBILE FIRST
+   Default (di luar @media) = tampilan mobile.
+   Urutan @media (semuanya ada di paling bawah file):
+     1. min-width: 641px  -> tablet
+     2. min-width: 768px  -> desktop
+     3. min-width: 1024px -> large desktop
+   ========================================================== */
+
+/* DEFAULT STYLES (Mobile) */
 /* ========== ANIMATION SYSTEM - IN & OUT ========== */
 
 /* Base state - elemen belum terlihat */
@@ -71,6 +80,8 @@ $text-color-light: #fff;
 .blog-title {
     text-decoration: none;
     display: inline-block;
+    top: 10%;
+    transform: translateY(-10%);
 
     &:hover {
         .primary-text,
@@ -122,7 +133,7 @@ ion-toolbar {
         &.language-button {
             margin-right: 0;
             position: absolute;
-            right: 1.5rem;
+            right: 0;
 
             ion-button {
                 animation-delay: 0.2s;
@@ -130,7 +141,7 @@ ion-toolbar {
         }
 
         &.gallery-button {
-            margin-right: 3.5rem;
+            margin-right: 0.85rem;
 
             ion-button {
                 animation-delay: 0.1s;
@@ -169,7 +180,7 @@ ion-header {
 .primary-text {
     color: $primary-color;
     font-weight: 700;
-    margin-left: 14.7rem;
+    margin-left: 0;
 }
 
 .secondary-text {
@@ -190,7 +201,7 @@ ion-header {
 
 /* Hero Section */
 .hero-section {
-    height: 400px;
+    height: 300px;
     background: linear-gradient(135deg, #2c3e50, #4a90e2);
     display: flex;
     align-items: center;
@@ -202,20 +213,20 @@ ion-header {
     .hero-content {
         text-align: center;
         z-index: 2;
-        padding: 2rem;
+        padding: 1.5rem;
         opacity: 1;
         transform: translateY(0);
     }
 
     .hero-title {
-        font-size: 3rem;
+        font-size: 2rem;
         color: $text-color-light;
         margin-bottom: 1rem;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: rgba(255, 255, 255, 0.8);
         max-width: 600px;
         margin: 0 auto;
@@ -231,8 +242,8 @@ ion-header {
 }
 
 .circle-1 {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     background: $secondary-color;
     bottom: -150px;
     left: -50px;
@@ -240,8 +251,8 @@ ion-header {
 }
 
 .circle-2 {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     background: $accent-color;
     top: -100px;
     right: 10%;
@@ -249,8 +260,8 @@ ion-header {
 }
 
 .circle-3 {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     background: $primary-color;
     top: 40%;
     right: -50px;
@@ -276,13 +287,13 @@ ion-header {
 
 /* Section Styling */
 section {
-    padding: 4rem 2rem;
+    padding: 2.5rem 1rem;
     contain: content;
 }
 
 .section-title {
-    font-size: 2.2rem;
-    margin-bottom: 2.5rem;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
     text-align: center;
     color: $bg-color-dark;
     position: relative;
@@ -293,8 +304,8 @@ section {
         bottom: -10px;
         left: 50%;
         transform: translateX(-50%);
-        width: 60px;
-        height: 4px;
+        width: 50px;
+        height: 3px;
         background: linear-gradient(to right, $primary-color, $secondary-color);
     }
 }
@@ -313,56 +324,36 @@ section {
     &:before {
         content: '';
         position: absolute;
-        width: 4px;
+        width: 3px;
         background: linear-gradient(to bottom, $primary-color, $secondary-color);
         top: 0;
         bottom: 0;
-        left: 50%;
+        left: 23px;
         transform: translateX(-50%);
     }
 }
 
+/* Mobile: 1 kolom, garis di kiri. Layout kiri-kanan bergantian ada di @media 768px */
 .timeline-item {
-    padding: 10px 40px;
+    padding: 10px 8px 10px 60px;
     position: relative;
-    width: 50%;
+    width: 100%;
     box-sizing: border-box;
-    margin-bottom: 2rem;
-
-    &:nth-child(odd) {
-        left: 0;
-        text-align: right;
-
-        .timeline-content {
-            padding-right: 2rem;
-        }
-    }
-
-    &:nth-child(even) {
-        left: 50%;
-        text-align: left;
-
-        .timeline-content {
-            padding-left: 2rem;
-        }
-    }
+    margin-bottom: 1.5rem;
+    text-align: left;
 }
 
 .timeline-dot {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background: $accent-color;
     border-radius: 50%;
     position: absolute;
     top: 15px;
-    right: -10px;
+    left: 15px;
     border: 4px solid $bg-color-light;
     z-index: 1;
     transition: transform 0.3s ease;
-
-    .timeline-item:nth-child(even) & {
-        left: -10px;
-    }
 
     .timeline-item:hover & {
         transform: scale(1.2);
@@ -371,7 +362,8 @@ section {
 
 .timeline-content {
     background: #fff;
-    padding: 1.5rem;
+    /* kiri 5px & kanan 0 = perilaku lama di mobile/tablet (dulu ditimpa rule nth-child) */
+    padding: 1.2rem 0 1.2rem 5px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
@@ -393,7 +385,7 @@ section {
     p {
         color: $text-color-dark;
         margin: 0.5rem 0 0;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -404,8 +396,8 @@ section {
 
 .hobbies-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -413,7 +405,7 @@ section {
 .hobby-card {
     background: $bg-color-light;
     border-radius: 15px;
-    padding: 2rem 1.5rem;
+    padding: 1.5rem 1rem;
     text-align: center;
     transition: transform 0.3s ease;
     position: relative;
@@ -446,7 +438,7 @@ section {
 
     p {
         color: #666;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         line-height: 1.5;
     }
 }
@@ -455,15 +447,15 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: #fff;
     margin: 0 auto;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 
     ion-icon {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         color: $primary-color;
     }
 }
@@ -486,16 +478,16 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     max-width: 1000px;
     margin: 0 auto;
 }
 
 .fact-item {
     flex: 1;
-    min-width: 200px;
+    min-width: 140px;
     text-align: center;
-    padding: 2rem;
+    padding: 1.2rem;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     backdrop-filter: blur(10px);
@@ -507,21 +499,21 @@ section {
 }
 
 .fact-number {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: $secondary-color;
 }
 
 .fact-label {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.8);
 }
 
 /* Quotes Section */
 .quotes-section {
     background-color: $bg-color-light;
-    padding: 6rem 2rem;
+    padding: 3rem 1rem;
 
     .quote-container {
         max-width: 800px;
@@ -531,7 +523,7 @@ section {
     }
 
     .quote-icon {
-        font-size: 4rem;
+        font-size: 3rem;
         color: rgba(74, 144, 226, 0.1);
         position: absolute;
         top: -2rem;
@@ -540,11 +532,11 @@ section {
     }
 
     blockquote {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
         color: $bg-color-dark;
         line-height: 1.6;
         margin: 0;
-        padding: 0 2rem;
+        padding: 0 1rem;
         font-style: italic;
     }
 
@@ -564,8 +556,8 @@ section {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -574,7 +566,7 @@ section {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    height: 250px;
+    height: 220px;
     cursor: pointer;
 
     img {
@@ -611,9 +603,9 @@ section {
 
     span {
         color: #fff;
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 500;
-        padding: 0.5rem 1rem;
+        padding: 0.4rem 0.8rem;
         border: 2px solid #fff;
         border-radius: 50px;
     }
@@ -623,7 +615,7 @@ section {
 /* ========== ROTATING GALLERY SECTION ========== */
 .rotating-gallery-section {
     background-color: $bg-color-light;
-    padding: 4rem 2rem;
+    padding: 2.5rem 1rem;
 }
 
 .rotating-gallery-container {
@@ -636,15 +628,15 @@ section {
 
 .rotating-gallery {
     width: 100%;
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
 
     .photo-container {
         position: relative;
-        border-radius: 20px;
+        border-radius: 15px;
         overflow: hidden;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        height: 800px;
+        height: 500px;
 
         .rotating-photo {
             width: 100%;
@@ -656,14 +648,14 @@ section {
 
         .photo-caption {
             position: absolute;
-            bottom: 30px;
+            bottom: 20px;
             left: 0;
             right: 0;
             background: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 12px;
+            padding: 8px;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
@@ -687,7 +679,7 @@ section {
 /* ========== CONTACT FOOTER SECTION ========== */
 .contact-footer-section {
     background: linear-gradient(135deg, #2c3e50, #4a90e2);
-    padding: 4rem 0;
+    padding: 2.5rem 0;
     margin: 0;
     width: 100%;
 }
@@ -695,14 +687,14 @@ section {
 .contact-footer-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
     text-align: center;
 }
 
 .contact-footer-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #ffffff;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     position: relative;
     padding-bottom: 1rem;
     text-align: center;
@@ -714,8 +706,8 @@ section {
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
-        width: 80px;
-        height: 4px;
+        width: 60px;
+        height: 3px;
         background: linear-gradient(to right, $primary-color, $secondary-color);
         border-radius: 2px;
     }
@@ -723,16 +715,17 @@ section {
 
 .contact-items-wrapper {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
     flex-wrap: wrap;
     margin-bottom: 3rem;
 }
 
 .contact-item {
     background: rgba(255, 255, 255, 0.15);
-    padding: 1.5rem 2.5rem;
+    padding: 1rem 1.5rem;
     border-radius: 15px;
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
@@ -740,7 +733,8 @@ section {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    min-width: 250px;
+    min-width: 100%;
+    width: 100%;
     border: 2px solid rgba(255, 255, 255, 0.1);
     opacity: 1;
     transform: translateY(0);
@@ -753,14 +747,14 @@ section {
     }
     
     ion-icon {
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: #ffffff;
         flex-shrink: 0;
     }
     
     .quora-icon {
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         background-color: #b92b27;
         color: white;
         border-radius: 6px;
@@ -768,14 +762,14 @@ section {
         align-items: center;
         justify-content: center;
         font-weight: bold;
-        font-size: 20px;
+        font-size: 16px;
         flex-shrink: 0;
     }
     
     a, span {
         color: #ffffff;
         text-decoration: none;
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         transition: opacity 0.3s ease;
         
         &:hover {
@@ -789,13 +783,13 @@ section {
 }
 
 .footer-copyright {
-    margin-top: 3rem;
-    padding-top: 2rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
     border-top: 2px solid rgba(255, 255, 255, 0.2);
     
     p {
         color: rgba(255, 255, 255, 0.9);
-        font-size: 1rem;
+        font-size: 0.9rem;
         margin: 0;
         letter-spacing: 0.5px;
     }
@@ -806,7 +800,7 @@ section {
     background: $bg-color-dark;
     color: $text-color-light;
     text-align: center;
-    padding: 3rem 2rem;
+    padding: 2rem 1rem;
 
     p {
         max-width: 600px;
@@ -817,15 +811,15 @@ section {
     .social-links {
         display: flex;
         justify-content: center;
-        gap: 1.5rem;
+        gap: 1rem;
         margin: 2rem 0;
 
         a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
@@ -836,14 +830,14 @@ section {
             }
 
             ion-icon {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
                 color: $text-color-light;
             }
         }
     }
 
     .copyright {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         opacity: 0.7;
         margin-top: 2rem;
     }
@@ -875,18 +869,23 @@ section {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    padding: 5px;
+    box-sizing: border-box;
 
     .full-size-image {
-        max-width: 90%;
-        max-height: 90%;
+        max-width: 95%;
+        max-height: 80vh;
+        object-fit: contain;
+        margin: auto;
+        position: static;
         border-radius: 5px;
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
         transform-origin: center;
         transition: transform 0.3s ease;
 
         &.zoomed {
-            transform: scale(2);
+            transform: scale(1.5);
             cursor: zoom-out;
         }
 
@@ -1019,7 +1018,7 @@ section {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    height: 300px;
+    height: 250px;
     cursor: pointer;
     max-width: 500px;
     margin: 0 auto;
@@ -1083,10 +1082,10 @@ section {
 }
 
 .awards-modal {
-    --width: 90%;
+    --width: 100%;
     --max-width: 1200px;
-    --height: 85vh;
-    --border-radius: 20px;
+    --height: 95vh;
+    --border-radius: 16px;
 
     &::part(content) {
         border-radius: 10px;
@@ -1095,7 +1094,7 @@ section {
 
     .awards-modal-header {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 20px 24px;
+        padding: 16px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -1105,13 +1104,13 @@ section {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
         .modal-title {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: white;
             margin: 0;
             flex: 1;
             text-align: center;
-            padding-right: 40px
+            padding-right: 32px;
         }
 
         /* Styling untuk tombol close */
@@ -1119,27 +1118,31 @@ section {
             background: rgba(255, 255, 255, 0.15);
             border: none;
             border-radius: 8px;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
             padding: 0;
-                
+
             ion-icon {
-                font-size: 24px;
+                font-size: 1.7rem;
+                width: 36px;
+                height: 36px;
                 color: white;
             }
-                
-            &:hover {
-                background: rgba(255, 255, 255, 0.25);
-                transform: scale(1.05);
-            }
 
+            /* URUTAN PENTING (mobile): :active sebelum :hover.
+               Di versi lama, :hover mobile (rotate) menang atas :active saat ditekan. */
             &:active {
                 transform: scale(0.95);
+            }
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.25);
+                transform: rotate(90deg) scale(0.95);
             }
         }
     }
@@ -1147,15 +1150,15 @@ section {
 
 
 .awards-modal-content {
-    padding: 30px 20px;
+    padding: 20px 12px;
     background: #1a1a1a;
-    min-height: calc(85vh - 60px);
+    min-height: calc(95vh - 56px);
 }
 
 .awards-carousel {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 30px;
+    grid-template-columns: 1fr;
+    gap: 20px;
 }
 
 .award-slide {
@@ -1164,6 +1167,7 @@ section {
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
 
     &:hover {
         transform: translateY(-8px);
@@ -1181,27 +1185,27 @@ section {
 
         img {
             width: 100%;
-            height: 100%;
+            height: 220px;
             object-fit: contain;
             padding: 10px;
         }
     }
 
     .award-info {
-        padding: 20px;
+        padding: 16px;
         display: flex;
         flex-direction: column;
         gap: 1rem;
 
         h3 {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 700;
             color: white;
             margin-bottom: 10px;
         }
 
         p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.7);
             line-height: 1.6;
         }
@@ -1366,9 +1370,11 @@ section {
     animation: zoomIn 0.4s ease-out;
 }
 
-/* TABLET STYLES */
-@media (max-width: 768px) {
-    /* Toolbar adjustments */
+/* ==========================================================
+   TABLET  (min-width: 641px)
+   ========================================================== */
+@media (min-width: 641px) {
+    /* Toolbar */
     ion-toolbar {
         ion-buttons {
             &.gallery-button {
@@ -1381,13 +1387,22 @@ section {
         }
     }
 
+    .blog-title {
+        top: auto;
+        transform: none;
+    }
+
     .primary-text {
         margin-left: 8rem;
     }
 
-    /* Hero section */
+    /* Hero */
     .hero-section {
         height: 350px;
+
+        .hero-content {
+            padding: 2rem;
+        }
 
         .hero-title {
             font-size: 2.5rem;
@@ -1398,7 +1413,22 @@ section {
         }
     }
 
-    /* Sections padding */
+    .circle-1 {
+        width: 300px;
+        height: 300px;
+    }
+
+    .circle-2 {
+        width: 200px;
+        height: 200px;
+    }
+
+    .circle-3 {
+        width: 150px;
+        height: 150px;
+    }
+
+    /* Sections */
     section {
         padding: 3rem 1.5rem;
     }
@@ -1406,46 +1436,39 @@ section {
     .section-title {
         font-size: 2rem;
         margin-bottom: 2rem;
+
+        &:after {
+            width: 60px;
+            height: 4px;
+        }
     }
 
-    /* Timeline adjustments */
+    /* Timeline (masih 1 kolom, garis di kiri) */
     .timeline:before {
         left: 30px;
+        width: 4px;
     }
 
     .timeline-item {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 12px;
-        text-align: left;
+        padding: 10px 12px 10px 70px;
+        margin-bottom: 2rem;
+    }
 
-        &:nth-child(odd),
-        &:nth-child(even) {
-            left: 0;
-            text-align: left;
+    .timeline-dot {
+        width: 20px;
+        height: 20px;
+        left: 20px;
+    }
 
-            .timeline-content {
-                padding-left: 5px;
-                padding-right: 0;
-            }
-        }
+    .timeline-content {
+        padding: 1.5rem 0 1.5rem 5px;
 
-        .timeline-dot {
-            left: 20px;
-            right: auto;
-        }
-
-        &:nth-child(even) .timeline-dot {
-            left: 20px;
-        }
-
-        &:nth-child(2) .timeline-dot {
-            left: 20px;
-            top: 15px;
+        p {
+            font-size: 0.9rem;
         }
     }
 
-    /* Grids adjustments */
+    /* Grids */
     .hobbies-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
@@ -1456,7 +1479,28 @@ section {
         gap: 1.2rem;
     }
 
-    /* Facts section */
+    .hobby-card {
+        padding: 2rem 1.5rem;
+
+        p {
+            font-size: 0.9rem;
+        }
+    }
+
+    .hobby-icon {
+        width: 70px;
+        height: 70px;
+
+        ion-icon {
+            font-size: 1.8rem;
+        }
+    }
+
+    /* Facts */
+    .facts-container {
+        gap: 2rem;
+    }
+
     .fact-item {
         min-width: 180px;
         padding: 1.5rem;
@@ -1466,7 +1510,11 @@ section {
         font-size: 2.5rem;
     }
 
-    /* Quotes section */
+    .fact-label {
+        font-size: 1rem;
+    }
+
+    /* Quotes */
     .quotes-section {
         padding: 4rem 1.5rem;
 
@@ -1474,25 +1522,43 @@ section {
             font-size: 1.6rem;
             padding: 0 1.5rem;
         }
+
+        .quote-icon {
+            font-size: 4rem;
+        }
     }
 
-    /* Rotating Gallery section - Tablet */
+    /* Gallery */
+    .gallery-item {
+        height: 250px;
+    }
+
+    .gallery-overlay span {
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+    }
+
+    /* Rotating Gallery */
     .rotating-gallery-section {
         padding: 3rem 1.5rem;
     }
 
     .rotating-gallery {
         max-width: 500px;
-        
+
         .photo-container {
+            border-radius: 20px;
+            height: 800px;
+
             .photo-caption {
-                font-size: 1rem;
+                bottom: 30px;
                 padding: 10px;
+                font-size: 1rem;
             }
         }
     }
 
-    /* Contact Footer section - Tablet */
+    /* Contact Footer */
     .contact-footer-section {
         padding: 3rem 0;
     }
@@ -1504,35 +1570,75 @@ section {
     .contact-footer-title {
         font-size: 1.8rem;
         margin-bottom: 2.5rem;
+
+        &:after {
+            width: 80px;
+            height: 4px;
+        }
     }
 
     .contact-items-wrapper {
+        flex-direction: row;
         gap: 1.5rem;
     }
 
     .contact-item {
         padding: 1.2rem 2rem;
         min-width: 220px;
-        
+        width: auto;
+
         ion-icon {
             font-size: 1.8rem;
         }
-        
+
         .quora-icon {
             width: 28px;
             height: 28px;
             font-size: 18px;
         }
-        
+
         a, span {
             font-size: 1rem;
         }
     }
 
-    /* Awards section */
+    .footer-copyright {
+        margin-top: 3rem;
+        padding-top: 2rem;
+
+        p {
+            font-size: 1rem;
+        }
+    }
+
+    /* Footer */
+    .biodata-footer {
+        padding: 3rem 2rem;
+
+        .social-links {
+            gap: 1.5rem;
+
+            a {
+                width: 50px;
+                height: 50px;
+
+                ion-icon {
+                    font-size: 1.3rem;
+                }
+            }
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Awards */
+    .awards-item {
+        height: 300px;
+    }
+
     .award-slide {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
         padding: 1.2rem;
 
         .award-image-container img {
@@ -1552,11 +1658,21 @@ section {
         }
     }
 
-    /* Modal adjustments */
+    .awards-carousel {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+    }
+
+    /* Modal gambar */
     .modal-image-container {
+        height: 100%;
+        padding: 0;
+
         .full-size-image {
             max-width: 92%;
             max-height: 85%;
+            object-fit: fill;
+            margin: 0;
 
             &.zoomed {
                 transform: scale(1.8);
@@ -1564,24 +1680,36 @@ section {
         }
     }
 
+    /* Modal awards */
     .awards-modal {
         --width: 95%;
         --height: 90vh;
+        --border-radius: 20px;
 
         .awards-modal-header {
+            padding: 20px 24px;
+
             .modal-title {
                 font-size: 1.3rem;
+                padding-right: 40px;
             }
 
             .close-button {
-                --color: #ffffff !important;
-                --padding-start: 8px;
-                --padding-end: 8px;
-                font-size: 1.4rem;
-                    
+                width: 40px;
+                height: 40px;
+
                 ion-icon {
-                    font-size: 1.7rem;
-                    color: #ffffff;
+                    width: 1em;
+                    height: 1em;
+                }
+
+                /* urutan :hover lalu :active (active menang) = sama seperti versi lama di tablet/desktop */
+                &:hover {
+                    transform: scale(1.05);
+                }
+
+                &:active {
+                    transform: scale(0.95);
                 }
             }
         }
@@ -1591,140 +1719,282 @@ section {
         padding: 24px 16px;
         min-height: calc(90vh - 60px);
     }
-
-    .awards-carousel {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 24px;
-    }
 }
 
-/* MOBILE STYLES */
-@media (max-width: 640px) {
-    /* Toolbar mobile */
+/* ==========================================================
+   DESKTOP  (min-width: 768px)
+   ========================================================== */
+@media (min-width: 768px) {
+    /* Toolbar */
     ion-toolbar {
         ion-buttons {
-            ion-button {
-                font-size: 0.7rem;
-                min-width: auto;
-            }
-
             &.gallery-button {
-                margin-right: 0.85rem;
+                margin-right: 3.5rem;
             }
 
             &.language-button {
-                right: 0;
-
-                ion-button {
-                    min-width: 35px;
-                }
+                right: 1.5rem;
             }
         }
     }
 
-    .blog-title {
-        top: 10%;
-        transform: translateY(-10%);
-    }
-
     .primary-text {
-        margin-left: 0;
-        font-size: 0.85rem;
+        margin-left: 14.7rem;
     }
 
+    /* Timeline: 2 kolom, kiri-kanan bergantian, garis di tengah */
+    .timeline:before {
+        left: 50%;
+    }
+
+    .timeline-item {
+        width: 50%;
+        padding: 10px 40px;
+
+        &:nth-child(odd) {
+            left: 0;
+            text-align: right;
+
+            .timeline-content {
+                padding-right: 2rem;
+            }
+        }
+
+        &:nth-child(even) {
+            left: 50%;
+            text-align: left;
+
+            .timeline-content {
+                padding-left: 2rem;
+            }
+        }
+    }
+
+    .timeline-dot {
+        left: auto;
+        right: -10px;
+
+        .timeline-item:nth-child(even) & {
+            left: -10px;
+        }
+    }
+
+    .timeline-content {
+        padding: 1.5rem;
+    }
+
+    /* Grids: auto-fill */
+    .hobbies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 2rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    /* Awards */
+    .award-slide {
+        padding: 0;
+
+        .award-image-container img {
+            height: 100%;
+        }
+
+        .award-info {
+            padding: 20px;
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+        }
+    }
+
+    .awards-carousel {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+    }
+
+    /* Modal gambar */
+    .modal-image-container .full-size-image {
+        max-width: 90%;
+        max-height: 90%;
+
+        &.zoomed {
+            transform: scale(2);
+        }
+    }
+
+    /* Modal awards */
+    .awards-modal {
+        --width: 90%;
+        --height: 85vh;
+
+        .awards-modal-header {
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .close-button ion-icon {
+                font-size: 24px;
+            }
+        }
+    }
+
+    .awards-modal-content {
+        padding: 30px 20px;
+        min-height: calc(85vh - 60px);
+    }
+}
+
+/* ==========================================================
+   LARGE DESKTOP  (min-width: 1024px)
+   ========================================================== */
+@media (min-width: 1024px) {
+    /* Hero */
+    .hero-section {
+        height: 400px;
+
+        .hero-title {
+            font-size: 3rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* Sections */
+    section {
+        padding: 4rem 2rem;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    /* Facts */
+    .fact-item {
+        min-width: 200px;
+        padding: 2rem;
+    }
+
+    .fact-number {
+        font-size: 3rem;
+    }
+
+    /* Quotes */
+    .quotes-section {
+        padding: 6rem 2rem;
+
+        blockquote {
+            font-size: 1.8rem;
+            padding: 0 2rem;
+        }
+    }
+
+    /* Rotating Gallery */
+    .rotating-gallery-section {
+        padding: 4rem 2rem;
+    }
+
+    .rotating-gallery {
+        max-width: 600px;
+
+        .photo-container .photo-caption {
+            padding: 12px;
+            font-size: 1.1rem;
+        }
+    }
+
+    /* Contact Footer */
+    .contact-footer-section {
+        padding: 4rem 0;
+    }
+
+    .contact-footer-container {
+        padding: 0 2rem;
+    }
+
+    .contact-footer-title {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .contact-items-wrapper {
+        gap: 2rem;
+    }
+
+    .contact-item {
+        padding: 1.5rem 2.5rem;
+        min-width: 250px;
+
+        ion-icon {
+            font-size: 2rem;
+        }
+
+        .quora-icon {
+            width: 32px;
+            height: 32px;
+            font-size: 20px;
+        }
+
+        a, span {
+            font-size: 1.1rem;
+        }
+    }
+}
+
+/* ==========================================================
+   PENGECUALIAN (sengaja pakai max-width)
+   Properti di bawah dulunya HANYA diatur di mobile/tablet dan
+   di desktop nilainya berasal dari default Ionic / browser
+   (bukan dari file ini), jadi tidak bisa di-reset lewat min-width.
+   Kalau dipaksa reset, tampilan desktop bisa berubah.
+   ========================================================== */
+@media (max-width: 767px) {
+    .awards-modal .awards-modal-header .close-button {
+        --color: #ffffff !important;
+        --padding-start: 8px;
+        --padding-end: 8px;
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 640px) {
+    ion-toolbar ion-buttons {
+        ion-button {
+            font-size: 0.7rem;
+            min-width: auto;
+        }
+
+        &.language-button ion-button {
+            min-width: 35px;
+        }
+    }
+
+    .primary-text,
     .secondary-text {
         font-size: 0.85rem;
     }
 
-    /* Hero section mobile */
-    .hero-section {
-        height: 300px;
-
-        .hero-content {
-            padding: 1.5rem;
-        }
-
-        .hero-title {
-            font-size: 2rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1rem;
-        }
+    ion-toolbar ion-title {
+        position: static;
+        text-align: left;
+        padding-inline-start: 0.1rem;
     }
 
-    /* Animated circles smaller */
-    .circle-1 {
-        width: 200px;
-        height: 200px;
-    }
-
-    .circle-2 {
-        width: 150px;
-        height: 150px;
-    }
-
-    .circle-3 {
-        width: 100px;
-        height: 100px;
-    }
-
-    /* Sections mobile */
-    section {
-        padding: 2.5rem 1rem;
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-        margin-bottom: 1.5rem;
-
-        &:after {
-            width: 50px;
-            height: 3px;
-        }
-    }
-
-    /* Timeline mobile */
-    .timeline-item {
-        padding-left: 60px;
-        padding-right: 8px;
-        margin-bottom: 1.5rem;
-
-        .timeline-dot {
-            left: 15px;
-            width: 16px;
-            height: 16px;
-            top: 15px;
-        }
-
-        &:nth-child(odd),
-        &:nth-child(even) {
-            .timeline-dot {
-                left: 15px; /* Semua dot di posisi yang sama */
-                top: 15px;  /* Semua dot di ketinggian yang sama */
-            }
-        }
-
-        &:nth-child(2) .timeline-dot {
-            left: 15px;
-            top: 15px;
-        }
-
-        &:nth-child(4) .timeline-dot,
-        &:nth-child(6) .timeline-dot {
-            left: 15px;
-            top: 15px;
-        }
-    }
-
-    .timeline:before {
-        left: 23px;
-        width: 3px;
+    .secondary-text {
+        text-align: left;
     }
 
     .timeline-content {
-        padding: 1.2rem;
-
         h3 {
             font-size: 1.1rem;
         }
@@ -1732,272 +2002,17 @@ section {
         h4 {
             font-size: 0.95rem;
         }
-
-        p {
-            font-size: 0.85rem;
-        }
     }
 
-    /* Grids mobile - single column */
-    .hobbies-grid,
-    .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+    .hobby-card h3 {
+        font-size: 1.1rem;
     }
 
-    .hobby-card {
-        padding: 1.5rem 1rem;
-
-        h3 {
-            font-size: 1.1rem;
-        }
-
-        p {
-            font-size: 0.85rem;
-        }
+    .quotes-section cite {
+        font-size: 0.95rem;
     }
 
-    .hobby-icon {
-        width: 60px;
-        height: 60px;
-
-        ion-icon {
-            font-size: 1.5rem;
-        }
-    }
-
-    /* Facts mobile */
-    .facts-container {
-        gap: 1.5rem;
-    }
-
-    .fact-item {
-        min-width: 140px;
-        padding: 1.2rem;
-    }
-
-    .fact-number {
-        font-size: 2rem;
-    }
-
-    .fact-label {
-        font-size: 0.9rem;
-    }
-
-    /* Quotes mobile */
-    .quotes-section {
-        padding: 3rem 1rem;
-
-        blockquote {
-            font-size: 1.4rem;
-            padding: 0 1rem;
-        }
-
-        cite {
-            font-size: 0.95rem;
-        }
-
-        .quote-icon {
-            font-size: 3rem;
-        }
-    }
-
-    /* Gallery mobile */
-    .gallery-item {
-        height: 220px;
-    }
-
-    .gallery-overlay span {
-        font-size: 1rem;
-        padding: 0.4rem 0.8rem;
-    }
-
-    /* Rotating Gallery mobile */
-    .rotating-gallery-section {
-        padding: 2.5rem 1rem;
-    }
-
-    .rotating-gallery {
-        max-width: 100%;
-
-        .photo-container {
-            border-radius: 15px;
-            height: 500px;
-            
-            .photo-caption {
-                bottom: 20px;
-                padding: 8px;
-                font-size: 0.9rem;
-            }
-        }
-    }
-
-    /* Contact Footer mobile */
-    .contact-footer-section {
-        padding: 2.5rem 0;
-    }
-
-    .contact-footer-container {
-        padding: 0 1rem;
-    }
-
-    .contact-footer-title {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-
-        &:after {
-            width: 60px;
-            height: 3px;
-        }
-    }
-
-    .contact-items-wrapper {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .contact-item {
-        padding: 1rem 1.5rem;
-        min-width: 100%;
-        width: 100%;
-
-        ion-icon {
-            font-size: 1.5rem;
-        }
-        
-        .quora-icon {
-            width: 24px;
-            height: 24px;
-            font-size: 16px;
-        }
-
-        a, span {
-            font-size: 0.95rem;
-        }
-    }
-
-    .footer-copyright {
-        margin-top: 2rem;
-        padding-top: 1.5rem;
-        
-        p {
-            font-size: 0.9rem;
-        }
-    }
-
-    /* Awards mobile */
-    .awards-item {
-        height: 250px;
-    }
-
-    .award-slide {
-        padding: 1rem;
-        gap: 1rem;
-
-        .award-image-container img {
-            height: 220px;
-        }
-
-        .award-info {
-            padding: 16px;
-
-            h3 {
-                font-size: 1rem;
-            }
-
-            p {
-                font-size: 0.9rem;
-            }
-        }
-    }
-
-    .awards-carousel {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    /* Footer mobile */
-    .biodata-footer {
-        padding: 2rem 1rem;
-
-        p {
-            font-size: 0.95rem;
-        }
-
-        .social-links {
-            gap: 1rem;
-
-            a {
-                width: 45px;
-                height: 45px;
-
-                ion-icon {
-                    font-size: 1.2rem;
-                }
-            }
-        }
-
-        .copyright {
-            font-size: 0.85rem;
-        }
-    }
-
-    /* Modal mobile */
-    .modal-image-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100vh;
-        padding: 5px;
-        box-sizing: border-box;
-
-        .full-size-image {
-            max-width: 95%;
-            max-height: 80vh;
-            object-fit: contain;
-            margin: auto;
-            position: static;
-            transform-origin: center;
-
-            &.zoomed {
-                transform: scale(1.5);
-            }
-        }
-    }
-
-    .awards-modal {
-        --width: 100%;
-        --height: 95vh;
-        --border-radius: 16px;
-
-        .awards-modal-header {
-            padding: 16px 20px;
-
-            .modal-title {
-                font-size: 1.1rem;
-                padding-right: 32px;
-            }
-                
-            .close-button {
-                width: 36px;
-                height: 36px;
-                    
-                ion-icon {
-                    width: 36px;
-                    height: 36px;
-                }
-                    
-                &:hover {
-                    transform: rotate(90deg) scale(0.95);
-                }
-            }
-            
-        }
-    }
-
-    .awards-modal-content {
-        padding: 20px 12px;
-        min-height: calc(95vh - 56px);
+    .biodata-footer p {
+        font-size: 0.95rem;
     }
 }
