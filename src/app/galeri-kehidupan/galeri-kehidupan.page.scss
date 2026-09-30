@@ -1,13 +1,24 @@
-// Default Styles
+/* ============================================================
+   BASE = MOBILE VIEW (< 641px)
+   Semua di luar @media adalah tampilan mobile. Breakpoint di
+   bawah file hanya menaikkan ukuran / mengubah tata letak:
+   >= 641px  = TABLET
+   >= 768px  = DESKTOP
+   >= 1024px = LARGE DESKTOP
+   ============================================================ */
+
+/* ============================================================
+   HEADER  (MOBILE: logo, judul, subjudul, lalu player - tersusun ke bawah)
+   ============================================================ */
 .modern-header {
     ion-toolbar {
         --background: linear-gradient(135deg, #6366F1, #3B82F6);
         --border-width: 0;
-        padding: 10px 0;
+        padding: 8px 0;
     }
 
     .header-content {
-        padding: 15px 20px;
+        padding: 10px 15px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -23,21 +34,22 @@
             bottom: 0;
             background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
             z-index: 1;
+            pointer-events: none;
         }
     }
 
     .logo-container {
         background: rgba(255, 255, 255, 0.2);
         border-radius: 50%;
-        padding: 12px;
-        margin-bottom: 10px;
+        padding: 8px;
+        margin-bottom: 8px;
         backdrop-filter: blur(5px);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     .header-icon {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.3));
         transform-style: preserve-3d;
         perspective: 500px;
@@ -46,11 +58,11 @@
 
     .main-title {
         margin: 0;
-        font-size: 28px;
+        font-size: 22px;
         font-weight: 800;
         color: white;
         text-transform: uppercase;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         font-family: 'Poppins', sans-serif;
     }
@@ -58,7 +70,7 @@
     .subtitle {
         margin: 5px 0 0;
         color: rgba(255, 255, 255, 0.9);
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 400;
         letter-spacing: 1px;
     }
@@ -78,9 +90,57 @@
     }
 }
 
+/* ============================================================
+   AUDIO PLAYER  (MOBILE: selebar header)
+   ============================================================ */
+.audio-player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 14px 4px 10px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    margin: 10px auto;
+    border-radius: 20px;
+    width: fit-content;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    ion-button {
+        --padding-start: 6px;
+        --padding-end: 6px;
+        --color: white;
+        height: 30px;
+        width: 30px;
+
+        ion-icon {
+            font-size: 16px;
+        }
+    }
+
+    .song-info {
+        margin-left: 8px;
+        display: flex;
+        flex-direction: column;
+
+        .song-title {
+            color: white;
+            font-weight: 600;
+            font-size: 11px;
+        }
+
+        .song-artist {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 9px;
+        }
+    }
+}
+
+/* ============================================================
+   KATEGORI  (MOBILE)
+   ============================================================ */
 .category-selector {
     background: #2a3132 !important;
-    margin: 20px 0;
+    margin: 15px 0;
     border-radius: 20px;
     overflow: hidden;
     background: rgba(99, 102, 241, 0.1);
@@ -94,13 +154,13 @@
         --color: #6366F1;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.3px;
         border-radius: 15px;
         margin: 0 2px;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -112,7 +172,7 @@
         &.segment-button-checked {
             box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
             filter: none;
-            
+
             &::after {
                 content: '';
                 position: absolute;
@@ -125,13 +185,13 @@
                 animation: expandLine 0.3s forwards;
             }
         }
-        
+
         &:not(.segment-button-checked) {
             opacity: 0.9;
             transform: scale(0.98);
             filter: none;
         }
-        
+
         ion-label {
             transform: translateZ(0);
             backface-visibility: hidden;
@@ -181,12 +241,15 @@ ion-segment-button.segment-activated::before {
     animation: ripple 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* ============================================================
+   GRID FOTO  (MOBILE: 2 kolom)
+   ============================================================ */
 .photo-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    padding: 16px;
-    max-width: 900px;
+    gap: 10px;
+    padding: 10px;
+    max-width: 100%;
     margin: 0 auto;
     will-change: transform;
     contain: content;
@@ -260,10 +323,10 @@ ion-segment-button.segment-activated::before {
             left: 0;
             right: 0;
             margin: 0;
-            padding: 15px;
+            padding: 10px;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
             color: white;
-            font-size: 1.1em;
+            font-size: 1em;
             text-align: center;
         }
     }
@@ -271,7 +334,7 @@ ion-segment-button.segment-activated::before {
     .photo-back {
         background: linear-gradient(145deg, #6366F1, #3B82F6);
         transform: rotateY(180deg);
-        padding: 20px;
+        padding: 15px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -280,13 +343,13 @@ ion-segment-button.segment-activated::before {
 
         .date {
             color: rgba(255, 255, 255, 0.9);
-            font-size: 0.9em;
+            font-size: 0.85em;
             margin-bottom: 10px;
         }
 
         .description {
             color: white;
-            font-size: 1em;
+            font-size: 0.9em;
             line-height: 1.5;
             margin: 0;
         }
@@ -304,49 +367,138 @@ ion-segment-button.segment-activated::before {
     }
 }
 
+/* ============================================================
+   MODAL FOTO  (MOBILE: bottom sheet hampir penuh layar)
+   Foto di atas (utuh, tidak terpotong), detail di bawahnya.
+   ============================================================ */
+ion-modal {
+    --width: 100%;
+    --height: 85%;
+    --border-radius: 24px 24px 0 0;
+    --backdrop-opacity: 0.75;
+    align-items: flex-end;
+
+    &::part(content) {
+        animation: modalSlideIn 0.3s ease-out;
+        background: #000000;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+    }
+
+    ion-header {
+        background: transparent;
+
+        &::after {
+            display: none;
+        }
+    }
+
+    ion-toolbar {
+        --background: transparent;
+        --color: #ffffff;
+        --border-width: 0;
+        --min-height: 64px;
+        --padding-start: 20px;
+        --padding-end: 12px;
+        position: relative;
+
+        /* Pegangan bottom sheet */
+        &::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            width: 40px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(-50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+    }
+
+    ion-title {
+        padding-inline: 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        text-align: left;
+    }
+
+    /* Tombol tutup: chip bulat */
+    ion-buttons ion-button {
+        --background: rgba(255, 255, 255, 0.12);
+        --background-hover: rgba(255, 255, 255, 0.24);
+        --background-activated: rgba(255, 255, 255, 0.3);
+        --color: #ffffff;
+        --border-radius: 50%;
+        --padding-start: 0;
+        --padding-end: 0;
+        width: 36px;
+        height: 36px;
+        margin: 0;
+
+        ion-icon {
+            font-size: 20px;
+        }
+    }
+
+    ion-content {
+        --background: #000000;
+    }
+}
+
 .modal-content {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     background: #000000 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-bottom: 16px;
 
     img {
         width: 100%;
-        aspect-ratio: 1;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 20px;
+        height: auto;
+        max-height: 48vh;
+        aspect-ratio: auto;
+        object-fit: contain;
+        border-radius: 16px;
+        margin-bottom: 0;
+        background: #0d0d12;
     }
 
     .detail-content {
-        padding: 0 20px;
+        padding: 0 4px;
 
         .date {
+            display: inline-block;
             color: #ffffff;
-            font-size: 0.9em;
-            display: block;
-            margin-bottom: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #6366F1, #3B82F6);
+            margin-bottom: 12px;
         }
 
         h2 {
             color: #ffffff;
-            margin: 10px 0;
-            font-size: 1.5em;
+            margin: 0 0 10px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.3;
         }
 
         p {
-            color: #ffffff;
-            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.95rem;
+            line-height: 1.7;
             margin: 0;
         }
-    }
-}
-
-ion-modal {
-    --height: 80%;
-    --border-radius: 20px;
-
-    &::part(content) {
-        animation: modalSlideIn 0.3s ease-out;
     }
 }
 
@@ -360,49 +512,24 @@ ion-modal {
     }
 }
 
-.audio-player {
-    display: flex;
-    align-items: center;
-    padding: 6px 15px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    margin: 10px auto;
-    border-radius: 20px;
-    width: fit-content;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
-    ion-button {
-        --padding-start: 6px;
-        --padding-end: 6px;
-        --color: white;
-        height: 35px;
-        width: 35px;
-
-        ion-icon {
-            font-size: 20px;
-        }
+@keyframes modalPopIn {
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(12px);
     }
 
-    .song-info {
-        margin-left: 8px;
-        display: flex;
-        flex-direction: column;
-
-        .song-title {
-            color: white;
-            font-weight: 600;
-            font-size: 13px;
-        }
-
-        .song-artist {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 11px;
-        }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
     }
 }
 
-/* Tablet Styles */
-@media (max-width: 768px) {
+/* ============================================================
+   >= 641px  —  TABLET
+   Header masih tersusun ke bawah. Modal jadi kartu di tengah
+   layar (foto atas, detail bawah). Grid tetap 2 kolom.
+   ============================================================ */
+@media (min-width: 641px) {
     .modern-header {
         ion-toolbar {
             padding: 8px 0;
@@ -417,8 +544,14 @@ ion-modal {
             margin-bottom: 8px;
         }
 
+        .header-icon {
+            width: 24px;
+            height: 24px;
+        }
+
         .main-title {
             font-size: 26px;
+            letter-spacing: 2px;
         }
 
         .subtitle {
@@ -426,117 +559,363 @@ ion-modal {
         }
     }
 
-    .category-selector {
-        margin: 15px 10px;
-    }
-
-    .photo-grid {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 700px;
-    }
-
-    .modal-content {
-        max-width: 500px;
-    }
-
-    ion-modal {
-        --height: 70%;
-    }
-}
-
-/* Mobile Styles */
-@media (max-width: 640px) {
-    .modern-header {
-        ion-toolbar {
-            padding: 8px 0;
-        }
-
-        .header-content {
-            padding: 10px 15px;
-        }
-
-        .logo-container {
-            padding: 8px;
-        }
-
-        .header-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        .main-title {
-            font-size: 22px;
-            letter-spacing: 1px;
-        }
-
-        .subtitle {
-            font-size: 12px;
-        }
-    }
-
-    .category-selector {
-        margin: 15px 0;
-
-        ion-segment-button {
-            font-size: 0.7rem;
-            letter-spacing: 0.3px;
-        }
-    }
-
-    .photo-grid {
-        gap: 10px;
-        padding: 10px;
-    }
-
-    .photo-card {
-        .photo-front {
-            h3 {
-                padding: 10px;
-                font-size: 1em;
-            }
-        }
-
-        .photo-back {
-            padding: 15px;
-
-            .date {
-                font-size: 0.85em;
-            }
-
-            .description {
-                font-size: 0.9em;
-            }
-        }
-    }
-
-    .modal-content {
-        .detail-content {
-            h2 {
-                font-size: 1.4em;
-            }
-        }
-    }
-
     .audio-player {
-        width: calc(100% - 30px);
-        padding: 4px 10px;
+        width: fit-content;
+        padding: 6px 15px;
 
         ion-button {
-            height: 30px;
-            width: 30px;
+            height: 35px;
+            width: 35px;
 
             ion-icon {
-                font-size: 16px;
+                font-size: 20px;
             }
         }
 
         .song-info {
             .song-title {
-                font-size: 11px;
+                font-size: 13px;
             }
 
             .song-artist {
-                font-size: 9px;
+                font-size: 11px;
+            }
+        }
+    }
+
+    .category-selector {
+        margin: 20px auto;
+        max-width: 460px;
+
+        ion-segment-button {
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+    }
+
+    .photo-grid {
+        gap: 16px;
+        padding: 16px;
+        max-width: 700px;
+    }
+
+    .photo-card {
+        .photo-front {
+            h3 {
+                padding: 15px;
+                font-size: 1.1em;
+            }
+        }
+
+        .photo-back {
+            padding: 20px;
+
+            .date {
+                font-size: 0.9em;
+            }
+
+            .description {
+                font-size: 1em;
+            }
+        }
+    }
+
+    ion-modal {
+        --width: min(600px, 92vw);
+        --height: min(88%, 820px);
+        --border-radius: 24px;
+        align-items: center;
+
+        &::part(content) {
+            animation: modalPopIn 0.3s ease-out;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        ion-toolbar {
+            --min-height: 68px;
+            --padding-start: 28px;
+            --padding-end: 16px;
+
+            &::before {
+                display: none;
+            }
+        }
+
+        ion-title {
+            font-size: 1.15rem;
+        }
+
+        ion-buttons ion-button {
+            width: 40px;
+            height: 40px;
+
+            ion-icon {
+                font-size: 22px;
+            }
+        }
+    }
+
+    .modal-content {
+        gap: 22px;
+        padding: 0 12px 20px;
+
+        img {
+            max-height: 50vh;
+            border-radius: 18px;
+        }
+
+        .detail-content {
+            padding: 0 6px;
+
+            .date {
+                font-size: 0.8rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    }
+}
+
+/* ============================================================
+   >= 768px  —  DESKTOP
+   Header jadi satu baris ringkas (logo + judul di kiri, player
+   di kanan). Grid 3 kolom. Modal melebar: foto kiri, detail kanan.
+   ============================================================ */
+@media (min-width: 768px) {
+    .modern-header {
+        ion-toolbar {
+            padding: 6px 0;
+        }
+
+        .header-content {
+            display: grid;
+            grid-template-columns: auto auto;
+            justify-content: start;
+            align-items: center;
+            column-gap: 16px;
+            padding: 14px 32px;
+        }
+
+        .logo-container {
+            grid-row: 1 / span 2;
+            padding: 12px;
+            margin-bottom: 0;
+        }
+
+        .main-title {
+            align-self: end;
+            text-align: left;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            align-self: start;
+            text-align: left;
+            margin-top: 2px;
+            font-size: 14px;
+        }
+    }
+
+    .audio-player {
+        position: absolute;
+        top: 50%;
+        right: 32px;
+        transform: translateY(-50%);
+        margin: 0;
+        z-index: 2;
+    }
+
+    .category-selector {
+        max-width: 520px;
+
+        ion-segment-button {
+            font-size: 0.8rem;
+        }
+    }
+
+    .photo-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 20px;
+        max-width: 960px;
+    }
+
+    .photo-card {
+        .photo-back {
+            padding: 24px;
+
+            .description {
+                font-size: 1.05em;
+            }
+        }
+    }
+
+    ion-modal {
+        --width: min(900px, 92vw);
+        --height: min(86%, 640px);
+
+        ion-toolbar {
+            --min-height: 72px;
+            --padding-start: 32px;
+            --padding-end: 20px;
+        }
+
+        ion-title {
+            font-size: 1.25rem;
+        }
+    }
+
+    .modal-content {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+        align-items: center;
+        gap: 32px;
+        padding: 0 16px 24px;
+
+        img {
+            max-height: 62vh;
+        }
+
+        .detail-content {
+            padding: 0;
+
+            h2 {
+                font-size: 1.75rem;
+            }
+        }
+    }
+}
+
+/* ============================================================
+   >= 1024px  —  LARGE DESKTOP
+   Ruang lebih longgar, header & kartu lebih besar, modal
+   lebih lebar dengan tipografi lebih besar.
+   ============================================================ */
+@media (min-width: 1024px) {
+    .modern-header {
+        .header-content {
+            padding: 16px 64px;
+            column-gap: 20px;
+        }
+
+        .logo-container {
+            padding: 14px;
+        }
+
+        .header-icon {
+            width: 28px;
+            height: 28px;
+        }
+
+        .main-title {
+            font-size: 32px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+        }
+    }
+
+    .audio-player {
+        right: 64px;
+        padding: 8px 18px;
+
+        ion-button {
+            height: 38px;
+            width: 38px;
+        }
+
+        .song-info {
+            .song-title {
+                font-size: 14px;
+            }
+
+            .song-artist {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .category-selector {
+        max-width: 560px;
+
+        ion-segment-button {
+            font-size: 0.85rem;
+        }
+    }
+
+    .photo-grid {
+        gap: 28px;
+        padding: 24px;
+        max-width: 1180px;
+    }
+
+    .photo-card {
+        .photo-front {
+            h3 {
+                padding: 18px;
+                font-size: 1.2em;
+            }
+        }
+
+        .photo-back {
+            padding: 28px;
+
+            .date {
+                font-size: 1em;
+            }
+
+            .description {
+                font-size: 1.1em;
+            }
+        }
+    }
+
+    ion-modal {
+        --width: min(1100px, 90vw);
+        --height: min(84%, 720px);
+        --border-radius: 28px;
+
+        ion-toolbar {
+            --min-height: 76px;
+            --padding-start: 40px;
+            --padding-end: 24px;
+        }
+
+        ion-title {
+            font-size: 1.35rem;
+        }
+    }
+
+    .modal-content {
+        grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+        gap: 40px;
+        padding: 0 24px 28px;
+
+        img {
+            max-height: 66vh;
+            border-radius: 20px;
+        }
+
+        .detail-content {
+            .date {
+                font-size: 0.85rem;
+                padding: 6px 14px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1.05rem;
+                line-height: 1.8;
             }
         }
     }

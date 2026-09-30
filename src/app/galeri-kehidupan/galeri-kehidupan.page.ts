@@ -49,21 +49,29 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     {
       id: 2,
       category: 'cerita-hidup',
+      imageUrl: 'assets/seminarmicrocontroller.jpg',
+      title: 'Seminar Microcontroller',
+      description: 'Mengikuti seminar nasional dari kampus pertama kali dan mendapatkan hadiah dari aktif selama seminar berlangsung',
+      date: '21 Desember 2022'
+    },
+    {
+      id: 3,
+      category: 'cerita-hidup',
       imageUrl: 'assets/bersamaRektor.jpg',
       title: 'Momen Berharga',
       description: 'Bersama Bapak Rektor kampus ITBI sewaktu penyerahan hadiah atas keaktifan dalam seminar Internasional.',
       date: '18 Februari 2023'
     },
     {
-      id: 5,
+      id: 4,
       category: 'cerita-hidup',
       imageUrl: 'assets/pilmapres.jpg',
-      title: 'Momen Berharga',
-      description: 'Dengan rekan rekan hebat dan ambisius dari berbagai kampus dalam Pilmapres 2023.',
+      title: 'Pilmapres 2023',
+      description: 'Dengan rekan rekan hebat dan ambisius dari berbagai kampus dalam Pilmapres 2023 sebagai utusan dari kampus ITBI.',
       date: '2 Mei 2023'
     },
     {
-      id: 6,
+      id: 5,
       category: 'cerita-hidup',
       imageUrl: 'assets/robotikSMA.jpg',
       title: 'Dunia Mengajar',
@@ -71,7 +79,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '23 Juni 2023'
     },
     {
-      id: 7,
+      id: 6,
       category: 'cerita-hidup',
       imageUrl: 'assets/kontesRobotik.JPG',
       title: 'Panitia Robotik',
@@ -79,7 +87,55 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '12 Oktober 2023'
     },
     {
-      id: 3,
+      id: 7,
+      category: 'cerita-hidup',
+      imageUrl: 'assets/berangkatPMM.jpg',
+      title: 'Acara Pelepasan',
+      description: 'Diadakan acara pelepasan bagi yang mengikuti program Kampus Merdeka (flagship) dari pemerintah',
+      date: '31 Januari 2024'
+    },
+    {
+      id: 8,
+      category: 'cerita-hidup',
+      imageUrl: 'assets/seminarkepenulisan.jpg',
+      title: 'Seminar Kepenulisan Artikel Ilmiah',
+      description: 'Diadakan seminar tentang membahas tuntas cara menulis artikel ilmiah dengan baik dan benar',
+      date: '18 Juni 2025'
+    },
+    {
+      id: 9,
+      category: 'cerita-hidup',
+      imageUrl: 'assets/sempro.JPG',
+      title: 'Seminar Proposal ',
+      description: 'Mempresentasikan judul penelitian yang akan dilakukan untuk skripsi dan mendapatkan masukan dari dosen pembimbing',
+      date: '30 Mei 2026'
+    },
+    {
+      id: 10,
+      category: 'cerita-hidup',
+      imageUrl: 'assets/semhas.JPG',
+      title: 'Seminar Hasil ',
+      description: 'Mempresentasikan hasil penelitian yang telah dilakukan dan mendapatkan masukan dari dosen pembimbing',
+      date: '31 Agustus 2026'
+    },
+    {
+      id: 11,
+      category: 'cerita-hidup',
+      imageUrl: 'assets/bersamawaka1.jpg',
+      title: 'Foto Bersama Waka 1',
+      description: 'Foto bersama Wakil Rektor 1 kampus ITBI sewaktu seminar hasil penelitian skripsi',
+      date: '31 Agustus 2026'
+    },
+    {
+      id: 12,
+      category: 'cerita-hidup',
+      imageUrl: 'assets/waktusidang.jpg',
+      title: 'Officially Graduate (S.Kom)',
+      description: 'Foto bersama teman sewaktu sidang skripsi dan resmi lulus dari kampus ITBI',
+      date: '10 September 2026'
+    },
+    {
+      id: 13,
       category: 'pmm-life',
       imageUrl: 'assets/pmm4.jpg',
       title: 'PMM Beginning',
@@ -87,54 +143,141 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '17 Feb 2024'
     },
     {
-      id: 4,
+      id: 14,
       category: 'pmm-life',
       imageUrl: 'assets/mnB.jpg',
       title: 'PMM life',
-      description: 'Foto bareng grup MN B, Sasalimpetan.',
+      description: 'Foto bareng grup MN B Sasalimpetan.',
       date: '19 Feb 2024'
     },
     {
-      id: 8,
+      id: 15,
+      category: 'pmm-life',
+      imageUrl: 'assets/amazingrace.JPG',
+      title: 'Refleksi 1 - Amazing Race',
+      description: 'Foto dari acara Amazing Race yang diadakan oleh PMM.',
+      date: '23 Feb 2024'
+    },
+    {
+      id: 16,
       category: 'pmm-life',
       imageUrl: 'assets/gedungSate.JPG',
-      title: 'Sampurasun Bandung',
-      description: 'Modnus pertama ke Gedung Sate',
+      title: 'Kebhinekaan 1 - Sampurasun Bandung',
+      description: 'Modnus pertama ke Gedung Sate untuk memperkenalkan cagar budaya kota Bandung.',
       date: '24 Feb 2024'
     },
     {
-      id: 9,
+      id: 17,
       category: 'pmm-life',
       imageUrl: 'assets/modnus2.JPG',
-      title: 'TFT 2024',
-      description: 'Modnus ketika mengikuti TFT 2024 bertajuk belajar bahasa isyarat',
-      date: '2 Maret 2024'
+      title: 'Inspirasi 1 - TFT 2024',
+      description: 'Modnus ketika mengikuti TFT 2024 bertajuk belajar bahasa isyarat.',
+      date: '3 Maret 2024'
     },
     {
-      id: 10,
+      id: 18,
       category: 'pmm-life',
       imageUrl: 'assets/modnus3.jpg',
-      title: 'Kaulinan Barudak',
-      description: 'Bermain permainan tradisional bersama teman teman.',
+      title: 'Kebhinekaan 2 - Kaulinan Barudak',
+      description: 'Bermain permainan tradisional bersama teman-teman sebagai bounding.',
       date: '8 Maret 2024'
     },
     {
-      id: 11,
+      id: 19,
+      category: 'pmm-life',
+      imageUrl: 'assets/nontonfilmsunda.jpg',
+      title: 'Refleksi 2 - Nonton Film Sunda',
+      description: 'Menonton film tradisional Sunda bersama teman-teman.',
+      date: '15 Maret 2024'
+    },
+    {
+      id: 20,
       category: 'pmm-life',
       imageUrl: 'assets/modnus4.jpg',
-      title: 'Workshop alat musik sunda',
-      description: 'Bermain suling sunda.',
+      title: 'Kebhinekaan 3 - Workshop alat musik sunda',
+      description: 'Diperkenalkan suling sunda sebagai warisan budaya alat musik tradisional.',
       date: '23 Maret 2024'
     },
     {
-      id: 12,
-      category: 'cerita-hidup',
-      imageUrl: 'assets/berangkatPMM.jpg',
-      title: 'Acara Pelepasan',
-      description: 'Diadakan acara pelepasan bagi yang mengikuti program Kampus Merdeka (flagship) dari pemerintah',
-      date: '31 Januari 2024'
+      id: 21,
+      category: 'pmm-life',
+      imageUrl: 'assets/urbanlegend.jpg',
+      title: 'Kebhinekaan 4 - Urban Legend',
+      description: 'Kisah misteri dan legenda kota yang menarik perhatian banyak orang.',
+      date: '28 Maret 2024'
     },
-    
+    {
+      id: 22,
+      category: 'pmm-life',
+      imageUrl: 'assets/bandros.JPG',
+      title: 'Kebhinekaan 5 - Bandros Tour',
+      description: 'Perjalanan keliling kota bandung dengan Bandros.',
+      date: '19 April 2024'
+    },
+    {
+      id: 23,
+      category: 'pmm-life',
+      imageUrl: 'assets/wayangangklung.jpg',
+      title: 'Kebhinekaan 6 - Wayang Angklung',
+      description: 'Perkenalan dengan seni wayang angklung sebagai warisan budaya.',
+      date: '27 April 2024'
+    },
+    {
+      id: 24,
+      category: 'pmm-life',
+      imageUrl: 'assets/tahura.jpg',
+      title: 'Kebhinekaan 7 - Tahura',
+      description: 'Jalan-jalan ke lokasi wisata Tahura.',
+      date: '2 Mei 2024'
+    },
+    {
+      id: 25,
+      category: 'pmm-life',
+      imageUrl: 'assets/camping.JPG',
+      title: 'Kebhinekaan 8 - Camping',
+      description: 'Berlibur di alam bebas dengan aktivitas camping.',
+      date: '17 Mei 2024'
+    },
+    {
+      id: 26,
+      category: 'pmm-life',
+      imageUrl: 'assets/camping-refleksi.JPG',
+      title: 'Refleksi 3 - Camping',
+      description: 'Refleksi tentang pengalaman camping yang menyenangkan.',
+      date: '17 Mei 2024'
+    },
+    {
+      id: 27,
+      category: 'pmm-life',
+      imageUrl: 'assets/inspirasi2.JPG',
+      title: 'Inspirasi 2 - Public Speaking',
+      description: 'Mempelajari teknik-teknik public speaking yang efektif.',
+      date: '4 Juni 2024'
+    },
+    {
+      id: 28,
+      category: 'pmm-life',
+      imageUrl: 'assets/refleksi4.jpg',
+      title: 'Refleksi 4 - Public Speaking',
+      description: 'Refleksi tentang pengalaman belajar public speaking.',
+      date: '4 Juni 2024'
+    },
+    {
+      id: 29,
+      category: 'pmm-life',
+      imageUrl: 'assets/kontribusisosial.JPG',
+      title: 'Kontribusi Sosial - Wahana Nusantara',
+      description: 'Kegiatan kontribusi sosial di PPSGHD Jawa Barat.',
+      date: '10 Juni 2024'
+    },
+    {
+      id: 30,
+      category: 'pmm-life',
+      imageUrl: 'assets/refleksi5.jpg',
+      title: 'Refleksi 5 - Knowing Yourself',
+      description: 'Refleksi tentang pemahaman diri sendiri.',
+      date: '12 Juni 2024'
+    },
   ];
 
   constructor(
