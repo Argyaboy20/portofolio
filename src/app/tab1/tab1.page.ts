@@ -819,11 +819,12 @@ export class Tab1Page implements OnInit, AfterViewInit, OnDestroy {
 
   /* Add this method to navigate to biodata page contact section for third paragraph */
   navigateToBiodataContact() {
+    /* Set flag untuk SEMUA ukuran layar (mobile, tablet, desktop) */
+    localStorage.setItem('scrollToContact', 'true');
+
     /* Use standard navigation for mobile browsers */
     if (this.platform.is('mobile') || window.innerWidth <= 768) {
-      /* Set a flag in localStorage to indicate we should scroll to contact section after page loads */
-      localStorage.setItem('scrollToContact', 'true');
-      /* For mobile, navigate first, then scroll to the contact section after the page loads */
+      /* For mobile, navigate first, ... */
       window.location.href = window.location.origin + '/biodata';
 
     } else {

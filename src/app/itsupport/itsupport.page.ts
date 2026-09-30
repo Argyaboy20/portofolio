@@ -81,22 +81,6 @@ export class ItsupportPage implements OnInit, OnDestroy {
   toggleLanguage(): void {
     this.currentLanguage = this.currentLanguage === 'id' ? 'en' : 'id';
     this.setDocumentTitle();
-    this.announceLanguageChange();
-  }
-
-  /* Announce language change for accessibility */
-  private announceLanguageChange(): void {
-    const messages = {
-      id: 'Bahasa diubah ke Indonesia',
-      en: 'Language changed to English'
-    };
-    
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(messages[this.currentLanguage]);
-      utterance.volume = 0.1;
-      utterance.rate = 1.2;
-      window.speechSynthesis.speak(utterance);
-    }
   }
 
   /* Reset language to Indonesian when user exits */
