@@ -97,21 +97,29 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     {
       id: 8,
       category: 'cerita-hidup',
+      imageUrl: 'assets/kepergian.jpg',
+      title: 'Jadwal Kepergian ke Telkom',
+      description: 'Menunggu jadwal keberangkatan ke kampus Telkom untuk mengikuti program Kampus Merdeka (flagship) dari pemerintah',
+      date: '16 Februari 2024'
+    },
+    {
+      id: 9,
+      category: 'cerita-hidup',
       imageUrl: 'assets/seminarkepenulisan.jpg',
       title: 'Seminar Kepenulisan Artikel Ilmiah',
       description: 'Diadakan seminar tentang membahas tuntas cara menulis artikel ilmiah dengan baik dan benar',
       date: '18 Juni 2025'
     },
     {
-      id: 9,
+      id: 10,
       category: 'cerita-hidup',
-      imageUrl: 'assets/sempro.JPG',
+      imageUrl: 'assets/sempro.jpg',
       title: 'Seminar Proposal ',
       description: 'Mempresentasikan judul penelitian yang akan dilakukan untuk skripsi dan mendapatkan masukan dari dosen pembimbing',
       date: '30 Mei 2026'
     },
     {
-      id: 10,
+      id: 11,
       category: 'cerita-hidup',
       imageUrl: 'assets/semhas.JPG',
       title: 'Seminar Hasil ',
@@ -119,7 +127,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '31 Agustus 2026'
     },
     {
-      id: 11,
+      id: 12,
       category: 'cerita-hidup',
       imageUrl: 'assets/bersamawaka1.jpg',
       title: 'Foto Bersama Waka 1',
@@ -127,7 +135,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '31 Agustus 2026'
     },
     {
-      id: 12,
+      id: 13,
       category: 'cerita-hidup',
       imageUrl: 'assets/waktusidang.jpg',
       title: 'Officially Graduate (S.Kom)',
@@ -135,7 +143,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '10 September 2026'
     },
     {
-      id: 13,
+      id: 14,
       category: 'pmm-life',
       imageUrl: 'assets/pmm4.jpg',
       title: 'PMM Beginning',
@@ -143,23 +151,23 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '17 Feb 2024'
     },
     {
-      id: 14,
+      id: 15,
       category: 'pmm-life',
       imageUrl: 'assets/mnB.jpg',
-      title: 'PMM life',
-      description: 'Foto bareng grup MN B Sasalimpetan.',
+      title: 'Acara Penerimaan Mahasiswa PMM 4',
+      description: 'Foto bareng dengan grup MN B Sasalimpetan.',
       date: '19 Feb 2024'
     },
     {
-      id: 15,
+      id: 16,
       category: 'pmm-life',
-      imageUrl: 'assets/amazingrace.JPG',
+      imageUrl: 'assets/amazingrace.jpg',
       title: 'Refleksi 1 - Amazing Race',
       description: 'Foto dari acara Amazing Race yang diadakan oleh PMM.',
       date: '23 Feb 2024'
     },
     {
-      id: 16,
+      id: 17,
       category: 'pmm-life',
       imageUrl: 'assets/gedungSate.JPG',
       title: 'Kebhinekaan 1 - Sampurasun Bandung',
@@ -167,7 +175,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '24 Feb 2024'
     },
     {
-      id: 17,
+      id: 18,
       category: 'pmm-life',
       imageUrl: 'assets/modnus2.JPG',
       title: 'Inspirasi 1 - TFT 2024',
@@ -175,7 +183,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '3 Maret 2024'
     },
     {
-      id: 18,
+      id: 19,
       category: 'pmm-life',
       imageUrl: 'assets/modnus3.jpg',
       title: 'Kebhinekaan 2 - Kaulinan Barudak',
@@ -183,7 +191,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '8 Maret 2024'
     },
     {
-      id: 19,
+      id: 20,
       category: 'pmm-life',
       imageUrl: 'assets/nontonfilmsunda.jpg',
       title: 'Refleksi 2 - Nonton Film Sunda',
@@ -191,7 +199,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '15 Maret 2024'
     },
     {
-      id: 20,
+      id: 21,
       category: 'pmm-life',
       imageUrl: 'assets/modnus4.jpg',
       title: 'Kebhinekaan 3 - Workshop alat musik sunda',
@@ -199,7 +207,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '23 Maret 2024'
     },
     {
-      id: 21,
+      id: 22,
       category: 'pmm-life',
       imageUrl: 'assets/urbanlegend.jpg',
       title: 'Kebhinekaan 4 - Urban Legend',
@@ -207,15 +215,15 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '28 Maret 2024'
     },
     {
-      id: 22,
+      id: 23,
       category: 'pmm-life',
-      imageUrl: 'assets/bandros.JPG',
+      imageUrl: 'assets/bandros.jpg',
       title: 'Kebhinekaan 5 - Bandros Tour',
       description: 'Perjalanan keliling kota bandung dengan Bandros.',
       date: '19 April 2024'
     },
     {
-      id: 23,
+      id: 24,
       category: 'pmm-life',
       imageUrl: 'assets/wayangangklung.jpg',
       title: 'Kebhinekaan 6 - Wayang Angklung',
@@ -223,7 +231,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '27 April 2024'
     },
     {
-      id: 24,
+      id: 25,
       category: 'pmm-life',
       imageUrl: 'assets/tahura.jpg',
       title: 'Kebhinekaan 7 - Tahura',
@@ -231,7 +239,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '2 Mei 2024'
     },
     {
-      id: 25,
+      id: 26,
       category: 'pmm-life',
       imageUrl: 'assets/camping.JPG',
       title: 'Kebhinekaan 8 - Camping',
@@ -239,15 +247,15 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '17 Mei 2024'
     },
     {
-      id: 26,
+      id: 27,
       category: 'pmm-life',
-      imageUrl: 'assets/camping-refleksi.JPG',
+      imageUrl: 'assets/camping-refleksi.jpg',
       title: 'Refleksi 3 - Camping',
       description: 'Refleksi tentang pengalaman camping yang menyenangkan.',
       date: '17 Mei 2024'
     },
     {
-      id: 27,
+      id: 28,
       category: 'pmm-life',
       imageUrl: 'assets/inspirasi2.JPG',
       title: 'Inspirasi 2 - Public Speaking',
@@ -255,7 +263,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '4 Juni 2024'
     },
     {
-      id: 28,
+      id: 29,
       category: 'pmm-life',
       imageUrl: 'assets/refleksi4.jpg',
       title: 'Refleksi 4 - Public Speaking',
@@ -263,7 +271,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '4 Juni 2024'
     },
     {
-      id: 29,
+      id: 30,
       category: 'pmm-life',
       imageUrl: 'assets/kontribusisosial.JPG',
       title: 'Kontribusi Sosial - Wahana Nusantara',
@@ -271,12 +279,28 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       date: '10 Juni 2024'
     },
     {
-      id: 30,
+      id: 31,
       category: 'pmm-life',
       imageUrl: 'assets/refleksi5.jpg',
       title: 'Refleksi 5 - Knowing Yourself',
       description: 'Refleksi tentang pemahaman diri sendiri.',
       date: '12 Juni 2024'
+    },
+    {
+      id: 32,
+      category: 'pmm-life',
+      imageUrl: 'assets/pelepasan.jpg',
+      title: 'Pelepasan PMM 4',
+      description: 'Foto kegiatan pelepasan PMM 4.',
+      date: '20 Juni 2024'
+    },
+    {
+      id: 33,
+      category: 'pmm-life',
+      imageUrl: 'assets/bandara.jpg',
+      title: 'Kepulangan PMM 4',
+      description: 'Foto kegiatan kepulangan PMM 4 di bandara Soekarno-Hatta.',
+      date: '24 Juni 2024'
     },
   ];
 
