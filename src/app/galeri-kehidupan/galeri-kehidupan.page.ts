@@ -113,8 +113,8 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     {
       id: 10,
       category: 'cerita-hidup',
-      imageUrl: 'assets/sempro.jpg',
-      title: 'Seminar Proposal ',
+      imageUrl: 'assets/sempro.JPG',
+      title: 'Seminar Proposal',
       description: 'Mempresentasikan judul penelitian yang akan dilakukan untuk skripsi dan mendapatkan masukan dari dosen pembimbing',
       date: '30 Mei 2026'
     },
@@ -122,7 +122,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
       id: 11,
       category: 'cerita-hidup',
       imageUrl: 'assets/semhas.JPG',
-      title: 'Seminar Hasil ',
+      title: 'Seminar Hasil',
       description: 'Mempresentasikan hasil penelitian yang telah dilakukan dan mendapatkan masukan dari dosen pembimbing',
       date: '31 Agustus 2026'
     },
@@ -161,7 +161,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     {
       id: 16,
       category: 'pmm-life',
-      imageUrl: 'assets/amazingrace.jpg',
+      imageUrl: 'assets/amazingrace.JPG',
       title: 'Refleksi 1 - Amazing Race',
       description: 'Foto dari acara Amazing Race yang diadakan oleh PMM.',
       date: '23 Feb 2024'
@@ -217,7 +217,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     {
       id: 23,
       category: 'pmm-life',
-      imageUrl: 'assets/bandros.jpg',
+      imageUrl: 'assets/bandros.JPG',
       title: 'Kebhinekaan 5 - Bandros Tour',
       description: 'Perjalanan keliling kota bandung dengan Bandros.',
       date: '19 April 2024'
@@ -249,7 +249,7 @@ export class GaleriKehidupanPage implements OnInit, OnDestroy {
     {
       id: 27,
       category: 'pmm-life',
-      imageUrl: 'assets/camping-refleksi.jpg',
+      imageUrl: 'assets/camping-refleksi.JPG',
       title: 'Refleksi 3 - Camping',
       description: 'Refleksi tentang pengalaman camping yang menyenangkan.',
       date: '17 Mei 2024'
