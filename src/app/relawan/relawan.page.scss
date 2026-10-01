@@ -322,6 +322,8 @@ swiper-slide {
     object-fit: contain;
     border-radius: 12px;
     filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.45));
+    -webkit-touch-callout: none;
+    user-select: none;
 }
 
 .photo-caption {

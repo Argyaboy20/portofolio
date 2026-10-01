@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-socialvit',
@@ -81,11 +82,14 @@ export class SocialvitPage implements OnInit {
   /* Carousel auto-slide interval reference */
   private autoSlideInterval: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private alertController: AlertController) { }
 
   ngOnInit() {
     /* Initialize auto-slide functionality */
     this.startAutoSlide();
+
+    /* Blokir shortcut screenshot/print/devtools */
+    document.addEventListener('keydown', this.preventScreenshotShortcuts);
   }
 
   ngOnDestroy() {
@@ -93,6 +97,8 @@ export class SocialvitPage implements OnInit {
     if (this.autoSlideInterval) {
       clearInterval(this.autoSlideInterval);
     }
+
+    document.removeEventListener('keydown', this.preventScreenshotShortcuts);
   }
 
   /* Toggle between Indonesian and English language */
@@ -164,5 +170,32 @@ export class SocialvitPage implements OnInit {
     this.selectedImage = '';
     this.selectedImageTitle = '';
     this.startAutoSlide(); // Mulai auto-slide kembali saat modal ditutup
+  }
+
+  /* Blokir shortcut Print Screen, F12, Ctrl/Cmd + P, Ctrl/Cmd + I */
+  private preventScreenshotShortcuts = (event: KeyboardEvent) => {
+    if (
+      event.code === 'PrintScreen' ||
+      event.code === 'F12' ||
+      ((event.ctrlKey || event.metaKey) && (event.code === 'KeyP' || event.code === 'KeyI'))
+    ) {
+      event.preventDefault();
+      this.showDownloadRestrictionAlert();
+    }
+  }
+
+  /* Alert saat user mencoba unduh/ambil foto */
+  async showDownloadRestrictionAlert(event?: Event) {
+    event?.preventDefault();
+
+    const alert = await this.alertController.create({
+      header: this.currentLanguage === 'id' ? 'Unduh Dibatasi' : 'Download Restricted',
+      message: this.currentLanguage === 'id'
+        ? 'Unduh foto dokumentasi tidak diizinkan!'
+        : 'Downloading documentation photos is not allowed!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

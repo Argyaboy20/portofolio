@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import * as THREE from 'three';
 import { register } from 'swiper/element/bundle';
 
@@ -8,7 +9,7 @@ import { register } from 'swiper/element/bundle';
   styleUrls: ['./relawan.page.scss'],
   standalone: false,
 })
-export class RelawanPage implements OnInit {
+export class RelawanPage implements OnInit, OnDestroy {
   currentLang = 'id';
   currentYear: number = new Date().getFullYear();
   scene: any;
@@ -120,7 +121,7 @@ export class RelawanPage implements OnInit {
     }
   ];
 
-  constructor() {
+  constructor(private alertController: AlertController) {
     /* Register Swiper custom elements */
     register();
   }
@@ -130,6 +131,14 @@ export class RelawanPage implements OnInit {
     setTimeout(() => {
       this.init3DBackground();
     }, 100);
+
+    /* Blokir shortcut screenshot/print/devtools */
+    document.addEventListener('keydown', this.preventScreenshotShortcuts);
+  }
+
+  ngOnDestroy() {
+    /* Remove event listeners when component is destroyed */
+    document.removeEventListener('keydown', this.preventScreenshotShortcuts);
   }
 
   toggleLanguage() {
@@ -333,5 +342,32 @@ export class RelawanPage implements OnInit {
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  /* Blokir shortcut Print Screen, F12, Ctrl/Cmd + P, Ctrl/Cmd + I */
+  private preventScreenshotShortcuts = (event: KeyboardEvent) => {
+    if (
+      event.code === 'PrintScreen' ||
+      event.code === 'F12' ||
+      ((event.ctrlKey || event.metaKey) && (event.code === 'KeyP' || event.code === 'KeyI'))
+    ) {
+      event.preventDefault();
+      this.showDownloadRestrictionAlert();
+    }
+  }
+
+  /* Alert saat user mencoba unduh/ambil foto */
+  async showDownloadRestrictionAlert(event?: Event) {
+    event?.preventDefault();
+
+    const alert = await this.alertController.create({
+      header: this.currentLang === 'id' ? 'Unduh Dibatasi' : 'Download Restricted',
+      message: this.currentLang === 'id'
+        ? 'Unduh foto dokumentasi tidak diizinkan!'
+        : 'Downloading documentation photos is not allowed!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

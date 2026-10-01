@@ -37,8 +37,9 @@
       <div class="carousel-track" #carouselTrack [style.transform]="'translateX(' + (-activeIndex * 100) + '%)'">
         <div class="carousel-item" *ngFor="let item of galleryItems; let i = index" [class.active]="i === activeIndex"
           [style.transform]="'translateX(' + (i * 100) + '%)'">
-          <div class="image-container" (click)="openModal(item)">
-            <img [src]="item.image" [alt]="currentLanguage === 'id' ? item.title_id : item.title_en" loading="lazy" />
+          <div class="image-container" (click)="openModal(item)"
+            (contextmenu)="showDownloadRestrictionAlert($event)" (dragstart)="showDownloadRestrictionAlert($event)">
+            <img [src]="item.image" [alt]="currentLanguage === 'id' ? item.title_id : item.title_en" loading="lazy" draggable="false" />
             <div class="image-overlay" [class.show]="i === activeIndex">
               <h3>{{ currentLanguage === 'id' ? item.title_id : item.title_en }}</h3>
               <p>{{ currentLanguage === 'id' ? item.description_id : item.description_en }}</p>
@@ -116,7 +117,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <img [src]="selectedImage" [alt]="selectedImageTitle" />
+        <img [src]="selectedImage" [alt]="selectedImageTitle" draggable="false"
+          (contextmenu)="showDownloadRestrictionAlert($event)" (dragstart)="showDownloadRestrictionAlert($event)" />
       </div>
     </div>
   </div>

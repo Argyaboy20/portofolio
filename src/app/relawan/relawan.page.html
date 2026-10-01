@@ -67,8 +67,9 @@
       <div class="gallery-container">
         <swiper-container [pagination]="true" [navigation]="true" class="photo-slides">
           <swiper-slide *ngFor="let photo of currentGalleryPhotos">
-            <div class="photo-container">
-              <img [src]="photo.url" [alt]="photo.caption" class="gallery-image">
+            <div class="photo-container"
+              (contextmenu)="showDownloadRestrictionAlert($event)" (dragstart)="showDownloadRestrictionAlert($event)">
+              <img [src]="photo.url" [alt]="photo.caption" class="gallery-image" draggable="false">
               <div class="photo-caption">
                 {{ currentLang === 'id' ? photo.captionId : photo.captionEn }}
               </div>

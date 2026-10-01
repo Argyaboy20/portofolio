@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { register } from 'swiper/element/bundle';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin.page.scss'],
   standalone: false,
 })
-export class AdminPage implements OnInit {
+export class AdminPage implements OnInit, OnDestroy {
   /* Language toggle (ID/EN) */
   language: 'id' | 'en' = 'id';
 
@@ -19,7 +19,8 @@ export class AdminPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) {
     /* Register Swiper elements */
     register();
@@ -28,6 +29,13 @@ export class AdminPage implements OnInit {
   ngOnInit() {
     /* Initialize with default language or user preference */
     this.checkUserLanguagePreference();
+
+    /* Blokir shortcut screenshot/print/devtools */
+    document.addEventListener('keydown', this.preventScreenshotShortcuts);
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('keydown', this.preventScreenshotShortcuts);
   }
 
   // Work Experience Data
@@ -291,5 +299,32 @@ export class AdminPage implements OnInit {
   /* Method untuk membuka CV Admin */
   openAdminCV() {
     window.open('/assets/CV/Admin.pdf', '_blank');
+  }
+
+  /* Blokir shortcut Print Screen, F12, Ctrl/Cmd + P, Ctrl/Cmd + I */
+  private preventScreenshotShortcuts = (event: KeyboardEvent) => {
+    if (
+      event.code === 'PrintScreen' ||
+      event.code === 'F12' ||
+      ((event.ctrlKey || event.metaKey) && (event.code === 'KeyP' || event.code === 'KeyI'))
+    ) {
+      event.preventDefault();
+      this.showDownloadRestrictionAlert();
+    }
+  }
+
+  /* Alert saat user mencoba unduh/ambil foto */
+  async showDownloadRestrictionAlert(event?: Event) {
+    event?.preventDefault();
+
+    const alert = await this.alertController.create({
+      header: this.language === 'id' ? 'Unduh Dibatasi' : 'Download Restricted',
+      message: this.language === 'id'
+        ? 'Unduh foto dokumentasi tidak diizinkan!'
+        : 'Downloading documentation photos is not allowed!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

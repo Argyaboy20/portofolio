@@ -425,6 +425,13 @@ swiper-container {
     object-fit: cover;
 }
 
+.profile-avatar img,
+.typing-speed-image,
+.project-image {
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
 .project-details-card {
     background: rgba(255, 255, 255, 0.1);
     margin-bottom: 16px;
