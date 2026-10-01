@@ -39,7 +39,7 @@ export class PrivacypolicyPage implements OnInit, OnDestroy {
 
   private detectMobileDevice(): void {
     const screenWidth = window.innerWidth;
-    this.isMobile = screenWidth <= 768 || this.platform.is('mobile');
+    this.isMobile = screenWidth < 768 || this.platform.is('mobile');
   }
 
   @HostListener('window:resize', ['$event'])

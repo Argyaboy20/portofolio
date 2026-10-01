@@ -1,4 +1,16 @@
-/* Global Variables */
+/* ============================================================
+   BASE = MOBILE VIEW (< 641px)
+   Semua di luar @media adalah tampilan mobile. Breakpoint di
+   bawah file hanya menaikkan ukuran / mengubah tata letak:
+   >= 641px  = TABLET
+   >= 768px  = DESKTOP
+   >= 1024px = LARGE DESKTOP
+   ============================================================ */
+
+/* Global Variables
+   (:host dipakai agar variabel ikut ter-scope ke halaman ini;
+   :root di dalam component style tidak pernah cocok dengan <html>) */
+:host,
 :root {
   --primary-bg: #1a1a1a;
   --secondary-bg: #2d2d2d;
@@ -12,6 +24,7 @@
 
 /* Force dark mode regardless of system preference */
 @media (prefers-color-scheme: light) {
+  :host,
   :root {
     --primary-bg: #1a1a1a;
     --secondary-bg: #2d2d2d;
@@ -24,7 +37,10 @@
   }
 }
 
-/* Header Styles */
+/* ============================================================
+   HEADER / TOOLBAR  (MOBILE)
+   Judul "Maulana Farras Blog's" di sudut kiri, sedikit lebih kecil.
+   ============================================================ */
 .transparent-header {
   --background: transparent;
   position: fixed;
@@ -39,16 +55,23 @@
 .transparent-toolbar {
   --background: rgba(26, 26, 26, 0.8) !important;
   --border-color: rgba(64, 64, 64, 0.3);
+  --min-height: 45px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
+/* .blog-title menempel di <ion-title> itu sendiri */
 .blog-title {
   color: #ffffff !important;
   font-weight: 600;
   cursor: pointer;
   transition: color 0.3s ease;
-  
+  font-size: 1rem;
+  /* text-align & padding di host menimpa bawaan Ionic (mode iOS
+     memusatkan judul dan memberi padding 90px) */
+  padding-inline: 1rem;
+  text-align: left;
+
   &:hover {
     color: var(--accent-color);
   }
@@ -59,7 +82,7 @@
   --background: #1a1a1a !important;
   --color: #ffffff !important;
   color-scheme: dark;
-  padding-top: 60px;
+  padding-top: 52px;
 }
 
 .privacy-container {
@@ -69,33 +92,85 @@
 }
 
 /* ============================================================
-   DESKTOP LAYOUT (> 768px)
+   MOBILE LAYOUT  (dipakai saat isMobile = true)
    ============================================================ */
+.mobile-layout {
+  display: block;
+}
 
-/* Desktop Layout */
-.desktop-layout {
+.mobile-content {
+  padding: 0.75rem;
+  padding-bottom: 0;
+}
+
+.mobile-buttons {
   display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  margin-top: 1.5rem;
+  background: var(--secondary-bg);
+  border-radius: 10px 10px 0 0;
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+}
+
+.mobile-btn {
+  --border-radius: 8px;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  height: 44px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: none;
+
+  &.about-btn {
+    --color: var(--accent-color);
+    --border-color: var(--accent-color);
+
+    &:hover {
+      --background: rgba(74, 158, 255, 0.1);
+    }
+  }
+
+  &.home-btn {
+    --background: var(--accent-color);
+    --color: white;
+
+    &:hover {
+      --background: #555555;
+    }
+  }
+}
+
+/* ============================================================
+   DESKTOP LAYOUT  (konten + sidebar, dipakai saat isMobile = false)
+   Disembunyikan di mobile/tablet, ditampilkan mulai >= 768px.
+   ============================================================ */
+.desktop-layout {
+  display: none;
   justify-content: center;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .content-wrapper {
   display: flex;
   max-width: 1200px;
   width: 100%;
-  gap: 3rem;
+  gap: 1.75rem;
 }
 
 .main-content {
   flex: 1;
+  min-width: 0;
   max-width: 800px;
 }
 
 /* Sidebar Styles */
 .sidebar {
-  width: 300px;
+  width: 240px;
   position: sticky;
-  top: 100px;
+  top: 90px;
   height: fit-content;
 }
 
@@ -103,7 +178,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 2rem;
+  padding: 1.5rem;
   background: var(--secondary-bg);
   border-radius: 12px;
   border: 1px solid var(--border-color);
@@ -116,137 +191,93 @@
   height: 48px;
   font-weight: 500;
   text-transform: none;
-  
+
   &.about-btn {
     --color: var(--accent-color);
     --border-color: var(--accent-color);
-    
+
     &:hover {
       --background: rgba(74, 158, 255, 0.1);
     }
   }
-  
+
   &.home-btn {
     --background: var(--accent-color);
     --color: white;
-    
+
     &:hover {
       --background: #555555;
     }
   }
 }
 
-/* Mobile Layout */
-.mobile-layout {
-  display: block;
-}
-
-.mobile-content {
-  padding: 1rem;
-  padding-bottom: 0;
-}
-
-.mobile-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
-  margin-top: 2rem;
-  background: var(--secondary-bg);
-  border-radius: 12px 12px 0 0;
-  border: 1px solid var(--border-color);
-  border-bottom: none;
-}
-
-.mobile-btn {
-  --border-radius: 8px;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
-  height: 48px;
-  font-weight: 500;
-  text-transform: none;
-  
-  &.about-btn {
-    --color: var(--accent-color);
-    --border-color: var(--accent-color);
-    
-    &:hover {
-      --background: rgba(74, 158, 255, 0.1);
-    }
-  }
-  
-  &.home-btn {
-    --background: var(--accent-color);
-    --color: white;
-    
-    &:hover {
-      --background: #555555;
-    }
-  }
-}
-
-/* Content Sections */
+/* ============================================================
+   CONTENT SECTIONS  (MOBILE)
+   ============================================================ */
 .privacy-header {
-  margin-bottom: 1.5rem;
-  margin-top: clamp(3rem, 5vh, 2rem);
-  
+  margin-bottom: 1.25rem;
+  margin-top: 3.25rem;
+
   h1 {
-    font-size: 2.5rem;
+    font-size: 1.65rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
-  
+
   .tldr {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
     background: var(--highlight-bg);
     margin-bottom: 1rem;
-    border-radius: 8px;
+    border-radius: 6px;
     border-left: 4px solid var(--accent-color);
   }
 }
 
 .section {
-  margin-bottom: 1.5rem;
-  
+  margin-bottom: 1rem;
+  animation: fadeIn 0.6s ease-out;
+
   h2 {
-    font-size: 1.75rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.4rem;
     border-bottom: 2px solid var(--border-color);
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
   }
-  
+
   h3 {
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--accent-color);
-    margin-bottom: 0.5rem;
-    margin-top: 1rem;
+    margin-bottom: 0.35rem;
+    margin-top: 0.75rem;
   }
-  
+
   p {
-    line-height: 1.6;
+    font-size: 0.875rem;
+    line-height: 1.55;
     color: var(--text-secondary);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem;
   }
 }
 
 /* List Styles */
 .privacy-list {
   list-style: none;
-  padding: 1rem;
-  margin-top: -1.5rem;
-  
+  padding: 0.75rem;
+  margin-top: -1rem;
+
   li {
-    padding: 0.25rem 0;
+    font-size: 0.875rem;
+    padding: 0.2rem 0;
     border-bottom: 1px solid var(--border-color);
     color: var(--text-secondary);
     position: relative;
-    padding-left: 1.5rem;
-    
+    padding-left: 1.25rem;
+
     &:before {
       content: "✓";
       position: absolute;
@@ -254,7 +285,7 @@
       color: var(--accent-color);
       font-weight: bold;
     }
-    
+
     &:last-child {
       border-bottom: none;
     }
@@ -264,24 +295,24 @@
 /* Info Items */
 .info-item {
   background: var(--secondary-bg);
-  padding: 0.25rem;
-  border-radius: 8px;
+  padding: 0.6rem;
+  border-radius: 6px;
   border: 1px solid var(--border-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   position: relative;
-  padding-left: 2rem;
+  padding-left: 1.6rem;
 
   &:before {
     content: "•";
     position: absolute;
-    left: 1rem;
-    top: 0.5rem;
+    left: 0.6rem;
+    top: 1.4rem;
     color: var(--text-primary);
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     line-height: 1.25rem;
   }
-  
+
   h3 {
     margin-top: 0;
     margin-bottom: 0.25rem;
@@ -290,13 +321,14 @@
   p {
     margin-bottom: 0;
   }
-  
+
   code {
     background: var(--highlight-bg);
     color: var(--accent-color);
-    padding: 0.2rem 0.4rem;
+    padding: 0.15rem 0.3rem;
     border-radius: 4px;
     font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
   }
 }
 
@@ -309,7 +341,7 @@
 .contact-link {
   color: var(--accent-color);
   text-decoration: none;
-  
+
   &:hover {
     text-decoration: underline;
   }
@@ -326,226 +358,26 @@
   background: var(--secondary-bg);
   color: var(--text-secondary);
   text-align: center;
-  padding: 2rem;
+  padding: 0.75rem 1rem;
   border-top: 1px solid var(--border-color);
-  margin-top: 2rem;
-  
+  margin-top: 1rem;
+
   p {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
   }
 }
 
 ion-fab {
   --background: #3880ff;
   --color: white;
-  bottom: 50px !important;
-  right: 20px !important;
-  
+  bottom: 35px !important;
+  right: 8px !important;
+
   ion-fab-button {
     --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   }
 }
-
-/* ============================================================
-   RESPONSIVE - Tablet 768px
-   ============================================================ */
-@media (max-width: 768px) {
-  .desktop-layout {
-    display: none;
-  }
-  
-  .mobile-layout {
-    display: block;
-  }
-
-  .mobile-content {
-    padding: 1rem;
-    padding-bottom: 0;
-  }
-
-  .mobile-buttons {
-    gap: 0.875rem;
-    padding: 0.875rem;
-    margin-top: 1.75rem;
-  }
-
-  .mobile-btn {
-    height: 46px;
-  }
-  
-  .privacy-header {
-    margin-top: clamp(3.5rem, 3vh, 1.5rem);
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 0.875rem;
-    }
-
-    .tldr {
-      font-size: 1rem;
-    }
-  }
-  
-  .section {
-    margin-bottom: 1.25rem;
-
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    h3 {
-      font-size: 1.15rem;
-    }
-
-    p {
-      font-size: 0.95rem;
-    }
-  }
-
-  .privacy-list {
-    padding: 0.875rem;
-    margin-top: -1.25rem;
-
-    li {
-      font-size: 0.95rem;
-      padding-left: 1.4rem;
-    }
-  }
-
-  .info-item {
-    padding: 0.75rem;
-    padding-left: 1.75rem;
-    margin-bottom: 0.4rem;
-
-    &:before {
-      left: 0.75rem;
-      top: 0.9rem;
-    }
-  }
-  
-  .footer {
-    padding: 1.5rem;
-
-    p {
-      font-size: 0.85rem;
-    }
-  }
-
-  ion-fab {
-    right: 10px !important;
-    bottom: 40px !important;
-  }
-}
-
-/* ============================================================
-   RESPONSIVE - MOBILE 640px
-   ============================================================ */
-@media (max-width: 640px) {
-  .dark-content {
-    padding-top: 52px;
-  }
-
-  .mobile-content {
-    padding: 0.75rem;
-    padding-bottom: 0;
-  }
-
-  .mobile-buttons {
-    gap: 0.75rem;
-    padding: 0.75rem;
-    margin-top: 1.5rem;
-    border-radius: 10px 10px 0 0;
-  }
-
-  .mobile-btn {
-    height: 44px;
-    font-size: 0.9rem;
-  }
-
-  .privacy-header {
-    margin-top: clamp(3.25rem, 2.5vh, 1.25rem);
-    margin-bottom: 1.25rem;
-
-    h1 {
-      font-size: 1.65rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .tldr {
-      font-size: 0.9rem;
-      border-radius: 6px;
-    }
-  }
-
-  .section {
-    margin-bottom: 1rem;
-
-    h2 {
-      font-size: 1.3rem;
-      margin-bottom: 0.4rem;
-      padding-bottom: 0.4rem;
-    }
-
-    h3 {
-      font-size: 1.05rem;
-      margin-top: 0.75rem;
-      margin-bottom: 0.35rem;
-    }
-
-    p {
-      font-size: 0.875rem;
-      line-height: 1.55;
-      margin-bottom: 0.6rem;
-    }
-  }
-
-  .privacy-list {
-    padding: 0.75rem;
-    margin-top: -1rem;
-
-    li {
-      font-size: 0.875rem;
-      padding-left: 1.25rem;
-      padding-top: 0.2rem;
-      padding-bottom: 0.2rem;
-    }
-  }
-
-  .info-item {
-    padding: 0.6rem;
-    padding-left: 1.6rem;
-    margin-bottom: 0.35rem;
-    border-radius: 6px;
-
-    &:before {
-      left: 0.6rem;
-      top: 1.4rem;
-      font-size: 1rem;
-    }
-
-    code {
-      font-size: 0.8rem;
-      padding: 0.15rem 0.3rem;
-    }
-  }
-
-  .footer {
-    padding: 1.25rem;
-    margin-top: 1.5rem;
-
-    p {
-      font-size: 0.8rem;
-    }
-  }
-
-  ion-fab {
-    right: 8px !important;
-    bottom: 35px !important;
-  }
-}
-
 
 /* Animations */
 @keyframes fadeIn {
@@ -559,11 +391,320 @@ ion-fab {
   }
 }
 
-.section {
-  animation: fadeIn 0.6s ease-out;
-}
-
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* ============================================================
+   >= 641px  —  TABLET
+   Judul toolbar pindah ke tengah persis. Tombol di layout mobile
+   berjajar ke samping, konten dibatasi lebarnya dan di-center.
+   ============================================================ */
+@media (min-width: 641px) {
+  .transparent-toolbar {
+    --min-height: 45px;
+  }
+
+  .blog-title {
+    font-size: 1.05rem;
+    text-align: center;
+  }
+
+  .dark-content {
+    padding-top: 56px;
+  }
+
+  .mobile-content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    padding-bottom: 0;
+  }
+
+  .mobile-buttons {
+    flex-direction: row;
+    gap: 0.875rem;
+    padding: 0.875rem;
+    margin-top: 1.75rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .mobile-btn {
+    flex: 1;
+    height: 46px;
+    font-size: 0.95rem;
+  }
+
+  .privacy-header {
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.875rem;
+    }
+
+    .tldr {
+      font-size: 1rem;
+      border-radius: 8px;
+    }
+  }
+
+  .section {
+    margin-bottom: 1.25rem;
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .privacy-list {
+    padding: 0.875rem;
+    margin-top: -1.25rem;
+
+    li {
+      font-size: 0.95rem;
+      padding: 0.25rem 0;
+      padding-left: 1.4rem;
+    }
+  }
+
+  .info-item {
+    padding: 0.75rem;
+    padding-left: 1.75rem;
+    margin-bottom: 0.4rem;
+    border-radius: 8px;
+
+    &:before {
+      left: 0.75rem;
+      top: 0.9rem;
+      font-size: 1.2rem;
+    }
+
+    code {
+      font-size: 0.85rem;
+      padding: 0.2rem 0.4rem;
+    }
+  }
+
+  .footer {
+    padding: 0.875rem 1.25rem;
+    margin-top: 1.25rem;
+
+    p {
+      font-size: 0.8rem;
+    }
+  }
+
+  ion-fab {
+    right: 10px !important;
+    bottom: 40px !important;
+  }
+}
+
+/* ============================================================
+   >= 768px  —  DESKTOP
+   Layout desktop (konten + sidebar) tampil.
+   ============================================================ */
+@media (min-width: 768px) {
+  .transparent-toolbar {
+    --min-height: 50px;
+  }
+
+  .blog-title {
+    font-size: 1.1rem;
+  }
+
+  .dark-content {
+    padding-top: 60px;
+  }
+
+  .desktop-layout {
+    display: flex;
+    padding: 1.5rem;
+  }
+
+  .mobile-content {
+    max-width: 800px;
+    padding: 1.5rem 2rem;
+    padding-bottom: 0;
+  }
+
+  .mobile-buttons {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .mobile-btn {
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .privacy-header {
+    margin-top: 3rem;
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tldr {
+      font-size: 1.1rem;
+    }
+  }
+
+  .section {
+    margin-bottom: 1.5rem;
+
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .privacy-list {
+    padding: 1rem;
+    margin-top: -1.5rem;
+
+    li {
+      font-size: 1rem;
+      padding-left: 1.5rem;
+    }
+  }
+
+  .info-item {
+    padding: 0.25rem;
+    padding-left: 2rem;
+    margin-bottom: 0.5rem;
+
+    &:before {
+      left: 1rem;
+      top: 0.5rem;
+    }
+
+    code {
+      font-size: 0.9rem;
+    }
+  }
+
+  .footer {
+    padding: 1rem 1.5rem;
+    margin-top: 1.5rem;
+
+    p {
+      font-size: 0.85rem;
+    }
+  }
+
+  ion-fab {
+    right: 20px !important;
+    bottom: 50px !important;
+  }
+}
+
+/* ============================================================
+   >= 1024px  —  LARGE DESKTOP
+   Sidebar dan konten lebih lega, tipografi lebih besar.
+   ============================================================ */
+@media (min-width: 1024px) {
+  .transparent-toolbar {
+    --min-height: 55px;
+  }
+
+  .blog-title {
+    font-size: 1.15rem;
+  }
+
+  .dark-content {
+    padding-top: 64px;
+  }
+
+  .desktop-layout {
+    padding: 2rem 3rem;
+  }
+
+  .content-wrapper {
+    max-width: 1280px;
+    gap: 3rem;
+  }
+
+  .main-content {
+    max-width: 860px;
+  }
+
+  .sidebar {
+    width: 300px;
+    top: 100px;
+  }
+
+  .sidebar-buttons {
+    padding: 2rem;
+  }
+
+  .mobile-content {
+    max-width: 860px;
+  }
+
+  .privacy-header {
+    margin-top: 3.5rem;
+
+    h1 {
+      font-size: 2.75rem;
+    }
+
+    .tldr {
+      font-size: 1.15rem;
+    }
+  }
+
+  .section {
+    h2 {
+      font-size: 1.9rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+  }
+
+  .privacy-list {
+    li {
+      font-size: 1.05rem;
+    }
+  }
+
+  .footer {
+    padding: 1.25rem 1.5rem;
+  }
+
+  ion-fab {
+    right: 24px !important;
+    bottom: 56px !important;
+  }
 }

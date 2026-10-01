@@ -12,14 +12,23 @@ $card-bg: rgba(255, 255, 255, 0.9);
 $tool-bg: rgba(255, 255, 255, 0.85);
 $modal-bg: #f9f9f9;
 
+/* ============================================================
+   BASE = MOBILE VIEW (< 641px)
+   Semua di luar @media adalah tampilan mobile. Breakpoint di
+   bawah file hanya menaikkan ukuran / mengubah tata letak:
+   >= 641px  = TABLET
+   >= 768px  = DESKTOP
+   >= 1024px = LARGE DESKTOP
+   ============================================================ */
+
 /* Main content styles */
 .locana-content {
   --background: linear-gradient(135deg, #{$primary-gradient-start}, #{$primary-gradient-end});
   font-family: $primary-font;
-  
+
   /* Container for all page elements */
   .page-container {
-    padding: 16px;
+    padding: 12px;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -27,19 +36,19 @@ $modal-bg: #f9f9f9;
   /* Hero section styles */
   .hero-section {
     text-align: center;
-    padding: 4rem 1rem;
-    margin-bottom: 2rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
     color: $text-light;
 
     .page-title {
-      font-size: 3rem;
+      font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .page-description {
-      font-size: 1.2rem;
+      font-size: 0.9rem;
       max-width: 800px;
       margin: 0 auto;
       opacity: 0.9;
@@ -49,13 +58,13 @@ $modal-bg: #f9f9f9;
   /* Section title styling */
   .section-title {
     color: $text-light;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     position: relative;
-    
+
     &:after {
       content: '';
       display: block;
@@ -68,47 +77,83 @@ $modal-bg: #f9f9f9;
   }
 }
 
-/* Header styling */
+/* ============================================================
+   HEADER / TOOLBAR  (MOBILE)
+   Judul di sudut kiri. Tombol translate & BIODATA di kanan,
+   lebih kecil, dengan jarak di antara keduanya.
+   ============================================================ */
 ion-header {
   ion-toolbar {
     --background: linear-gradient(to bottom, rgba(23, 38, 42, 0.95), rgba(23, 38, 42, 0.75), transparent);
     --border-color: transparent;
-    padding: 10px 0;
-    
+    --min-height: 45px;
+    --padding-start: 0.5rem;
+    --padding-end: 0.75rem;
+    padding: 6px 0;
+
+    ion-title {
+      /* Absolut selebar toolbar: posisi judul tidak terpengaruh lebar
+         tombol di kanan, jadi bisa di-center persis di tablet ke atas. */
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding-inline: 1rem 9.5rem;
+      pointer-events: none;
+      /* !important: menimpa .ion-text-center (jika ada di HTML) */
+      text-align: left !important;
+    }
+
     .blog-title {
       text-decoration: none;
       display: inline-block;
+      pointer-events: auto;
+      white-space: nowrap;
       transition: transform 0.3s ease;
-      font-size: 1.1rem;
-      max-width: 400px;
-      
+      font-size: 0.9rem;
+      max-width: 100%;
+      transform-origin: left center;
+
       &:hover {
         transform: scale(1.03);
       }
-      
+
       .primary-text {
         color: $text-light;
         font-weight: 700;
       }
-      
+
       .secondary-text {
         color: $accent-color;
         font-weight: 500;
       }
     }
-    
+
     ion-buttons {
       margin-right: 4px;
-      
+
+      /* jarak antar tombol translate dan BIODATA */
+      + ion-buttons {
+        margin-left: 0.5rem;
+      }
+
       ion-button {
         --color: #{$text-light};
         font-weight: 500;
         --border-radius: 20px;
-        --padding-start: 16px;
-        --padding-end: 16px;
-        height: 36px;
+        --padding-start: 10px;
+        --padding-end: 10px;
+        height: 30px;
+        font-size: 0.72rem;
         transition: all 0.2s ease;
-        
+
+        + ion-button {
+          margin-left: 0.5rem;
+        }
+
         &:hover {
           --color: #{$accent-color};
         }
@@ -116,20 +161,20 @@ ion-header {
     }
 
     .biodata-button {
-      margin-right: -20px;
+      margin-right: -4px;
     }
   }
 }
 
 /* Gallery section styles */
 .gallery-section {
-  margin-bottom: 3rem;
-  
+  margin-bottom: 2rem;
+
   .gallery-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
     .gallery-item {
       .image-card {
         background-color: $card-bg;
@@ -138,38 +183,38 @@ ion-header {
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         cursor: pointer;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        
+
         &:hover {
           transform: translateY(-5px);
           box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
-        
+
         .image-wrapper {
           height: 200px;
           overflow: hidden;
-          
+
           img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
-            
+
             &:hover {
               transform: scale(1.05);
             }
           }
         }
-        
+
         .image-info {
           padding: 1rem;
-          
+
           .image-title {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: $text-dark;
           }
-          
+
           .image-brief {
             font-size: 0.9rem;
             color: rgba($text-dark, 0.8);
@@ -183,50 +228,50 @@ ion-header {
 
 /* Development tools section */
 .tools-section {
-  margin-bottom: 3rem;
-  
+  margin-bottom: 2rem;
+
   .tools-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+
     .tool-item {
       display: flex;
       align-items: center;
       background-color: $tool-bg;
       border-radius: 10px;
-      padding: 1rem;
+      padding: 0.8rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
-      
+
       &:hover {
         transform: translateX(5px);
       }
-      
+
       .tool-icon {
-        font-size: 2rem;
-        width: 50px;
-        height: 50px;
+        font-size: 1.5rem;
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: $primary-gradient-start;
-        margin-right: 1rem;
+        margin-right: 0.8rem;
         flex-shrink: 0;
       }
-      
+
       .tool-content {
         flex: 1;
-        
+
         .tool-name {
-          font-size: 1.1rem;
+          font-size: 1rem;
           font-weight: 600;
           margin: 0 0 0.25rem;
           color: $text-dark;
         }
-        
+
         .tool-description {
-          font-size: 0.9rem;
+          font-size: 0.8rem;
           color: rgba($text-dark, 0.8);
           margin: 0;
         }
@@ -240,32 +285,32 @@ ion-header {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
   border-radius: 16px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+
   .cta-content {
     text-align: center;
     color: $text-light;
-    
+
     .cta-title {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       font-weight: 600;
       margin-bottom: 1rem;
     }
-    
+
     .cta-description {
-      margin-bottom: 1.5rem;
-      font-size: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
       opacity: 0.9;
     }
-    
+
     .cta-buttons {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
       max-width: 400px;
       margin: 0 auto;
-      
+
       ion-button {
         --background: #{$accent-color};
         --background-hover: darken(#{$accent-color}, 10%);
@@ -274,17 +319,18 @@ ion-header {
         --padding-top: 16px;
         --padding-bottom: 16px;
         font-weight: 600;
-        height: 50px;
+        height: 45px;
+        font-size: 0.95rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        
+
         &.website-btn {
           --background: #4385f5;
         }
-        
+
         &.android-btn {
           --background: #3ddc84;
         }
-        
+
         .button-icon {
           margin-right: 8px;
         }
@@ -293,82 +339,84 @@ ion-header {
   }
 }
 
-/* Modal styles */
+/* Modal styles (MOBILE) */
 .image-preview-modal {
-  --width: 80%;
-  --height: 85%;
+  --width: 90%;
+  --height: 75%;
   --border-radius: 16px;
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
-  
+
   .modal-content {
     --background: #{$modal-bg};
     display: flex;
     flex-direction: column;
-    
+
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.5rem;
+      padding: 0.8rem 1rem;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      
+
       .modal-title {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         font-weight: 600;
         margin: 0;
         color: $text-dark;
       }
-      
+
       .close-button {
         color: rgba($text-dark, 0.6);
-        
+
         &:hover {
           color: $text-dark;
         }
       }
     }
-    
+
     .modal-image-container {
       width: 100%;
-      height: 50%;
+      height: 40%;
       overflow: hidden;
-      
+
       img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
     }
-    
+
     .modal-details {
-      padding: 1.5rem;
-      
+      padding: 1rem;
+
       .detail-title {
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 600;
         margin-bottom: 1rem;
         color: $text-dark;
       }
-      
+
       .detail-text {
+        font-size: 0.9rem;
         color: rgba($text-dark, 0.8);
         line-height: 1.6;
         margin-bottom: 1.5rem;
       }
-      
+
       .detail-features {
         h4 {
-          font-size: 1rem;
+          font-size: 0.95rem;
           font-weight: 600;
           margin-bottom: 0.75rem;
           color: $text-dark;
         }
-        
+
         ul {
-          padding-left: 1.5rem;
+          padding-left: 1rem;
           margin: 0;
-          
+
           li {
+            font-size: 0.9rem;
             margin-bottom: 0.5rem;
             color: rgba($text-dark, 0.8);
           }
@@ -378,8 +426,11 @@ ion-header {
   }
 }
 
-/* Tablet Styles */
-@media (max-width: 768px) {
+/* ============================================================
+   >= 641px  —  TABLET
+   Judul toolbar pindah ke tengah persis. Galeri & tools 2 kolom.
+   ============================================================ */
+@media (min-width: 641px) {
   .locana-content {
     .page-container {
       padding: 16px;
@@ -387,34 +438,120 @@ ion-header {
 
     .hero-section {
       padding: 2.5rem 1rem;
-      
+      margin-bottom: 2rem;
+
       .page-title {
         font-size: 2rem;
       }
-      
+
       .page-description {
         font-size: 1rem;
       }
     }
-    
-    .gallery-section {
-      .gallery-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+
+    .section-title {
+      font-size: 1.65rem;
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  ion-header {
+    ion-toolbar {
+      --min-height: 56px;
+      --padding-start: 0.75rem;
+      --padding-end: 1rem;
+      padding: 8px 0;
+
+      ion-title {
+        /* padding kiri = kanan supaya teks center persis di toolbar */
+        padding-inline: 10rem;
+        text-align: center !important;
+      }
+
+      .blog-title {
+        font-size: 0.95rem;
+        transform-origin: center;
+      }
+
+      ion-buttons {
+        + ion-buttons {
+          margin-left: 0.625rem;
+        }
+
+        ion-button {
+          --padding-start: 12px;
+          --padding-end: 12px;
+          height: 32px;
+          font-size: 0.78rem;
+
+          + ion-button {
+            margin-left: 0.625rem;
+          }
+        }
       }
     }
-    
-    .tools-section {
-      .tools-container {
+  }
+
+  .gallery-section {
+    margin-bottom: 2.5rem;
+
+    .gallery-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .tools-section {
+    margin-bottom: 2.5rem;
+
+    .tools-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+
+      .tool-item {
+        padding: 1rem;
+
+        .tool-icon {
+          font-size: 2rem;
+          width: 50px;
+          height: 50px;
+          margin-right: 1rem;
+        }
+
+        .tool-content {
+          .tool-name {
+            font-size: 1.1rem;
+          }
+
+          .tool-description {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+
+  .cta-section {
+    padding: 2rem;
+    margin-bottom: 2rem;
+
+    .cta-content {
+      .cta-title {
+        font-size: 1.8rem;
+      }
+
+      .cta-description {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta-buttons {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
-      }
-    }
-    
-    .cta-section {
-      .cta-content {
-        .cta-buttons {
-          grid-template-columns: repeat(2, 1fr);
+
+        ion-button {
+          height: 50px;
+          font-size: 1rem;
         }
       }
     }
@@ -423,159 +560,228 @@ ion-header {
   .image-preview-modal {
     --width: 85%;
     --height: 80%;
-    
+
     .modal-content {
+      .modal-header {
+        padding: 1rem 1.5rem;
+
+        .modal-title {
+          font-size: 1.3rem;
+        }
+      }
+
       .modal-image-container {
         height: 45%;
+      }
+
+      .modal-details {
+        padding: 1.5rem;
+
+        .detail-title {
+          font-size: 1.2rem;
+        }
+
+        .detail-text {
+          font-size: 1rem;
+        }
+
+        .detail-features {
+          h4 {
+            font-size: 1rem;
+          }
+
+          ul {
+            padding-left: 1.5rem;
+
+            li {
+              font-size: 1rem;
+            }
+          }
+        }
       }
     }
   }
 }
 
-/* Mobile Styles */
-@media (max-width: 640px) {
+/* ============================================================
+   >= 768px  —  DESKTOP
+   Galeri 3 kolom, tools 2 kolom, modal lebih lebar.
+   ============================================================ */
+@media (min-width: 768px) {
   .locana-content {
     .page-container {
-      padding: 12px;
-    }
-
-    ion-header {
-      ion-toolbar {
-        .blog-title {
-          font-size: 0.80rem;
-          text-align: left;
-          margin-right: auto;
-          max-width: 280px;
-        }
-      }
+      padding: 24px;
     }
 
     .hero-section {
-      padding: 1.5rem 1rem;
-      margin-bottom: 1.5rem;
-      
+      padding: 3.5rem 1rem;
+
       .page-title {
-        font-size: 1.5rem;
+        font-size: 2.5rem;
       }
-      
+
       .page-description {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
       }
     }
-    
+
     .section-title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .gallery-section {
-      margin-bottom: 2rem;
-
-      .gallery-container {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-    }
-    
-    .tools-section {
-      margin-bottom: 2rem;
-
-      .tools-container {
-        grid-template-columns: 1fr;
-        gap: 0.8rem;
-        
-        .tool-item {
-          padding: 0.8rem;
-          
-          .tool-icon {
-            font-size: 1.5rem;
-            width: 40px;
-            height: 40px;
-            margin-right: 0.8rem;
-          }
-          
-          .tool-content {
-            .tool-name {
-              font-size: 1rem;
-            }
-            
-            .tool-description {
-              font-size: 0.8rem;
-            }
-          }
-        }
-      }
-    }
-    
-    .cta-section {
-      padding: 1.5rem;
+      font-size: 1.8rem;
       margin-bottom: 1.5rem;
-      
-      .cta-content {
-        .cta-title {
-          font-size: 1.4rem;
+    }
+  }
+
+  ion-header {
+    ion-toolbar {
+      --min-height: 40px;
+      --padding-start: 1rem;
+      --padding-end: 1.5rem;
+      padding: 10px 0;
+
+      ion-title {
+        padding-inline: 11rem;
+      }
+
+      .blog-title {
+        font-size: 1rem;
+      }
+
+      ion-buttons {
+        + ion-buttons {
+          margin-left: 0.75rem;
         }
-        
-        .cta-description {
-          font-size: 0.9rem;
-          margin-bottom: 1rem;
-        }
-        
-        .cta-buttons {
-          grid-template-columns: 1fr;
-          gap: 0.8rem;
-          
-          ion-button {
-            height: 45px;
-            font-size: 0.95rem;
+
+        ion-button {
+          --padding-start: 14px;
+          --padding-end: 14px;
+          height: 34px;
+          font-size: 0.82rem;
+
+          + ion-button {
+            margin-left: 0.75rem;
           }
         }
       }
     }
   }
 
+  .gallery-section {
+    margin-bottom: 3rem;
+
+    .gallery-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .tools-section {
+    margin-bottom: 3rem;
+  }
+
+  .cta-section {
+    .cta-content {
+      .cta-buttons {
+        max-width: 440px;
+      }
+    }
+  }
+
   .image-preview-modal {
-    --width: 90%;
-    --height: 75%;
-    
+    --width: 80%;
+    --height: 85%;
+
     .modal-content {
-      .modal-header {
-        padding: 0.8rem 1rem;
-        
-        .modal-title {
-          font-size: 1.1rem;
-        }
+      .modal-image-container {
+        height: 50%;
+      }
+    }
+  }
+}
+
+/* ============================================================
+   >= 1024px  —  LARGE DESKTOP
+   Tools 3 kolom, ruang lebih longgar, tipografi lebih besar.
+   ============================================================ */
+@media (min-width: 1024px) {
+  .locana-content {
+    .page-container {
+      padding: 32px;
+    }
+
+    .hero-section {
+      padding: 4rem 1rem;
+
+      .page-title {
+        font-size: 3rem;
       }
 
-      .modal-image-container {
-        height: 40%;
+      .page-description {
+        font-size: 1.2rem;
       }
-      
-      .modal-details {
-        padding: 1rem;
-        
-        .detail-title {
-          font-size: 1rem;
+    }
+  }
+
+  ion-header {
+    ion-toolbar {
+      --min-height: 40px;
+      --padding-start: 1.5rem;
+      --padding-end: 2rem;
+
+      ion-title {
+        padding-inline: 12rem;
+      }
+
+      .blog-title {
+        font-size: 1.05rem;
+      }
+
+      ion-buttons {
+        + ion-buttons {
+          margin-left: 1rem;
         }
-        
-        .detail-text {
-          font-size: 0.9rem;
-        }
-        
-        .detail-features {
-          h4 {
-            font-size: 0.95rem;
-          }
-          
-          ul {
-            padding-left: 1rem;
-            
-            li {
-              font-size: 0.9rem;
-            }
+
+        ion-button {
+          height: 34px;
+          font-size: 0.85rem;
+
+          + ion-button {
+            margin-left: 1rem;
           }
         }
       }
     }
+  }
+
+  .gallery-section {
+    .gallery-container {
+      gap: 2rem;
+
+      .gallery-item {
+        .image-card {
+          .image-wrapper {
+            height: 220px;
+          }
+        }
+      }
+    }
+  }
+
+  .tools-section {
+    .tools-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .cta-section {
+    padding: 2.5rem;
+
+    .cta-content {
+      .cta-buttons {
+        max-width: 480px;
+      }
+    }
+  }
+
+  .image-preview-modal {
+    --max-width: 1100px;
   }
 }

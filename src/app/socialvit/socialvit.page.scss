@@ -1,4 +1,16 @@
+/* ============================================================
+   BASE = MOBILE VIEW (< 641px)
+   Semua di luar @media adalah tampilan mobile. Breakpoint di
+   bawah file hanya menaikkan ukuran / mengubah tata letak:
+   >= 641px  = TABLET
+   >= 768px  = DESKTOP
+   >= 1024px = LARGE DESKTOP
+   ============================================================ */
+
 /* ========== VARIABLES & MIXINS ========== */
+/* (:host dipakai agar variabel ikut ter-scope ke halaman ini;
+   :root di dalam component style tidak pernah cocok dengan <html>) */
+:host,
 :root {
   --primary-red: #FE2948;
   --primary-blue: #3655F8;
@@ -50,11 +62,13 @@
   }
 }
 
-/* ========== HEADER & TOOLBAR ========== */
+/* ========== HEADER & TOOLBAR (MOBILE) ==========
+   Judul "Maulana Farras Blog's" di sudut kiri, sedikit lebih kecil.
+   Tombol bahasa di kanan. */
 .custom-toolbar {
   --background: transparent;
   position: relative;
-  padding: 0 16px;
+  padding: 0 12px;
 
   &::before {
     content: '';
@@ -69,19 +83,28 @@
   }
 
   .blog-title {
+    /* Absolut selebar toolbar: posisi judul tidak terpengaruh lebar
+       tombol bahasa di kanan, jadi bisa di-center persis di tablet ke atas. */
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    /* kanan menyisakan ruang untuk tombol bahasa */
+    padding: 0 5rem 0 0;
+    text-align: left;
+    font-size: 0.78rem;
     font-weight: 600;
     color: var(--text-light);
     cursor: pointer;
     transition: var(--transition-smooth);
     white-space: nowrap;
+    transform-origin: left center;
 
     &:hover {
-      transform: translate(-50%, -50%) scale(1.05);
+      transform: scale(1.03);
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
   }
@@ -89,7 +112,7 @@
   .lang-toggle {
     --color: var(--text-light);
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     letter-spacing: 0.5px;
     transition: var(--transition-smooth);
 
@@ -100,16 +123,16 @@
   }
 }
 
-/* ========== HERO SECTION ========== */
+/* ========== HERO SECTION (MOBILE) ========== */
 .hero-section {
   text-align: center;
   will-change: transform;
-  padding: 60px 20px 40px;
+  padding: 30px 12px 20px;
   position: relative;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  margin: 20px;
+  margin: 12px;
   border-radius: var(--border-radius);
   border: 1px solid rgba(255, 255, 255, 0.2);
 
@@ -130,9 +153,9 @@
   }
 
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: 800;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     background: linear-gradient(45deg, var(--primary-red), var(--primary-orange));
     -webkit-background-clip: text;
     background-clip: text;
@@ -140,7 +163,7 @@
   }
 
   .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.95);
     font-weight: 400;
     max-width: 600px;
@@ -150,12 +173,12 @@
   }
 }
 
-/* ========== SECTION TITLES ========== */
+/* ========== SECTION TITLES (MOBILE) ========== */
 .section-title {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   position: relative;
   color: var(--text-light);
 
@@ -172,11 +195,11 @@
   }
 }
 
-/* ========== GALLERY SECTION ========== */
+/* ========== GALLERY SECTION (MOBILE) ========== */
 .gallery-section {
-  padding: 60px 20px;
+  padding: 30px 12px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 12px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: var(--border-radius);
@@ -186,7 +209,7 @@
 .carousel-container {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 250px;
   overflow: hidden;
   border-radius: var(--border-radius);
   box-shadow: 0 8px 32px rgba(254, 41, 72, 0.3);
@@ -233,7 +256,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 24px;
+      padding: 14px;
       background: linear-gradient(transparent,
           rgba(254, 41, 72, 0.9) 30%,
           rgba(54, 85, 248, 0.9) 100%);
@@ -247,15 +270,15 @@
       }
 
       h3 {
-        font-size: 1.3rem;
+        font-size: 1rem;
         font-weight: 600;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         color: var(--text-light);
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
       }
 
       p {
-        font-size: 0.9rem;
+        font-size: 0.78rem;
         color: rgba(255, 255, 255, 0.95);
         line-height: 1.5;
         margin: 0;
@@ -273,127 +296,13 @@
   }
 }
 
-/* ========== PHOTO MODAL ========== */
-.photo-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition-smooth);
-  padding: 20px;
-  
-  &.show {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .modal-backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-  }
-  
-  .modal-content {
-    position: relative;
-    max-width: 80vw;
-    max-height: 80vh;
-    width: auto;
-    height: auto;
-    min-width: 500px;
-    min-height: 500px;
-    background: linear-gradient(135deg, 
-      rgba(254, 41, 72, 0.1), 
-      rgba(54, 85, 248, 0.1));
-    backdrop-filter: blur(20px);
-    border-radius: var(--border-radius);
-    border: 2px solid rgba(234, 156, 43, 0.5);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    transform: scale(0.8);
-    transition: var(--transition-smooth);
-    
-    .photo-modal.show & {
-      transform: scale(1);
-    }
-    
-    .modal-header {
-      padding: 16px 20px;
-      background: linear-gradient(45deg, 
-        rgba(254, 41, 72, 0.2), 
-        rgba(54, 85, 248, 0.2));
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      
-      h3 {
-        font-size: 1.2rem;
-        font-weight: 600;
-        color: var(--text-light);
-        margin: 0;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      }
-      
-      .close-btn {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        border: none;
-        background: rgba(254, 41, 72, 0.8);
-        color: var(--text-light);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: var(--transition-smooth);
-        
-        &:hover {
-          background: rgba(254, 41, 72, 1);
-          transform: scale(1.1);
-        }
-        
-        ion-icon {
-          font-size: 1.2rem;
-        }
-      }
-    }
-    
-    .modal-body {
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      
-      img {
-        width: 100%;
-        height: 100%;
-        max-width: none;
-        max-height: none;
-        object-fit: contain;
-        border-radius: 0 0 var(--border-radius) var(--border-radius);
-      }
-    }
-  }
-}
-
-/* Navigation buttons */
+/* Navigation buttons (MOBILE) */
 .nav-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 2px solid var(--primary-orange);
   background: linear-gradient(45deg,
@@ -401,7 +310,7 @@
       rgba(54, 85, 248, 0.8));
   backdrop-filter: blur(10px);
   color: var(--text-light);
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: var(--transition-smooth);
   z-index: 10;
@@ -415,18 +324,18 @@
   }
 
   &.prev-btn {
-    left: 20px;
+    left: 8px;
   }
 
   &.next-btn {
-    right: 20px;
+    right: 8px;
   }
 }
 
-/* Indicators */
+/* Indicators (MOBILE) */
 .indicators {
   position: absolute;
-  bottom: 20px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -434,8 +343,8 @@
   z-index: 10;
 
   .indicator {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
     cursor: pointer;
@@ -452,26 +361,160 @@
   }
 }
 
-/* ========== TECH STACK SECTION ========== */
+/* ========== PHOTO MODAL (MOBILE: viewer layar penuh) ==========
+   Header bar (judul + tombol tutup) di atas, foto memenuhi sisa
+   layar dan selalu tampil utuh (object-fit: contain). Tutup lewat
+   tombol, klik backdrop, atau klik di luar kartu (tablet ke atas). */
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-smooth);
+  padding: 0;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+
+    .modal-content {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(5, 5, 12, 0.94);
+    backdrop-filter: blur(10px);
+  }
+
+  .modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: none;
+    max-height: none;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    background: #08080f;
+    backdrop-filter: blur(20px);
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    overflow: hidden;
+    transform: translateY(24px);
+    transition: var(--transition-smooth);
+
+    .modal-header {
+      flex-shrink: 0;
+      padding: calc(10px + env(safe-area-inset-top, 0px)) 14px 10px;
+      background: linear-gradient(45deg,
+          rgba(254, 41, 72, 0.25),
+          rgba(54, 85, 248, 0.25));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+
+      h3 {
+        flex: 1;
+        min-width: 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--text-light);
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .close-btn {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(254, 41, 72, 0.8);
+        color: var(--text-light);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+
+        &:hover {
+          background: rgba(254, 41, 72, 1);
+          transform: scale(1.1);
+        }
+
+        ion-icon {
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    .modal-body {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      /* Foto mengisi seluruh area body dan tampil utuh */
+      img {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+        width: calc(100% - 16px);
+        height: calc(100% - 16px - env(safe-area-inset-bottom, 0px));
+        max-width: none;
+        max-height: none;
+        object-fit: contain;
+        border-radius: 10px;
+      }
+    }
+  }
+}
+
+/* ========== TECH STACK SECTION (MOBILE) ========== */
 .tech-stack-section {
-  padding: 60px 20px;
+  padding: 30px 12px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 12px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: var(--border-radius);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  margin-top: 40px;
+  margin-top: 24px;
 }
 
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 16px;
 }
 
 .tech-item {
-  padding: 30px 24px;
+  padding: 24px 20px;
   will-change: transform;
   border-radius: var(--border-radius);
   background: linear-gradient(135deg,
@@ -509,10 +552,10 @@
   }
 
   .tech-icon {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 20px;
-    padding: 10px;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 16px;
+    padding: 9px;
     background: linear-gradient(45deg, var(--primary-red), var(--primary-blue));
     border-radius: 50%;
 
@@ -525,15 +568,15 @@
   }
 
   h3 {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     color: var(--primary-orange);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.6;
     margin: 0;
@@ -541,11 +584,11 @@
   }
 }
 
-/* ========== TEAM SECTION ========== */
+/* ========== TEAM SECTION (MOBILE) ========== */
 .team-section {
-  padding: 60px 20px;
+  padding: 30px 12px;
   max-width: 800px;
-  margin: 40px auto 0;
+  margin: 24px auto 0;
 }
 
 .team-info {
@@ -554,7 +597,7 @@
 }
 
 .team-card {
-  padding: 40px 32px;
+  padding: 24px 20px;
   border-radius: var(--border-radius);
   background: linear-gradient(135deg,
       rgba(254, 41, 72, 0.15),
@@ -564,7 +607,7 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  max-width: 600px;
+  max-width: 100%;
   box-shadow: 0 20px 40px rgba(254, 41, 72, 0.3);
 
   &::before {
@@ -585,9 +628,9 @@
   }
 
   h3 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     background: linear-gradient(45deg, var(--primary-orange), var(--primary-red));
     -webkit-background-clip: text;
     background-clip: text;
@@ -595,20 +638,20 @@
   }
 
   p {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: rgba(255, 255, 255, 0.95);
     line-height: 1.7;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   .role-badge {
     display: inline-block;
-    padding: 12px 24px;
+    padding: 10px 20px;
     background: linear-gradient(45deg, var(--primary-red), var(--primary-blue));
     color: var(--text-light);
     border-radius: 25px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     border: 2px solid var(--primary-orange);
@@ -633,24 +676,35 @@
   }
 }
 
-/* ========== RESPONSIVE DESIGN ========== */
-
-/* Tablet Styles */
-@media (max-width: 768px) {
+/* ============================================================
+   >= 641px  —  TABLET
+   Judul toolbar pindah ke tengah persis. Modal jadi kartu di
+   tengah layar. Grid tech 2 kolom.
+   ============================================================ */
+@media (min-width: 641px) {
   .custom-toolbar {
+    padding: 0 16px;
+
     .blog-title {
+      /* padding kiri = kanan supaya teks center persis di toolbar */
+      padding: 0 5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      transform-origin: center;
+    }
+
+    .lang-toggle {
       font-size: 0.85rem;
-      max-width: 350px;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
 
   .hero-section {
     padding: 40px 16px 30px;
+    margin: 16px;
 
     .hero-title {
       font-size: 2rem;
+      margin-bottom: 16px;
     }
 
     .hero-subtitle {
@@ -660,25 +714,40 @@
 
   .section-title {
     font-size: 1.5rem;
+    margin-bottom: 34px;
+  }
+
+  .gallery-section,
+  .tech-stack-section {
+    padding: 40px 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .tech-stack-section {
+    margin-top: 32px;
+  }
+
+  .team-section {
+    padding: 40px 16px;
+    margin-top: 32px;
   }
 
   .carousel-container {
     height: 300px;
   }
 
-  .gallery-section,
-  .tech-stack-section,
-  .team-section {
-    padding: 40px 16px;
-  }
+  .carousel-item .image-container .image-overlay {
+    padding: 18px;
 
-  .tech-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-  }
+    h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
 
-  .team-card {
-    padding: 30px 24px;
+    p {
+      font-size: 0.85rem;
+    }
   }
 
   .nav-btn {
@@ -695,99 +764,308 @@
     }
   }
 
+  .indicators {
+    bottom: 16px;
+
+    .indicator {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .tech-item {
+    padding: 28px 22px;
+
+    .tech-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  .team-card {
+    padding: 30px 24px;
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
+
+    .role-badge {
+      padding: 12px 24px;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* --- Modal: kartu di tengah layar --- */
   .photo-modal {
-    padding: 0;
+    padding: 20px;
 
     .modal-content {
-      max-width: 100vw;
-      max-height: 80vh;
-      width: 100vw;
+      width: min(640px, 92vw);
       height: auto;
-      min-width: unset;
-      border-radius: 0;
-      border: none;
+      border-radius: 20px;
+      border: 2px solid rgba(234, 156, 43, 0.5);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+      transform: scale(0.94) translateY(12px);
 
       .modal-header {
-        padding: 12px 16px;
+        padding: 14px 18px;
+        background: linear-gradient(45deg,
+            rgba(254, 41, 72, 0.2),
+            rgba(54, 85, 248, 0.2));
 
         h3 {
-          font-size: 1rem;
-        }
-
-        .close-btn {
-          width: 28px;
-          height: 28px;
+          font-size: 1.05rem;
         }
       }
 
       .modal-body {
-        width: 100%;
-        height: auto;
-        padding: 0;
+        flex: none;
+        height: min(62vh, 520px);
 
         img {
-          width: 100%;
-          height: auto;
-          max-width: none;
-          max-height: calc(70vh);
-          object-fit: contain;
-          border-radius: 0;
+          top: 14px;
+          left: 14px;
+          right: 14px;
+          bottom: 14px;
+          width: calc(100% - 28px);
+          height: calc(100% - 28px);
+          border-radius: 12px;
         }
       }
     }
   }
 }
 
-/* Mobile Styles */
-@media (max-width: 640px) {
+/* ============================================================
+   >= 768px  —  DESKTOP
+   Kartu lebih lebar, hero & section lebih lega.
+   ============================================================ */
+@media (min-width: 768px) {
   .custom-toolbar {
+    padding: 0 24px;
+
     .blog-title {
-      font-size: 0.85rem;
-      max-width: 250px;
-    }
-  }
-
-  .hero-section {
-    padding: 30px 12px 20px;
-
-    .hero-title {
-      font-size: 1.5rem;
+      padding: 0 6rem;
+      font-size: 0.9rem;
     }
 
-    .hero-subtitle {
+    .lang-toggle {
       font-size: 0.9rem;
     }
   }
 
-  .section-title {
-    font-size: 1.2rem;
+  .hero-section {
+    padding: 52px 20px 36px;
+    margin: 20px;
+
+    .hero-title {
+      font-size: 2.25rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+    }
   }
 
-  .carousel-container {
-    height: 250px;
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 38px;
   }
 
   .gallery-section,
-  .tech-stack-section,
+  .tech-stack-section {
+    padding: 52px 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .tech-stack-section {
+    margin-top: 40px;
+  }
+
   .team-section {
-    padding: 30px 12px;
+    padding: 52px 20px;
+    margin-top: 40px;
+  }
+
+  .carousel-container {
+    height: 400px;
+  }
+
+  .carousel-item .image-container .image-overlay {
+    padding: 24px;
+
+    h3 {
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  .nav-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+
+    &.prev-btn {
+      left: 20px;
+    }
+
+    &.next-btn {
+      right: 20px;
+    }
+  }
+
+  .indicators {
+    bottom: 20px;
   }
 
   .tech-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
   }
 
   .tech-item {
-    padding: 24px 20px;
-  }
-
-  .team-card {
-    padding: 24px 20px;
-    max-width: 100%;
+    padding: 30px 24px;
 
     h3 {
       font-size: 1.2rem;
+    }
+  }
+
+  .team-card {
+    padding: 40px 32px;
+    max-width: 600px;
+
+    h3 {
+      font-size: 1.4rem;
+    }
+  }
+
+  /* --- Modal: kartu lebar --- */
+  .photo-modal {
+    padding: 28px;
+
+    .modal-content {
+      width: min(940px, 90vw);
+      border-radius: 24px;
+
+      .modal-header {
+        padding: 16px 24px;
+
+        h3 {
+          font-size: 1.15rem;
+        }
+
+        .close-btn {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      .modal-body {
+        height: min(64vh, 600px);
+
+        img {
+          top: 18px;
+          left: 18px;
+          right: 18px;
+          bottom: 18px;
+          width: calc(100% - 36px);
+          height: calc(100% - 36px);
+          border-radius: 14px;
+        }
+      }
+    }
+  }
+}
+
+/* ============================================================
+   >= 1024px  —  LARGE DESKTOP
+   Galeri paling tinggi, section tengah dengan lebar maksimum,
+   modal paling besar.
+   ============================================================ */
+@media (min-width: 1024px) {
+  .custom-toolbar {
+    padding: 0 32px;
+
+    .blog-title {
+      padding: 0 7rem;
+      font-size: 0.95rem;
+    }
+
+    .lang-toggle {
+      font-size: 0.95rem;
+    }
+  }
+
+  .hero-section {
+    padding: 60px 20px 40px;
+    margin: 24px;
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+
+  .gallery-section,
+  .tech-stack-section {
+    padding: 60px 24px;
+    width: calc(100% - 48px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tech-stack-section {
+    margin-top: 40px;
+  }
+
+  .team-section {
+    padding: 60px 20px;
+  }
+
+  .carousel-container {
+    height: 460px;
+  }
+
+  .carousel-item .image-container .image-overlay {
+    padding: 28px;
+
+    h3 {
+      font-size: 1.4rem;
     }
 
     p {
@@ -796,85 +1074,82 @@
   }
 
   .nav-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
 
     &.prev-btn {
-      left: 8px;
+      left: 24px;
     }
 
     &.next-btn {
-      right: 8px;
+      right: 24px;
     }
   }
 
-  .photo-modal {
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100vh;
-    
-    .modal-backdrop {
-      background: rgba(0, 0, 0, 0.9);
+  .indicators {
+    bottom: 24px;
+
+    .indicator {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .tech-item {
+    padding: 34px 26px;
+
+    h3 {
+      font-size: 1.25rem;
+    }
+  }
+
+  .team-card {
+    h3 {
+      font-size: 1.5rem;
     }
 
+    p {
+      font-size: 1.05rem;
+    }
+  }
+
+  /* --- Modal: kartu terbesar --- */
+  .photo-modal {
+    padding: 36px;
+
     .modal-content {
-      width: fit-content;
-      height: fit-content;
-      max-width: 95vw;
-      max-height: 95vh;
-      min-width: unset;
-      border-radius: 0;
-      border: none;
-      box-shadow: none;
-      background: transparent;
-      backdrop-filter: none;
-      transform: none !important;
-      position: relative;
+      width: min(1180px, 88vw);
+      border-radius: 28px;
 
       .modal-header {
-        padding: 8px 10px;
-        background: rgba(0, 0, 0, 0.7);
-        border: none;
-        border-bottom: none;
+        padding: 18px 28px;
 
         h3 {
-          font-size: 0.85rem;
-          margin: 0;
+          font-size: 1.25rem;
         }
 
         .close-btn {
-          width: 24px;
-          height: 24px;
-          font-size: 0.9rem;
-          padding: 0;
+          width: 44px;
+          height: 44px;
+
+          ion-icon {
+            font-size: 1.5rem;
+          }
         }
       }
 
       .modal-body {
-        width: 100%;
-        height: auto;
-        padding: 0;
-        background: transparent;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        height: min(68vh, 700px);
 
         img {
-          width: auto !important;
-          height: auto !important;
-          max-width: 95vw !important;
-          max-height: calc(95vh - 35px) !important;
-          object-fit: contain;
-          border-radius: 0;
-          display: block;
+          top: 22px;
+          left: 22px;
+          right: 22px;
+          bottom: 22px;
+          width: calc(100% - 44px);
+          height: calc(100% - 44px);
+          border-radius: 16px;
         }
       }
     }
