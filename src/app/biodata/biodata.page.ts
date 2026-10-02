@@ -66,7 +66,23 @@ interface CachedImage {
 
 export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('zoomableImage', { static: false }) zoomableImage?: ElementRef<HTMLImageElement>;
-  @ViewChild('imageContainer', { static: false }) imageContainer?: ElementRef<HTMLDivElement>;
+  private _imageContainer?: ElementRef<HTMLDivElement>;
+
+  /* Setter: dipanggil otomatis saat elemen .modal-image-container dibuat
+     (modal dibuka) atau dihancurkan (modal ditutup). Di sinilah semua
+     gesture zoom dipasang / dibersihkan. */
+  @ViewChild('imageContainer', { static: false })
+  set imageContainer(ref: ElementRef<HTMLDivElement> | undefined) {
+    this._imageContainer = ref;
+    this.cleanupEventListeners();
+    this.resetZoomState();
+    if (ref) {
+      this.setupGestureListeners(ref.nativeElement);
+    }
+  }
+  get imageContainer(): ElementRef<HTMLDivElement> | undefined {
+    return this._imageContainer;
+  }
   
   private backButtonSubscription!: Subscription;
   private eventListeners: Array<() => void> = [];
@@ -569,294 +585,382 @@ export class BiodataPage implements OnInit, AfterViewInit, OnDestroy {
     return src;
   }
 
-  /* ========== Gallery Modal Controls ========== */
+  /* ========== Gallery Modal Controls (zoom ala Google Photos) ==========
+     Cara pakai:
+       - Scroll mouse / pinch trackpad : zoom in-out tepat di posisi kursor
+       - Pinch dua jari (HP/tablet)    : zoom in-out di titik tengah dua jari
+       - Double click / double tap     : zoom in ke titik itu, ulangi untuk kembali
+       - Drag (mouse / satu jari)      : geser foto saat sedang di-zoom
+       - Tombol + - reset              : zoom di tengah layar
+       - Klik area kosong di luar foto : tutup modal
+  */
 
+  /* Batas dan pengaturan zoom */
+  private readonly MIN_SCALE = 1;
+  private readonly MAX_SCALE = 8;
+  private readonly MIN_PINCH_SCALE = 0.6;   /* boleh mengecil sedikit saat pinch, lalu memantul ke 1 */
+  private readonly DOUBLE_TAP_SCALE = 2.5;
+  private readonly DOUBLE_TAP_MS = 300;
+  private readonly DOUBLE_TAP_DISTANCE = 30;
+  private readonly TAP_MOVE_TOLERANCE = 8;
+
+  /* State gesture */
+  private activePointers = new Map<number, { x: number, y: number }>();
+  private pinchStartDistance = 0;
+  private pinchStartScale = 1;
+  private lastPinchCenter = { x: 0, y: 0 };
+  private tapStart: { x: number, y: number, time: number } | null = null;
+  private lastTap: { x: number, y: number, time: number } | null = null;
+  private gestureMoved = false;
+
+  /* Dipanggil dari (click) di .modal-image-container.
+     Klik di area kosong (di luar foto) menutup modal. Klik pada foto
+     tidak melakukan apa-apa; zoom lewat scroll / pinch / double tap. */
   handleContainerClick(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    
-    if (target.classList.contains('modal-image-container')) {
-      this.closeGalleryModal();
+    /* abaikan "klik" yang sebenarnya akhir dari drag / pinch */
+    if (this.gestureMoved) {
       return;
     }
 
-    if (!this.isImageZoomed) {
-      this.enterZoomMode();
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('modal-image-container')) {
+      this.closeGalleryModal();
     }
   }
 
-  enterZoomMode(): void {
-    this.isImageZoomed = true;
-    
-    if (this.zoomableImage) {
-      this.renderer.addClass(this.zoomableImage.nativeElement, 'zoomable-active');
-      this.setupZoomEventListeners();
-    }
-    
-    if (this.imageContainer) {
-      this.renderer.addClass(this.imageContainer.nativeElement, 'zoom-mode');
-    }
-  }
-
-  exitZoomMode(): void {
+  /* Reset semua state zoom (tanpa animasi) */
+  private resetZoomState(): void {
+    this.currentScale = 1;
+    this.translateX = 0;
+    this.translateY = 0;
     this.isImageZoomed = false;
-    this.resetZoom();
+    this.isDragging = false;
+    this.pinchStartDistance = 0;
+    this.pinchStartScale = 1;
+    this.activePointers.clear();
+    this.tapStart = null;
+    this.lastTap = null;
+    this.gestureMoved = false;
+  }
+
+  /* Dipanggil closeGalleryModal() */
+  exitZoomMode(): void {
+    this.resetZoomState();
+
+    const img = this.getZoomImage();
+    if (img) {
+      img.style.transition = '';
+      img.style.transform = '';
+    }
     this.cleanupEventListeners();
   }
 
-  private setupZoomEventListeners(): void {
-    if (!this.zoomableImage) return;
-    
-    const imgElement = this.zoomableImage.nativeElement;
-    
-    this.setupMouseEvents(imgElement);
-    this.setupTouchEvents(imgElement);
-    this.setupWheelEvent(imgElement);
-  }
+  /* ---------- Pemasangan listener gesture ---------- */
+  private setupGestureListeners(container: HTMLElement): void {
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
 
-  /* Setup mouse events for drag */
-  private setupMouseEvents(imgElement: HTMLElement): void {
-    const onMouseDown = (e: MouseEvent) => {
-      if (!this.isImageZoomed) return;
-      
-      this.isDragging = true;
-      this.startX = e.clientX - this.translateX;
-      this.startY = e.clientY - this.translateY;
-      
-      this.renderer.addClass(imgElement, 'dragging');
-      e.preventDefault();
-    };
+      const img = this.getZoomImage();
+      if (!img) return;
 
-    const onMouseMove = (e: MouseEvent) => {
-      if (!this.isDragging || !this.isImageZoomed) return;
-      
-      const newTranslateX = e.clientX - this.startX;
-      const newTranslateY = e.clientY - this.startY;
-      
-      const bounded = this.applyBoundaries(newTranslateX, newTranslateY);
-      this.translateX = bounded.x;
-      this.translateY = bounded.y;
-      
-      this.applyTransform();
-      e.preventDefault();
-    };
+      this.activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
-    const onMouseUp = () => {
-      if (this.isDragging) {
+      if (this.activePointers.size === 1) {
+        /* satu jari / mouse: calon tap atau drag */
+        this.gestureMoved = false;
+        this.tapStart = { x: e.clientX, y: e.clientY, time: Date.now() };
+
+        if (this.currentScale > 1) {
+          this.isDragging = true;
+          this.renderer.addClass(img, 'dragging');
+        }
+      } else if (this.activePointers.size === 2) {
+        /* dua jari: mulai pinch */
+        const [a, b] = Array.from(this.activePointers.values());
+        this.pinchStartDistance = Math.hypot(a.x - b.x, a.y - b.y);
+        this.pinchStartScale = this.currentScale;
+        this.lastPinchCenter = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+        this.gestureMoved = true;
+        this.tapStart = null;
         this.isDragging = false;
-        this.renderer.removeClass(imgElement, 'dragging');
+        this.renderer.removeClass(img, 'dragging');
       }
     };
 
-    imgElement.addEventListener('mousedown', onMouseDown);
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-    
-    this.eventListeners.push(
-      () => imgElement.removeEventListener('mousedown', onMouseDown),
-      () => document.removeEventListener('mousemove', onMouseMove),
-      () => document.removeEventListener('mouseup', onMouseUp)
-    );
-  }
+    const onPointerMove = (e: PointerEvent) => {
+      const pointer = this.activePointers.get(e.pointerId);
+      if (!pointer) return;
 
-  /* Setup touch events for mobile */
-  private setupTouchEvents(imgElement: HTMLElement): void {
-    const onTouchStart = (e: TouchEvent) => {
-      if (!this.isImageZoomed) return;
-      
-      if (e.touches.length === 1) {
-        this.isDragging = true;
-        this.startX = e.touches[0].clientX - this.translateX;
-        this.startY = e.touches[0].clientY - this.translateY;
-        this.renderer.addClass(imgElement, 'dragging');
-      } else if (e.touches.length === 2) {
-        this.lastTouchDistance = this.getTouchDistance(e.touches);
-      }
-    };
+      const dx = e.clientX - pointer.x;
+      const dy = e.clientY - pointer.y;
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
 
-    const onTouchMove = (e: TouchEvent) => {
-      if (!this.isImageZoomed) return;
-      
-      if (e.touches.length === 1 && this.isDragging) {
-        const newTranslateX = e.touches[0].clientX - this.startX;
-        const newTranslateY = e.touches[0].clientY - this.startY;
-        
-        const bounded = this.applyBoundaries(newTranslateX, newTranslateY);
-        this.translateX = bounded.x;
-        this.translateY = bounded.y;
-        
-        this.applyTransform();
+      /* --- Pinch (dua jari) --- */
+      if (this.activePointers.size >= 2) {
+        const [a, b] = Array.from(this.activePointers.values());
+        const distance = Math.hypot(a.x - b.x, a.y - b.y);
+        const center = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+
+        if (this.pinchStartDistance > 0) {
+          const target = this.clamp(
+            this.pinchStartScale * (distance / this.pinchStartDistance),
+            this.MIN_PINCH_SCALE,
+            this.MAX_SCALE
+          );
+
+          /* titik di antara dua jari tetap berada di bawah jari */
+          this.zoomAt(center.x, center.y, target);
+          /* ikut bergeser kalau kedua jari digeser */
+          this.translateX += center.x - this.lastPinchCenter.x;
+          this.translateY += center.y - this.lastPinchCenter.y;
+          this.lastPinchCenter = center;
+
+          this.commitTransform(false);
+        }
         e.preventDefault();
-      } else if (e.touches.length === 2) {
-        const currentDistance = this.getTouchDistance(e.touches);
-        const scaleDelta = currentDistance / this.lastTouchDistance;
-        
-        const newScale = Math.max(0.5, Math.min(5, this.currentScale * scaleDelta));
-        
-        const touch1 = e.touches[0];
-        const touch2 = e.touches[1];
-        const centerX = (touch1.clientX + touch2.clientX) / 2;
-        const centerY = (touch1.clientY + touch2.clientY) / 2;
-        
-        const rect = imgElement.getBoundingClientRect();
-        const x = centerX - rect.left;
-        const y = centerY - rect.top;
-        
-        this.zoomAtPoint(x, y, newScale);
-        
-        this.lastTouchDistance = currentDistance;
+        return;
+      }
+
+      /* --- Satu jari / mouse --- */
+      if (this.tapStart &&
+        Math.hypot(e.clientX - this.tapStart.x, e.clientY - this.tapStart.y) > this.TAP_MOVE_TOLERANCE) {
+        this.gestureMoved = true;
+        this.tapStart = null;
+      }
+
+      if (this.isDragging && this.currentScale > 1) {
+        this.translateX += dx;
+        this.translateY += dy;
+        this.commitTransform(false);
         e.preventDefault();
       }
     };
 
-    const onTouchEnd = (e: TouchEvent) => {
-      if (e.touches.length === 0) {
-        this.isDragging = false;
-        this.renderer.removeClass(imgElement, 'dragging');
-      } else if (e.touches.length === 1) {
-        this.lastTouchDistance = 0;
+    const onPointerUp = (e: PointerEvent) => {
+      if (!this.activePointers.has(e.pointerId)) return;
+
+      const wasPinching = this.activePointers.size >= 2;
+      this.activePointers.delete(e.pointerId);
+
+      const img = this.getZoomImage();
+
+      if (wasPinching) {
+        this.pinchStartDistance = 0;
+
+        if (this.activePointers.size === 1) {
+          /* sisa satu jari: lanjut geser tanpa lompatan */
+          this.isDragging = this.currentScale > 1;
+          if (this.isDragging && img) this.renderer.addClass(img, 'dragging');
+        } else if (this.activePointers.size === 0 && this.currentScale < this.MIN_SCALE) {
+          /* pinch terlalu kecil: pantul kembali ke ukuran pas */
+          this.resetZoom();
+        }
+        return;
+      }
+
+      /* satu jari / mouse selesai */
+      this.isDragging = false;
+      if (img) this.renderer.removeClass(img, 'dragging');
+
+      /* deteksi tap -> double tap / double click */
+      const tap = this.tapStart;
+      this.tapStart = null;
+
+      if (tap && !this.gestureMoved && Date.now() - tap.time < this.DOUBLE_TAP_MS) {
+        const now = Date.now();
+        const last = this.lastTap;
+
+        if (last &&
+          now - last.time < this.DOUBLE_TAP_MS &&
+          Math.hypot(e.clientX - last.x, e.clientY - last.y) < this.DOUBLE_TAP_DISTANCE) {
+          this.lastTap = null;
+          this.toggleZoomAt(e.clientX, e.clientY);
+        } else {
+          this.lastTap = { x: e.clientX, y: e.clientY, time: now };
+        }
       }
     };
 
-    imgElement.addEventListener('touchstart', onTouchStart, { passive: false });
-    imgElement.addEventListener('touchmove', onTouchMove, { passive: false });
-    imgElement.addEventListener('touchend', onTouchEnd);
-    
-    this.eventListeners.push(
-      () => imgElement.removeEventListener('touchstart', onTouchStart),
-      () => imgElement.removeEventListener('touchmove', onTouchMove),
-      () => imgElement.removeEventListener('touchend', onTouchEnd)
-    );
-  }
-  
-  /* Setup wheel event for zoom */
-  private setupWheelEvent(imgElement: HTMLElement): void {
+    /* Scroll mouse / pinch trackpad (ctrl + wheel) */
     const onWheel = (e: WheelEvent) => {
-      if (!this.isImageZoomed) return;
-      
-      const rect = imgElement.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      
-      /* Zoom in/out dengan wheel */
-      const zoomIntensity = 0.1;
-      const wheel = e.deltaY < 0 ? 1 : -1;
-      const zoom = Math.exp(wheel * zoomIntensity);
-      const newScale = Math.max(0.5, Math.min(5, this.currentScale * zoom));
-      
-      this.zoomAtPoint(mouseX, mouseY, newScale);
+      if (!this.getZoomImage()) return;
       e.preventDefault();
+
+      let delta = e.deltaY;
+      if (e.deltaMode === 1) delta *= 16;   /* satuan baris (Firefox) */
+
+      const speed = e.ctrlKey ? 0.01 : 0.0018;
+      const newScale = this.clamp(this.currentScale * Math.exp(-delta * speed), this.MIN_SCALE, this.MAX_SCALE);
+      if (newScale === this.currentScale) return;
+
+      this.zoomAt(e.clientX, e.clientY, newScale);
+      /* trackpad: tanpa animasi (sudah halus); roda mouse: animasi singkat */
+      this.commitTransform(!e.ctrlKey, 120);
     };
 
-    imgElement.addEventListener('wheel', onWheel, { passive: false });
-    this.eventListeners.push(() => imgElement.removeEventListener('wheel', onWheel));
-  }
+    /* Cegah drag-and-drop bawaan browser pada gambar */
+    const onDragStart = (e: Event) => e.preventDefault();
 
-  /* Helper: Get distance between two touches */
-  private getTouchDistance(touches: TouchList): number {
-    return Math.hypot(
-      touches[0].clientX - touches[1].clientX,
-      touches[0].clientY - touches[1].clientY
+    container.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointermove', onPointerMove, { passive: false });
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+    container.addEventListener('wheel', onWheel, { passive: false });
+    container.addEventListener('dragstart', onDragStart);
+
+    this.eventListeners.push(
+      () => container.removeEventListener('pointerdown', onPointerDown),
+      () => window.removeEventListener('pointermove', onPointerMove),
+      () => window.removeEventListener('pointerup', onPointerUp),
+      () => window.removeEventListener('pointercancel', onPointerUp),
+      () => container.removeEventListener('wheel', onWheel),
+      () => container.removeEventListener('dragstart', onDragStart)
     );
   }
-  
- /* Zoom at specific point */
-  private zoomAtPoint(x: number, y: number, newScale: number): void {
-    if (!this.zoomableImage) return;
-    
-    /* Calculate new translation to keep the point under cursor/finger */
-    const scaleRatio = newScale / this.currentScale;
-    const newTranslateX = x - (x - this.translateX) * scaleRatio;
-    const newTranslateY = y - (y - this.translateY) * scaleRatio;
-    
+
+  /* ---------- Matematika zoom ---------- */
+
+  private clamp(value: number, min: number, max: number): number {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  private getZoomImage(): HTMLImageElement | null {
+    return this.zoomableImage?.nativeElement
+      ?? (this.imageContainer?.nativeElement.querySelector('img') as HTMLImageElement | null)
+      ?? null;
+  }
+
+  /* Ukuran area modal & posisi "layout" foto (titik tengah foto saat belum di-zoom/geser) */
+  private getMetrics(): { cRect: DOMRect, lx: number, ly: number, w0: number, h0: number } | null {
+    const container = this.imageContainer?.nativeElement;
+    const img = this.getZoomImage();
+    if (!container || !img || !img.offsetWidth || !img.offsetHeight) return null;
+
+    const cRect = container.getBoundingClientRect();
+    const cs = getComputedStyle(container);
+    const pl = parseFloat(cs.paddingLeft) || 0;
+    const pr = parseFloat(cs.paddingRight) || 0;
+    const pt = parseFloat(cs.paddingTop) || 0;
+    const pb = parseFloat(cs.paddingBottom) || 0;
+
+    return {
+      cRect,
+      lx: cRect.left + pl + (cRect.width - pl - pr) / 2,
+      ly: cRect.top + pt + (cRect.height - pt - pb) / 2,
+      w0: img.offsetWidth,
+      h0: img.offsetHeight
+    };
+  }
+
+  /* Ubah skala dengan titik (cx, cy) di layar tetap berada di tempatnya.
+     Transform foto: translate(tx, ty) scale(s) dengan origin di tengah foto,
+     jadi titik fokus dihitung relatif terhadap tengah foto (lx, ly). */
+  private zoomAt(cx: number, cy: number, newScale: number): void {
+    const m = this.getMetrics();
+    if (!m) return;
+
+    const fx = cx - m.lx;
+    const fy = cy - m.ly;
+    const ratio = newScale / this.currentScale;
+
+    this.translateX = fx - (fx - this.translateX) * ratio;
+    this.translateY = fy - (fy - this.translateY) * ratio;
     this.currentScale = newScale;
-    
-    /* Apply boundaries */
-    const boundedTranslate = this.applyBoundaries(newTranslateX, newTranslateY);
-    this.translateX = boundedTranslate.x;
-    this.translateY = boundedTranslate.y;
-    
-    this.applyTransform();
   }
 
-  /* Apply boundaries to prevent over-panning */
-  private applyBoundaries(translateX: number, translateY: number): { x: number, y: number } {
-    if (!this.zoomableImage || !this.imageContainer) {
-      return { x: translateX, y: translateY };
+  /* Batasi geseran supaya foto tidak keluar dari area (berdasarkan ukuran
+     foto yang tampil, bukan ukuran asli file). */
+  private clampTranslate(): void {
+    const m = this.getMetrics();
+    if (!m) return;
+
+    if (this.currentScale <= 1) {
+      this.translateX = 0;
+      this.translateY = 0;
+      return;
     }
-    
-    const imgElement = this.zoomableImage.nativeElement;
-    const containerElement = this.imageContainer.nativeElement;
-    
-    const imgRect = imgElement.getBoundingClientRect();
-    const containerRect = containerElement.getBoundingClientRect();
-    
-    /* Calculate scaled dimensions */
-    const scaledWidth = imgElement.naturalWidth * this.currentScale;
-    const scaledHeight = imgElement.naturalHeight * this.currentScale;
-    
-    /* Calculate boundaries */
-    const maxTranslateX = Math.max(0, (scaledWidth - containerRect.width) / 2);
-    const maxTranslateY = Math.max(0, (scaledHeight - containerRect.height) / 2);
-    
-    /* Apply boundaries */
-    const boundedX = Math.max(-maxTranslateX, Math.min(maxTranslateX, translateX));
-    const boundedY = Math.max(-maxTranslateY, Math.min(maxTranslateY, translateY));
-    
-    return { x: boundedX, y: boundedY };
-  }
-  
-  /* Apply transform to image */
-  private applyTransform(): void {
-    if (!this.zoomableImage) return;
-    
-    const imgElement = this.zoomableImage.nativeElement;
-    const transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.currentScale})`;
-    
-    this.renderer.setStyle(imgElement, 'transform', transform);
-    this.renderer.setStyle(imgElement, 'transform-origin', 'center center');
+
+    const w = m.w0 * this.currentScale;
+    const h = m.h0 * this.currentScale;
+
+    /* horizontal: kalau foto lebih lebar dari area, tepinya tidak boleh masuk ke dalam */
+    const maxTx = m.cRect.left - m.lx + w / 2;
+    const minTx = m.cRect.right - m.lx - w / 2;
+    this.translateX = minTx <= maxTx ? this.clamp(this.translateX, minTx, maxTx) : 0;
+
+    /* vertikal */
+    const maxTy = m.cRect.top - m.ly + h / 2;
+    const minTy = m.cRect.bottom - m.ly - h / 2;
+    this.translateY = minTy <= maxTy ? this.clamp(this.translateY, minTy, maxTy) : 0;
   }
 
-   /* Manual zoom controls */
+  /* Terapkan state ke foto */
+  private commitTransform(animate: boolean, durationMs = 250): void {
+    this.clampTranslate();
+
+    const img = this.getZoomImage();
+    if (!img) return;
+
+    this.isImageZoomed = this.currentScale > 1.01;
+
+    img.style.transformOrigin = 'center center';
+    img.style.transition = animate ? `transform ${durationMs}ms cubic-bezier(0.2, 0.8, 0.2, 1)` : 'none';
+    img.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.currentScale})`;
+
+    if (this.isImageZoomed) {
+      this.renderer.addClass(img, 'zoomable-active');
+    } else {
+      this.renderer.removeClass(img, 'zoomable-active');
+    }
+  }
+
+  /* Double tap / double click: zoom in ke titik itu, atau kembali ke ukuran pas */
+  private toggleZoomAt(x: number, y: number): void {
+    if (this.currentScale > 1.05) {
+      this.resetZoom();
+    } else {
+      this.zoomAt(x, y, this.DOUBLE_TAP_SCALE);
+      this.commitTransform(true);
+    }
+  }
+
+  /* ---------- Tombol zoom (di .zoom-controls) ---------- */
   zoomIn(): void {
-    if (!this.isImageZoomed) return;
-    
-    const newScale = Math.min(5, this.currentScale * 1.5);
-    this.zoomAtPoint(
-      this.zoomableImage!.nativeElement.offsetWidth / 2,
-      this.zoomableImage!.nativeElement.offsetHeight / 2,
-      newScale
-    );
+    this.zoomByStep(1.5);
   }
 
   zoomOut(): void {
-    if (!this.isImageZoomed) return;
-    
-    const newScale = Math.max(0.5, this.currentScale / 1.5);
-    if (newScale <= 1) {
-      this.resetZoom();
-    } else {
-      this.zoomAtPoint(
-        this.zoomableImage!.nativeElement.offsetWidth / 2,
-        this.zoomableImage!.nativeElement.offsetHeight / 2,
-        newScale
-      );
-    }
+    this.zoomByStep(1 / 1.5);
   }
-  
-  /* Reset zoom */
+
+  private zoomByStep(factor: number): void {
+    const m = this.getMetrics();
+    if (!m) return;
+
+    const newScale = this.clamp(this.currentScale * factor, this.MIN_SCALE, this.MAX_SCALE);
+    if (newScale <= 1.02) {
+      this.resetZoom();
+      return;
+    }
+
+    /* zoom di tengah area modal */
+    const cx = (m.cRect.left + m.cRect.right) / 2;
+    const cy = (m.cRect.top + m.cRect.bottom) / 2;
+    this.zoomAt(cx, cy, newScale);
+    this.commitTransform(true);
+  }
+
   resetZoom(): void {
     this.currentScale = 1;
     this.translateX = 0;
     this.translateY = 0;
-    this.applyTransform();
-    
-    if (this.zoomableImage) {
-      this.renderer.removeClass(this.zoomableImage.nativeElement, 'zoomable-active');
-      this.renderer.removeClass(this.zoomableImage.nativeElement, 'dragging');
-    }
-    
-    if (this.imageContainer) {
-      this.renderer.removeClass(this.imageContainer.nativeElement, 'zoom-mode');
+    this.isDragging = false;
+    this.commitTransform(true);
+
+    const img = this.getZoomImage();
+    if (img) {
+      this.renderer.removeClass(img, 'dragging');
     }
   }
 
