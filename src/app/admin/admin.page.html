@@ -137,6 +137,28 @@
         </swiper-container>
       </ion-card-content>
     </ion-card>
+
+    <!-- Journey Section -->
+    <ion-card class="journey-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="trail-sign-outline"></ion-icon>
+          {{ language === 'id' ? 'Perjalanan Karir' : 'Career Journey' }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="journey-timeline">
+          <div class="journey-item" *ngFor="let step of adminJourney">
+            <div class="journey-dot"></div>
+            <div class="journey-content">
+              <h3>{{ language === 'id' ? step.periodId : step.periodEn }}</h3>
+              <h4>{{ step.company }}</h4>
+              <p>{{ language === 'id' ? step.summaryId : step.summaryEn }}</p>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
 

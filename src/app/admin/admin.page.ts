@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ElementRef } from '@angular/core';
 import { register } from 'swiper/element/bundle';
 import { ModalController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin.page.scss'],
   standalone: false,
 })
-export class AdminPage implements OnInit, OnDestroy {
+export class AdminPage implements OnInit, OnDestroy, AfterViewInit {
   /* Language toggle (ID/EN) */
   language: 'id' | 'en' = 'id';
 
@@ -20,7 +20,8 @@ export class AdminPage implements OnInit, OnDestroy {
   constructor(
     private modalController: ModalController,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private elementRef: ElementRef
   ) {
     /* Register Swiper elements */
     register();
@@ -36,7 +37,54 @@ export class AdminPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     document.removeEventListener('keydown', this.preventScreenshotShortcuts);
+    this.journeyObserver?.disconnect();
   }
+
+  ngAfterViewInit() {
+    /* Animasi masuk/keluar kartu "Perjalanan Karir" saat di-scroll */
+    this.journeyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        entry.target.classList.toggle('animate-in', entry.isIntersecting);
+      });
+    }, { threshold: 0.1 });
+
+    this.elementRef.nativeElement.querySelectorAll('.journey-item')
+      .forEach((el: Element) => this.journeyObserver?.observe(el));
+  }
+
+  private journeyObserver: IntersectionObserver | null = null;
+
+  /* Perjalanan Karir: urutan dari terbaru (atas) ke terlama (bawah) */
+  adminJourney = [
+    {
+      periodId: 'Mar - Jul 2025',
+      periodEn: 'Mar - Jul 2025',
+      company: 'Bakti Milenial Foundation',
+      summaryId: 'Merancang formulir pendaftaran dan menangani pemasaran lewat WA Blast. Mencatat semua transaksi serta menyusun rancangan anggaran biaya.',
+      summaryEn: 'Designed registration forms and handled marketing through WA Blasts. Recorded all transactions and prepared the budget plan.'
+    },
+    {
+      periodId: 'Sep 2024 - Jan 2025',
+      periodEn: 'Sep 2024 - Jan 2025',
+      company: 'Bakti Milenial',
+      summaryId: 'Mendukung operasional harian Bakti Milenial di bidang administrasi umum. Memenuhi kebutuhan administrasi di empat divisi.',
+      summaryEn: 'Supported the daily operations of Bakti Milenial in general administration. Fulfilled administrative needs across four divisions.'
+    },
+    {
+      periodId: 'Sept - Des 2024',
+      periodEn: 'Sept - Dec 2024',
+      company: 'Eduwork',
+      summaryId: 'Menginput dan mengatur data siswa bootcamp serta mengirim lamaran kerja mereka setiap hari. Melatih siswa menghadapi wawancara kerja lewat FGD.',
+      summaryEn: 'Entered and organized bootcamp student data and sent their job applications daily. Trained students for job interviews through FGDs.'
+    },
+    {
+      periodId: 'Juli 2021 - Februari 2023',
+      periodEn: 'July 2021 - February 2023',
+      company: 'SMP Swasta Yayasan Pendidikan Pangkalan Susu',
+      summaryId: 'Mengelola dan memperbarui data sekolah secara online ke Dinas Pendidikan Langkat. Mengatur file serta laporan keuangan sekolah dengan 0% kesalahan.',
+      summaryEn: 'Managed and updated school data online to the Langkat Education Department. Organized school files and financial reports with a 0% error rate.'
+    }
+  ];
 
   // Work Experience Data
   workExperience = [
